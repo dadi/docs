@@ -44,5 +44,5 @@ DADI Identity is designed to work in tandem with other products, both from DADI 
 * [Testing](https://github.com/dadi/identity/blob/docs/docs/testing.md)
 * [Benchmarking](https://github.com/dadi/identity/blob/docs/docs/benchmarking.md)
 * [Development](https://github.com/dadi/identity/blob/docs/docs/development.md)
-* [Contributing](https://github.com/dadi/identity/blob/docs/docs/contributingGuidelines.md)
+* [Contributing](https://github.com/dadi/docs/blob/master/CONTRIBUTING.md)
 * [License](https://github.com/dadi/identity/blob/docs/docs/license.md)

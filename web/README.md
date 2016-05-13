@@ -39,7 +39,7 @@ DADI Web is part of [DADI](https://github.com/dadi/), a suite of components cove
 We welcome any suggestions for improvement. Please raise an issue or a feature request, or submit a pull request. All new code should be accompanied by unit and/or acceptance tests.
 
 * [Development](https://github.com/dadi/web/blob/docs/docs/development.md)
-* [Contributing Guidelines](https://github.com/dadi/web/blob/docs/docs/contributingGuidelines.md)
+* [Contributing Guidelines](https://github.com/dadi/docs/blob/master/CONTRIBUTING.md)
 
 ## Is something missing?
 

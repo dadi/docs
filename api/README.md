@@ -43,6 +43,6 @@ It is part of DADI, a suite of components covering the full development stack, b
 	* [Monitor module](https://github.com/dadi/api/blob/docs/docs/monitorModule.md)
 * [Cache performance](https://github.com/dadi/api/blob/docs/docs/cachePerformance.md)
 * [Development](https://github.com/dadi/api/blob/docs/docs/development.md)
-* [Contributing](https://github.com/dadi/api/blob/docs/docs/contributingGuidelines.md)
+* [Contributing](https://github.com/dadi/docs/blob/master/CONTRIBUTING.md)
 * [License](https://github.com/dadi/api/blob/docs/docs/license.md)
 * [GPL](https://github.com/dadi/api/blob/docs/docs/gpl.md)
