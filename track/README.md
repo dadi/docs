@@ -11,44 +11,20 @@ DADI Track is deliberately lightweight: it is not intended as a long term data s
 ## Contents
 
 * Overview (this document)
-* [Requirements](https://github.com/dadi/track/blob/docs/docs/requirements.md)
-* [Architectural overview](https://github.com/dadi/track/blob/docs/docs/architecturalOverview.md)
+* [Requirements](./requirements.md)
+* [Architectural overview](./architecturalOverview.md)
 * Setup, installation and use
-	* [Setup and installation](https://github.com/dadi/track/blob/docs/docs/setupAndInstallation.md)
-	* [Configuration](https://github.com/dadi/track/blob/docs/docs/configuration.md)
-	* [Complete guide: Ubuntu](https://github.com/dadi/track/blob/docs/docs/installGuide.ubuntu.md)
-	* [Data stores](https://github.com/dadi/track/blob/docs/docs/dataStores.md)
-	* [Deployment](https://github.com/dadi/track/blob/docs/docs/deployment)
+	* [Setup and installation](./setupAndInstallation.md)
+	* [Configuration](./configuration.md)
+	* [Complete guide: Ubuntu](./installGuide.ubuntu.md)
+	* [Data stores](./dataStores.md)
+	* [Deployment](./deployment)
 * Customisation
-	* [Logging customisation](https://github.com/dadi/track/blob/docs/docs/loggingCustomisation.md)
-	* [Display customisation](https://github.com/dadi/track/blob/docs/docs/displayCustomisation.md)
-* [Tracking](https://github.com/dadi/track/blob/docs/docs/tracking.md)
+	* [Logging customisation](./loggingCustomisation.md)
+	* [Display customisation](./displayCustomisation.md)
+* [Tracking](./tracking.md)
 
-## Development
-
-DADI is based on an original concept by Joseph Denne.
-
-DADI API was conceived, developed and is maintained by the engineering team at DADI+ ([https://dadi.co](https://dadi.co)).
-
-Core contributors:
+## Core contributors
 
 * Joe Wagner
 * Joseph Denne
-
-Feel free to contact the DADI core development team on team@dadi.tech with questions.
-
-### Roadmap
-
-We use the issues log in Github for roadmapping. If you have anything to contribute in terms of future direction, please add as an feature request within [issues](https://github.com/dadi/api/issues).
-
-### Versioning
-
-Semantic Versioning 2.0.0
-
-Given a version number MAJOR.MINOR.PATCH, increment the:
-
-* MAJOR version when you make incompatible API changes,
-* MINOR version when you add functionality in a backwards-compatible manner, and
-* PATCH version when you make backwards-compatible bug fixes.
-
-_Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format._

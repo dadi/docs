@@ -12,57 +12,25 @@ This library can be used by third-party applications that wish to integrate with
 
 ### Overview
 
-* [Token wallets](docs/tokenWallets.md)
-* [Development](docs/development.md)
-* [License](docs/license.md)
-* [GPL](docs/gpl.md)
+* [Token wallets](./tokenWallets.md)
+* [Development](./development.md)
+* [License](./license.md)
+* [GPL](./gpl.md)
 
 ### Node.js
 
-* [Requirements](docs/node/requirements.md)
-* [Installation](docs/node/installation.md)
-* [Usage examples](docs/node/usageExamples.md)
-* [Testing](docs/node/testing.md)
+* [Requirements](./node/requirements.md)
+* [Installation](./node/installation.md)
+* [Usage examples](./node/usageExamples.md)
+* [Testing](./node/testing.md)
 
 ### PHP
 
-* [Requirements](docs/php/requirements.md)
-* [Installation](docs/php/installation.md)
-* [Usage examples](docs/php/usageExamples.md)
-* [Testing](docs/php/testing.md)
+* [Requirements](./php/requirements.md)
+* [Installation](./php/installation.md)
+* [Usage examples](./php/usageExamples.md)
+* [Testing](./php/testing.md)
 
-## Development
-
-DADI is based on an original concept by Joseph Denne.
-
-DADI Passport was conceived and developed by Eduardo Bouças and is maintained by the engineering team at DADI+ ([https://dadi.co](https://dadi.co)).
-
-Core contributors:
+## Core contributors
 
 * Eduardo Bouças
-* Carl Buelow
-* James Lambie
-* Arthur Mingard
-* Joe Wagner
-* Viktor Fero
-* Dave Allen
-* Niklas Iversen
-* Joseph Denne
-
-Feel free to contact the DADI core development team on team@dadi.tech with questions.
-
-### Roadmap
-
-We use the issues log in Github for roadmapping. If you have anything to contribute in terms of future direction, please add as an feature request within [issues](https://github.com/dadi/passport/issues).
-
-### Versioning
-
-Semantic Versioning 2.0.0
-
-Given a version number MAJOR.MINOR.PATCH, increment the:
-
-* MAJOR version when you make incompatible API changes,
-* MINOR version when you add functionality in a backwards-compatible manner, and
-* PATCH version when you make backwards-compatible bug fixes.
-
-_Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format._

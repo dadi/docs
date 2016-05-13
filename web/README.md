@@ -1,4 +1,7 @@
 # DADI Web
+https://github.com/dadi/web
+
+`npm install @dadi/web`
 
 ## Overview
 
@@ -10,26 +13,25 @@ DADI Web uses LinkedIn's Dust templating language which providing a simple yet p
 
 DADI Web is part of [DADI](https://github.com/dadi/), a suite of components covering the full development stack, built for performance and scale.
 
-* [Setup and installation](#setup-and-installation)
-* [Configuration](#configuration)
-* [Core Concepts](#core-concepts)
-* [Contributing to DADI Web](#contributing-to-dadi-web)
-
 ## Setup and installation
 
 ## Configuration
 
-* [Configuration](https://github.com/dadi/web/blob/docs/docs/configuration.md)
+* [Configuration](./configuration.md)
 
 ## Core Concepts
 
-* [Pages](https://github.com/dadi/web/blob/docs/docs/pages.md)
-* [Views](https://github.com/dadi/web/blob/docs/docs/views.md)
-* [Routing](https://github.com/dadi/web/blob/docs/docs/routing.md)
-* [Datasources](https://github.com/dadi/web/blob/docs/docs/datasources.md)
-* [Events](https://github.com/dadi/web/blob/docs/docs/events.md)
-* [Logging](https://github.com/dadi/web/blob/docs/docs/logging.md)
+* [Pages](./pages.md)
+* [Views](./views.md)
+* [Routing](./routing.md)
+* [Datasources](./datasources.md)
+* [Events](./events.md)
+* [Logging](./logging.md)
 * Middleware (TODO)
 * Security (TODO)
-* [Sessions](https://github.com/dadi/web/blob/docs/docs/sessions.md)
-* [Caching](https://github.com/dadi/web/blob/docs/docs/caching.md)
+* [Sessions](./sessions.md)
+* [Caching](./caching.md)
+
+## Core contributors
+
+* James Lambie
