@@ -27,6 +27,6 @@ All our products are covered under the [DADI license](https://github.com/dadi/do
 
 DADI is based on an original concept by **Joseph Denne**.
 
-DADI API was conceived, developed, designed and is maintained by the creative & engineering teams at DADI+ ([https://dadi.co](https://dadi.co)). Full credits are listed within each product folder.
+DADI API was conceived, developed, designed and is maintained by the creative & engineering teams at DADI+ ([https://dadi.co](https://dadi.co)). Full credits are listed within each product documentation.
 
 Feel free to contact the DADI team at team@dadi.tech with any questions, comments or fan mail 💌.
