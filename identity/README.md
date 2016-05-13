@@ -1,4 +1,8 @@
-# DADI Identity
+# [DADI Identity](https://github.com/dadi/identity)
+
+## NPM
+
+_Coming soon._
 
 ## Overview
 

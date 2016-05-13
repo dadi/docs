@@ -1,4 +1,8 @@
-# DADI Passport
+# [DADI Passport](https://github.com/dadi/passport)
+
+## NPM
+
+`npm install @dadi/passport`
 
 ## Overview
 

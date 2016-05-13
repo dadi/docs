@@ -1,5 +1,6 @@
-# DADI API
-https://github.com/dadi/api
+# [DADI API](https://github.com/dadi/api)
+
+## NPM
 
 `npm install @dadi/api`
 

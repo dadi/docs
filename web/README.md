@@ -1,5 +1,6 @@
-# DADI Web
-https://github.com/dadi/web
+# [DADI Web](https://github.com/dadi/web)
+
+## NPM
 
 `npm install @dadi/web`
 
