@@ -18,3 +18,7 @@ You are encouraged to help improve the quality of this guide for the benefit of 
 Please contribute if you see any typos or factual errors or gaps in the knowledge-base. To get started, you can read our [contributing guidelines](./CONTRIBUTING.md) section.
 
 You may also find incomplete content, or stuff that is not up to date. Please make updates if you can by sending a pull request to master or file an issue for stuff you cannot patch yourself.
+
+# 📎 Licence
+
+All our products are covered under the [DADI license](https://github.com/dadi/docs/blob/master/LICENSE.md).

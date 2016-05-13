@@ -1,6 +1,4 @@
-# DADI Identity / Documentation
-
-![Build Status](http://img.shields.io/badge/Release-0.2.1-green.svg?style=flat-square)&nbsp;![Coverage](https://img.shields.io/badge/Coverage-100%-yellow.svg?style=flat-square)
+# DADI Identity
 
 ## Overview
 
@@ -43,6 +41,34 @@ DADI Identity is designed to work in tandem with other products, both from DADI 
 	* [IP matching](https://github.com/dadi/identity/blob/docs/docs/ipMatching.md)
 * [Testing](https://github.com/dadi/identity/blob/docs/docs/testing.md)
 * [Benchmarking](https://github.com/dadi/identity/blob/docs/docs/benchmarking.md)
-* [Development](https://github.com/dadi/identity/blob/docs/docs/development.md)
-* [Contributing](https://github.com/dadi/docs/blob/master/CONTRIBUTING.md)
-* [License](https://github.com/dadi/identity/blob/docs/docs/license.md)
+
+## Development
+
+DADI is based on an original concept by Joseph Denne.
+
+DADI Identity was conceived, developed and is maintained by the engineering team at DADI+ ([https://dadi.co](https://dadi.co)).
+
+Core contributors:
+
+* James Lambie
+* Joe Wagner
+* Viktor Fero
+* Joseph Denne
+
+Feel free to contact the DADI core development team on team@dadi.tech with questions.
+
+### Roadmap
+
+We use the issues log in Github for roadmapping. If you have anything to contribute in terms of future direction, please add as an feature request within [issues](https://github.com/dadi/api/issues).
+
+### Versioning
+
+Semantic Versioning 2.0.0
+
+Given a version number MAJOR.MINOR.PATCH, increment the:
+
+* MAJOR version when you make incompatible API changes,
+* MINOR version when you add functionality in a backwards-compatible manner, and
+* PATCH version when you make backwards-compatible bug fixes.
+
+_Additional labels for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format._
