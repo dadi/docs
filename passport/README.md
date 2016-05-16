@@ -1,6 +1,7 @@
 ---
 title: Passport
 permalink: /passport/
+public: true
 ---
 
 # [DADI Passport](https://github.com/dadi/passport)

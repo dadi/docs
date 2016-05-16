@@ -1,12 +1,10 @@
 ---
 title: API
 permalink: /api/
+public: true
 ---
 
-# [DADI API](https://github.com/dadi/api)
-
-## NPM
-
+https://github.com/dadi/api
 `npm install @dadi/api`
 
 ## Overview

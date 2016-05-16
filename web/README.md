@@ -1,6 +1,7 @@
 ---
 title: Web
 permalink: /web/
+public: true
 ---
 
 # [DADI Web](https://github.com/dadi/web)
