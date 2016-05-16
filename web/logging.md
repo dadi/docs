@@ -1,4 +1,6 @@
-# DADI Web
+---
+title: Logging
+---
 
 ## Logging
 

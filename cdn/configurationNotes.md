@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: Configuration notes
+---
 
 ## Configuration notes
 

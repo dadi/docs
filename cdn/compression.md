@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: Compression
+---
 
 ## Compression
 

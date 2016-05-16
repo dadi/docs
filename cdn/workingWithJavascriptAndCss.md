@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: Working with JavaScript and CSS
+---
 
 ## Working with JavaScript and CSS
 

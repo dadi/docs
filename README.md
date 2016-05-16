@@ -1,3 +1,7 @@
+---
+permalink: /
+---
+
 *N.B. This repository will remain private while some products and tools are still in development, please use the front-end when linking non-DADI developers to documentation.*
 
 # 📖 Table of Contents

@@ -1,3 +1,8 @@
+---
+title: API
+permalink: /api/
+---
+
 # [DADI API](https://github.com/dadi/api)
 
 ## NPM

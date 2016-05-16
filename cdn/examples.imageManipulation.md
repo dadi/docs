@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: Image manipulation examples
+---
 
 ## Image manipulation examples
 

@@ -1,3 +1,8 @@
+---
+title: CDN
+permalink: /cdn/
+---
+
 # [DADI CDN](https://github.com/dadi/cdn)
 
 ## NPM

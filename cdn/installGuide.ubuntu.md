@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: Installation guide - Ubuntu
+---
 
 ## Installation guide: Ubuntu
 

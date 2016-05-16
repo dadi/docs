@@ -1,4 +1,6 @@
-# DADI Track
+---
+title: Configuration
+---
 
 ## Configuration
 

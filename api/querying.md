@@ -1,4 +1,6 @@
-# DADI API
+---
+title: Querying Collections
+---
 
 ## Querying Collections
 

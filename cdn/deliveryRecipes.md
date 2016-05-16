@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: Delviery recipes
+---
 
 ## Delviery recipes
 

@@ -1,4 +1,6 @@
-# DADI Track
+---
+title: Setup and installation
+---
 
 ## Setup and installation
 

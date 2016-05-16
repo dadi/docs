@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: Requirements
+---
 
 ## Requirements
 

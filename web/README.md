@@ -1,3 +1,8 @@
+---
+title: Web
+permalink: /web/
+---
+
 # [DADI Web](https://github.com/dadi/web)
 
 ## NPM

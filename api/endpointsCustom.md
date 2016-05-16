@@ -1,4 +1,6 @@
-# DADI API
+---
+title: Custom endpoints
+---
 
 ## Custom Endpoints
 

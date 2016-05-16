@@ -1,4 +1,6 @@
-# DADI API
+---
+title: Server status
+---
 
 ## Server Status
 

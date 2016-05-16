@@ -1,3 +1,8 @@
+---
+title: Identity
+permalink: /identity/
+---
+
 # [DADI Identity](https://github.com/dadi/identity)
 
 ## NPM

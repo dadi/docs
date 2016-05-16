@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: Collision probability
+---
 
 ## Collision probability
 

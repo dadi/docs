@@ -1,4 +1,6 @@
-# DADI API
+---
+title: Setup and installation
+---
 
 ## Setup and installation
 

@@ -1,6 +1,6 @@
-# DADI API
-
-## Authentication Middleware
+---
+title: Authentication Middleware
+---
 
 ### Overview
 

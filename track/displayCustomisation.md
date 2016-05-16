@@ -1,4 +1,6 @@
-# DADI Track
+---
+title: Display Customization
+---
 
 ## Display Customization
 

@@ -1,4 +1,6 @@
-# DADI API
+---
+title: Cache performance
+---
 
 ## Cache performance
 

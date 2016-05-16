@@ -1,4 +1,6 @@
-# DADI Web
+---
+title: Sessions
+---
 
 ## Sessions
 

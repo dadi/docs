@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: Configuration notes
+---
 
 ## Configuration notes
 

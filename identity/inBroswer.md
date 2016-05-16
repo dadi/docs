@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: In browser UUID provision
+---
 
 ## In browser UUID provision
 

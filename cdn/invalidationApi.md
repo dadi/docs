@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: Invalidation API
+---
 
 ## Invalidation API
 

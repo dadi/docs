@@ -1,4 +1,7 @@
-# DADI API
+---
+title: Connection module
+categories: api
+---
 
 ## Connection module
 

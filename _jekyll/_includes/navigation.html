@@ -1,0 +1,22 @@
+<nav>
+<ul>
+	{% assign pages = site.pages | sort:"title"  %}
+	{% for node in pages %}
+		{% if node.name == 'README.md' and node.permalink != '/' %}
+		{% assign parent = node.url %}
+			<li {% if node.url == page.url %}class="active"{% endif %}><a href='{{node.url}}'>{{node.title}}</a>
+
+			<ul>
+			{% for page in site.pages %}
+				{% if page.name != 'README.md' and page.url contains {{parent}} %}
+					<li><a href='{{page.url}}'>{{page.title}}</a></li>
+				{% endif %}
+			{% endfor %}
+			</ul>
+
+			</li>
+		{% endif %}
+	{% endfor %}
+</ul>
+
+</nav>

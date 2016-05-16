@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: Browser agent fingerprint
+---
 
 ## Browser agent fingerprint
 

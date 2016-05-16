@@ -1,4 +1,6 @@
-### Debug Mode
+---
+title: Debug mode
+---
 
 ```
 {>"debug/partials/debug-panel" /}

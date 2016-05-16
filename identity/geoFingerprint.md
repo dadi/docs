@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: Geo fingerprint
+---
 
 ## Geo fingerprint
 

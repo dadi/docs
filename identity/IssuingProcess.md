@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: Issuing process
+---
 
 ## Issuing process
 

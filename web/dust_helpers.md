@@ -1,4 +1,6 @@
-# DADI Web
+---
+title: Dust helpers
+---
 
 ## Template Helpers
 

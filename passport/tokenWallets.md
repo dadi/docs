@@ -1,4 +1,6 @@
-# DADI Passport
+---
+title: Token wallets
+---
 
 ## Token wallets
 

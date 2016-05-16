@@ -1,4 +1,6 @@
-# DADI Track
+---
+title: Installation guide – Ubuntu
+---
 
 ## Installation guide: Ubuntu
 

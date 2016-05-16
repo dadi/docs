@@ -1,4 +1,6 @@
-# DADI API
+---
+title: Working with endpoints
+---
 
 ## Working with endpoints
 

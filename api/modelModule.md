@@ -1,4 +1,6 @@
-# DADI API
+---
+title: Model module
+---
 
 ## Model module
 

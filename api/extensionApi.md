@@ -1,4 +1,6 @@
-# DADI API
+---
+title: Extension API
+---
 
 ## Extension API
 

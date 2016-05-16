@@ -1,4 +1,6 @@
-# DADI API
+---
+title: Configuration API
+---
 
 ## Configuration API
 

@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: UUID generation
+---
 
 ## UUID generation
 

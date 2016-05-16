@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: JavaScript and CSS examples
+---
 
 ### JavaScript and CSS examples
 

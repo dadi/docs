@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: Definition of individual
+---
 
 ## What constitutes an indvidual?
 

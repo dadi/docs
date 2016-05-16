@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: Session persistence
+---
 
 ## Session persistence
 

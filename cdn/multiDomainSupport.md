@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: Multi-domain support
+---
 
 ## Multi-domain support
 

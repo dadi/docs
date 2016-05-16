@@ -1,3 +1,8 @@
+---
+title: Track
+permalink: /track/
+---
+
 # [DADI Track](https://github.com/dadi/track)
 
 ## NPM

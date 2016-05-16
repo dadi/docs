@@ -1,4 +1,6 @@
-# DADI API
+---
+title: Installation guide – Ubuntu
+---
 
 ## Installation guide: Ubuntu
 

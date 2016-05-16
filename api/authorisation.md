@@ -1,18 +1,20 @@
-# DADI API
+---
+title: Authorisation
+---
 
-## Authorisation
+# Authorisation
 
 Every request to the API requires a bearer token which should be passed as a header.
 
 Obtain a token by sending a POST request to the `/token` endpoint and passing your client credentials in the body of the request:
 
-#### Example Request using curl
+### Example Request using curl
 
 ```
 curl -X POST -H "Content-Type: application/json" --data "clientId=testClient&secret=superSecret" "http://api.example.com/token"
 ```
 
-#### Example request using Node.JS
+### Example request using Node.JS
 
 ```
 var http = require("http");
@@ -49,7 +51,7 @@ req.write(credentials);
 req.end();
 ```
 
-#### Response
+### Response
 
 ```
 {
@@ -61,13 +63,13 @@ req.end();
 
 Once you have the token, each request to the API should include an `Authorization` header containing the token:
 
-#### Example Request using curl
+### Example Request using curl
 
 ```
 curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6" "http://api.example.com/api/collections"
 ```
 
-#### Example request using Node.JS
+### Example request using Node.JS
 
 ```
 var http = require("http");

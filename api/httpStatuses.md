@@ -1,4 +1,6 @@
-# DADI API
+---
+title: HTTP Status codes
+---
 
 ## HTTP Status Codes
 

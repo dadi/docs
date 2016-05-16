@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: Installation guide – Ubuntu
+---
 
 ## Installation guide: Ubuntu
 

@@ -1,4 +1,6 @@
-# DADI Track
+---
+title: Logging customization
+---
 
 ## Logging customization
 

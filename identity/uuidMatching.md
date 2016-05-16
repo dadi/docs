@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: UUID matching
+---
 
 ## UUID matching
 

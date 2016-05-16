@@ -1,4 +1,6 @@
-### Configuration
+---
+title: Configuration file
+---
 
 #### Example Configuration File
 

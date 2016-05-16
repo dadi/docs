@@ -1,3 +1,8 @@
+---
+title: Passport
+permalink: /passport/
+---
+
 # [DADI Passport](https://github.com/dadi/passport)
 
 ## NPM

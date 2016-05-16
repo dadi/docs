@@ -1,4 +1,6 @@
-# DADI Web
+---
+title: Server status
+---
 
 ## Server Status
 

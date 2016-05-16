@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: Image data
+---
 
 ## Image data
 

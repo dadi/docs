@@ -1,4 +1,6 @@
-# DADI Identity
+---
+title: The anonymous record
+---
 
 ## The anonymous record
 

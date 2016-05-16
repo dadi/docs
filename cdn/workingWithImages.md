@@ -1,4 +1,6 @@
-# DADI CDN
+---
+title: Working with images
+---
 
 ## Working with images
 
