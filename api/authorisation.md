@@ -2,8 +2,6 @@
 title: Authorisation
 ---
 
-# Authorisation
-
 Every request to the API requires a bearer token which should be passed as a header.
 
 Obtain a token by sending a POST request to the `/token` endpoint and passing your client credentials in the body of the request:

@@ -2,13 +2,11 @@
 title: HTTP Status codes
 ---
 
-## HTTP Status Codes
-
-### Overview
+## Overview
 
 [TODO] 
 
-#### Success Codes
+### Success Codes
 
 Status Code       | Description        |  
 :----------------|:------------
@@ -17,7 +15,7 @@ Status Code       | Description        |
 204 No Content | Returned following a successful DELETE request, provided the `feedback` configuration setting is `false`. | 
 
 
-#### Error Codes
+### Error Codes
 
 Status Code       | Description        |  
 :----------------|:------------
@@ -26,7 +24,7 @@ Status Code       | Description        |
 404 Not Found | The resource was not found at the specified URL. | 
 
 
-#### Failure Codes
+### Failure Codes
 
 Status Code       | Description        |  
 :----------------|:------------

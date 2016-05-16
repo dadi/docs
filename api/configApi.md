@@ -2,15 +2,13 @@
 title: Configuration API
 ---
 
-## Configuration API
-
-### Overview
+## Overview
 
 DADI API allows creating and updating collection and custom endpoints by sending a POST request to the API.
 
-### Collection Endpoints
+## Collection Endpoints
 
-#### Creating a new collection
+### Creating a new collection
 
 A new collection can be created by sending a POST request using the URL format below. The body of the request should be a JSON string containing the collection specification.
 
@@ -44,15 +42,15 @@ _**WARNING**: If the version, database and collection already exist, the request
 
 Validation is performed against schema updates to ensure that the minimum viable structure is present and correct.
 
-#### Updating an existing collection
+### Updating an existing collection
 
 An existing collection can be updated by sending a POST request to the `/config` endpoint. The body of the request should be a JSON string containing the new collection specification.
 
 **Note:** This operation requires client credentials with `accessType: "admin"`.
 
-See the example request in the above section [Creating a new collection](#creating-a-new-collection).
+See the example request in the above section [Creating a new collection](creating-a-new-collection).
 
-#### Deleting a collection
+### Deleting a collection
 
 You may remove a collection endpoint by sending a DELETE request to the collection's `/config` endpoint.
 
@@ -66,7 +64,7 @@ Content-Type: application/json
 Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 ```
 
-#### Viewing a Collection Specification
+### Viewing a Collection Specification
 
 An existing collection's specification can be viewed by sending a GET request to the `/config` endpoint of an existing collection. The response will contain a JSON string containing the collection specification.
 
@@ -98,7 +96,7 @@ Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 
 ```
 
-### Custom Endpoints
+## Custom Endpoints
 
 A new custom endpoint can be created by sending a POST request using the URL format below. The body of the request should be plain text containing the Javascript code for the endpoint.
 
@@ -139,11 +137,11 @@ Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 ```
 
 
-### Main API Configuration
+## Main API Configuration
 
 **Note:** The two operations below require client credentials with `accessType: "admin"`. See [Authorisation](https://github.com/dadi/api/blob/docs/docs/auth.md) for more information regarding the permissions required for working with the main configuration.
 
-#### Viewing the API configuration
+### Viewing the API configuration
 
 DADI API allows users with appropriate permissions to view the current configuration by sending a GET request to the `/api/config` endpoint.
 
@@ -155,7 +153,7 @@ Content-Type: application/json
 Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 ```
 
-#### Updating the API configuration
+### Updating the API configuration
 
 DADI API allows users with appropriate permissions to update the main configuration by sending a POST request to the `/api/config` endpoint.
 

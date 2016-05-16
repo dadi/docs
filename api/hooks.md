@@ -2,9 +2,7 @@
 title: Hooks
 ---
 
-## Hooks
-
-### Overview
+## Overview
 
 In its essence, a hook is simply a function that intercepts a document/query before it's executed, having the option to modify it before returning it back to the model.
 
@@ -23,7 +21,7 @@ This means that whenever a new user is created, the document that is about to be
 
 The order in which hooks are executed is defined by the order of the items in the array.
 
-### Anatomy of a hook
+## Anatomy of a hook
 
 A hook always receives 3 arguments:
 
@@ -83,14 +81,14 @@ module.exports = function (obj, type, data) {
 };
 ```
 
-### Use cases
+## Use cases
 
 - Creating variations of a field, such as creating a slug (example above);
 - Validating fields with complex conditions, when a regular expression might not be enough (depends on *1.* in *Further considerations* below);
 - Converting different types of data to a unique format, such as Unix timestamp;
 - Triggering an action, notification or external command when a record is modified.
 
-### Further considerations
+## Further considerations
 
 1. Should hooks be allowed to cancel an operation completely? If so, what would the response look like?
 2. Should all actions of a hook be logged? This could help debugging when it's not clear what and who affected a document. This is easily implemented in the `Hook` prototype.
@@ -105,7 +103,7 @@ The current `create`, `update` and `delete` hooks, which are fired before the ev
 
 *Before* hooks are always fired, whereas *after* hooks only fire after and if an operation is successful.
 
-## Overview
+# Overview
 
 The following data is passed to each type of hook:
 
@@ -135,7 +133,7 @@ The following data is passed to each type of hook:
    - `data`:
       - `options`: Hook options
 
-## Testing
+# Testing
 
 The following hook may be useful to get a better idea of when exactly each hook type is fired and what data it receives, as it logs to the console its internals every time it gets called:
 

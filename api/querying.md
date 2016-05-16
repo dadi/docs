@@ -2,8 +2,6 @@
 title: Querying Collections
 ---
 
-## Querying Collections
-
  * Querystring parameters
  * Using a JSON query object
  * Using an Aggregation Pipeline array
@@ -21,29 +19,29 @@ filter           | object        | MongoDB query object or Aggregation Pipeline 
 fields           | object        | Specify the fields to return in the resultset.  |          | Include fields: {"field1":1,"field2":1} Exclude fields: {field2":0}
 callback         | string      | Callback function to wrap the return result set in.  |               | thisIsMyCallback
 
-### Parameters
+## Parameters
 
-#### count
+### count
 
 Overrides the collection's `count` setting, specifying the maximum number of results to be returned.
 
-#### page
+### page
 
 Enables paging within the collection. Specifying a value for `page` along with `count` (or relying on the collection's default `count` setting) will utilise MongoDB's `skip()` method to skip the first (`page * count`) records in the collection.
 
-#### skip
+### skip
 
 The `skip` value is normally calculated using the `count` and `page` values, so if `count = 10` and `page = 2` then `skip` becomes `10` (i.e. `(page-1) * count`). If `skip` is specified in the querystring, this value is added to the calculated value to avoid overlapping records on subsequent pages.
 
-#### sort
+### sort
 
 Specifies the field to be used when sorting the collection. The default field is the collection's `_id` field.
 
-#### sortOrder
+### sortOrder
 
 Overrides the collection's `sortOrder` setting. Permitted values are `asc` for an ascending sort order and `desc` for a descending sort order.
 
-#### fields
+### fields
 
 Specifies the fields to return. Extends the collection's `fieldLimiters` setting.
 
@@ -51,19 +49,19 @@ Specifies the fields to return. Extends the collection's `fieldLimiters` setting
 fields={"name":1,"email":1}
 ```
 
-#### filter
+### filter
 
 Extends the collection's `defaultFilters` setting. There are two ways to use the `filter` parameter: passing a JSON query object for performing a standard query, and passing an array containing MongoDB Aggregation Pipeline stages.
 
-##### JSON Query Object
+#### JSON Query Object
 
 ```
   { fieldName: {"$in": ["a", "b"]} }
 ```
 
-##### Aggregation Pipeline array
+#### Aggregation Pipeline array
 
-###### Examples with the following data set:
+##### Examples with the following data set:
 
 ```
 {
@@ -88,7 +86,7 @@ Extends the collection's `defaultFilters` setting. There are two ways to use the
 }
 ```
 
-###### 1. Return only documents for `Ford` vehicles:
+##### 1. Return only documents for `Ford` vehicles:
 
 ```
 [
@@ -118,7 +116,7 @@ Extends the collection's `defaultFilters` setting. There are two ways to use the
 ]
 ```
 
-###### 2. Return the average `onRoadCost` for `Ford` vehicles:
+##### 2. Return the average `onRoadCost` for `Ford` vehicles:
 
 ```
   [
@@ -147,7 +145,7 @@ Extends the collection's `defaultFilters` setting. There are two ways to use the
 
 See the MongoDB reference documentation for information about the [Aggregation Pipeline](http://docs.mongodb.org/manual/reference/operator/aggregation/#aggregation-pipeline-operator-reference).
 
-###### Example usage
+##### Example usage
 
 ```
 var query = [
@@ -167,14 +165,14 @@ query = encodeURIComponent(JSON.stringify(query));
 client.get('/versionName/databaseName/cars?filter=' + query);
 ```
 
-#### callback
+### callback
 
 Overrides the collection's `callback` setting.
 
 callback must be made up of letters only.
 
 
-### Regex
+## Regex
 
 Original | Converted
 ---------|----------

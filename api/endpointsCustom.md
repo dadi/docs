@@ -2,13 +2,13 @@
 title: Custom endpoints
 ---
 
-## Custom Endpoints
+# Custom Endpoints
 
-### Overview
+## Overview
 
  * [Endpoint specification](#endpoint-specification)
 
-#### Endpoint Specification
+### Endpoint Specification
 
 DADI API custom endpoints give you the ability to modify, enrich, massage your data before it is returned to the user making the request. Collection endpoints return raw data in response to requests, custom endpoints give you more control over what you return.
 
@@ -25,15 +25,15 @@ my-api/
 
 ```
 
-##### API Version
+#### API Version
 
 [TODO]
 
-##### Endpoint
+#### Endpoint
 
 Endpoint specifications exist as Javascript files within a `version` folder as mentioned above. The naming convention for the collection specifications is `endpoint.<endpoint name>.js`
 
-##### Endpoint URL
+#### Endpoint URL
 
 With the above folder and file hierarchy an endpoint's URL uses the following format:
 
@@ -44,7 +44,7 @@ In actual use this might look like the following:
 
 `http://api.example.com/1.0/booksByAuthor`
 
-##### The Endpoint file
+#### The Endpoint file
 
 
 Endpoint specification files should export functions with lowercase names that correspond to the HTTP method that the function is designed to handle.
@@ -129,7 +129,7 @@ module.exports.get = function (req, res, next) {
 }
 ```
 
-##### Custom Endpoint Routing
+#### Custom Endpoint Routing
 
 It is possible to override the default endpoint route by including a `config` function in the endpoint file. The function should return a `config` object with a `route` property. The value of this property will be used for the endpoint's route.
 
@@ -153,7 +153,7 @@ Without this custom route, the same could be achieved by requesting the default 
 http://api.example.com/1.0/books?id=55bb8f688d76f74b1303a137
 ```
 
-#### Authentication
+### Authentication
 
 Authentication can be bypassed for your custom endpoint by adding the following to your endpoint file:
 
@@ -163,7 +163,7 @@ module.exports.model.settings = { authenticate : false }
 ```
 
 
-#### Endpoint GET request
+### Endpoint GET request
 
 This will return a "Hello World" example -
 
@@ -174,7 +174,7 @@ content-type: application/json
 Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 ```
 
-#### Endpoint GET response
+### Endpoint GET response
 
 ```
 { message: 'Hello World' }

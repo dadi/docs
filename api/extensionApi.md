@@ -2,13 +2,11 @@
 title: Extension API
 ---
 
-## Extension API
-
-### Overview
+## Overview
 
 DADI API allows developers to extend the framework's functionality by adding routes and middleware.
 
-### Example Usage
+## Example Usage
 
     var app = require('dadi/lib/'); // path to DADI API
 
@@ -70,13 +68,13 @@ DADI API allows developers to extend the framework's functionality by adding rou
         res.end('Thanks foo');
     });
 
-### Methods
+## Methods
 
 The underlying server api is available at `app.api`
 
 This exposes the follwing methods -
 
-#### app.api.use([route], handler)
+### app.api.use([route], handler)
 
 * route
 	* An optional string that limits this handler to the given path string
@@ -85,13 +83,13 @@ This exposes the follwing methods -
 	* The first two arguments are the request and response instances that node.js creates internally, the third argument is a function that can be called to start the next middleware
 	* If next is called with anything as the first argument, the rest of your middleware and routes are skipped and your error handlers are called
 
-#### app.api.unuse(route or function)
+### app.api.unuse(route or function)
 
 * The first argument to `unuse` is either a String or Function
 	* If it is a Function it will be removed the Function from the middleware if it exists
 	* If the first argument is a string, it will remove that route from the middleware
 
-### app.VERB(route, handler, [any number of additional handlers])
+## app.VERB(route, handler, [any number of additional handlers])
 
 `VERB` can be any of the http methods, e.g. `app.get`, `app.post`, `app.head`
 
@@ -100,7 +98,7 @@ This exposes the follwing methods -
 
 _NOTE: you can add any number of handlers, and they will be called in the order they were added_
 
-### Notes
+## Notes
 
 On top of routes for collections and endpoints, some middleware is added by DADI API for use internally, these include -
 
@@ -110,15 +108,15 @@ On top of routes for collections and endpoints, some middleware is added by DADI
 * A request caching middleware is added
 
 
-## API module
+# API module
 
-### Overview
+## Overview
 
 This module is responsible for creating a server and dispatching requests to middleware and routing.
 
 The main function this exposes is `use`.  It is similar to express.js's `app.use`. A default error handler and a 404 handler are automatically added.
 
-### Example Usage
+## Example Usage
 
 The `use` method does different things depending on what is passed to it -
 

@@ -1,12 +1,12 @@
-# DADI API
-
-## REST API Specification
+---
+title: REST API Specification
+---
 
 DADI API accepts GET, POST, PUT, PATCH and DELETE requests.
 
-### GET
+## GET
 
-#### GET Resource Collection
+### GET Resource Collection
 
 **URL Format:** `http(s)://{url}/{version}/{database}/{collection}`
 
@@ -18,7 +18,7 @@ Default views can be overridden using parameters at the point of API request.
 
 You can read more about this and about the collection schema [here](https://github.com/dadi/api/blob/master/docs/endpoints.md).
 
-#### GET Single Resource
+### GET Single Resource
 
 **URL Format:** `http(s)://{url}/{version}/{database}/{collection}/{:id}`
 
@@ -26,9 +26,9 @@ You can read more about this and about the collection schema [here](https://gith
 
 Returns the record with the id of `{:id}` in the `{database}` database and `{collection}` collection.
 
-### POST
+## POST
 
-#### Create New Resource
+### Create New Resource
 
 **URL Format:** `http(s)://{url}/{version}/{database}/{collection}`
 
@@ -44,7 +44,7 @@ The following additional fields are added to every record:
 * `created_by`: user id of creator
 * `api_version`: API version number passed in the URL as `{version}`, e.g. `1.0`
 
-#### Update Existing Resource
+### Update Existing Resource
 
 **URL Format:** `http(s)://{url}/{version}/{database}/{collection}/{:id}`
 
@@ -59,9 +59,9 @@ The following additional fields are added or updated:
 * `last_modified_at`: timestamp of modification
 * `last_modified_by`: user id of updater
 
-### DELETE
+## DELETE
 
-#### Delete Existing Resource
+### Delete Existing Resource
 
 **URL Format:** `http(s)://{url}/{version}/{database}/{collection}/{:id}`
 
@@ -69,7 +69,7 @@ The following additional fields are added or updated:
 
 Deletes the record with the id of `{:id}` from the `{collection}` collection in `{database}` database.
 
-## Custom Endpoints
+# Custom Endpoints
 
 **URL Format:** `http(s)://{url}/{version}/{endpoint}`
 

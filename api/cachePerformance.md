@@ -2,8 +2,6 @@
 title: Cache performance
 ---
 
-## Cache performance
-
 ### Overview
 
 DADI API has caching xupport built in for both a file-based cache and Redis. Caching can be configured globally and at individual collection level.

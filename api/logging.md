@@ -2,11 +2,9 @@
 title: Installation guide – Logging
 ---
 
-## Logging
+## Overview
 
-### Overview
-
-### Configuration
+## Configuration
 
 ```
 	"logging": {
@@ -17,7 +15,7 @@ title: Installation guide – Logging
 	}
 ```
 
-### Example Usage
+## Example Usage
 
 ```
 var Log = require('dadi-api').Log;

@@ -2,9 +2,7 @@
 title: Collections
 ---
 
-## Collections
-
-### Overview
+## Overview
 
  * [Collection specification](#collection-specification)
  * [Field specification](#field-specification)
@@ -17,7 +15,7 @@ title: Collections
  * [Collection statistics](#collection-statistics)
  * [Available collections](#available-collections)
 
-#### Collection Specification
+### Collection Specification
 
 DADI API handles creation and modification of database collections in MongoDB directly. All that is required in order to create a new database collection and it's associated collection endpoint is the creation of the collection specification file.
 
@@ -36,23 +34,23 @@ my-api/
 
 ```
 
-##### API Version
+#### API Version
 
 Specific versions of your API are represented by "version" folders within the collections folder.
 [MORE]
 
-##### Database
+#### Database
 
 Collection documents may be stored in separate databases, represented by the name of the folder within the "version" folder.
 
 > **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](https://github.com/dadi/api/blob/docs/docs/configuration.md#collection-specific-databases) for more information.
 
 
-##### Collection
+#### Collection
 
 Collection specifications exist as JSON files containing any number of field specifications and a configuration block. The naming convention for the collection specifications is `collection.<collection name>.json` where `<collection name>` is used as the name of the collection in MongoDB.
 
-###### Use the Plural Form
+##### Use the Plural Form
 
 We recommend you use the plural form for all collection endpoints to keep consistency across your API. Using the singular form means a GET request for a list of results can easily be confused with a request for a single entity.
 
@@ -71,7 +69,7 @@ http://api.example.com/1.0/library/books/560a44b33a4d7de29f168ce4
 ```
 
 
-##### Collection Endpoint
+#### Collection Endpoint
 
 With the above folder and file hierarchy a collection's endpoint within the API uses the following format:
 
@@ -82,7 +80,7 @@ In actual use this might look like the following:
 
 `http://api.example.com/1.0/library/books`
 
-##### The JSON File
+#### The JSON File
 
 Collection specification files take the following format:
 
@@ -103,7 +101,7 @@ Collection specification files take the following format:
 ```
 
 
-#### Field Specification
+### Field Specification
 
 
 Each field is defined in the following way:
@@ -149,26 +147,26 @@ message | The message to return if field validation fails. | "is invalid" | "mus
 default | An optional value to use as a default if no value is supplied for this field | | "0"
 display | Determines in which view states the field should be visible within the backend interface | | ```{ "index": true, "edit": false } ```
 
-#### Field Types
+### Field Types
 
-##### String
+#### String
 
-##### Number
+#### Number
 
-##### Boolean
+#### Boolean
 
-##### Mixed
+#### Mixed
 
-##### Object
+#### Object
 
-##### ObjectID
+#### ObjectID
 
-##### Reference
+#### Reference
 
 See [Document Composition (reference fields)](#document-composition) for further information.
 
 
-#### Collection Settings
+### Collection Settings
 
 Default values for the collection endpoint are set the following way:
 
@@ -201,7 +199,7 @@ fieldLimiters | A default set of fields to return | { "title": 1, "author": 1 }
 
 It is possible to override these values using querystring parameters when requesting data from the endpoint (see [Querying a collection](https://github.com/dadi/api/blob/docs/docs/querying.md)).
 
-##### defaultFilters
+#### defaultFilters
 
 Specifies a default query for the collection.
 
@@ -217,11 +215,11 @@ defaultFilters: { "publishState": "published" }
  { "publishState": "published", "magazineTitle": "Vogue" }
  ```
 
-##### fieldLimiters
+#### fieldLimiters
 
 Specifies a default list of fields for inclusion/exclusion. Fields can be included or excluded, but not both.
 
-###### Selecting fields for inclusion
+##### Selecting fields for inclusion
 
 For example to include only `name` and `email`:
 
@@ -241,7 +239,7 @@ Attempting to mix included with excluded results in a MongoDB error:
 fieldLimiters: {"name":1, "email": 0}
 ```
 
-###### Selecting fields for exclusion
+##### Selecting fields for exclusion
 
 To exclude fields, list only the fields for exclusion:
 
@@ -250,11 +248,11 @@ fieldLimiters: {"name":0, "email": 0}
 ```
 
 
-#### Validation
+### Validation
 
 Documents sent to the API with POST and PUT requests are validated at field level based on the rules defined in the collection schema. Find more information in the [Validation](https://github.com/dadi/api/blob/docs/docs/validation.md) section.
 
-#### Database Indexes
+### Database Indexes
 
 Indexes provide high performance read operations for frequently used queries and are fundamental in ensuring performance under load and at scale.
 
@@ -263,7 +261,7 @@ An index will be created on the collection using the fields specified in the `in
 
 The index will be created in the background to avoid blocking other database operations.
 
-##### settings.index
+#### settings.index
 
 ```
 settings: {
@@ -279,9 +277,9 @@ settings: {
 }
 ```
 
-#### Document Revision History
+### Document Revision History
 
-##### settings.storeRevisions
+#### settings.storeRevisions
 
 If `settings.storeRevisions` is **true**:
 
@@ -290,7 +288,7 @@ If `settings.storeRevisions` is **true**:
 * a `revision document` will be stored for each subsequent update to an existing document  
 * each time a `revision document` is created, the `_id` of the `revision document` is pushed onto a `history` array of the original document
 
-##### settings.revisionCollection
+#### settings.revisionCollection
 
 If `settings.revisionCollection` is specified, the collection's `revision collection` will be named according to the specified value, otherwise the collection's `revision collection` will take the form `{collection name}History`.
 
@@ -335,11 +333,11 @@ update operation to change the value of `title`:
 > _**Note:** the API does not add or update any date/time fields to indicate the order in which revision documents were created, nor does it perform any sort operations when returning a document's revision history. It is up to the API consumer to include appropriate date/time fields and perform sort operations on the returned revision collection_
 
 
-#### Document "Composition" via Reference Fields
+### Document "Composition" via Reference Fields
 
 To reduce data duplication through document embedding, DADI API allows the use of reference fields which can best be described as pointers to documents in the same collection, another collection in the same database or a collection in a different database.
 
-##### Reference Field Settings
+#### Reference Field Settings
 
  Property       | Description        |   Example
 :----------------|:-------------------|:-------
@@ -347,11 +345,11 @@ database | The name of the database that holds the reference data. Can be omitte
 collection | The name of the collection that holds the reference data. Can be omitted if the field references data in the same **collection** as the referring document. | "title"
 fields    | An array of fields to return for each referenced document.   | ["firstName", "lastName"]
 
-##### Example
+#### Example
 
 Consider the following two collections, `books` and `people`. `books` contains a Reference field `author` which is capable of loading documents from the `people` collection. By creating a `book` document and setting the `author` field to the `_id` value of a document from the `people` collection, the application is able to resolve this reference and return the `author` document within a result set for a `books` query.
 
-###### Books `(collection.books.json)`
+##### Books `(collection.books.json)`
 
 ```
 {
@@ -380,7 +378,7 @@ Consider the following two collections, `books` and `people`. `books` contains a
 }
 ```
 
-###### People `(collection.people.json)`
+##### People `(collection.people.json)`
 
 ```
 {
@@ -415,11 +413,11 @@ Consider the following two collections, `books` and `people`. `books` contains a
 ```
 
 
-##### Composed
+#### Composed
 
 An additional `composed` property is added to the `book` document when it is returned, indicating which fields have been expanded. The property contains the original `_id` value used for the reference field lookup.  
 
-##### Enabling Composition
+#### Enabling Composition
 
 Composition is disabled by default.
 
@@ -451,7 +449,7 @@ Reference fields to resolve which are nested further within the document, add a 
 ```
 
 
-##### a `book` document
+#### a `book` document
 
 ```
 [
@@ -471,7 +469,7 @@ Reference fields to resolve which are nested further within the document, add a 
 ]
 ```
 
-###### A `people` document
+##### A `people` document
 
 ```
 [
@@ -491,7 +489,7 @@ Reference fields to resolve which are nested further within the document, add a 
 ```
 
 
-##### Query result: The result of a query for the above `book` document
+#### Query result: The result of a query for the above `book` document
 
 ```
 {
@@ -541,7 +539,7 @@ Reference fields to resolve which are nested further within the document, add a 
 ```
 
 
-#### Collection Statistics
+### Collection Statistics
 
 Collection statistics from MongoDB can be retrieved by sending a GET request to a collection's `/stats` endpoint.
 
@@ -568,7 +566,7 @@ An example response:
 }
 ```
 
-#### Available Collections
+### Available Collections
 
 A document containing information about the available collections can be retrieved by sending a GET request to the API's `/api/collections` endpoint.
 

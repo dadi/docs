@@ -3,9 +3,7 @@ title: Connection module
 categories: api
 ---
 
-## Connection module
-
-### Overview
+## Overview
 
 This module handles connecting to database(s). The main config **must** have a `database` property.  Within this the default connection is specified via top level fields. For example, inside the main config you might see -
 
@@ -27,7 +25,7 @@ This module handles connecting to database(s). The main config **must** have a `
 
 This configuration would result in a MongoDB connection string `mongodb://localhost:27017/serama`.
 
-### Multiple Collection Databases
+## Multiple Collection Databases
 
 DADI API can store data in multiple databases, using the second part of a collection route as the database name. To enable collection databases, modify your configuration file so that `enableCollectionDatabases` is true.
 
@@ -81,7 +79,7 @@ Unless a hosts array and database credentials are found for the named database, 
     }
 ```
 
-#### MongoDB Replica Sets
+### MongoDB Replica Sets
 
 DADI API supports connections to MongoDB replica sets. To connect to a replica set specify each host in the `hosts` array and set the `replicaSet` property to the name of your replica set. The application will handle determining which of the configured hosts is the primary database.
 

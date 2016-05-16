@@ -2,9 +2,7 @@
 title: Validation
 ---
 
-## Validation
-
-### Overview
+## Overview
 
 Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema.
 
@@ -12,14 +10,14 @@ Documents sent to the API with POST and PUT requests are validated at field leve
 * [Validation Response](#validation-response)
 * [Error Messages](#error-messages)
 
-### Validation Options
+## Validation Options
 
 * [Type Validation](#type-validation)
 * [Mandatory Field Validation](#mandatory-field-validation)
 * [Length Validation](#length-validation)
 * [Regular Expression Validation](#regular-expression-validation)
 
-#### Type Validation
+### Type Validation
 
 A field can be validated by type. DADI API will check that the value supplied for the field is the correct type as specified in the schema. Only the following JavaScript primitives are considered for type validation: `String`, `Number`, `Boolean`
 
@@ -32,7 +30,7 @@ A field can be validated by type. DADI API will check that the value supplied fo
 }
 ```
 
-#### Mandatory Field Validation
+### Mandatory Field Validation
 
 Fields can be made mandatory by setting their `required` property to `true`. DADI API will check that a value has been supplied for the field when creating new documents. Validation for update requests is more relaxed and mandatory fields aren't validated as they would have already been populated with data when the document was first created.
 
@@ -45,7 +43,7 @@ Fields can be made mandatory by setting their `required` property to `true`. DAD
 }
 ```
 
-#### Length Validation
+### Length Validation
 
 A field's length can be controlled by using the `minLength` and `maxLength` properties. Validation will fail if the length of the string is greater or less than the specified length limits.
 
@@ -68,7 +66,7 @@ A field's length can be controlled by using the `minLength` and `maxLength` prop
 }
 ```
 
-#### Regular Expression Validation
+### Regular Expression Validation
 
 A regular expression pattern can be specified for a field, which may help enforcing business rules.
 
@@ -87,7 +85,7 @@ A regular expression pattern can be specified for a field, which may help enforc
 }
 ```
 
-### Validation Response
+## Validation Response
 
 If a document fails validation an errors collection will be returned with the reasons for validation failure:
 
@@ -115,7 +113,7 @@ If a document fails validation an errors collection will be returned with the re
 }
 ```
 
-### Error Messages
+## Error Messages
 
 A set of default error messages are returned for fields that fail validation. The table below lists the built-in error messages and their associated meaning.
 

@@ -3,15 +3,13 @@ title: Configuration
 categories: api
 ---
 
-## Configuration
-
-### Overview
+## Overview
 
 Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.
 
 To most important configuration blocks for starting your API are [server](#server), [database](#database) and [authentication](#auth).
 
-#### Configuration Files
+### Configuration Files
 
 Configuration settings are defined in JSON files within a `/config` directory at the root of your application. DADI API has provision for multiple configuration files, one for each environment that your API is expected to run under: `development`, `qa` and `production`.
 
@@ -25,7 +23,7 @@ config.qa.json
 config.production.json
 ```
 
-#### Application Anatomy
+### Application Anatomy
 
 ```
 my-api/
@@ -45,11 +43,11 @@ my-api/
 
 ```
 
-#### Loading an environment configuration file
+### Loading an environment configuration file
 
 DADI API loads the `development` configuration by default. Loading an enviroment-specific configuration can be done in one of two ways:
 
-##### 1. Environment Variable
+#### 1. Environment Variable
 
 Set an environment variable called `NODE_ENV` with the value of the environment you wish to run your application under.  
 
@@ -57,7 +55,7 @@ Set an environment variable called `NODE_ENV` with the value of the environment 
 export NODE_ENV=production
 ```
 
-##### 2. Command Line Argument
+#### 2. Command Line Argument
 
 Pass an argument to Node when starting your application with the value of the environment you wish to run your application under.  
 
@@ -65,14 +63,14 @@ Pass an argument to Node when starting your application with the value of the en
 node main.js --node-env=production
 ```
 
-#### Example configuration file
+### Example configuration file
 
 An example file containing all of the available configuration options can be found in `/config/config.development.json.sample`.
 
 
-### Configuration Options
+## Configuration Options
 
-#### app
+### app
 
 Application-specific settings, such as `name`.
 
@@ -82,7 +80,7 @@ Application-specific settings, such as `name`.
 }
 ```
 
-#### server
+### server
 
 Specifies `host` and `port` to begin accepting connections on. If the `host` is omitted or `null`,
 the server will accept connections on any IPv6 address (::) when IPv6 is available,
@@ -100,7 +98,7 @@ On AWS you would need to use your private IP instead of your public IP, or alter
 }
 ```
 
-#### database
+### database
 
 Specifies the MongoDB database(s) to connect to.
 
@@ -161,7 +159,7 @@ mongodb://apiUser:apiPassword@ds012345-z1.mongolab.com:12345,ds012345-z2.mongola
 
 The Node.JS MongoDB driver handles communication with the database servers to determine the primary instance.
 
-#### Collection-specific Databases
+### Collection-specific Databases
 
 The `enableCollectionDatabases` setting determines whether the API will store collection data in separate databases as defined by the collection URLs.
 
@@ -180,7 +178,7 @@ If `enableCollectionDatabases: true` the API will store the `books` data in the 
 Otherwise, if `enableCollectionDatabases: false` the API will store the `books` data (and all other collection data) in the database specified in the configuration file's `database` setting.
 
 
-##### Configuration Properties
+#### Configuration Properties
 
 Property       | Description        |  Type        | Default         |  Example
 :----------------|:------------|:------------------|:----------------|:---------
@@ -193,7 +191,7 @@ replicaSet | If false, the API will not attempt to connect to a replica set. If 
 enableCollectionDatabases | If true, the API allows splitting collection data into separate databases | Boolean | false | true
 
 
-#### auth
+### auth
 
 ```
 "auth": {
@@ -215,7 +213,7 @@ enableCollectionDatabases | If true, the API allows splitting collection data in
 }
 ```
 
-##### Configuration Properties
+#### Configuration Properties
 
 Property       | Description        |  Type        | Default         |  Example
 :----------------|:------------|:------------------|:----------------|:---------
@@ -230,7 +228,7 @@ database.username | The username used to connect to the authorisation database |
 database.password | The password used to connect to the authorisation database | String | "" | "apiPassword"
 
 
-#### caching
+### caching
 
 Enabling caching in your API allows previously requested and cached data to be returned early in the request cycle, decreasing the number of requests sent to the database.
 
@@ -243,7 +241,7 @@ Enabling caching in your API allows previously requested and cached data to be r
 }
 ```
 
-##### Collection Caching Settings
+#### Collection Caching Settings
 
 While caching can be enabled in the configuration file, whether or not caching is enabled for a particular collection also depends on the `cache` setting in that collection's schema file. For example:
 
@@ -261,7 +259,7 @@ While caching can be enabled in the configuration file, whether or not caching i
 ```
 
 
-##### Configuration Properties
+#### Configuration Properties
 
 Property       | Description        |  Type        | Default         |  Example
 :----------------|:------------|:------------------|:----------------|:---------
@@ -271,7 +269,7 @@ directory            |  The path relative to the root of the application where c
 extension            |     | String     |"json" | "txt"
 
 
-#### logging
+### logging
 
 Logging is enabled by default with the below settings.
 
@@ -293,7 +291,7 @@ Logging is enabled by default with the below settings.
 }
 ```
 
-##### Configuration Properties
+#### Configuration Properties
 
 Property       | Description        |  Type        | Default         |  Example
 :----------------|:------------|:------------------|:----------------|:---------
@@ -308,10 +306,10 @@ accessLog.fileRotationPeriod            | The period at which to rotate the acce
 accessLog.fileRetentionCount            | The number of rotated log files to keep  | Number     | 7 | 14
 accessLog.kinesisStream            | The name of an AWS Kinesis stream to write to log records to | String     | Empty, therefore disabled  | "apiLogStream"
 
-#### aws
+### aws
 Amazon Web Service client key
 
-#### paths
+### paths
 
 Specifies the location of collection schema files and custom endpoints, relative to the application route. The default configuration is shown below, these values will be used if no `paths` configuration is provided.
 
@@ -322,7 +320,7 @@ Specifies the location of collection schema files and custom endpoints, relative
 }
 ```
 
-#### query
+### query
 
 Controls aspects of the query that is sent to the database/
 
@@ -337,7 +335,7 @@ Property           | Description                 | Default value  |  Example
 useVersionFilter   | If true, the apiVersion parameter is extracted from the GET request URL and used in the database query. For example `/1.0/library/books` will pass the following query to the database `{ "apiVersion": "1.0" }`     | false    | true
 
 
-#### feedback
+### feedback
 
 Specifies whether the API should return content when deleting records from a collection.
 
@@ -357,7 +355,7 @@ Given a successful DELETE request, the `feedback` setting determines the respons
 }
 ```
 
-#### apidoc
+### apidoc
 
 This configuration section controls the behaviour of the DADI API Documentation module, if installed.
 
@@ -379,7 +377,7 @@ Add a configuration section to your configuration file(s):
 }
 ```
 
-##### Configuration Properties
+#### Configuration Properties
 
 Property       | Description        |  Type        | Default         |  Example
 :----------------|:------------|:------------------|:----------------|:---------
