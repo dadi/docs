@@ -2,20 +2,18 @@
 title: UUID generation
 ---
 
-## UUID generation
-
 The focus of UUID generation in DADI Identity is the simple, fast generation of cryptographically strong - random # generation `crypto.randomBytes(n)` - [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt) identifiers.
 
 We use [node-uuid](https://github.com/broofa/node-uuid) (`uuid.v4 ()`) of the generation of RFC 4122 identifiers.
 
-## Usage
+# Usage
 
 	// Generate a v4 (random) id
 	uuid.v4() // -> '143a5fb2-445d-482d-a674-34caa7e7e67e'
 
-## API
+# API
 
-### uuid.v4([`options` [, `buffer` [, `offset`]]])
+## uuid.v4([`options` [, `buffer` [, `offset`]]])
 
 Generate and return a RFC4122 v4 UUID.
 
@@ -43,7 +41,7 @@ Example: Generate two IDs in a single buffer
 	uuid.v4(null, buffer, 0)
 	uuid.v4(null, buffer, 16)
 
-### uuid.parse(id[, buffer[, offset]]) / uuid.unparse(buffer[, offset])
+## uuid.parse(id[, buffer[, offset]]) / uuid.unparse(buffer[, offset])
 
 Parse and unparse UUIDs:
 

@@ -2,33 +2,31 @@
 title: Device fingerprint
 ---
 
-## Device fingerprint
-
 The device-level fingerprint is generated from a broad array of available data wihtin a browser context and through the use of a drop-in library for mobile apps.
 
 DADI Identity fingerprints at browser level currently have a uniqueness of 87.44%. Fingerprints at app level have a uniqueness of 100%.
 
-### Browser based
+## Browser based
 
-### Fingerprint example
+## Fingerprint example
 
 	dfe3327991a9e4521980986a02cb3071
 
-#### Usage
+### Usage
 
 	new deviceId().get(function(result, components){
 	  console.log(result); // A hash, representing your device fingerprint
 	  console.log(components); // an array of FP components
 	});
 
-##### You can pass an object with options (all of which are optional):
+#### You can pass an object with options (all of which are optional):
 
 	var options = { excludeUserAgent: true, excludeLanguage: true };
 	new Fingerprint2(options).get(function(result){
 	  console.log(result);
 	});
 
-##### Options
+#### Options
 
 JS font enumeration can be used by to return a list of available fonts, but performance as been found to be slow in many cases, especially on sites making heavy use of JavaScript. For this reason font dectection is disabled in the standard package.
 
@@ -80,7 +78,7 @@ Example usage:
 	  console.log(components);
 	});
 
-##### List of fingerprinting sources
+#### List of fingerprinting sources
 
 1. UserAgent
 2. Language
@@ -110,7 +108,7 @@ Example usage:
 By default, JS font detection will only detect up to 65 installed fonts. If you want to improve the font detection,
 you can pass `extendedFontList: true` option. This will increase the number of detectable fonts to ~500.
 
-#### Performance
+### Performance
 
 In testing the default FP process takes about 80-100ms. If you enable JS enurmeration for fonts and use the `extendedFontList` option this time will increase up to 200-600ms.
 
@@ -118,10 +116,10 @@ This option can incur even more overhead on mobile Firefox browsers, which is mu
 
 -
 
-### App based
+## App based
 
-#### iOS
+### iOS
 
-#### Android
+### Android
 
-#### Windows phone
+### Windows phone

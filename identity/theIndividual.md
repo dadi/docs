@@ -2,8 +2,6 @@
 title: Definition of individual
 ---
 
-## What constitutes an indvidual?
-
 DADI Identity is a session-based platform that issues and persists UUIDs over multiple product-level sessions and over a long duration of time (our standard persistence window is six months). It is also capable of persisting UUIDs over multiple products.
 
 DADI Identity is only interested in the fact of an individual. It does not track interactions or otherwise make use of the UUIDs generated.

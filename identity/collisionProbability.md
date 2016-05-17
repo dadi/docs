@@ -2,8 +2,6 @@
 title: Collision probability
 ---
 
-## Collision probability
-
 Out of a total of 128 bits, two bits indicate an [RFC 4122](https://tools.ietf.org/html/rfc4122) ("Leach-Salz") UUID and four bits the version (0100 indicating "randomly generated"), so randomly generated UUIDs have 122 random bits.
 
 The chance of two such UUIDs having the same value can be calculated using probability theory (birthday problem).

@@ -2,11 +2,9 @@
 title: Browser agent fingerprint
 ---
 
-## Browser agent fingerprint
-
 The browser agent fingerprint is generated within the applicaiton itself using browser header detection provided by the [ua-parser-js](https://github.com/faisalman/ua-parser-js) npm module.
 
-### Fingerprint example
+## Fingerprint example
 
 The browser agent fingerprint is created using [MurmurHash3](https://en.wikipedia.org/wiki/MurmurHash).
 

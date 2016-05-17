@@ -2,8 +2,6 @@
 title: Testing
 ---
 
-## Testing
-
 Simply run:
 
 	$ [sudo] npm test

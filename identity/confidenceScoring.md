@@ -2,17 +2,15 @@
 title: Collision probability
 ---
 
-## Confidence scoring
-
-confidence scores are calculated by DADI Identity over time, improving as the available sample size increases. The scores given below are from our own testing using a sample size in the low millions of users in a multi-product setup.
+Confidence scores are calculated by DADI Identity over time, improving as the available sample size increases. The scores given below are from our own testing using a sample size in the low millions of users in a multi-product setup.
 
 Different audience profiles will yield different results, especially in single-product setups.
 
 _Note: UUIDs are issued with a gaurentee of uniqueness. Confidence scoring **only applies** to fingerprints_
 
-### Performance comparisons
+## Performance comparisons
 
-#### Version 0.8 (previous build)
+### Version 0.8 (previous build)
 
 | What | Sample size (000's) | Matches (000's) | Collisions (000's) | Confidence score |
 |------|---------------------|-----------------|------------|------------------|
@@ -25,7 +23,7 @@ _Note: UUIDs are issued with a gaurentee of uniqueness. Confidence scoring **onl
 | +protocol fingerprint | 4,812 | 4,647 | 165 | 96.57% |
 | Issued UUID | 4,812 | 4,812 | 0 | 100.00% |
 
-#### Version 1.0 (current build)
+### Version 1.0 (current build)
 
 | What | Sample size (000's) | Matches (000's) | Collisions (000's) | Confidence score |
 |------|---------------------|-----------------|------------|------------------|

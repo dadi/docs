@@ -2,8 +2,6 @@
 title: Session persistence
 ---
 
-## Session persistence
-
 DADI Identity can be thought of a session management platform. It generates absolutely unique UUIDs, and persists these for long timeframes in order to facilitate session-related tasks, such as user tracking, single sign on, programmatic advertising and machine learning.
 
 UUIDs are capable of being persisted cross product, meaning that a signle organisation can take a multi-tennacy approach to tracking and CRM facilitated by DADI Identity.

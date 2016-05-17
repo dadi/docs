@@ -2,8 +2,6 @@
 title: Issuing process
 ---
 
-## Issuing process
-
 DADI Identity issues-forward, meaning that a new UUID is provided whenever a request hits the issuing layer within the application.
 
 A request for a UUID is made if local lookups for an existing UUID return false within the requesting browser of app.

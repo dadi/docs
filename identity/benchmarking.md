@@ -2,13 +2,11 @@
 title: Benchmarking
 ---
 
-## Benchmarking
-
-### Results
+## Results
 
 To see the results of our benchmarks see the [performance](https://github.com/dadi/identity/blob/docs/docs/performance.md) document.
 
-### Run them yourself
+## Run them yourself
 
 We've provieded a benchmark script to measure the performance of generating UUIDs.
 
