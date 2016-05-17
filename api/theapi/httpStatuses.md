@@ -1,5 +1,6 @@
 ---
 title: HTTP Status codes
+permalink: /api/theapi/statuscodes/
 ---
 
 ## Overview

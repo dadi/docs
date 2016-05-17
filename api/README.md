@@ -4,8 +4,8 @@ permalink: /api/
 public: true
 ---
 
-https://github.com/dadi/api
-`npm install @dadi/api`
+| Github   | [https://github.com/dadi/api](https://github.com/dadi/api) |
+| NPM      | [npm install @dadi/api](https://www.npmjs.com/package/@dadi/api) |
 
 ## Overview
 
@@ -20,33 +20,6 @@ It has built in support for oAuth2, includes full collection-level ACL, can conn
 DADI API provides a starting point that's further advanced than a framework. It allows you to get a complete data layer up and running in minutes.
 
 It is part of DADI, a suite of components covering the full development stack, built for performance and scale.
-
-## Contents
-
-* Overview (this document)
-* [Requirements](./requirements.md)
-* Setup, installation and use
-	* [Setup and installation](./setupAndInstallation.md)
-	* [Configuration](./configuration.md)
-	* [Complete guide: Ubuntu](./installGuide.ubuntu.md)
-* The API
-	* [REST API Specification](./restApiSpecification.md)
-	* [Authorisation](./authorisation.md)
-	* Endpoints
-	  * [Collections](./endpointsCollections.md)
-	  * [Custom Endpoints](./endpointsCustom.md)
-	  * [Querying](./querying.md)
-	  * [Configuration API](./configApi.md)
-	  * [Status Endpoint](./status.md)
-	* [Validation](./validation.md)
-	* [HTTP Status Codes](./httpStatuses.md)
-* Middleware
-	* [Authorisation middleware](./authMiddleware.md)
-	* [Connection module](./connectionModule.md)
-	* [Extension API](./extensionApi.md)
-	* [Logging](./logging.md)
-	* [Monitor module](./monitorModule.md)
-* [Cache performance](./cachePerformance.md)
 
 ## Core contributors
 

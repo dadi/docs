@@ -1,5 +1,6 @@
 ---
 title: Installation guide – Ubuntu
+permalink: /api/setup/ubuntu/
 ---
 
 ## Overview

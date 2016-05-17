@@ -1,5 +1,6 @@
 ---
 title: Authorisation
+permalink: /api/theapi/authorisation/
 ---
 
 Every request to the API requires a bearer token which should be passed as a header.

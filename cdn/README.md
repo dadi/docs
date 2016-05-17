@@ -3,11 +3,8 @@ title: CDN
 permalink: /cdn/
 ---
 
-# [DADI CDN](https://github.com/dadi/cdn)
-
-## NPM
-
-_Coming soon._
+| Github   | [https://github.com/dadi/cdn](https://github.com/dadi/cdn) |
+| NPM      | [npm install @dadi/cdn](https://www.npmjs.com/package/@dadi/cdn) |
 
 ## Overview
 

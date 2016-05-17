@@ -1,13 +1,9 @@
 ---
 title: Identity
-permalink: /identity/
 ---
 
-# [DADI Identity](https://github.com/dadi/identity)
-
-## NPM
-
-_Coming soon._
+| Github   | [https://github.com/dadi/identity](https://github.com/dadi/identity) |
+| NPM      | [npm install @dadi/identity](https://www.npmjs.com/package/@dadi/identity) |
 
 ## Overview
 

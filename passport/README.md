@@ -1,14 +1,10 @@
 ---
 title: Passport
 permalink: /passport/
-public: true
 ---
 
-# [DADI Passport](https://github.com/dadi/passport)
-
-## NPM
-
-`npm install @dadi/passport`
+| Github   | [https://github.com/dadi/passport](https://github.com/dadi/passport) |
+| NPM      | [npm install @dadi/passport](https://www.npmjs.com/package/@dadi/passport) |
 
 ## Overview
 

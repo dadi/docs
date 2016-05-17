@@ -1,14 +1,10 @@
 ---
 title: Web
 permalink: /web/
-public: true
 ---
 
-# [DADI Web](https://github.com/dadi/web)
-
-## NPM
-
-`npm install @dadi/web`
+| Github   | [https://github.com/dadi/web](https://github.com/dadi/web) |
+| NPM      | [npm install @dadi/web](https://www.npmjs.com/package/@dadi/web) |
 
 ## Overview
 

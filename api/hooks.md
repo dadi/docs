@@ -1,5 +1,6 @@
 ---
 title: Hooks
+permalink: /api/hooks/
 ---
 
 ## Overview

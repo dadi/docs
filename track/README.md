@@ -3,11 +3,9 @@ title: Track
 permalink: /track/
 ---
 
-# [DADI Track](https://github.com/dadi/track)
+| Github   | [https://github.com/dadi/track](https://github.com/dadi/track) |
+| NPM      | [npm install @dadi/track](https://www.npmjs.com/package/@dadi/track) |
 
-## NPM
-
-_Coming soon._
 
 ## Overview
 

@@ -1,4 +1,7 @@
-# Contributing Guidelines
+---
+title: Contributing Guidelines
+permalink: /contributing/
+---
 
 We're pashionate about Open Source software so participation on any level is encouraged 👯. This document outlines how to contribute on any level.
 
@@ -11,6 +14,7 @@ We are using [JSDoc](http://usejsdoc.org/) to parse inline code comments and gen
 Please add comments to code where possible, following the guidelines at http://usejsdoc.org
 
 For example:
+
 ```
 /**
  * Represents a book.

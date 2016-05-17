@@ -1,5 +1,6 @@
 ---
 title: Working with endpoints
+permalink: /api/theapi/endpoints/
 ---
 
 Endpoints in DADI API can be either be mapped directly to collections in MongoDB or custom based on a wider requirements set.
@@ -8,7 +9,7 @@ You can read about collections and custom endpoints in detail [here](https://git
 
 _You may want to look at a handy QA testing tool called [Postman](http://www.getpostman.com/)_
 
-# Overview
+## Overview
 
 * Collection Endpoints
   * Defining Fields

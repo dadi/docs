@@ -1,5 +1,6 @@
 ---
 title: Requirements
+permalink: /api/requirements/
 ---
 
 * Node.js (latest)

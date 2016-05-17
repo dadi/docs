@@ -1,5 +1,6 @@
 ---
 title: Cache performance
+permalink: /api/caching/
 ---
 
 ### Overview

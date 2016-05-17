@@ -1,6 +1,6 @@
 ---
 title: Connection module
-categories: api
+permalink: /api/middleware/connection-module/
 ---
 
 ## Overview

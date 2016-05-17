@@ -1,5 +1,6 @@
 ---
 title: Server status
+permalink: /api/theapi/endpoints/status/
 ---
 
 ## Overview

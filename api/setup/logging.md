@@ -1,5 +1,6 @@
 ---
 title: Installation guide – Logging
+permalink: /api/setup/logging/
 ---
 
 ## Overview

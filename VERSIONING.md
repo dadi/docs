@@ -1,4 +1,7 @@
-# Versioning
+---
+title: Versioning
+permalink: /versioning/
+---
 
 DADI follows [Semantic Versioning 2.0.0](http://semver.org/spec/v2.0.0.html).
 

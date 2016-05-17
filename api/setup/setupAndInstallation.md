@@ -1,5 +1,6 @@
 ---
 title: Setup and installation
+permalink: /api/setup/
 ---
 
 `$ [sudo] git clone https://github.com/dadi/api.git`

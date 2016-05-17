@@ -1,5 +1,6 @@
 ---
 title: Custom endpoints
+permalink: /api/theapi/endpoints/custom/
 ---
 
 # Custom Endpoints
