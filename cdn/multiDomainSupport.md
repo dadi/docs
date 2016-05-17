@@ -2,15 +2,13 @@
 title: Multi-domain support
 ---
 
-## Multi-domain support
-
-### Overview
+## Overview
 
 DADI CDN has support for multiple domains: the ability to listen and respond on a domain by domain basis.
 
 This allows a single instance or cluster to deliver different media for different domains (domainone.com and domaintwo.com for example).
 
-### Setup
+## Setup
 
 Multiple domain support is facilitated via the addition of configuration files within `/workspace/domain-loader`.
 

@@ -2,8 +2,6 @@
 title: Configuration notes
 ---
 
-## Configuration notes
-
 The `server.host` config is passed to node's `server.listen` function
 http://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback
 

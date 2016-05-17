@@ -2,15 +2,13 @@
 title: Configuration
 ---
 
-## Configuration
-
-### Overview
+## Overview
 
 DADI CDN's settings are defined in a configuration files mapped to environment variables. These are contained wihtin `/config`. An example file, containing all of the available configuration options can be found in `/config/config.development.json.sample`.
 
-### Config options
+## Config options
 
-#### server
+### server
 
 The `server.host` config is passed to node's `server.listen` function
 http://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback
@@ -26,7 +24,7 @@ The proper name should always resolve correctly. Alternately, you can set it to 
 		"port": 3000
 	}
 
-#### images
+### images
 
 Source images can be called either locally, from an S3 bucket or remotely via a URL.
 
@@ -90,7 +88,7 @@ Source images can be called either locally, from an S3 bucket or remotely via a 
 		}
 	}
 
-#### assets (JavaScript/CSS)
+### assets (JavaScript/CSS)
 
 Source assets (JavaScript/CSS) can be called either locally, from an S3 bucket or remotely via a URL.
 
@@ -154,7 +152,7 @@ Source assets (JavaScript/CSS) can be called either locally, from an S3 bucket o
 		}
 	}
 
-#### caching
+### caching
 
 DADI CDN's cache can be set to be either local (held on disk [local filesystem]) or Redis. Redis is generally recommended as it provides an in memory cache which is substantially faster under load. Redis also allows multiple instances of DADI CDN to share a cache, ensuring consistency in delivery within a clustered environment.
 
@@ -190,7 +188,7 @@ The `ttl` setting defines the default Time To Live for cached images and assets 
 		}
 	}
 
-### clientCache
+## clientCache
 
 The clientCache defines the cache headers that are sent with images/assets delivered by DADI CDN. They enable you to offset load by making use of modern browsers local caching.
 
@@ -203,7 +201,7 @@ You can read more about `cacheControl` and `etag` [here](https://developers.goog
 		"etag": "15f0fff99ed5aae4edffdd6496d7131f"
 	}
 
-#### security
+### security
 
 The security setting allows you to set a maximum width and height to generated images. This prevents the potentual for a DOS attack based on the repeated generation of super large images, which could push your platform offline by exhausting CPU and/or available memory.
 
@@ -216,7 +214,7 @@ You should set this to the maximum size of image required in your product.
 		"maxHeight": 1024
 	}
 
-#### auth
+### auth
 
 DADI CDN's internal API for cache invalidation uses two-legged OAuth. This configuration allows you to define a clientId and secret to secure the invalidation API.
 
@@ -227,7 +225,7 @@ DADI CDN's internal API for cache invalidation uses two-legged OAuth. This confi
 		"secret": "asd544see68e52"
 	}
 
-#### cloudfront
+### cloudfront
 
 DADI CDN works seamlessly with Cloudfront, allowing it to plug directly into global infrastructure. The `clodfront` settings in `config.json` enable DADI CDN's invalidation API to be chained directly with Cloudfront's invalidation API, meaning that an invalidation request sent to DADI CDN will have the effect of invalidating the same files in your Cloudfront distribution.
 
@@ -240,7 +238,7 @@ DADI CDN works seamlessly with Cloudfront, allowing it to plug directly into glo
 		"region": ""
 	}
 
-#### GZIP
+### GZIP
 
 DADI CDN supports GZIP compression, providiing a simple, effective way to save bandwidth and speed up your product.
 
@@ -248,7 +246,7 @@ DADI CDN supports GZIP compression, providiing a simple, effective way to save b
 
 	"gzip": true
 
-#### feedback
+### feedback
 
 With `feedbaack` set to `true`, DADI CDN will provide feedback directly to the console, enabling you monitor your installation. This is useful for intial setup and debugging. It should not be used in a proudction environment.
 

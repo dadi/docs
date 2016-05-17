@@ -2,38 +2,36 @@
 title: Installation guide - Ubuntu
 ---
 
-## Installation guide: Ubuntu
-
-### Overview
+## Overview
 
 This document provides a simple step by step guide to installation on Ubuntu [14.04.1 LTS](http://releases.ubuntu.com/14.04.1/).
 
 This guide assumes a single server using utilising local caching. For Redis setup instruction see [https://www.digitalocean.com/community/tutorials/how-to-install-and-use-redis](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-redis).
 
-### Installing DADI CDN
+## Installing DADI CDN
 
-#### Node.js latest
+### Node.js latest
 
 1. `curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -`
 2. `sudo apt-get install -y nodejs`
 3. `sudo apt-get install -y build-essential`
 
-#### ImageMagick
+### ImageMagick
 
 1. `sudo apt-get install libmagick++-dev`
 
-#### VIPS
+### VIPS
 
 1. `sudo add-apt-repository -y ppa:lovell/trusty-backport-vips`
 2. `sudo apt-get update`
 2. `sudo apt-get install -y libvips-dev libgsf-1-dev`
 
-#### Misc. supporting packages
+### Misc. supporting packages
 
 1. `sudo apt-get install make`
 2. `sudo apt-get install g++`
 
-#### CDN
+### CDN
 
 Install GCC to provide the latest build of the c++ bson extension (not required, but improves performance) -
 
@@ -59,7 +57,7 @@ Start DADI CDN -
 
 `[sudo] npm start`
 
-#### Forever
+### Forever
 
 To run DADI CDN in the background, install [Forever](https://github.com/nodejitsu/forever) and [Forever-service](https://github.com/zapty/forever-service):
 

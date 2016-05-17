@@ -2,13 +2,11 @@
 title: Delviery recipes
 ---
 
-## Delviery recipes
-
 A Recipe is a predefined set of configuration options that are made avialble via a shortened URL, which hides the configuration options.
 
 Recipes are defined in JSON files held in the `/workspace/recipes` folder.
 
-### Example recipe
+## Example recipe
 
 	{
 		"recipe": "example-recipe-name",
@@ -29,7 +27,7 @@ Recipes are defined in JSON files held in the `/workspace/recipes` folder.
 		}
 	}
 
-### Using a recepe
+## Using a recepe
 
 Making use of a recepe is simple: call your image via the recipe name defined in the recepe JSON.
 

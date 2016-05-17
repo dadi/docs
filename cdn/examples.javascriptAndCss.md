@@ -2,9 +2,7 @@
 title: JavaScript and CSS examples
 ---
 
-### JavaScript and CSS examples
-
-#### Example #1: JavaScript
+## Example #1: JavaScript
 
 Convert from one format to another with quality control.
 
@@ -36,7 +34,7 @@ Convert from one format to another with quality control.
 
 	var who=window.prompt("What is your name");var favcolor=window.prompt("What is your favorite color");document.write("Hello "+who);document.bgColor=favcolor;
 
-#### Example #2: CSS
+## Example #2: CSS
 
 **Request**
 

@@ -2,8 +2,6 @@
 title: Image data
 ---
 
-## Image data
-
 Parsing the format type `json` will return JSON containing all of the available information about the image reuested.
 
 For example:

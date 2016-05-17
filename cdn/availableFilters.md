@@ -2,9 +2,7 @@
 title: Filters
 ---
 
-## Filters
-
-### Simple resize filters
+## Simple resize filters
 
 - Point
 - Hermite
@@ -16,7 +14,7 @@ title: Filters
 - Quadratic
 - Mitchell
 
-### Windowed filters
+## Windowed filters
 
 - Lanczos
 - Hamming

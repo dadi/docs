@@ -2,11 +2,9 @@
 title: Invalidation API
 ---
 
-## Invalidation API
-
 DADI CDN's cache, both local and Redis, can be invalidated on an individual image or file path basis using the invalidation API.
 
-### Authorisation
+## Authorisation
 
 The API requires authentication (two-legged OAuth). Authenticaiton credentuals in the form of the `clientId` and `secret` can be set in the config.json file.
 
@@ -23,9 +21,9 @@ Once you have the token, each request to the api should include a header similar
 
     Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 
-### Examples
+## Examples
 
-#### 1.
+### 1.
 
 POST http://{url}/api
 
@@ -35,7 +33,7 @@ POST http://{url}/api
 
 Invalidate the image `some-image-name.jpg`, causing it to be renegerated at the point of next request.
 
-#### 2.
+### 2.
 
 POST http://{url}/api
 

@@ -2,13 +2,11 @@
 title: Image manipulation examples
 ---
 
-## Image manipulation examples
-
 All images output in the examples below were created from this original image:
 
-![Original image](../assets/original.jpg)
+![Original image](./assets/original.jpg)
 
-### Example #1: convert between formats
+## Example #1: convert between formats
 
 Convert from one format to another with quality control.
 
@@ -18,9 +16,9 @@ Convert from one format to another with quality control.
 
 **Converted to PNG**
 
-![Converted to PNG at 100%](../assets/jpeg-to-png.png)
+![Converted to PNG at 100%](./assets/jpeg-to-png.png)
 
-### Example #2: blur
+## Example #2: blur
 
 **Request**
 
@@ -28,9 +26,9 @@ Convert from one format to another with quality control.
 
 **Output**
 
-![Original image](../assets/blur.jpg)
+![Original image](./assets/blur.jpg)
 
-### Example #3: resize
+## Example #3: resize
 
 Resized images by specifying width and height. There are three resizing styles:
 
@@ -42,21 +40,21 @@ Resized images by specifying width and height. There are three resizing styles:
 
 `http(s)://your-domain.media/jpg/100/0/0/1920/1080/aspectfill/center/0/0/0/0/0/path/to/image.jpg`
 
-![Original image](../assets/aspectfill.jpg)
+![Original image](./assets/aspectfill.jpg)
 
 **aspectfit**
 
 `http(s)://your-domain.media/jpg/100/0/0/1920/1080/aspectfit/center/0/0/0/0/0/path/to/image.jpg`
 
-![Original image](../assets/aspectfit.jpg)
+![Original image](./assets/aspectfit.jpg)
 
 **fill**
 
 `http(s)://your-domain.media/jpg/100/0/0/1920/1080/fill/center/0/0/0/0/0/path/to/image.jpg`
 
-![Original image](../assets/fill.jpg)
+![Original image](./assets/fill.jpg)
 
-### Example #4: rotate, flip, and mirror
+## Example #4: rotate, flip, and mirror
 
 Rotate and flip images, and combine the two to mirror.
 
@@ -64,22 +62,22 @@ Rotate and flip images, and combine the two to mirror.
 
 `http(s)://your-domain.media/jpg/100/0/0/1920/1080/0/0/0/0/0/90/0/path/to/image.jpg`
 
-![Original image](../assets/rotate-90.jpg)
+![Original image](./assets/rotate-90.jpg)
 
 **Rotate 180º**
 
 `http(s)://your-domain.media/jpg/100/0/0/1920/1080/0/0/0/0/0/180/0/path/to/image.jpg`
 
-![Original image](../assets/rotate-180.jpg)
+![Original image](./assets/rotate-180.jpg)
 
 **Flip**
 
 `http(s)://your-domain.media/jpg/100/0/0/1920/1080/0/0/0/0/0/0/1/path/to/image.jpg`
 
-![Original image](../assets/flip.jpg)
+![Original image](./assets/flip.jpg)
 
 **Flip + rotate 180 degrees = mirror**
 
 `http(s)://your-domain.media/jpg/100/0/0/1920/1080/0/0/0/0/0/180/1/path/to/image.jpg`
 
-![Original image](../assets/mirror.jpg)
+![Original image](./assets/mirror.jpg)
