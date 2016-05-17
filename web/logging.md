@@ -2,8 +2,6 @@
 title: Logging
 ---
 
-## Logging
-
 * [Basic Logging](#basic-logging)
 * [Default Configuration](#default-configuration)
 * [Configuration Properties](#configuration-properties)
@@ -11,7 +9,7 @@ title: Logging
 * Log Rotation
 * [Viewing the logs](#viewing-the-logs)
 
-### Basic Logging
+## Basic Logging
 
 DADI Web starts with a default configuration for logging which enables both error/event logging and HTTP request logging.
 
@@ -19,7 +17,7 @@ To disable logging, simply add a `logging` section to your configuration file an
 
 DADI Web checks for the existence of the configured log path at startup, and creates it if necessary.
 
-##### Default Configuration
+#### Default Configuration
 
 ```
 "logging": {
@@ -42,7 +40,7 @@ DADI Web checks for the existence of the configured log path at startup, and cre
 }
 ```
 
-### Configuration Properties
+## Configuration Properties
 
 Property       | Description        |  Type        | Default         |  Example
 :----------------|:------------|:------------------|:----------------|:---------
@@ -64,7 +62,7 @@ accessLog.kinesisStream            | The name of an AWS Kinesis stream to write 
 sentry.dsn            | A DSN key as provided by your Sentry integration   |   | "https://693ef18da3184cffa82144fde2979cbc:a0651b0286784761a62ef8e8fc128722@app.getsentry.com/59524" |
 
 
-### Using the logger in your own modules
+## Using the logger in your own modules
 
 DADI Web exposes it's log module so you can use it within your own modules or events. Use the following code to get a reference to the log, then call one of the log methods to send data to the log file. Available log methods are `debug`, `info`, `warn`, `error`, `trace`.
 
@@ -76,7 +74,7 @@ log.info('Something worth logging');
 log.error(new Error('Something bad happened'));
 ```
 
-#### Adding a module identifier to log records
+### Adding a module identifier to log records
 
 To make it easier to identify log records from your own modules or events, pass a `module` property into the log call:
 
@@ -93,7 +91,7 @@ Log records created using the above child logger will include a property contain
 {"name":"web","hostname":"localhost","pid":12010,"module":"your module","level":30,"msg":"Something worth logging","time":"2015-12-17T08:57:56.678Z","v":0}
 ```
 
-### Request Logging
+## Request Logging
 
 ```
 "logging": {
@@ -113,12 +111,12 @@ Log records created using the above child logger will include a property contain
 
 The request log contains a stream of JSON records. Each record contains a `msg` property containing details about the HTTP request, formatted using the nginx server log format.
 
-#### The raw log record
+### The raw log record
 ```
 {"name":"web_access","hostname":"localhost","pid":14157,"level":30,"msg":"127.0.0.1 - 2015-12-17T19:02:08+08:00 GET /movies/ HTTP/1.1 200 17529 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36","time":"2015-12-17T11:02:08.676Z","v":0}
 ```
 
-#### The actual log record, in nginx format
+### The actual log record, in nginx format
 
 ```
 127.0.0.1 - 2015-12-17T19:02:08+08:00 GET /movies/ HTTP/1.1 200 17529 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36
@@ -137,15 +135,15 @@ For example:
 * `http_referer (optional)`:
 * `http_user_agent`: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36
 
-### Log Rotation
+## Log Rotation
 
 [TODO]
 
-### Viewing the logs
+## Viewing the logs
 
 DADI Web uses [Bunyan](https://github.com/trentm/node-bunyan) to log errors and events. The Bunyan log output is a stream of JSON objects. A CLI tool is provided for pretty-printing Bunyan logs and for filtering.
 
-#### Install the CLI
+### Install the CLI
 
 To make reading the application logs easier install the Bunyan CLI tool globally:
 
@@ -154,7 +152,7 @@ $ npm install -g bunyan
 ```
 
 
-#### Example: pass the log contents to the CLI tool
+### Example: pass the log contents to the CLI tool
 
 ```
 $ tail log/web.log | bunyan
@@ -169,7 +167,7 @@ $ tail log/web.log | bunyan
 [2015-10-27T09:16:46.331Z]  INFO: web/67025 on localhost: Server stopped, process exiting. (module=server)
 ```
 
-#### Example: filter logs by module
+### Example: filter logs by module
 
 In the next two examples, a valid Javascript condition can be specified. Here, `this` refers to the log record as JSON.
 
@@ -183,7 +181,7 @@ $ tail -n30 log/web.log | bunyan -c 'this.module=="router"'
 [2015-10-27T09:14:04.643Z]  INFO: web/67025 on localhost: GET /home 200 65ms (module=router)
 ```
 
-#### Example: filter logs by any other valid Javascript condition
+### Example: filter logs by any other valid Javascript condition
 
 In this example we also pass a formatting option to the command to view shorter output. See the full range of options available [here](https://github.com/trentm/node-bunyan)
 
@@ -195,7 +193,7 @@ $ tail log/web.log | bunyan -c 'this.msg.indexOf("GET") > -1' -o short
 09:13:18.325Z  INFO web: GET /home 200 2ms (module=router)
 ```
 
-#### Example: filter logs by level
+### Example: filter logs by level
 
 ```
 $ tail log/web.log | bunyan -l warn
@@ -205,7 +203,7 @@ $ tail log/web.log | bunyan -l warn
 ```
 
 
-### Sentry Error Reporting
+## Sentry Error Reporting
 
 DADI Web contains functionality to integrate your application with [Sentry](https://getsentry.com/welcome/), a real-time crash reporting solution.
 

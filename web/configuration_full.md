@@ -2,7 +2,7 @@
 title: Configuration file
 ---
 
-#### Example Configuration File
+## Example file
 
 ```js
 {
@@ -83,14 +83,14 @@ title: Configuration file
 }
 ```
 
-#### Property Description
+## Property Description
 
 Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
 debug           | If true, enables a debug panel on every page containing the loaded data and execution stats   |     false          | true
 allowJsonView           |  If true, allows ?json=true in the querystring to return a view of the raw data loaded for the page  |   false            | true
 
-###### Section: `server`
+#### Section: `server`
 
  Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
@@ -98,7 +98,7 @@ host           | The hostname or IP address to use when starting the Web server 
 port           | The port to bind to when starting the Web server   |               | 3000
 socketTimeoutSec  | The number of seconds to wait before closing an idle socket   |        30       | 10
 
-###### Section: `api`
+#### Section: `api`
 
  Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
@@ -106,7 +106,7 @@ host           | The hostname or IP address of the API instance to connect to   
 port           | The port of the API instance to connect to   |               | 3001
 enabled           | If false, the web server runs in stand-alone mode   |         true      | false
 
-###### Section: `auth`
+#### Section: `auth`
 
  Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
@@ -114,7 +114,7 @@ tokenUrl           | The endpoint to use when requesting Bearer tokens from the 
 clientId           |    |               |        "test123"
 secret           |    |               |         "superSecret"
 
-###### Section: `caching`
+#### Section: `caching`
 
  Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
@@ -129,7 +129,7 @@ redis.host           | The host for the Redis caching service   |    ""         
 redis.port           | The port for the Redis caching service   |    6379           |  6379
 
 
-###### Section: `dust`
+#### Section: `dust`
 
  Property       | Description         | Default value  |  Example
 :---------------|:--------------------|:---------------|:--------------
@@ -138,14 +138,14 @@ debug           |     |       true     | true
 debugLevel      |                     |       "DEBUG"  | "DEBUG"
 whitespace      |                     |       true     | false
 
-###### Section: `headers`
+#### Section: `headers`
 
  Property       | Description         | Default value  |  Example
 :---------------|:--------------------|:---------------|:--------------
 useGzipCompression | If true, compresses the reponse using GZip | true | true
 cacheControl   | A set of custom cache-control headers for different content types | `{ "text/css": "public, max-age=86400", "text/javascript": "public, max-age=86400", "application/javascript": "public, max-age=86400" }`  | `"cacheControl": { "text/css": "public, max-age=1000" }`
 
-###### Section: `logging`
+#### Section: `logging`
 
  Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
@@ -157,7 +157,7 @@ extension           | The extension to use for the log files.  |  "log"   | "txt
 fileRotationPeriod           | The period at which to rotate the log file. This is a string of the format '$number$scope' where '$scope' is one of 'ms', 'h', 'd', 'w', 'm', 'y'. The following names can be used 'hourly' (= '1h'), 'daily (= '1d'), 'weekly' ('1w'), 'monthly' ('1m'), 'yearly' ('1y').   |       "1d"        | "daily"
 fileRetentionCount           | The number of rotated log files to keep. |    7           | 14
 
-###### Section: `logging.accessLog`
+#### Section: `logging.accessLog`
 
 Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
@@ -166,7 +166,7 @@ fileRotationPeriod           | The period at which to rotate the access log file
 fileRetentionCount           | The number of rotated log files to keep. |    7           | 14
 kinesisStream           | An AWS Kinesis stream to write to log records to. |  ""   | "web_aws_kinesis"
 
-###### Section: `aws`
+#### Section: `aws`
 
 Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
@@ -174,7 +174,7 @@ accessKeyId           |    |    ""   | ""
 secretAccessKey           |    |       ""        | ""
 region           |  |    ""           | ""
 
-###### Section: `rewrites`
+#### Section: `rewrites`
 
 Property           | Description                 | Default value  |  Example
 :------------------|:----------------------------|:---------------|:--------------
@@ -184,7 +184,7 @@ forceLowerCase | If true, converts URLs to lowercase before redirecting  | false
 forceTrailingSlash | If true, adds a trailing slash to URLs before redirecting  | false | true
 stripIndexPages | A set of common index page filenames to remove from URLs. | [] | ['index.php', 'default.aspx']
 
-###### Section: `global`
+#### Section: `global`
 
 The `global` section can be used for any application parameters that should be available for use in page templates, such as asset locations, 3rd party account identifiers, etc
 

@@ -2,9 +2,7 @@
 title: Server status
 ---
 
-## Server Status
-
-### Overview
+## Overview
 
 An endpoint at `/api/status` which returns server/application data in JSON format.
 
@@ -18,7 +16,7 @@ Content-Type: application/json
 {"clientId": "testClient","secret": "superSecret"}
 ```
 
-### Health Check
+## Health Check
 
 ```js
 "status": {

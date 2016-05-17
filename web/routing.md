@@ -2,8 +2,6 @@
 title: Routing
 ---
 
-## Routing
-
 * [URL Rewriting](#url-rewriting-and-redirects)
 * [Page Routing](#page-routing)
   * [Dynamic route segments](#dynamic-route-segments)
@@ -11,9 +9,9 @@ title: Routing
   * [Route constraints](#route-constraints)
   * [Template URL Building](#template-url-building)
 
-### URL Rewriting and Redirects
+## URL Rewriting and Redirects
 
-#### URL Rewrites File
+### URL Rewrites File
 ```
 ^(.*[^/])$ $1/ [R=301,L]
 ^/books/(.*)$ /books?authorId=$1 [R=301,L]
@@ -23,7 +21,7 @@ forceLowerCase: "If true, converts URLs to lowercase and redirects"
 forceTrailingSlash: "If true, adds a trailing slash to URLs and redirects"
 stripIndexPages: "A set of filenames to remove from URLs. For example ['index.php', 'default.aspx']",
 
-### Page Routing
+## Page Routing
 
 > **Note:** DADI Web uses the [Path to Regexp](https://github.com/pillarjs/path-to-regexp) library when parsing routes. More information on parameter usage can be found in the Github repository.
 
@@ -39,7 +37,7 @@ The `route.path` and `route.paths` properties allow customising the page's route
 
 This property allows for an array of URL formats to enable multi-page routing. A value such as `"route": { "path": "/books" }` will be resolved at startup to `"route": { "paths": ["/books"] }`. Both forms are considered valid.
 
-#### Dynamic route segments and named parameters
+### Dynamic route segments and named parameters
 
 Routes may contain dynamic segments or named parameters which are resolved from the request URL and can be utilised by the datasources and events attached to the page.
 
@@ -52,11 +50,11 @@ URL       | Named Parameters        | Request Parameters
 /books/war-and-peace           |    :title = war-and-peace | ```req.params = { title: "war-and-peace" } ```
 /books/sisters-brothers           |    :title = sisters-brothers | ```req.params = { title: "sisters-brothers" } ```
 
-#### Using Request Parameters
+### Using Request Parameters
 
 See [Datasource Specification](datasource_specification.md) for more information regarding the use of named parameters in datasource queries.
 
-#### Optional Parameters
+### Optional Parameters
 
 Parameters can be made optional by adding a question mark `?`.
 
@@ -68,7 +66,7 @@ URL       | Named Parameters          | Request Parameters
 /books/2 | :page = 2 | ```req.params = { page: "2" } ```
 
 
-#### Multi-route pages
+### Multi-route pages
 
 ```js
 "route": {
@@ -76,7 +74,7 @@ URL       | Named Parameters          | Request Parameters
 }
 ```
 
-#### Route Constraints
+### Route Constraints
 
 An application may have more than one route that matches a particular URL, for example two routes that each have one dynamic segment:
 
@@ -100,7 +98,7 @@ Constraints for ambiguous routes are added as a property in the page specificati
 }
 ```
 
-##### Constraint Functions
+#### Constraint Functions
 
 To add constraint functions, create a file in the `routes` folder (by default configured as `app/routes`). The file MUST be named `constraints.js`.
 
@@ -128,7 +126,7 @@ module.exports.nextIfNewsOrFeatures = function (req, res, callback) {
 }
 ```
 
-##### Constraint Datasources
+#### Constraint Datasources
 
 An existing datasource can be used as the route constraint. The specified datasource must exist in `datasources` (by default configured as `app/datasources`). The following examples have some missing properties for brevity.
 
@@ -170,7 +168,7 @@ In the above example a request for `http://www.example.com/crime` will call the 
 If there is a result for this datasource query, the constraint will return `true`, otherwise `false`.
 
 
-#### Template URL Building
+### Template URL Building
 
 Using `toPath()`:
 

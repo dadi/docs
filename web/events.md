@@ -2,9 +2,7 @@
 title: Events
 ---
 
-## Events
-
-### Overview
+## Overview
 
 Events are server side Javascript that can add additional functionality to a page. Events can serve as a useful way to implement logic to a logicless Dust template.
 
@@ -21,7 +19,7 @@ my-web/
     pages/            
 ```
 
-### Global Events
+## Global Events
 
 In main configuration file
 
@@ -33,7 +31,7 @@ globalEvents: {
 }
 ```
 
-### Preload Events
+## Preload Events
 
 In page specification file
 
@@ -43,7 +41,7 @@ In page specification file
 ]
 ```
 
-### Filter Events
+## Filter Events
 
 In datasource specification file
 
@@ -84,7 +82,7 @@ Events are added to pages in the page specification.
 
 ```
 
-#### Sample event file
+### Sample event file
 
 ```js
 /* optional Node includes */

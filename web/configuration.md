@@ -2,9 +2,7 @@
 title: Configuration
 ---
 
-## Configuration
-
-### Overview
+## Overview
 
 DADI Web starts with a default configuration.
 

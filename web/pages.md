@@ -2,9 +2,7 @@
 title: Pages
 ---
 
-## Pages
-
-### Overview
+## Overview
 
 * [Page Specification](#page-specification)
 * [Basic Page Configuration](#basic-page-configuration)
@@ -19,7 +17,7 @@ title: Pages
 * Static Pages (TODO)
 * Error Pages (TODO)
 
-### Page Specification
+## Page Specification
 
 A `page` on your website consists of two files within your application's file structure: a Page Specification and a Template.
 
@@ -37,7 +35,7 @@ my-web/
       people.json     # page specification file
 ```
 
-#### Basic Page Configuration
+### Basic Page Configuration
 
 ```js
 {
@@ -51,7 +49,7 @@ my-web/
 }
 ```
 
-#### Advanced Page Configuration
+### Advanced Page Configuration
 
 ```js
 {
@@ -86,7 +84,7 @@ my-web/
 }
 ```
 
-#### Configuration Properties
+### Configuration Properties
 
 Property    |   Description        |  Type        | Default         
 ------------|----------------|------------------|----------------
@@ -109,7 +107,7 @@ requiredDatasources  | An array containing the datasources that must return data
 events           | An array containing the events that should be executed once all the page's datasources have returned data | Array | `[]`
 preloadEvents    | An array containing the events that should be executed before the rest of the page's datasources and events | Array | `[]`
 
-### Routing
+## Routing
 
 A page's default route is a value matching the page name. For example if the page name is `books` the page will be available in the browser at `/books`. The page specification's route property becomes:
 
@@ -121,17 +119,17 @@ A page's default route is a value matching the page name. For example if the pag
 
 For detailed documentation of routing, see [Routing](https://github.com/dadi/web/blob/docs/docs/routing.md#page-routing).
 
-### Templates
+## Templates
 
 Template files are stored in the same folder as the page specifications and have a `.dust` extension. Unless the page specification contains an explicit `template` property, the template name should match the page specification name.
 
 See [Views](https://github.com/dadi/web/blob/docs/docs/views.md#page-templates) for further documentation.
 
-### Data
+## Data
 
 [TODO]
 
-#### Datasources
+### Datasources
 
 An array containing datasources that should be executed to load data for the page.
 
@@ -144,7 +142,7 @@ For detailed documentation of datasources, see [Datasources](https://github.com/
 ]
 ```
 
-#### Required Datasources
+### Required Datasources
 
 Allows specifying an array of datasources that must return data for the page to function.
 If any of the listed datasources return no results, a 404 is returned. The datasources specified
@@ -156,7 +154,7 @@ must exist in the `datasources` array.
 ]
 ```
 
-#### Events
+### Events
 
 An array containing events that should be executed after the page's datasources have loaded data.
 
@@ -169,7 +167,7 @@ For detailed documentation of events, see [Events](https://github.com/dadi/web/b
 ]
 ```
 
-#### Preload Events
+### Preload Events
 
 An array containing events that should be executed before the rest of the page's datasources and events.
 
@@ -182,7 +180,7 @@ and a Javascript file with the same name must exist in the `events` path.
 ]
 ```
 
-### Caching
+## Caching
 
 If true the output of the page will be cached using cache settings in the main configuration file.
 
