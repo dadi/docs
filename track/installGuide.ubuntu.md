@@ -2,9 +2,7 @@
 title: Installation guide – Ubuntu
 ---
 
-## Installation guide: Ubuntu
-
-### Overview
+## Overview
 
 This document provides a simple step by step guide to installation on Ubuntu [14.04.1 LTS](http://releases.ubuntu.com/14.04.1/).
 
@@ -12,9 +10,9 @@ This guide assumes a single server holding both the database and the API.
 
 For information on using DADI API as your data store, see the [data stores documentation](https://github.com/dadi/track/blob/docs/docs/dataStores.md).
 
-### Installing DADI Track
+## Installing DADI Track
 
-#### Node.js latest
+### Node.js latest
 
 1. `sudo apt-get -y update`
 2. `sudo apt-get -y upgrade`
@@ -23,11 +21,11 @@ For information on using DADI API as your data store, see the [data stores docum
 5. `sudo apt-get -y update`
 6. `sudo apt-get -y install nodejs`
 
-#### MongoDB
+### MongoDB
 
 1. `sudo apt-get -y install mongodb`
 
-#### DADI Track
+### DADI Track
 
 Install GCC to provide the latest build of the c++ bson extension (not required, but improves performance):
 
@@ -60,7 +58,7 @@ By default a dashboard will be run on port 80. You can disable it for production
 
 _Note: the dashboard HTML is served out of the foleder `public/`: it can be served it using any webserver. For exmple, to run the UI locally but stream data from your production server, use the url http://localhost:8080/?ws_server=your-host.com&ws_port=12345_
 
-#### Forever
+### Forever
 
 To run the API server in the background, install [Forever](https://github.com/nodejitsu/forever) and [Forever-service](https://github.com/zapty/forever-service):
 

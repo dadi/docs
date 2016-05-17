@@ -2,8 +2,6 @@
 title: Data stores
 ---
 
-## Data stores
-
 If you plan to use DADI API as a data store, you must initialize the Serama Client submodule:
 
     $ [sudo] cd lib/datastores/serama/serama-cli
