@@ -1,5 +1,6 @@
 ---
 title: Configuration
+permalink: /web/setup/
 ---
 
 ## Overview

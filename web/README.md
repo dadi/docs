@@ -16,25 +16,6 @@ DADI Web uses LinkedIn's Dust templating language which providing a simple yet p
 
 DADI Web is part of [DADI](https://github.com/dadi/), a suite of components covering the full development stack, built for performance and scale.
 
-## Setup and installation
-
-## Configuration
-
-* [Configuration](./configuration.md)
-
-## Core Concepts
-
-* [Pages](./pages.md)
-* [Views](./views.md)
-* [Routing](./routing.md)
-* [Datasources](./datasources.md)
-* [Events](./events.md)
-* [Logging](./logging.md)
-* Middleware (TODO)
-* Security (TODO)
-* [Sessions](./sessions.md)
-* [Caching](./caching.md)
-
 ## Core contributors
 
 * James Lambie

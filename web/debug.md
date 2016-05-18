@@ -1,5 +1,6 @@
 ---
 title: Debug mode
+permalink: /web/debug/
 ---
 
 ```

@@ -1,5 +1,6 @@
 ---
 title: Dust helpers
+permalink: /web/dust/
 ---
 
 ## Template Helpers

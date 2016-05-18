@@ -1,5 +1,6 @@
 ---
 title: Caching
+permalink: /web/concepts/caching/
 ---
 
 ## Overview

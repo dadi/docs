@@ -1,5 +1,6 @@
 ---
 title: Pages
+permalink: /web/concepts/pages/
 ---
 
 ## Overview

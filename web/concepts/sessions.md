@@ -1,5 +1,6 @@
 ---
 title: Sessions
+permalink: /web/concepts/sessions/
 ---
 
 ## Overview
