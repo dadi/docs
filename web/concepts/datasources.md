@@ -133,7 +133,7 @@ name           | This is the name of the datasource, it will be displayed on the
 paginate           |    | true              | true
 count           | Number of items to return from the endpoint per page. If set to '0' then all results will be returned    | 20              | 5
 sort           | A JSON object with fields to order the result set by | {} // unsorted     | `{ "title": 1 } // sort by title ascending`, `{ "title": -1 } // sort by title descending`
-filter           | A JSON object containing a MongoDB query  |               | { "SaleDate" : { "$ne" : null} }
+filter           | A JSON object containing a MongoDB query  |               | { "SaleDate" : { "$ne" : null} } _see [passing parameters with requestParams](#passing-parameters-with-requestparams)_
 filterEvent           | An event file to execute which will generate the filter to use for this datasource. The event must exist in the configured events path  |               | "getBookFilter"
 fields           | Limits the fields to return in the result set   |               | { "title": 1, "author": 1 }
 requestParams           | An array of parameters the datasource can accept from the querystring   |               | [ { "param": "author", "field": "author_id" } ]
@@ -172,6 +172,8 @@ credentials           |    |               |        { "clientId": "test123", "se
 `requestParams` is an array of parameters that the datasource can accept from the querystring.
 Used in conjunction with the `route` property in the page specification, this allows
 filters to be generated for querying the collection.
+
+__Note you cannot currently pass a `filter` and `requestParams` on the same field, `requestParams` will take preference in the query.__
 
 **Page specification**
 ```js
