@@ -1,6 +1,5 @@
 ---
 title: Configuration file
-permalink: /web/setup/configexample/
 ---
 
 ## Example file

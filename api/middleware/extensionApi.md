@@ -1,6 +1,5 @@
 ---
 title: Extension API
-permalink: /api/middleware/extensions/
 ---
 
 ## Overview

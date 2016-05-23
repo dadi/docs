@@ -1,6 +1,5 @@
 ---
 title: Querying Collections
-permalink: /api/theapi/endpoints/querying/
 ---
 
  * Querystring parameters

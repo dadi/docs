@@ -1,6 +1,5 @@
 ---
 title: Authentication Middleware
-permalink: /api/middleware/auth/
 ---
 
 ## Overview

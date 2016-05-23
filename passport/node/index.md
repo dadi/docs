@@ -6,7 +6,7 @@ title: Node.js - Installation
 
 ### Installation
 
-1. Install with [npm](https://www.npmjs.com/:
+1. Install with [npm](https://www.npmjs.com/):
 
 	```
 	npm install

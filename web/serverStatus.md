@@ -1,6 +1,5 @@
 ---
 title: Server status
-permalink: /web/status/
 ---
 
 ## Overview

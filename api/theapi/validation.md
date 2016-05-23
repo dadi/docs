@@ -1,6 +1,5 @@
 ---
 title: Validation
-permalink: /api/theapi/validation/
 ---
 
 ## Overview

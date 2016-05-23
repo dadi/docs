@@ -1,6 +1,5 @@
 ---
 title: Routing
-permalink: /web/concepts/routing/
 ---
 
 * [URL Rewriting](#url-rewriting-and-redirects)

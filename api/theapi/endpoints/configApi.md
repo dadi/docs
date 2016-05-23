@@ -1,6 +1,5 @@
 ---
 title: Configuration API
-permalink: /api/theapi/endpoints/configuration/
 ---
 
 ## Overview

@@ -1,6 +1,5 @@
 ---
 title: Monitor module
-permalink: /api/middleware/monitor-module/
 ---
 
 ## Overview

@@ -1,6 +1,5 @@
 ---
 title: Views
-permalink: /web/concepts/views/
 ---
 
 ## Overview

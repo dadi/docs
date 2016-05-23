@@ -1,6 +1,5 @@
 ---
 title: API-first development & COPE
-permalink: /api/api-first/
 ---
 
 ## Overview

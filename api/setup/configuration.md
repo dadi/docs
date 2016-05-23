@@ -1,6 +1,5 @@
 ---
 title: Configuration
-permalink: /api/setup/configuration/
 ---
 
 ## Overview

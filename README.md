@@ -2,20 +2,7 @@
 permalink: /
 ---
 
-*N.B. This repository will remain private while some products and tools are still in development, please use the front-end when linking non-DADI developers to documentation.*
-
-# 📖 Table of Contents
-
-1. [Introduction to the DADI suite](#)
-2. [Contributing guidelines](./CONTRIBUTING.md)
-3. [API](./api/)
-4. [CDN](./cdn)
-5. [Identity](./identity)
-6. [Passport](./passport)
-7. [Track](./identity)
-8. [Web](./web/)
-
-# 📝 Contributing
+# Contributing
 
 You are encouraged to help improve the quality of this guide for the benefit of our team and the community at large. Products are made stronger by good documentation and a good developer is a good documenters 😇
 
@@ -23,7 +10,7 @@ Please contribute if you see any typos or factual errors or gaps in the knowledg
 
 You may also find incomplete content, or stuff that is not up to date. Please make updates if you can by sending a pull request to master or file an issue for stuff you cannot patch yourself.
 
-# 📎 Licence
+# Licence
 
 All our products are covered under the [DADI license](https://github.com/dadi/docs/blob/master/LICENSE.md).
 

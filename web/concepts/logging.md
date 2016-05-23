@@ -1,6 +1,5 @@
 ---
 title: Logging
-permalink: /web/concepts/logging/
 ---
 
 * [Basic Logging](#basic-logging)

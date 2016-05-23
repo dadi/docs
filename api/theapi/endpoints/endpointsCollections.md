@@ -1,6 +1,5 @@
 ---
 title: Collections
-permalink: /api/theapi/endpoints/collections/
 ---
 
 ## Overview

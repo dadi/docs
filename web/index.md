@@ -1,6 +1,5 @@
 ---
 title: Web
-permalink: /web/
 ---
 
 | Github   | [https://github.com/dadi/web](https://github.com/dadi/web) |

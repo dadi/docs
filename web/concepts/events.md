@@ -1,6 +1,5 @@
 ---
 title: Events
-permalink: /web/concepts/events/
 ---
 
 ## Overview

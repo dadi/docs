@@ -1,6 +1,5 @@
 ---
 title: CDN
-permalink: /cdn/
 ---
 
 | Github   | [https://github.com/dadi/cdn](https://github.com/dadi/cdn) |
@@ -15,29 +14,6 @@ You can consider a full installation of DADI CDN as being analogous to a traditi
 It has full support for caching, header control, image manipulation, image compression and image format conversation. An authenticated API allows for fine grained cache control in the form of content invalidation on an individual file or collective path basis.
 
 CDN is part of DADI, a suite of components covering the full development stack, built for performance and scale.
-
-## Contents
-
-* Overview (this document)
-* [Requirements](./requirements.md)
-* Setup, installation and use
-	* [Setup and installation](./setupAndInstallation.md)
-	* [Configuration](./configuration.md)
-	* [Configuration notes](./configurationNotes.md)
-	* [Complete guide: Ubuntu](./installGuide.ubuntu.md)
-* Images
-	* [Working with images](./workingWithImages.md)
-	* [Image manipulation examples](./examples.imageManipulation.md)
-	* [Image data](./imageData.md)
-	* [Available filters](./availableFilters.md)
-	* [Compression](./compression.md)
-* JavaScript and CSS
-	* [Working with JavaScript and CSS](./workingWithJavascriptAndCss.md)
-	* [JavaScript and CSS examples](./examples.javascriptAndCss.md)
-* [Delivery recipes](./deliveryRecipes.md)
-* [Multi-domain support](./multiDomainSupport.md)
-* [Invalidation API](./invalidationApi.md)
-* [Response testing](./responseTesting.md)
 
 ## Core contributors
 

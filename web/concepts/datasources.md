@@ -1,6 +1,5 @@
 ---
 title: Datasources
-permalink: /web/concepts/datasources/
 ---
 
 ## Overview

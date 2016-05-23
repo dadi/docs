@@ -1,6 +1,5 @@
 ---
 title: Model module
-permalink: /api/middleware/model-module/
 ---
 
 ## Overview

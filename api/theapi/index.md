@@ -1,6 +1,5 @@
 ---
 title: REST API Specification
-permalink: /api/theapi/
 ---
 
 DADI API accepts GET, POST, PUT, PATCH and DELETE requests.

@@ -1,7 +1,5 @@
 ---
 title: API
-permalink: /api/
-public: true
 ---
 
 | Github   | [https://github.com/dadi/api](https://github.com/dadi/api) |
