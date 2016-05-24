@@ -43,4 +43,4 @@ You can then interact with Barbu as a service using the following command:
 
 ## Additional reading
 
-You can see a complete installation guide for DADI CDN under Ubuntu [here](https://github.com/dadi/cdn/blob/docs/installGuide.ubuntu.md).
+You can see a complete installation guide for DADI CDN under Ubuntu [here](https://github.com/dadi/cdn/blob/docs/docs/installGuide.ubuntu.md).
