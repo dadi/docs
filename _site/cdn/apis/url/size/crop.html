@@ -1,0 +1,115 @@
+<h2 id="crop">crop</h2>
+
+<ul>
+  <li>resize
+    <ul>
+      <li>aspectfill</li>
+      <li>aspectfit</li>
+      <li>fill</li>
+      <li>entropy</li>
+    </ul>
+  </li>
+  <li>crop</li>
+  <li>ratio</li>
+</ul>
+
+<h4 id="resizeaspectfill"><code class="highlighter-rouge">resize=aspectfill</code></h4>
+
+<p>Keeps the aspect ratio of the original image and generates an output image of the specified width and height.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> The output image may be cropped, however by specifying the <code class="highlighter-rouge">gravity</code> parameter you can tell CDN which part of the image should be retained.</p>
+</blockquote>
+
+<h5 id="gravity">gravity</h5>
+
+<p>Used to position the crop area. Available options: <code class="highlighter-rouge">NorthWest</code>, <code class="highlighter-rouge">North</code>, <code class="highlighter-rouge">NorthEast</code>, <code class="highlighter-rouge">West</code>, <code class="highlighter-rouge">Center</code>, <code class="highlighter-rouge">East</code>, <code class="highlighter-rouge">SouthWest</code>, <code class="highlighter-rouge">South</code>, <code class="highlighter-rouge">SouthEast</code>, <code class="highlighter-rouge">None</code></p>
+
+<h5 id="example">Example</h5>
+
+<p><strong>Original image</strong></p>
+
+<p><img src="../../../assets/med-portrait.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)" /></p>
+
+<blockquote>
+  <p>In each example, the output image is 400 x 300 pixels.</p>
+</blockquote>
+
+<p><strong>g=North</strong></p>
+
+<p><code class="highlighter-rouge">https://cdn.example.com/images/med-portrait.jpg?w=400&amp;h=300&amp;resize=aspectfit&amp;g=North</code></p>
+
+<p><img src="../../../assets/med-portrait-north.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)" /></p>
+
+<p><strong>g=Center</strong></p>
+
+<p><code class="highlighter-rouge">https://cdn.example.com/images/med-portrait.jpg?w=400&amp;h=300&amp;resize=aspectfit&amp;g=Center</code></p>
+
+<p><img src="../../../assets/med-portrait-center.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)" /></p>
+
+<p><strong>g=South</strong></p>
+
+<p><code class="highlighter-rouge">https://cdn.example.com/images/med-portrait.jpg?w=400&amp;h=300&amp;resize=aspectfit&amp;g=South</code></p>
+
+<p><img src="../../../assets/med-portrait-south.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)" /></p>
+
+<h4 id="resizeaspectfit"><code class="highlighter-rouge">resize=aspectfit</code></h4>
+
+<p>Keeps the aspect ratio of the original image and generates an output image with the maximum dimensions that fit inside the specified width and height.</p>
+
+<h5 id="example-1">Example</h5>
+
+<p><code class="highlighter-rouge">https://cdn.example.com/images/canoe.jpg?w=400&amp;h=300&amp;resize=aspectfit</code></p>
+
+<p>The output image is 400 x 267 pixels.</p>
+
+<p><img src="../../../assets/canoe-w400-h300-aspectfit.jpeg" alt="" title="Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)" /></p>
+
+<h4 id="resizefill"><code class="highlighter-rouge">resize=fill</code></h4>
+
+<p>Ignores the aspect ratio of the original image and generates an output image with specified width and height.</p>
+
+<p>The output image may appear squashed or stretched.</p>
+
+<h5 id="example-2">Example</h5>
+
+<p><code class="highlighter-rouge">https://cdn.example.com/images/canoe.jpg?w=400&amp;h=300&amp;resize=fill</code></p>
+
+<p>The output image is 400 x 300 pixels.</p>
+
+<p><img src="../../../assets/canoe-w400-h300-fill.jpeg" alt="" title="Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)" /></p>
+
+<h4 id="resizeentropy"><code class="highlighter-rouge">resize=entropy</code></h4>
+
+<p>Crops the image using a technique that determines the most important areas. Areas of higher contrast are considered more important, and images are often cropped to remove large areas of static color.</p>
+
+<h5 id="example-3">Example</h5>
+
+<p><strong>Original image</strong></p>
+
+<p><img src="../../../assets/med-portrait.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)" /></p>
+
+<p><code class="highlighter-rouge">https://cdn.example.com/images/med-portrait.jpg?w=400&amp;h=300&amp;resize=entropy</code></p>
+
+<p><img src="../../../assets/med-portrait-entropy.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)" /></p>
+
+<h4 id="resizecrop"><code class="highlighter-rouge">resize=crop</code></h4>
+
+<table>
+  <tbody>
+    <tr>
+      <td>crop-x</td>
+      <td>Integer</td>
+      <td>Default: 0. X position of crop area</td>
+    </tr>
+    <tr>
+      <td>crop-y</td>
+      <td>Integer</td>
+      <td>Default: 0. Y position of crop area</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="ratio"><code class="highlighter-rouge">ratio</code></h4>
+
+<p>xx</p>
