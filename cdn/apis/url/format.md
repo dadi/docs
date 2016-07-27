@@ -1,7 +1,7 @@
 ---
 title: Format
 ---
-## format: Change image format
+## format: Convert between image formats
 
 Format
 
@@ -18,52 +18,52 @@ Format
 
 ##### Original JPG Image
 
-![Original JPG](../../../assets/dog-w600.jpeg)
+![Original JPG](../../assets/dog-w600.jpeg)
 
 ##### JPG to PNG
 
 `https://cdn.example.com/images/dog.jpg?format=png`
 
-![PNG](../../../assets/dog-w600.png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![PNG](../../assets/dog-w600.png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 ##### JPG to GIF
 
 `https://cdn.example.com/images/dog.jpg?format=gif`
 
-![GIF](../../../assets/dog-w600.gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![GIF](../../assets/dog-w600.gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 #### From GIF
 
 ##### Original GIF Image
 
-![Original GIF](../../../assets/giphy.gif)
+![Original GIF](../../assets/giphy.gif)
 
 ##### GIF to JPG
 
 `https://cdn.example.com/images/giphy.gif?format=jpg`
 
-![JPG](../../../assets/giphy.jpeg)
+![JPG](../../assets/giphy.jpeg)
 
 ##### GIF to PNG
 
 `https://cdn.example.com/images/giphy.gif?format=png`
 
-![PNG](../../../assets/giphy.png)
+![PNG](../../assets/giphy.png)
 
 #### From PNG
 
 ##### Original PNG Image
 
-![Original PNG](../../../assets/landscape.png)
+![Original PNG](../../assets/landscape.png)
 
 ##### PNG to JPG
 
 `https://cdn.example.com/images/landscape.png?format=jpg`
 
-![JPG](../../../assets/landscape.jpeg)
+![JPG](../../assets/landscape.jpeg)
 
 ##### PNG to GIF
 
 `https://cdn.example.com/images/landscape.png?format=gif`
 
-![GIF](../../../assets/landscape.gif)
+![GIF](../../assets/landscape.gif)

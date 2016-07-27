@@ -11,24 +11,24 @@ Adds blur to an image, using any value above zero.
 
 **Original image**
 
-![Original JPG](../../../assets/dog-w600.jpeg)
+![Original JPG](../../assets/dog-w600.jpeg)
 
 **Blur amount = 1**
 
-![Blur 1](../../../assets/dog-w600-blur-1.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![Blur 1](../../assets/dog-w600-blur-1.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 **Blur amount = 5**
 
-![Blur 5](../../../assets/dog-w600-blur-5.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![Blur 5](../../assets/dog-w600-blur-5.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 **Blur amount = 10**
 
-![Blur 10](../../../assets/dog-w600-blur-10.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![Blur 10](../../assets/dog-w600-blur-10.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 **Blur amount = 20**
 
-![Blur 20](../../../assets/dog-w600-blur-20.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![Blur 20](../../assets/dog-w600-blur-20.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 **Blur amount = 100**
 
-![Blur 20](../../../assets/dog-w600-blur-100.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![Blur 20](../../assets/dog-w600-blur-100.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
