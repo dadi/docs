@@ -4,7 +4,7 @@ permalink: /
 
 # Contributing
 
-You are encouraged to help improve the quality of this guide for the benefit of our team and the community at large. Products are made stronger by good documentation and a good developer is a good documenters 😇
+You are encouraged to help improve the quality of this guide for the benefit of our team and the community at large. Products are made stronger by good documentation and a good developer is a good documenter 😇
 
 Please contribute if you see any typos or factual errors or gaps in the knowledge-base. To get started, you can read our [contributing guidelines](./CONTRIBUTING.md) section.
 

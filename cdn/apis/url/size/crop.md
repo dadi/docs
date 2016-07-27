@@ -5,6 +5,7 @@ title: Crop
 
 * resize
   * aspectfill
+    * gravity
   * aspectfit
   * fill
   * entropy
