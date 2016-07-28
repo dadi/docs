@@ -11,9 +11,10 @@ All rights reserved
 
 This product is part of DADI.<br />
 DADI is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as
-published by the Free Software Foundation; either version 2 of
-the License, or (at your option) any later version ("the GPL").
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation; either version 3 of
+the License, or (at your option) any later version ("the AGPL").
+
 **If you wish to use DADI outside the scope of the GPL, please
 contact us at info@dadi.co for details of alternative licence
 arrangements.**
@@ -28,8 +29,8 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
-The GNU General Public License (GPL) is available at
-http://www.gnu.org/copyleft/gpl.html.<br />
+The GNU Affero General Public License (AGPL) is available at
+http://www.gnu.org/licenses/agpl-3.0.en.html.<br />
 A copy can be found in the file GPL distributed with
 these files.
 
