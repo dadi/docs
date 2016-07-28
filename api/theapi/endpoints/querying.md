@@ -13,10 +13,9 @@ When querying a collection it is possible to override the default settings speci
 count            | integer     | Maximum number of results to be returned   | 50                   | 10
 page             | integer     | Page number                                   | 1                    | 2
 skip             | integer     | The number of records to skip              | 0   | 3
-sort             | string      | Field to sort on                          | `_id`                  | "title"
-sortOrder       | string      | Sort direction                                | asc                  | desc
-filter           | object        | MongoDB query object or Aggregation Pipeline array                            |                      | { fieldName: {"$in": ["a", "b"]}object}
-fields           | object        | Specify the fields to return in the resultset.  |          | Include fields: {"field1":1,"field2":1} Exclude fields: {field2":0}
+sort             | object      | Specifies the field to sort on and the direction. Use `1` for ascending and `-1` for descending    | `{ _id: 1 }`                   | `{ "publicationDate": -1 }`
+filter           | object        | MongoDB query object or Aggregation Pipeline array |  `{}`   | `{ fieldName: { "$in": ["a", "b"] } }`
+fields           | object        | Specify the fields to return in the resultset.  |          | Include fields: `{"field1":1,"field2":1}` Exclude fields: `{"field2":0}`
 callback         | string      | Callback function to wrap the return result set in.  |               | thisIsMyCallback
 
 ## Parameters
@@ -35,11 +34,7 @@ The `skip` value is normally calculated using the `count` and `page` values, so 
 
 ### sort
 
-Specifies the field to be used when sorting the collection. The default field is the collection's `_id` field.
-
-### sortOrder
-
-Overrides the collection's `sortOrder` setting. Permitted values are `asc` for an ascending sort order and `desc` for a descending sort order.
+Specifies the sorting to be applied to the collection. The default sort is the collection's `_id` field, ascending: `{ "_id": 1 }`.
 
 ### fields
 
