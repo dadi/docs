@@ -1,0 +1,444 @@
+// ***************************
+// Tooltips: https://kazzkiq.github.io/balloon.css/
+// Usage: <button data-balloon="Whats up!" data-balloon-pos="[up|down|left|right]">Hover me!</button>
+
+@import "balloon-css/balloon.css";
+
+// ***************************
+// Buttons
+
+.btn {
+	line-height: 1.25;
+	font-weight: bolder;
+	padding: 8px 20px;
+	display: inline-block;
+	text-align: center;
+	border-radius: $radius;
+	word-wrap: break-word;
+	border: 0;
+	color: #fff;
+	letter-spacing: -0.02em;
+	transition: background 0.1s;
+	position: relative;
+	outline: none;
+	cursor: pointer;
+	box-shadow: inset 0 -1px 0 rgba($black,0.1);
+
+	&.delta, &.bs-delta {
+		padding: 4px 10px;
+		vertical-align: middle;
+	}
+}
+.btn {
+	background: #fff;
+	color: #000;
+	border: 1px solid rgba($black,0.1);
+
+	&:active {
+		background: darken($grey,10%);
+	}
+	&:hover {
+		background: $blue;
+		color: #fff;
+	}
+	&:focus {
+		box-shadow: 0 0 0 4px rgba($grey,0.2);
+	}
+	&.on {
+		background: $mid-grey;
+		color: #fff;
+	}
+
+	.icon {
+		vertical-align: middle;
+		margin-left: 8px;
+	}
+}
+.btn--blue {
+	background: $blue;
+	color: #fff;
+
+	&:active,&:hover,&:focus {
+		background: darken($blue,10%);
+	}
+}
+.btn--warn {
+	background: $yellow;
+	color: #000;
+
+	&:active,&:hover,&:focus {
+		background: darken($yellow,10%);
+	}
+}
+.btn--positive {
+	background: $green;
+	color: #fff;
+
+	&:active,&:hover,&:focus {
+		background: darken($green,10%);
+	}
+}
+.btn--delete, .btn--red {
+	background: $red;
+	color: #fff;
+
+	&:active,&:hover,&:focus {
+		background: darken($red,20%);
+	}
+}
+.btn.btn--disabled,
+.btn.btn--disabled:hover
+.btn.btn--disabled:active {
+	background: #E5E4E4;
+	color: $grey;
+	cursor: not-allowed;
+}
+
+.btn span[class^="ss-"] {
+	vertical-align: middle;
+	line-height: 100%;
+}
+
+.btn--full-width {
+	display: block;
+}
+input.btn--full-width,
+button.btn--full-width {
+	width: 100%;
+}
+@media #{$break-small} {
+	.bs-btn--full-width {
+		display: block;
+	}
+	input.bs-btn--full-width,
+	button.bs-btn--full-width {
+		width: 100%;
+	}
+}
+
+.btn.loading {
+	padding-left: 40px;
+	cursor: wait;
+
+	&:after {
+		height: 19px;
+		left: 15px;
+		bottom: 0;
+		top: 50%;
+		margin-top: -10px;
+		vertical-align: middle;
+		position: absolute;
+		font-family: "FontAwesome";
+		content: "\f110";
+		animation: spin 1s linear infinite both;
+	}
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	} to {
+		transform: rotate(360deg);
+	}
+}
+
+
+// ***************************
+// Buttons: group of multiple buttons into single element
+// [hello|there|human]
+
+.btns {
+	position: relative;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+
+	.btn {
+		flex: 0 0 auto;
+		border-radius: 0;
+		margin-right: -1px;
+		white-space: nowrap;
+	}
+
+	@media #{$break-large} {
+		.btn:first-of-type {
+			border-radius: $radius 0 0 $radius;
+		}
+		.btn:last-of-type {
+			border-radius: 0 $radius $radius 0;
+		}
+	}
+
+	@media #{$break-small} { // Make the buttons fill space on mobile
+		&--bs-full-width {
+			display: block;
+
+			.btn {
+				border-radius: $radius;
+				display: block;
+
+				&:first-of-type {
+					margin-bottom: 10px;
+				}
+			}
+		}
+	}
+
+	.icon {
+		span {
+			font-size: 10px;
+		}
+		padding-left: 15px;
+		padding-right: 15px;
+		font-weight: normal;
+	}
+	&.dropdown-on {
+		position: relative;
+		.dropdown {
+			display: block;
+			border-radius: $radius;
+			margin-top: 10px;
+			background: #fff;
+			border: 1px solid #ddd;
+			a {
+				color: #000;
+			}
+		}
+	}
+
+	&--paginate {
+		.btn {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+	}
+}
+
+// ***************************
+// Disclosuer 'FAQ style' element
+
+.disclose {
+	&__button {
+		cursor: pointer;
+		user-select: none;
+		padding-bottom: 10px;
+		display: block;
+
+		&:before {
+			font-family: 'FontAwesome';
+			content: "\f0da";
+			margin-right: 5px;
+		}
+		&.dadi-click:before {
+			content: "\f0d7";
+		}
+	}
+}
+
+// ***************************
+// Default form elements
+
+label {
+	font-weight: bold;
+	margin-bottom: 10px;
+	display: block;
+
+	a {
+		border-bottom: 1px solid $bdr-grey;
+	}
+	a:hover {
+		color: $blue;
+	}
+}
+textarea,
+input[type=password],
+input[type=text],
+input[type=date],
+input[type=email],
+input[type=number],
+input[type=url],
+select,
+.input {
+	display: inline-block;
+	width: 100%; height: 39px;
+	margin: 0;
+	color: rgba(0,0,0,.5);
+	background-color: #fff;
+	padding: 5px 10px;
+	appearance: none;
+	outline: none;
+	border: 1px solid $bdr-grey;
+	transition: border-color .05s;
+	border-radius: $radius;
+	box-sizing: border-box;
+	box-shadow: 0 0 0 2px rgba($black,0.02);
+	transition: box-shadow 0.3s;
+
+	&:focus {
+		box-shadow: 0 0 0 4px rgba($blue,0.1);
+		border-color: $blue;
+		color: #404040;
+	}
+	&.invalid,&.error {
+		box-shadow: 0 0 0 4px rgba($red,0.05);
+		border-color: $red;
+	}
+	&.success {
+		box-shadow: 0 0 0 4px rgba($green,0.1);
+		border-color: $green;
+	}
+	&.delta {
+		height: 30px;
+	}
+}
+textarea {
+	height: auto;
+}
+select {
+	cursor: pointer;
+
+	background-color: none;
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTc5MiIgaGVpZ2h0PSIxNzkyIiB2aWV3Qm94PSIwIDAgMTc5MiAxNzkyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xNDA4IDcwNHEwIDI2LTE5IDQ1bC00NDggNDQ4cS0xOSAxOS00NSAxOXQtNDUtMTlsLTQ0OC00NDhxLTE5LTE5LTE5LTQ1dDE5LTQ1IDQ1LTE5aDg5NnEyNiAwIDQ1IDE5dDE5IDQ1eiIvPjwvc3ZnPg==);
+	background-size: 18px auto;
+	background-repeat: no-repeat;
+	background-position: calc(100% - 10px) 50%;
+}
+
+// ***************************
+// Fields hold form elements
+
+.field {
+	position: relative;
+
+	&--attach-left {
+		.field__attachment {
+			left: 0; right: auto;
+		}
+		input {
+			padding-left: 35px;
+		}
+	}
+
+	&--attach-top {
+		.field__attachment {
+			top: 0; bottom: auto !important;
+		}
+	}
+
+	&__attachment {
+		position: absolute !important;
+		height: 39px;
+		bottom: 0; right: 0;
+		border-radius: 0 $radius $radius 0;
+
+		.icon {
+			margin: 11px;
+			display: block;
+			font-size: 18px;
+		}
+		&.icon {
+			padding: 0 15px;
+		}
+		&.delta {
+			height: 30px;
+
+			&.icon {
+				padding: 0 10px;
+			}
+		}
+	}
+	&__error, label.error {
+		color: $red;
+		margin-top: 10px;
+		font-weight: normal;
+		@extend .delta;
+	}
+
+	.list--keyval { // See lists.scss for full info
+		margin-top: 10px;
+	}
+}
+
+// ***************************
+// Upload field
+
+.field__upload {
+	border-radius: $radius;
+	border: 2px dotted $bdr-grey;
+	display: block;
+	padding: $margin;
+	font-weight: bold;
+
+	.icon {
+		padding-right: 5px;
+	}
+}
+
+// ***************************
+// iOS style switches
+
+.switch {
+	outline: none;
+	position: relative;
+	cursor: pointer;
+	text-indent: 30px;
+	margin: 0 8px;
+	vertical-align: top;
+	margin-top: 0.0625em;
+	border-radius: 1em;
+	width: 1.65em; height: 0;
+	appearance: none;
+
+	&:before {
+		content: '';
+		opacity: 1;
+		width: 1.65em;
+    	height: 1em;
+		display: block;
+		background: $grey;
+		user-select: none;
+		tap-highlight-color: transparent;
+		border-radius: 1em;
+		box-shadow: 0 0 0 2px $grey;
+	}
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		width: 1em;
+		height: 1em;
+		background: #fff;
+		border-radius: 100%;
+		transition: all 0.2s ease-out;
+	}
+	&:hover {
+		&:before {
+			background: lighten($grey,5%);
+		}
+		&:checked:before {
+			background: lighten($green,5%);
+		}
+	}
+	&:focus {
+		&:before {
+			background: lighten($grey,5%);
+		}
+	}
+	&:checked {
+		&:after {
+			left: 100%;
+			margin-left: -1em;
+		}
+		&:before {
+			background: $green;
+			box-shadow: 0 0 0 2px $green;
+		}
+		&:focus {
+			&:before {
+				background: darken($green,5%);
+			}
+		}
+	}
+}

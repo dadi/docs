@@ -1,0 +1,96 @@
+html, body {
+	min-height: 100%;
+	margin: 0;
+}
+body {
+	background-color: #fff;
+	color: $text;	
+}
+
+header {
+	background: url('/public/assets/img/bg.png') fixed repeat -30%;
+	background-size: 400px auto;
+
+	h1 {
+		margin-bottom: 10px;
+	}
+	.btn {
+		position: absolute;
+		top: 0; right: 0;
+		border-radius: 0 $radius $radius 0;
+		height: 39px;
+	}
+}
+
+footer {
+	margin-top: $margin * 3;
+	padding: $margin * 3 0;
+	border-top: 1px dotted #E0E0E0;
+}
+
+.markdown-body {
+	width: 70%;
+	float: left;
+
+	p {
+		max-width: 100% !important;
+	}
+}
+
+.nav--secondary {
+	float: right;
+	width: 30%;
+
+	li {
+		list-style: none;
+	}
+
+	> ul {
+		margin: 0;
+		padding: 0;
+		margin-left: $margin * 3;
+	}
+
+	a {
+		text-decoration: none;
+		color: #000;
+		padding: 11px 17px;
+		display: block;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	li.active > a {
+		background: #4A91FF;
+		color: #fff;
+		font-weight: bold;
+	}
+
+	ul ul li.active > a {
+		background: none;
+		color:  #4A91FF;
+	}
+
+	ul ul {
+		padding-left: 10px;
+	}
+
+
+	// li ul {
+	// 	display: none;
+	// }
+	
+	li.active {
+		> ul {
+			display: block;
+			background: #ddd;
+		}
+	}
+}
+
+.content {
+	margin: 0 auto;
+	max-width: 1000px;
+}
