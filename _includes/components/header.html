@@ -1,0 +1,33 @@
+<header class="c-header{% if include.mode %} c-header--{{ include.mode }}{% endif %}">
+  <div class="c-header__inner-wrapper">
+    <div class="u-col u-col--1-1 u-col--2-3@medium">
+      <a href="/">
+        <img class="c-header__logo" src="/public/assets/img/dadi.png" alt="DADI">
+      </a>
+
+      <h2 class="c-header__title">Developer support</h2>
+      <p class="c-header__subtitle">Tutorials and documentation</p>    
+    </div>
+
+    <div class="c-header__top u-col u-col--1-1 u-col--1-3@medium">
+      <ul class="c-header__links">
+        <li class="c-header__link">
+          <a href="http://twitter.com/dadi">@DADI</a>
+        </li>
+        <li class="c-header__link">
+          <a href="mailto:dev@dadi.tech">dev@dadi.tech</a>
+        </li>
+      </ul>
+
+      {% if include.mode == "collapsed" %}
+        {% include components/header.search.html %}
+      {% endif %}
+    </div>    
+
+    {% if include.mode != "collapsed" %}
+      <div class="u-col u-col--1-1">
+        {% include components/header.search.html %}
+      </div>
+    {% endif %}
+  </div>
+</header>

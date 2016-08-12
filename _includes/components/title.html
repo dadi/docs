@@ -1,0 +1,10 @@
+<div class="c-title">
+  <div class="c-title__inner-wrapper">
+    {% if include.link %}
+      <div class="c-title__action">
+        <a class="c-button c-button--positive" href="{{ include.link }}"><span class="fa fa-github"></span> Edit in github</a>
+      </div>
+    {% endif %}
+    <h1 class="c-title__text">{{ include.title }}</h1>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+.c-title {
+  background-color: dp-color('grey-d');
+}
+
+.c-title__inner-wrapper {
+  @include dp-wrapper;
+
+  padding: dp-spacing('larger');
+  position: relative;
+}
+
+.c-title__text {
+  color: dp-color('white');
+  font-size: dp-size('large');
+  margin-bottom: 0;
+}
+
+.c-title__action {
+  @include media('>=medium') {
+    position: absolute;
+    right: dp-spacing('larger');
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @include media('<medium') {
+    margin-bottom: dp-spacing('large');
+  }
+}

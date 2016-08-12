@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
+	{% include head.html %}
 
-  <body>
+	<body>
 
-    {{ content }}
+	  {% include components/header.html mode="acollapsed" %}
 
-  </body>
+	  {{ content }}
 
+	  {% include components/footer.html %}
+
+	</body>
 </html>

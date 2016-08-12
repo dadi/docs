@@ -1,0 +1,18 @@
+@mixin c-link() {
+  color: dp-color('blue');
+  font-weight: bold;
+
+  &:hover {
+  	color: darken(dp-color('blue'), 10%);
+  }
+}
+
+.c-link {
+  @include c-link;
+}
+
+.c-link--arrow {
+  &:after {
+    content: ' →';
+  }
+}

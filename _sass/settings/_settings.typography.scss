@@ -1,0 +1,34 @@
+// -----------------------------------------------------------------------------
+// Global typography settings
+// -----------------------------------------------------------------------------
+
+$dp-fonts: (
+  'primary': ('Karla', 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif)
+);
+
+// -----------------------------------------------------------------------------
+// Custom font declarations
+// -----------------------------------------------------------------------------
+
+@import url(https://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic);
+
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//                               W A R N I N G                                //
+//                                                                            //
+//                  DO NOT MODIFY ANYTHING BEYOND THIS POINT                  //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
+@function dp-font($name) {
+  @if map-has-key($dp-fonts, $name) {
+    @return map-get($dp-fonts, $name);
+  }
+
+  @error "#{$name} is not a valid font name";
+}
+
+html {
+  font-family: dp-font('primary');
+  line-height: $dp-base-line-height;
+}

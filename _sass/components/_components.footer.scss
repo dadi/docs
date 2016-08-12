@@ -1,0 +1,11 @@
+.c-footer {
+  border-top: 1px solid dp-color('bdr-grey');
+  color: dp-color('grey-a');
+  margin-top: dp-spacing('massive');
+  padding: dp-spacing('larger') 0 dp-spacing('large') 0;
+}
+
+.c-footer__title {
+  color: dp-color('red');
+  font-size: dp-size('normal') * 1.1;
+}

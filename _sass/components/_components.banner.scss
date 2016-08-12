@@ -1,0 +1,11 @@
+.c-banner {
+  background-color: dp-color('light-grey');
+  color: dp-color('grey-b');
+  margin-bottom: dp-spacing('huge');
+}
+
+.c-banner__inner-wrapper {
+  @include dp-wrapper;
+
+  padding: dp-spacing('larger') 0;
+}

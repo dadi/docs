@@ -1,45 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">  
-  <meta name="author" content="dadi.co">  
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Welcome</title>
-  <link rel="stylesheet" type="text/css" href="/public/assets/css/main.min.css">
-</head>
-<body>
-
-  <header class="pad">
-    <div class="content pad__top pad__bottom">
-      <form class="w-1-3 float--right">
-        <p class="txt--white fwb alignr">
-          <a href="http://twitter.com/dadi" class="marg__right">@DADI</a>  <a href="mailto:dev@dadi.tech">dev@dadi.tech</a>
-        </p>
-
-        <div class="field field--attach-left block">
-          <input type="text" placeholder="Search our help centre…" class="w-1-1" />
-          <div class="field__attachment disable-pa"><span class="icon fa fa-search"></span></div>
-          <button type="submit" class="btn btn--blue bdr-radius">Search</button>
-        </div>  
-      </form>    
-
-      <h1><img src="/public/assets/img/dadi.png" width="111"></h1>
-      <p class="no-marg fwb txt--white">Developer support<br><span class="txt--grey-a">Tutorials and documentation</span></p>
-    </div>
-  </header>
-
-  <div class="bg--grey-d">
-    <div class="content pad txt--white">
-      <div class="grid">
-        <div class="col w-1-2 breadcrumb">
-          <h1 class="txt--white alpha">Serving Images and Assets</h1>
-        </div>
-        <div class="col w-1-2 alignr marg__top">
-          <a style="margin-top:7px" href="#" class="btn btn--positive delta icon"><span class="fa fa-github"></span> Edit in github</a>
-        </div>
-      </div>
-    </div>
-  </div>
+---
+layout: default
+---
+  {% include components/title.html title="Serving Images and Assets" link="#" %}
 
   <div class="bg--light-grey">
     <div class="content pad txt--grey-b">
@@ -636,36 +598,3 @@
 </article>
 
 </div>
-
-  <footer class="txt--grey-a">
-    <div class="content cf pad">
-      <div class="col w-1-4">
-        <h3 class="txt--red no-marg marg__bottom">Client engagement</h3>
-        <p class="epsilon"><a href="mailto:makesomething@dadi.tech">makesomething@dadi.tech</a><br>
-        +44 (0) 20 7205 2902</p>
-      </div>
-      <div class="col w-1-4">
-        <h3 class="txt--red no-marg marg__bottom">Media enquiries</h3>
-        <p class="epsilon"><a href="mailto:press@dadi.tech">press@dadi.tech</a><br>
-        +44 (0) 20 7205 2901</p>
-      </div>
-      <div class="col w-1-4">
-        <h3 class="txt--red no-marg marg__bottom">Careers</h3>
-        <p class="epsilon"><a href="mailto:joinus@dadi.tech">joinus@dadi.tech</a><br>
-        +44 (0) 20 7205 2903</p>
-      </div>
-      <div class="col w-1-4">
-        <h3 class="txt--red no-marg marg__bottom">Everything else</h3>
-        <p class="epsilon"><a href="mailto:hi@dadi.tech">hi@dadi.tech</a><br>
-        +44 (0) 20 7205 2900<br>
-        <a href="http://twitter.com/dadi">@dadi</a></p>
-      </div>
-
-      <div class="col w-1-1 marg__top--x2">
-        <img src="/public/assets/img/dadi-full.png" height="24">
-      </div>
-    </div>
-  </footer>
-
-</body>
-</html>

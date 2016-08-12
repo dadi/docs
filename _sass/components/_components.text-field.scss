@@ -1,0 +1,71 @@
+$c-text-field--height: 39px;
+
+@mixin c-text-field {
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid dp-color('bdr-grey');
+  border-radius: $dp-roundness;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 2px rgba(dp-color('black'), 0.02);
+  color: rgba(0, 0, 0, 0.5);
+  font: inherit;
+  display: inline-block;
+  height: $c-text-field--height;
+  margin: 0;
+  outline: none;
+  padding: 5px 10px;
+  transition: border-color .05s;
+  transition: box-shadow 0.3s;
+  width: 100%;
+
+  &:focus {
+    color: #404040;
+    border-color: dp-color('blue');
+    box-shadow: 0 0 0 4px rgba(dp-color('blue'), 0.1);
+  }
+  
+  &.invalid,
+  &.error {
+    border-color: dp-color('red');
+    box-shadow: 0 0 0 4px rgba(dp-color('red'), 0.05);
+  }
+  
+  &.success {
+    border-color: dp-color('green');
+    box-shadow: 0 0 0 4px rgba(dp-color('green'), 0.1);
+  }
+  
+  &.delta {
+    height: 30px;
+  }
+}
+
+.c-text-field-container {
+  display: block;
+  position: relative;
+
+  .c-text-field {
+    border-radius: inherit;
+  }
+
+  &:focus {
+    background-color: blue;
+  }
+}
+
+.c-text-field {
+  @include c-text-field;
+
+  .c-text-field__icon + & {
+    padding-left: $c-text-field--height;
+  }
+}
+
+.c-text-field__icon {
+  font-size: 18px;
+  height: $c-text-field--height;
+  left: 0;
+  margin: 11px;
+  position: absolute !important;
+  top: 0;
+}

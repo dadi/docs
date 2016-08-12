@@ -1,85 +1,13 @@
-
+---
+layout: default
+---
 <style>
 body {
   font-family: sans-serif;
   color: #4d5d6a;
 }
 
-.code-callout {
-  font-size: 0;
-  /*background: #eef0f2;
-  border: 1px solid #7894a7;
-  border-radius: 6px;*/
-  display: inline-block;
-  padding: 24px;
-  margin-top: 60px;
-  white-space: nowrap;
-}
 
-.code-callout code {
-  font-size: 14px;
-  display: inline-block;
-}
-
-code {
-  font-size: 18px;
-  color: #00C0FA;
-  word-wrap: break-word;
-}
-
-code {
-  font-family: "Inconsolata", "Monaco", "Lucida Console", "Courier New", "Courier", monospace;
-}
-
-.code-callout .callout {
-  display: inline-block;
-  position: relative;
-}
-
-.code-callout .callout .definition {
-  font-size: 10px;
-  width: 100%;
-  color: #666;
-  text-align: center;
-  position: absolute;
-  display: block;
-  top: -45px;
-}
-
-.code-callout .callout.stagger .definition {
-  top: -60px;
-}
-
-.code-callout .callout.stagger .definition:before {
-  height: 33px;
-}
-
-.code-callout .callout.stagger .definition:after {
-  margin-top: 33px;
-}
-
-.code-callout .callout .definition:before {
-  top: 100%;
-  width: 1px;
-  height: 18px;
-  background: #cacaca;
-  left: 50%;
-}
-
-.code-callout .callout .definition:after {
-  top: 100%;
-  margin-top: 18px;
-  width: 100%;
-  height: 4px;
-  border: 1px solid #cacaca;
-  border-bottom: 0;
-}
-
-.code-callout .callout .definition:before, .code-callout .callout .definition:after {
-  content: "";
-  display: block;
-  position: absolute;
-}
 
 </style>
 
@@ -107,7 +35,7 @@ Version 1.0.0-Beta of CDN used the URL path for specifying parameters. In this s
   <code>https://</code>
   <span class="callout">
     <code>cdn.example.com</code>
-    <span class="definition">CDN domain</span>
+    <span class="definition">CDNa domain</span>
   </span>
   <code>/</code>
   <span class="callout">

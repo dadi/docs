@@ -1,0 +1,19 @@
+.c-combo {
+  display: flex;
+}
+
+.c-combo__item {
+  display: inline-block;
+}
+
+.c-combo__item--expand {
+  flex-grow: 1;
+}
+
+.c-combo__item:first-child {
+  border-radius: $dp-roundness 0 0 $dp-roundness;
+}
+
+.c-combo__item:last-child {
+  border-radius: 0 $dp-roundness $dp-roundness 0;
+}

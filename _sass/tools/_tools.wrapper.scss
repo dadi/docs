@@ -1,0 +1,5 @@
+@mixin dp-wrapper($width: $dp-max-width) {
+  max-width: $width;
+  margin-left: auto;
+  margin-right: auto;
+}

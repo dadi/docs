@@ -1,0 +1,29 @@
+$dp-colors: (
+  'background': #FAFAFA,
+  'text': #111111,
+  'black': #000000,
+  'white': #FFFFFF,
+  'light-grey': #FAFAFA,
+  'grey': #aaa,
+  'mid-grey': #777,
+  'dark-grey': #313131,
+  'bdr-grey': #E0E0E0,
+  'grey-a': #79879b,
+  'grey-b': #475160,
+  'grey-c': #3a424e,
+  'grey-d': #21262d,
+  'blue': #4A91FF,
+  'dark-blue': #17273F,
+  'green': #88C24C,
+  'red': #E5462C,
+  'yellow': #FBBF52,
+  'highlight': #FFFCCC
+);
+
+@function dp-color($color) {
+  @if map-has-key($dp-colors, $color) {
+    @return map-get($dp-colors, $color);  
+  }
+  
+  @return unquote($color);
+}
