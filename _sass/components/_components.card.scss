@@ -20,6 +20,10 @@
   }
 }
 
+.c-card__section--tight {
+  padding: dp-spacing('normal') dp-spacing('large');
+}
+
 .c-card__image {
   display: block;
   margin: dp-spacing('normal') auto;
@@ -46,4 +50,8 @@
       flex-grow: 1;
     }
   }  
+}
+
+.u-col-container--equal[data-col-group="cards"] .u-col {
+  margin-bottom: dp-spacing('larger');
 }
