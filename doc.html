@@ -43,6 +43,16 @@ layout: default
 </ul>
 </nav>
 
+{% highlight js %}
+var github = new GitHubApi({
+  debug: true,
+  protocol: 'https',
+  host: 'api.github.com',
+  pathPrefix: '',
+  timeout: 5000
+})  
+{% endhighlight %}
+
 
 <article class="markdown-body">
 
