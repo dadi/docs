@@ -1,4 +1,5 @@
 /*
+
  ____    ______  ____    ______     
 /\  _`\ /\  _  \/\  _`\ /\__  _\    
 \ \ \/\ \ \ \L\ \ \ \/\ \/_/\ \/    
@@ -18,6 +19,7 @@
     
           
           https://github.com/dadi/parts
+
 */
 
 // -----------------------------------------------------------------------------
@@ -37,7 +39,7 @@
 //    You *always* need to include a unit called `normal` (typically set to 1).
 // -----------------------------------------------------------------------------
 
-$dp-base-size: 18px;
+$dp-base-size: 16px;
 
 $dp-base-line-height: 1.375;
 
@@ -87,7 +89,7 @@ $dp-roundness: 5px;
 //
 // -----------------------------------------------------------------------------
 
-$dp-max-width: 990px;
+$dp-max-width: 1000px;
 
 // -----------------------------------------------------------------------------
 // Global font smoothing
@@ -119,53 +121,6 @@ $breakpoints: (
 );
 
 // -----------------------------------------------------------------------------
-// Colours
-//
-// -> To be used with the dp-color() function.
-//
-//    body {
-//      background-color: dp-color('background');
-//    }
-//
-// -----------------------------------------------------------------------------
-
-$dp-colors: (
-  'background': #FAFAFA,
-  'text': #111111,
-  'black': #000000,
-  'white': #FFFFFF,
-  'light-grey': #FAFAFA,
-  'grey': #aaa,
-  'mid-grey': #777,
-  'dark-grey': #313131,
-  'bdr-grey': #E0E0E0,
-  'grey-a': #79879b,
-  'grey-b': #475160,
-  'grey-c': #3a424e,
-  'grey-d': #21262d,
-  'blue': #4A91FF,
-  'dark-blue': #17273F,
-  'green': #88C24C,
-  'red': #E5462C,
-  'yellow': #FBBF52,
-  'highlight': #FFFCCC
-);
-
-// -----------------------------------------------------------------------------
-// Global typography settings
-// -----------------------------------------------------------------------------
-
-$dp-fonts: (
-  'primary': ('Karla', 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif)
-);
-
-// -----------------------------------------------------------------------------
-// Custom font declarations
-// -----------------------------------------------------------------------------
-
-@import url(https://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic);
-
-// -----------------------------------------------------------------------------
 // Grid classes
 //
 // -> Used by include-media to generate column classes. It uses the breakpoints
@@ -189,4 +144,4 @@ $im-columns-class: '.u-col';
 //
 // -----------------------------------------------------------------------------
 
-$dp-grid-mode: 'flex';
+$dp-grid-mode: 'float';
