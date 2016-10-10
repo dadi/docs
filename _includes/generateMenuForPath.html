@@ -64,9 +64,9 @@
 
     {% assign depth = nextPathLength | minus: rootComponentsLength %}
 
-    <li class="{{ include.listItemClass }}">
+    <li class="{{ include.listItemClass }}{% if page.url == sortedPage.url %}{{ include.activeClass }}{% endif %}">
       {% if sortedPage.content != '' %}
-        <a href="{{ sortedPage.url }}" class="{{ include.linkClass }} {% if page.url == sortedPage.url %}{{ include.activeClass }}{% endif %}">
+        <a href="{{ sortedPage.url }}" class="{{ include.linkClass }}">
       {% endif %}
 
       {{ sortedPage.title }}
