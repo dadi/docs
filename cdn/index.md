@@ -1,3 +1,9 @@
+---
+title: CDN
+layout: default
+url: /cdn/
+---
+
 ## Why CDN?
 
 The weight of the average product screen is about 2MB, and about two thirds of that weight comes from images. At the same time, a huge number of people are now accessing the Internet on 3G-or-worse connections that make a 2MB screen load a bit of a horror show. Even on a fast connection, a 2MB screen can wreak havoc on your users' data plans.
