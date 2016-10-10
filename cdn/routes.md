@@ -1,6 +1,6 @@
 ---
 title: Delivery Routes
-layout: doc
+layout: default
 ---
 
 # Delivery Routes

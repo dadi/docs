@@ -1,6 +1,6 @@
 ---
 title: Layout Processor
-layout: doc
+layout: default
 ---
 
 ## Layout Processor

@@ -1,6 +1,6 @@
 ---
 title: Crop
-layout: doc
+layout: default
 ---
 
 ## crop

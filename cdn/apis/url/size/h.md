@@ -1,6 +1,6 @@
 ---
 title: Height
-layout: doc
+layout: default
 ---
 
 ## h: Image height

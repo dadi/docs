@@ -1,20 +1,18 @@
 .c-button {
-  background: #fff;
-  border: 1px solid rgba(dp-color('black'), 0.1);
-  border-radius: $dp-roundness;
-  box-shadow: inset 0 -1px 0 rgba(dp-color('black'), 0.1);
-  color: #000;
-  cursor: pointer;
-  display: inline-block;
-  font-weight: bolder;
-  letter-spacing: -0.02em;
   line-height: 1.25;
-  outline: none;
-  padding: 8px 20px;
-  position: relative;
-  text-align: center;
-  transition: background 0.1s;
+  padding: 5px 12px;
+  font-weight: bold;
+  display: inline-block;
+  border-radius: 100px;
   word-wrap: break-word;
+  border: 2px solid;
+  letter-spacing: -0.02em;
+  transition: background 0.1s;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  transition: all .2s ease-in-out;
 
   &:active {
     background: darken(dp-color('grey'), 10%);
@@ -35,53 +33,53 @@
 }
 
 .c-button--blue {
-  background: dp-color('blue');
+  border-color: dp-color('blue');
   color: #fff;
 
   &:active,
   &:focus,
   &:hover {
-    background: darken(dp-color('blue'), 10%);
+    background: dp-color('blue');
   }
 }
 
 .c-button--warn {
-  background: dp-color('yellow');
+  border-color: dp-color('yellow');
   color: #000;
 
   &:active,
   &:focus,
   &:hover {
-    background: darken(dp-color('yellow'), 10%);
+    background: dp-color('yellow');
   }
 }
 
 .c-button--positive {
-  background: dp-color('green');
+  border-color: dp-color('green');
   color: #fff;
 
   &:active,
   &:focus,
   &:hover {
-    background: darken(dp-color('green'), 10%);
+    background: dp-color('green');
   }
 }
 
 .c-button--delete,
 .c-button--red {
-  background: dp-color('red');
+  border-color: dp-color('red');
   color: #fff;
 
   &:active,
   &:focus,
   &:hover {
-    background: darken(dp-color('red'), 20%);
+    background: dp-color('red');
   }
 }
 
 .c-button--disabled,
 .c-button:disabled {
-  background: #E5E4E4;
+  border-color: #E5E4E4;
   color: dp-color('grey');
   cursor: not-allowed;
 }

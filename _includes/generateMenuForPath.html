@@ -2,9 +2,6 @@
 {% assign pagePaths = site.html_pages | map: 'url' | sort %}
 {% assign lastPath = nil %}
 
-{{ pagePaths }}
-
-
 <ul class="{{ include.listClass }}">
 
 {% for pagePath in pagePaths %}

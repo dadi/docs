@@ -1,6 +1,6 @@
 ---
 title: Delivery Recipes
-layout: doc
+layout: default
 ---
 
 ## Delivery recipes

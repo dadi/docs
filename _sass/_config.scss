@@ -130,7 +130,7 @@ $breakpoints: (
 // -----------------------------------------------------------------------------
 
 $dp-colors: (
-  'background': #FAFAFA,
+  'background': #ffffff,
   'text': #111111,
   'black': #000000,
   'white': #FFFFFF,
@@ -156,7 +156,8 @@ $dp-colors: (
 // -----------------------------------------------------------------------------
 
 $dp-fonts: (
-  'primary': ('Karla', 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif)
+  'primary': ('Karla', 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif),
+  'headings': ('Gilroy', 'Karla', 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif)
 );
 
 // -----------------------------------------------------------------------------
@@ -164,6 +165,16 @@ $dp-fonts: (
 // -----------------------------------------------------------------------------
 
 @import url(https://fonts.googleapis.com/css?family=Karla:400,400italic,700,700italic);
+
+@font-face {
+  font-family: 'Gilroy';
+  font-style: bold;
+  src: local('Gilroy Bold'),
+       url(/public/assets/fonts/gilroy-bold.woff2) format('woff2'),
+       url(/public/assets/fonts/gilroy-bold.eot) format('woff'),
+       url(/public/assets/fonts/gilroy-bold.ttf) format('ttf'),
+       url(/public/assets/fonts/gilroy-bold.eot) format('eot');
+}
 
 // -----------------------------------------------------------------------------
 // Grid classes
