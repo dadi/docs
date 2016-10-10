@@ -12,6 +12,8 @@ exclude: ['node_modules']
 
 markdown: kramdown
 
+exclude: ['node_modules']
+
 # Serving
 detach:  false
 port:    4900
