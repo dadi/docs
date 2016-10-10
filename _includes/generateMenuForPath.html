@@ -1,12 +1,15 @@
 {% assign rootLength = include.root | size %}
-{% assign pagePaths = site.pages | map: 'url' | sort %}
+{% assign pagePaths = site.html_pages | map: 'url' | sort %}
 {% assign lastPath = nil %}
+
+{{ pagePaths }}
+
 
 <ul class="{{ include.listClass }}">
 
 {% for pagePath in pagePaths %}
 	{% assign pathSlice = pagePath | slice: 0, rootLength %}
-	
+
 	{% if include.root == pathSlice %}
 		{% assign pagePathLength = pagePath | size %}
 		{% assign subject = pagePath | slice: rootLength, pagePathLength %}
@@ -37,7 +40,7 @@
 				{% for longestPathComponent in longestPath %}
 					{% assign index = forloop.index | minus: 1 %}
 					{% assign shortestPathLastIndex = shortestPath | size | minus: 1 %}
-				
+
 					{% if longestPathComponent != shortestPath[index] %}
 						{% if index != shortestPathLastIndex and forloop.last == false %}
 							{% assign newLevel = true %}
@@ -53,14 +56,16 @@
 					{% if nextPathLength >= lastPathLength %}
 						<ul>
 					{% else %}
-						</ul>
+            </li>
+          </ul>
 					{% endif %}
+        {% else %}
+        </li>
 				{% endif %}
 
-				<li><a href="{{ sitePage.url }}" class="{{ include.itemClass }} {% if page.url == sitePage.url %}{{ include.activeClass }}{% endif %}">{{ sitePage.title }}</a></li>
+				<li><a href="{{ sitePage.url }}" class="{{ include.itemClass }} {% if page.url == sitePage.url %}{{ include.activeClass }}{% endif %}">{{ sitePage.title }}</a>
 
 				{% assign lastPath = nextPath %}
-				</li>
 			{% endif %}
 		{% endfor %}
 	{% endif %}
