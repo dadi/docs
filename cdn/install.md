@@ -1,3 +1,8 @@
+---
+title: CDN Installation
+layout: default
+---
+
 ## Installation: Ubuntu
 
 ### Overview

@@ -1,3 +1,8 @@
+---
+title: Layout Processor
+layout: doc
+---
+
 ## Layout Processor
 
 The layout processor provides a way to generate a new image by combining existing images accessible by CDN.

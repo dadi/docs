@@ -1,3 +1,8 @@
+---
+title: Delivery Recipes
+layout: doc
+---
+
 ## Delivery recipes
 
 A Delivery Recipe is a predefined set of image manipulation parameters stored in a JSON file. that are applied

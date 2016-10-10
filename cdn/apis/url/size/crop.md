@@ -1,6 +1,8 @@
 ---
 title: Crop
+layout: doc
 ---
+
 ## crop
 
 * resize

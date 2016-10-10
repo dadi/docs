@@ -1,6 +1,8 @@
 ---
 title: Height
+layout: doc
 ---
+
 ## h: Image height
 
 The height of the required output image, in pixels.

@@ -1,5 +1,6 @@
 ---
 title: Delivery Routes
+layout: doc
 ---
 
 # Delivery Routes
@@ -14,7 +15,7 @@ title: Delivery Routes
 
 ## Overview
 
-Routes allow CDN to make a decision about which [Delivery Recipe](recipes.md) to use for the current request, based on a set of configurable conditions. 
+Routes allow CDN to make a decision about which [Delivery Recipe](recipes.md) to use for the current request, based on a set of configurable conditions.
 
 Conditions can include the type of device being used, the network type, user location and language.
 
@@ -43,7 +44,7 @@ curl -i -H "Content-Type: application/json" -X POST "http://cdn.example.com/api/
 **Response Codes**
 
 Status Code | Description | Response
-----|------|-------- 
+----|------|--------
 200 | Route saved successfully | `{ success: true }`
 400 | No request body sent | `{ success: false,  errors: ['Bad Request'] } `
 400 | Route validation failed | `{ success: false, errors: validationErrors }`
@@ -102,7 +103,7 @@ The default case (where none of the conditions are met) is handled by a branch w
 
 ### Device
 
-The `device` condition matches the user's device type, based on the user-agent header sent in the request. 
+The `device` condition matches the user's device type, based on the user-agent header sent in the request.
 
 Possible values:
 
@@ -131,7 +132,7 @@ The `device` condition can test against a single device type:
 ```
 
 #### Default value
- 
+
 If a device type is specified that doesn't match one of the possible values above, CDN uses `desktop` in its place.
 
 
@@ -220,7 +221,7 @@ Language detection has support for [quality values](https://tools.ietf.org/html/
 
 ### Network
 
-Specifying the `network` condition in a route performs a remote lookup on a network connectivity API to determine the type of connection being used. 
+Specifying the `network` condition in a route performs a remote lookup on a network connectivity API to determine the type of connection being used.
 
 > **Note:** This condition tests for a *connection type* (e.g. `cable` or `mobile`) and not *connection speed*.
 
