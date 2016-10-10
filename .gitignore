@@ -3,3 +3,4 @@
 .jekyll-metadata
 _site/*
 node_modules
+/_site/cdn/index.md
