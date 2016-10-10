@@ -1,5 +1,5 @@
 ---
-title: Welcome to the documentation
+title: Documentation
 permalink: /
 layout: default
 ---
