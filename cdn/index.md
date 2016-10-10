@@ -1,6 +1,7 @@
 ---
 title: CDN
 layout: default
+url: /cdn/
 ---
 
 ## Why CDN?
