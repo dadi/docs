@@ -11,6 +11,8 @@ github_username:  jekyll
 
 markdown: kramdown
 
+exclude: ['node_modules']
+
 # Serving
 detach:  false
 port:    4900
