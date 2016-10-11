@@ -1,9 +1,8 @@
 ---
 title: Format
+layout: default
 ---
 ## format: Convert between image formats
-
-Format
 
 > The `format` parameter can be added to the querystring as either `fmt` or `format`
 

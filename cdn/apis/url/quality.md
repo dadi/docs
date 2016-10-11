@@ -1,5 +1,6 @@
 ---
 title: Quality
+layout: default
 ---
 ## quality: Image compression
 

@@ -19,21 +19,21 @@ Responsive images to the rescue! Right? Well, yes, but first we have to generate
 
 Getting Started
 
-### [Install and Setup](install.md)
+### [Install and Setup](install)
 
-### [Configuring Sources](sources.md)
+### [Configuring Sources](sources)
 
 Configure CDN to serve your assets and images from Amazon S3, a remote file server or the local filesystem.
 
-### [Serving Assets and Images](serving-assets.md)
+### [Serving Assets and Images](serving-assets)
 
 Learn how CDN can serve your assets and images with resizing, cropping and compression.
 
-### Delivery Recipes
+### [Delivery Recipes](recipes)
 
 Keep your CDN image URLs short and to the point with Delivery Recipes, encapsulating the image manipulation parameters in a named "recipe".
 
-### Routes
+### [Routes](routes)
 
 ### Metadata Extraction
 
@@ -42,14 +42,14 @@ Retrieve image metadata in JSON.
 
 ### Colour Palette Extraction
 
-### Caching
+### [Caching](cache)
 
   Securing Images
   Purging Images
   Glossary
   Status Code Reference
 
-### API URL Reference
+### [API URL Reference](apis)
 
 
 
