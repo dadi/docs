@@ -12,7 +12,9 @@ exclude: ['node_modules']
 
 markdown: kramdown
 
-exclude: ['node_modules']
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 
 # Serving
 detach:  false
