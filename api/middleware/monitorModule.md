@@ -1,5 +1,6 @@
 ---
 title: Monitor module
+layout: default
 ---
 
 ## Overview

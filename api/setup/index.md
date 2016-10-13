@@ -1,5 +1,6 @@
 ---
 title: Setup and installation
+layout: default
 ---
 
 `$ [sudo] git clone https://github.com/dadi/api.git`

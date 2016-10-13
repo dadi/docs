@@ -1,5 +1,6 @@
 ---
 title: Collections
+layout: default
 ---
 
 ## Overview

@@ -1,5 +1,6 @@
 ---
 title: Cache performance
+layout: default
 ---
 
 ### Overview

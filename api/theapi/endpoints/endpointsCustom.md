@@ -1,5 +1,6 @@
 ---
 title: Custom endpoints
+layout: default
 ---
 
 # Custom Endpoints

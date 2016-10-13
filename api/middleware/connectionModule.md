@@ -1,5 +1,6 @@
 ---
 title: Connection module
+layout: default
 ---
 
 ## Overview

@@ -1,5 +1,6 @@
 ---
 title: Installation guide – Logging
+layout: default
 ---
 
 ## Overview

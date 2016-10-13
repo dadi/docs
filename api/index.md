@@ -1,5 +1,6 @@
 ---
 title: API
+layout: default
 ---
 
 | Github   | [https://github.com/dadi/api](https://github.com/dadi/api) |

@@ -1,5 +1,6 @@
 ---
 title: Extension API
+layout: default
 ---
 
 ## Overview

@@ -1,5 +1,6 @@
 ---
 title: Configuration
+layout: default
 ---
 
 ## Overview

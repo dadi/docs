@@ -1,0 +1,134 @@
+.c-button {
+  line-height: 1.25;
+  padding: 5px 12px;
+  font-weight: bold;
+  display: inline-block;
+  border-radius: 100px;
+  word-wrap: break-word;
+  border: 2px solid;
+  letter-spacing: -0.02em;
+  transition: background 0.1s;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  transition: all .2s ease-in-out;
+
+  &:active {
+    background: darken(dp-color('grey'), 10%);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 4px rgba(dp-color('grey'), 0.2);
+  }
+
+  &:hover {
+    background: dp-color('blue');
+    color: #fff;
+  }
+}
+
+.c-button--full-width {
+  display: block;
+}
+
+.c-button--blue {
+  border-color: dp-color('blue');
+  color: #fff;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background: dp-color('blue');
+  }
+}
+
+.c-button--warn {
+  border-color: dp-color('yellow');
+  color: #000;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background: dp-color('yellow');
+  }
+}
+
+.c-button--positive {
+  border-color: dp-color('green');
+  color: #fff;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background: dp-color('green');
+  }
+}
+
+.c-button--delete,
+.c-button--red {
+  border-color: dp-color('red');
+  color: #fff;
+
+  &:active,
+  &:focus,
+  &:hover {
+    background: dp-color('red');
+  }
+}
+
+.c-button--disabled,
+.c-button:disabled {
+  border-color: #E5E4E4;
+  color: dp-color('grey');
+  cursor: not-allowed;
+}
+
+// .c-button {
+//   &.on {
+//     background: $mid-grey;
+//     color: #fff;
+//   }
+
+//   .icon {
+//     vertical-align: middle;
+//     margin-left: 8px;
+//   }
+// }
+
+// .c-button span[class^="ss-"] {
+//   vertical-align: middle;
+//   line-height: 100%;
+// }
+
+// input.c-button--full-width,
+// button.c-button--full-width {
+//   width: 100%;
+// }
+// @media #{$break-small} {
+//   .bs-btn--full-width {
+//     display: block;
+//   }
+//   input.bs-btn--full-width,
+//   button.bs-btn--full-width {
+//     width: 100%;
+//   }
+// }
+
+// .c-button.loading {
+//   padding-left: 40px;
+//   cursor: wait;
+
+//   &:after {
+//     height: 19px;
+//     left: 15px;
+//     bottom: 0;
+//     top: 50%;
+//     margin-top: -10px;
+//     vertical-align: middle;
+//     position: absolute;
+//     font-family: "FontAwesome";
+//     content: "\f110";
+//     animation: spin 1s linear infinite both;
+//   }
+// }

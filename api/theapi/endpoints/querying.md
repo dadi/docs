@@ -1,5 +1,6 @@
 ---
 title: Querying Collections
+layout: default
 ---
 
  * Querystring parameters

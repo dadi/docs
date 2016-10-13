@@ -1,5 +1,6 @@
 ---
 title: Configuration API
+layout: default
 ---
 
 ## Overview

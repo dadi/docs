@@ -1,0 +1,206 @@
+// -----------------------------------------------------------------------------
+// Load vendor libraries
+// -----------------------------------------------------------------------------
+
+//@import '../node_modules/font-awesome/scss/font-awesome';
+
+// -----------------------------------------------------------------------------
+// Load DADI Parts
+// -----------------------------------------------------------------------------
+
+@import 'config';
+@import '../node_modules/@dadi/parts/main';
+
+// -----------------------------------------------------------------------------
+// Load components
+// -----------------------------------------------------------------------------
+
+@import 'components/components.banner';
+@import 'components/components.button';
+@import 'components/components.card';
+@import 'components/components.combo';
+@import 'components/components.code-callout';
+@import 'components/components.footer';
+@import 'components/components.header';
+@import 'components/components.highlight';
+@import 'components/components.link';
+@import 'components/components.main-heading';
+@import 'components/components.markdown-body';
+@import 'components/components.simple-list';
+@import 'components/components.text-field';
+@import 'components/components.title';
+
+@import 'tools/tools.typography';
+
+
+.top {
+	padding: 40px 0 50px;
+	position: relative;
+	overflow: hidden;
+
+	&--dark {
+		background: #21262D url(/public/assets/img/bg.png) fixed no-repeat;
+		background-size: contain;
+		color: #fff;
+
+		.top__promo, .top__promo:after {
+			background: rgba(#000,0.3);
+		}
+	}
+	&--light {
+		background: #fff;
+		color: #21262D;
+
+		.top__promo, .top__promo:after {
+			background: rgba(#000,0.05);
+		}
+		.btn--fill {
+			color: #fff;
+		}
+	}
+	
+	&:before {
+		position: absolute;
+		bottom: -50px;
+		left: 0; right: 0;
+		transform: skewY(-3deg);
+		content: ' ';
+		background: #fff;
+		height: 100px;
+		display: block;
+	}
+	
+	.grid {
+		position: relative;
+	}
+	.col--pull {
+		position: absolute;
+		top: 0;
+		left: 100%;
+		opacity: 0.3;
+	}
+
+	&__promo {
+		padding: 30px 0 30px 40px;
+		position: relative;
+		border-radius: 100px 0 0 100px;
+
+		&:after {
+			position: absolute;
+			width: 100%;
+			left: 100%; top: 0; bottom: 0;
+			content: ' ';
+		}
+	}
+	h1 {
+		font-size: dp-size('larger');
+		margin-bottom: 30px;
+	}
+}
+
+
+.nav {
+	font-family: dp-font('headings');
+	list-style: none;
+	margin-top: 35px;
+
+	li {
+		display: inline-block;
+		margin-right: 1.2em;
+		
+		&:after {
+			display: inline-block;
+			vertical-align: middle;
+			margin-top: -4px;
+			height: 17px;
+			content: ' ';
+			border-right: 1px solid rgba(255,255,255,0.19);
+			padding-left: 1.2em;
+			font-weight: bold;
+		}
+
+		&:last-of-type:after {
+			padding-left: none;
+			border-right: none;
+		}
+	}
+
+	a {
+		position: relative;
+		padding: 10px 0 4px;
+
+		&:hover, &.active {
+			color: #E5462C;
+		}
+		&:before {
+			content: ' ';
+			position: absolute; bottom: 0; left: 0;
+			width: 100%;
+			height: 2px;
+			background-color: #E5462C;
+			visibility: hidden;
+			transform: scaleX(0);
+			transition: all 0.2s ease-in-out 0s;
+		}
+		&:hover:before, &.active:before {
+			visibility: visible;
+			transform: scaleX(1);
+		}
+	}
+}
+
+li {
+	list-style: disc;
+}
+
+
+.u-docnav {
+	background: #eee;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+	font-size: 15px;
+
+	li {
+		list-style: none;
+	}
+
+	> ul {
+		margin: 0;
+		padding: 0;
+	}
+
+	a {
+		text-decoration: none;
+		color: #000;
+		padding: 11px 17px;
+		display: block;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	li.active > a {
+		background: #4A91FF;
+		color: #fff;
+		font-weight: bold;
+	}
+
+	ul ul li.active > a {
+		background: none;
+		color:  #4A91FF;
+	}
+
+
+	li ul {
+		display: none;
+	}
+	
+	li.active {
+		> ul {
+			display: block;
+			background: #ddd;
+			margin: 0;
+		}
+	}
+}

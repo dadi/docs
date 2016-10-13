@@ -1,4 +1,6 @@
 .DS_Store
 .sass-cache
 .jekyll-metadata
-/_jekyll/_site/*
+_site
+node_modules
+/_site/cdn/index.md

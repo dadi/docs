@@ -1,5 +1,6 @@
 ---
-title: Dust helpers
+title: Dust Helpers
+layout: default
 ---
 
 ## Template Helpers

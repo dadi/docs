@@ -1,5 +1,6 @@
 ---
 title: Authentication Middleware
+layout: default
 ---
 
 ## Overview
@@ -22,9 +23,9 @@ curl -X POST -H "Content-Type: application/json" --data "clientId=testClient&sec
     Host: api.example.com
     content-type: application/json
     Cache-Control: no-cache
-    
+
     { "clientId": "testClient", "secret": "superSecret" }
-    
+
 #### Example Response
 
 ```
@@ -53,7 +54,7 @@ curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer 4172bb
 
 ### Configuration
 
-The storage location for client credentials and tokens is specified in the configuration file setting `auth.database`. 
+The storage location for client credentials and tokens is specified in the configuration file setting `auth.database`.
 
 [TODO] A script that creates a client - `testClient / superSecret` - for QA testing can be found in `utils/create-client.js`.
 
@@ -74,7 +75,7 @@ Client records may also be restricted to an API version.
   clientId: 'clientX',
   secret: 'secret',
   accessType: 'user',
-  permissions: { 
+  permissions: {
     collections: [ { apiVersion: "1.0", path: "test-collection" } ],
     endpoints: [ { apiVersion: "1.0", path: "test-endpoint" } ]
   }

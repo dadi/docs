@@ -1,3 +1,4 @@
 ---
 title: Middleware
+layout: default
 ---

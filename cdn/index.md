@@ -1,23 +1,56 @@
 ---
 title: CDN
+layout: default
+url: /cdn/
 ---
 
-| Github   | [https://github.com/dadi/cdn](https://github.com/dadi/cdn) |
-| NPM      | [npm install @dadi/cdn](https://www.npmjs.com/package/@dadi/cdn) |
+## Why CDN?
 
-## Overview
+The weight of the average product screen is about 2MB, and about two thirds of that weight comes from images. At the same time, a huge number of people are now accessing the Internet on 3G-or-worse connections that make a 2MB screen load a bit of a horror show. Even on a fast connection, a 2MB screen can wreak havoc on your users' data plans.
 
-CDN is built on Node.JS, with support for S3 and Redis. It is a high performance, just-in-time asset manipulation and delivery layer designed as a modern content distribution solution.
+Average byte per screen by content type:
 
-You can consider a full installation of DADI CDN as being analogous to a traditional CDN (Content Distribution Network) such as Akamai or Limelight. It is designed to carry the processing and delivery load associated with image manipulation and asset delivery (CSS/JS/fonts). It acts autonomously as a layer on top of your core product.
+![Page weight breakdown](assets/page-weight-graph.png)
 
-It has full support for caching, header control, image manipulation, image compression and image format conversation. An authenticated API allows for fine grained cache control in the form of content invalidation on an individual file or collective path basis.
+Improving web performance and giving a better experience is critical to good product design.
 
-CDN is part of DADI, a suite of components covering the full development stack, built for performance and scale.
+Responsive images to the rescue! Right? Well, yes, but first we have to generate our responsive image assets. Thankfully DADI CDN makes this simple.
 
-## Core contributors
 
-* Carl Buelow
-* James Lambie
-* Arthur Mingard
-* Joseph Denne
+Getting Started
+
+### [Install and Setup](install)
+
+### [Configuring Sources](sources)
+
+Configure CDN to serve your assets and images from Amazon S3, a remote file server or the local filesystem.
+
+### [Serving Assets and Images](serving-assets)
+
+Learn how CDN can serve your assets and images with resizing, cropping and compression.
+
+### [Delivery Recipes](recipes)
+
+Keep your CDN image URLs short and to the point with Delivery Recipes, encapsulating the image manipulation parameters in a named "recipe".
+
+### [Routes](routes)
+
+### Metadata Extraction
+
+https://docs.imgix.com/tutorials/extracting-metadata-json-output-format
+Retrieve image metadata in JSON.
+
+### Colour Palette Extraction
+
+### [Caching](cache)
+
+  Securing Images
+  Purging Images
+  Glossary
+  Status Code Reference
+
+### [API URL Reference](apis)
+
+
+
+https://docs.imgix.com/tutorials/managing-user-generated-images

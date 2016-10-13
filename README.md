@@ -1,5 +1,7 @@
 ---
+title: Documentation
 permalink: /
+layout: default
 ---
 
 # Contributing

@@ -1,5 +1,6 @@
 ---
 title: Model module
+layout: default
 ---
 
 ## Overview

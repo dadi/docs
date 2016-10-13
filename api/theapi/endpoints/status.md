@@ -1,5 +1,6 @@
 ---
 title: Server status
+layout: default
 ---
 
 ## Overview
