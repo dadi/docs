@@ -2,5 +2,5 @@
 .sass-cache
 .jekyll-metadata
 _site
-node_modules
-/_site/cdn/index.md
+node_modules/*
+!node_modules/@dadi/
