@@ -34,7 +34,7 @@
 
 
 .top {
-	padding: 40px 0 50px;
+	padding: 40px 0 75px;
 	position: relative;
 	overflow: hidden;
 
@@ -155,7 +155,6 @@ li {
 
 
 .u-docnav {
-	background: #eee;
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 	font-size: 15px;
@@ -181,6 +180,7 @@ li {
 	}
 
 	li.active > a {
+		border-radius: $dp-roundness;
 		background: #4A91FF;
 		color: #fff;
 		font-weight: bold;
@@ -188,7 +188,7 @@ li {
 
 	ul ul li.active > a {
 		background: none;
-		color:  #4A91FF;
+		color: #4A91FF;
 	}
 
 
@@ -199,7 +199,6 @@ li {
 	li.active {
 		> ul {
 			display: block;
-			background: #ddd;
 			margin: 0;
 		}
 	}

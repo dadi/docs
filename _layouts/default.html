@@ -10,7 +10,7 @@
   				<p><a href="/"><img src="/docs/public/assets/img/dadi.svg" width="150" alt="DADI"></a></p>
 			</header>
 
-	  		{% include components/title.html title=page.title %}
+	  		<h1 style="margin:0">{{ page.title }}</h1>
 	  	</div>
 	  </div>
 
@@ -18,8 +18,12 @@
 		<div class="c-markdown-body u-col u-col--2-3">
 			{{ content }}
 		</div>
-		<div class="u-col u-col--1-3 u-docnav">
-			{% include generateMenuForPath.html root="/" activeClass="active" %}
+		<div class="u-col u-col--1-3 u-padding u-color-black">
+			<a class="u-margin-bottom c-button c-button--positive" href="http://github.com/dadi/docs/edit/master/{{ page.path }}">Edit in github</a>
+
+			<div class="c-card u-padding u-docnav">
+				{% include generateMenuForPath.html root="/" activeClass="active" %}
+			</div>
 		</div> 
 	  </div>
 
