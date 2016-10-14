@@ -170,10 +170,10 @@ $dp-fonts: (
   font-family: 'Gilroy';
   font-style: bold;
   src: local('Gilroy Bold'),
-       url(/docs/public/assets/fonts/gilroy-bold.woff2) format('woff2'),
-       url(/docs/public/assets/fonts/gilroy-bold.eot) format('woff'),
-       url(/docs/public/assets/fonts/gilroy-bold.ttf) format('ttf'),
-       url(/docs/public/assets/fonts/gilroy-bold.eot) format('eot');
+       url(/public/assets/fonts/gilroy-bold.woff2) format('woff2'),
+       url(/public/assets/fonts/gilroy-bold.eot) format('woff'),
+       url(/public/assets/fonts/gilroy-bold.ttf) format('ttf'),
+       url(/public/assets/fonts/gilroy-bold.eot) format('eot');
 }
 
 // -----------------------------------------------------------------------------
