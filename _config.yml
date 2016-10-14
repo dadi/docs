@@ -2,7 +2,6 @@ title: DADI Documentation
 email: team@dadi.tech
 description: > # this means to ignore newlines until "baseurl:"
   Documentation for all DADI products.
-baseurl: "/" # the subpath of your site, e.g. /blog
 url: "http://docs.dadi.tech/" # the base hostname & protocol for your site
 twitter_username: dadi
 github_username:  dadi
