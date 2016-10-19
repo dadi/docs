@@ -58,7 +58,7 @@
 			color: #fff;
 		}
 	}
-	
+
 	&:before {
 		position: absolute;
 		bottom: -50px;
@@ -69,7 +69,7 @@
 		height: 100px;
 		display: block;
 	}
-	
+
 	.grid {
 		position: relative;
 	}
@@ -107,7 +107,7 @@
 	li {
 		display: inline-block;
 		margin-right: 1.2em;
-		
+
 		&:after {
 			display: inline-block;
 			vertical-align: middle;
@@ -193,9 +193,9 @@ li {
 
 
 	li ul {
-		display: none;
+		/* display: none; */
 	}
-	
+
 	li.active {
 		> ul {
 			display: block;

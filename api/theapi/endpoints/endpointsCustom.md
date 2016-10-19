@@ -1,17 +1,15 @@
 ---
-title: Custom endpoints
+title: Custom Endpoints
 layout: default
 ---
 
-# Custom Endpoints
+## Introduction
 
-## Overview
+DADI API custom endpoints give you the ability to modify, enrich and massage your data before it is returned to the user making the request. Collection endpoints return raw data in response to requests, custom endpoints give you more control over what you return.
 
  * [Endpoint specification](#endpoint-specification)
 
 ### Endpoint Specification
-
-DADI API custom endpoints give you the ability to modify, enrich, massage your data before it is returned to the user making the request. Collection endpoints return raw data in response to requests, custom endpoints give you more control over what you return.
 
 Endpoint specifications are simply Javascript files stored in your application's `/workspace/endpoints` folder. It is important to understand how the folder hierarchy in the endpoints folder affects the behaviour of your API.
 
@@ -82,10 +80,10 @@ module.exports.get = function (req, res, next) {
         author: "Benjamin Franklin"
       }
     ]
-  };
+  }
 
-  res.setHeader('content-type', 'application/json');
-  res.statusCode = 200;
+  res.setHeader('content-type', 'application/json')
+  res.statusCode = 200
   res.end(JSON.stringify(data))
 }
 ```
@@ -102,10 +100,10 @@ module.exports.get = function (req, res, next) {
         author: "Benjamin Franklin"
       }
     ]
-  };
+  }
 
-  res.setHeader('content-type', 'application/json');
-  res.statusCode = 200;
+  res.setHeader('content-type', 'application/json')
+  res.statusCode = 200
   res.end(JSON.stringify(data))
 }
 ```
@@ -122,10 +120,10 @@ module.exports.get = function (req, res, next) {
         author: "Benjamin Franklin"
       }
     ]
-  };
+  }
 
-  res.setHeader('content-type', 'application/json');
-  res.statusCode = 200;
+  res.setHeader('content-type', 'application/json')
+  res.statusCode = 200
   res.end(JSON.stringify(data))
 }
 ```
@@ -177,6 +175,6 @@ Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 
 ### Endpoint GET response
 
-```
-{ message: 'Hello World' }
+```json
+{ "message": "Hello World" }
 ```

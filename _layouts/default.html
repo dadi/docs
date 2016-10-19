@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html>
-	{% include head.html %}
+  {% include head.html %}
+  <body>
 
-	<body>
+    {% assign dirs = page.dir | split: '/' %}
+    {% if dirs.length > 1 %}
+      {% assign dir = dirs[1] | prepend: '/' | append: '/' %}
+    {% else %}
+      {% assign dir = '/' %}
+    {% endif %}
 
-	<div class="top top--dark">
-  		<div class="u-wrapper u-wrapper-gutter"> 
-	  		<header class="c-header">
-  				<p><a href="/"><img src="/public/assets/img/dadi.svg" width="150" alt="DADI"></a></p>
-			</header>
+    <div class="top top--dark">
+      <div class="u-wrapper u-wrapper-gutter">
+      <header class="c-header">
+        <p><a href="/"><img src="/public/assets/img/dadi.svg" width="150" alt="DADI"></a></p>
+      </header>
+      <span>
+        {% case dirs[1] %}
+          {% when 'api' %}
+            DADI API
+          {% when 'cdn' %}
+            DADI CDN
+          {% when 'web' %}
+            DADI Web
+          {% else %}
+        {% endcase %}
+      </span>
+      <h1 style="margin:0">{{ page.title }}</h1>
+      </div>
+    </div>
 
-	  		<h1 style="margin:0">{{ page.title }}</h1>
-	  	</div>
-	  </div>
+    <div class="u-wrapper u-wrapper-gutter u-cols u-margin-top-larger">
+      <div class="c-markdown-body u-col u-col--2-3">
+        {{ content }}
+      </div>
+      <div class="u-col u-col--1-3 u-padding u-color-black">
+        <a class="u-margin-bottom c-button c-button--positive" href="http://github.com/dadi/docs/edit/master/{{ page.path }}">Edit in github</a>
 
-	  <div class="u-wrapper u-wrapper-gutter u-cols u-margin-top-larger">
-		<div class="c-markdown-body u-col u-col--2-3">
-			{{ content }}
-		</div>
-		<div class="u-col u-col--1-3 u-padding u-color-black">
-			<a class="u-margin-bottom c-button c-button--positive" href="http://github.com/dadi/docs/edit/master/{{ page.path }}">Edit in github</a>
+        <div class="c-card u-padding u-docnav">
+          {% include generateMenuForPath.html root=dir activeClass="active" %}
+        </div>
+      </div>
+    </div>
 
-			<div class="c-card u-padding u-docnav">
-				{% include generateMenuForPath.html root="/" activeClass="active" %}
-			</div>
-		</div> 
-	  </div>
-
-	  {% include components/footer.html %}
-	</body>
+    {% include components/footer.html %}
+  </body>
 </html>

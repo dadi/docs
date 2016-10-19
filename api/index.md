@@ -1,14 +1,11 @@
 ---
-title: API
+title: DADI API
 layout: default
 ---
 
-| Github   | [https://github.com/dadi/api](https://github.com/dadi/api) |
-| NPM      | [npm install @dadi/api](https://www.npmjs.com/package/@dadi/api) |
+## Introduction
 
-## Overview
-
-DADI API is built on Node.JS and MongoDB. It is a high performance RESTful API layer designed in support of [API-first development and the principle of COPE](./apiFirst.md).
+DADI API is a high performance RESTful API layer built on Node.js and designed in support of [API-first development and the principle of COPE](./apiFirst).
 
 You can consider it as the data layer within a platform (including the data model). It is designed to be plugged into a templating layer, a mobile application or to be used with any other data consumer.
 

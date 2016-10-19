@@ -1,5 +1,6 @@
 ---
 title: Installation guide – Ubuntu
+layout: default
 ---
 
 ## Overview

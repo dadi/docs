@@ -3,11 +3,7 @@ title: API First
 layout: default
 ---
 
-# DADI API
-
 ## API-first development & COPE
-
-### Overview
 
 Traditional product design is channel and device centric. But users inhabit a multi-channel, multi-device world.
 
