@@ -3,9 +3,15 @@ title: Configuration API
 layout: default
 ---
 
-## Overview
+## Introduction
 
 DADI API allows creating and updating collection and custom endpoints by sending a POST request to the API.
+
+* Create new collection endpoint
+* Update collection endpoint
+* View collection endpoint configuration
+* Create new custom endpoint
+* Update custom endpoint
 
 ## Collection Endpoints
 
@@ -27,14 +33,14 @@ Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 {
   "fields": {
     "field1": {
-      // field specification
+
     },
     "field2": {
-      // field specification
+
     }
   },
   "settings": {
-    // collection settings and defaults
+
   }
 }
 ```
@@ -80,18 +86,18 @@ Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 ```
 
 **Example Response**
-```
+```json
 {
   "fields": {
     "field1": {
-      // field specification
+
     },
     "field2": {
-      // field specification
+
     }
   },
   "settings": {
-    // collection settings and defaults
+
   }
 }
 
@@ -113,10 +119,10 @@ Content-Type: text/plain
 Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 
 module.exports.get = function (req, res, next) {
-   res.setHeader('content-type', 'application/json');
-   res.statusCode = 200;
-   res.end(JSON.stringify({message: 'Hello World'}));
-};
+  res.setHeader('content-type', 'application/json')
+  res.statusCode = 200
+  res.end(JSON.stringify({message: 'Hello World'}))
+}
 ```
 
 _**WARNING**: the content of this request will be evaluated on the server: if a malicious user obtains a valid token they will be able to execute arbitrary Javascript. Take care to fully secure your API in production environments_
@@ -133,8 +139,8 @@ Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 
 **Example Response**
 
-```
-{message: 'Hello World'}
+```json
+{ "message": "Hello World" }
 ```
 
 

@@ -3,6 +3,8 @@ title: REST API Specification
 layout: default
 ---
 
+## Introduction
+
 DADI API accepts GET, POST, PUT, PATCH and DELETE requests.
 
 ## GET
@@ -17,7 +19,7 @@ Returns a JSON object with all results from the `{database}` database and `{coll
 
 Default views can be overridden using parameters at the point of API request.
 
-You can read more about this and about the collection schema [here](https://github.com/dadi/api/blob/master/docs/endpoints.md).
+You can read more about this and about the collection schema [here](./endpoints/endpointsCollections).
 
 ### GET Single Resource
 

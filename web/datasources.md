@@ -68,8 +68,8 @@ my-web/
       "port": "80",
       "tokenUrl": "/token",
       "credentials": {
-        "clientId": "testClient",
-        "secret": "superSecret"
+        "clientId": "your-client-id",
+        "secret": "your-secret"
       }
     },
     "paginate": true,
@@ -108,8 +108,8 @@ my-web/
       "port": "80",
       "tokenUrl": "/token",
       "credentials": {
-        "clientId": "testClient",
-        "secret": "superSecret"
+        "clientId": "your-client-id",
+        "secret": "your-secret"
       }
     },
     "paginate": true,
@@ -167,7 +167,7 @@ type           |    |               | bearer
 host           |    |               | api.example.com       
 port           |    |               | 3000
 tokenUrl           |    |               |     "/token"   
-credentials           |    |               |        { "clientId": "test123", "secret": "superSecret" }
+credentials           |    |               |        { "clientId": "test123", "secret": "your-secret" }
 
 #### Passing parameters with `requestParams`
 

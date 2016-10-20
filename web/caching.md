@@ -92,7 +92,7 @@ POST /api/flush HTTP/1.1
 Host: www.example.com
 Content-Type: application/json
 
-{"path": "/books", "clientId": "testClient", "secret": "superSecret"}
+{"path": "/books", "clientId": "your-client-id", "secret": "your-secret"}
 ```
 
 #### Entire Cache Invalidation
@@ -102,5 +102,5 @@ POST /api/flush HTTP/1.1
 Host: www.example.com
 Content-Type: application/json
 
-{"path": "*", "clientId": "testClient", "secret": "superSecret"}
+{"path": "*", "clientId": "your-client-id", "secret": "your-secret"}
 ```

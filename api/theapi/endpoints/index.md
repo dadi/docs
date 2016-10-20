@@ -12,20 +12,9 @@ _You may want to look at a handy QA testing tool called [Postman](http://www.get
 ## Overview
 
 * Collection Endpoints
-  * Defining Fields
-  * Configuration
-  * [Validation](#validation)
-  * [Document Composition (reference fields)](#document-composition)
-  * Collection statistics
-  * Available collections
-
 * Custom Endpoints
 * API Requests
-  * Create new collection endpoint
-  * Update collection endpoint
-  * View collection endpoint configuration
-  * Create new custom endpoint
-  * Update custom endpoint
+
 
 ### Collections POST request
 
@@ -35,20 +24,20 @@ Host: api.example.com
 content-type: application/json
 Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 
-{ "message": "hi world!", "timestamp": 1441089951507 }
+{ "message": "Hello, World!", "timestamp": 1441089951507 }
 ```
 
 ### Collections POST response
 
-```
+```json
 {
   "results": [
     {
-      "message": "hi world!",
+      "message": "Hello, World!",
       "timestamp": 1441089951507,
       "apiVersion": "1.0",
       "createdAt": 1441089951507,
-      "createdBy": "testClient",
+      "createdBy": "your-client-id",
       "_id": "55e5499f83f997b7d1e63e93"
     }
   ]

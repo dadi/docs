@@ -1,13 +1,13 @@
 ---
-title: Server status
+title: Server Status
 layout: default
 ---
 
-## Overview
+## Introduction
 
 An endpoint is provided at `/api/status` which returns server/application data in JSON format.
 
-The request must be a POST and a valid Bearer token must be supplied in the Authorization header. See [Authorisation](https://github.com/dadi/api/blob/docs/docs/authorisation.md) for information regarding obtaining a Bearer token.
+The request must be a POST and a valid Bearer token must be supplied in the Authorization header. See [Authorisation](../authorisation) for information regarding obtaining a Bearer token.
 
 ## Configuration
 

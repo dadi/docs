@@ -27,11 +27,9 @@ my-web/
 In main configuration file
 
 ```js
-globalEvents: {
-  doc: "",
-  format: Array,
-  default: []
-}
+globalEvents: [
+  "eventName"
+]
 ```
 
 ### Preload Events

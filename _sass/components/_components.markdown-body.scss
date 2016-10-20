@@ -427,9 +427,13 @@
 }
 
 .c-markdown-body blockquote {
-  padding: 0 15px;
+  /*padding: 0 15px;
   color: #777;
-  border-left: 4px solid #ddd;
+  border-left: 4px solid #ddd;*/
+  padding: 10px 10px;
+  color: #FFF;
+  border-left: 4px solid cornflowerblue;
+  background: darkseagreen;
 }
 
 .c-markdown-body blockquote>:first-child {

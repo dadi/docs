@@ -3,15 +3,15 @@ title: Installation guide – Ubuntu
 layout: default
 ---
 
-## Overview
+## Introduction
 
 This document provides a simple step by step guide to installation on Ubuntu [14.04.1 LTS](http://releases.ubuntu.com/14.04.1/).
 
 This guide assumes a single server holding both the database and the API.
 
-## Installing DADI API
+### Installing DADI API
 
-### Node.js latest
+#### Node.js latest
 
 1. `sudo apt-get -y update`
 2. `sudo apt-get -y upgrade`
@@ -20,7 +20,7 @@ This guide assumes a single server holding both the database and the API.
 5. `sudo apt-get -y update`
 6. `sudo apt-get -y install nodejs`
 
-### MongoDB
+#### MongoDB
 
 1. `sudo apt-get -y install mongodb`
 
@@ -29,7 +29,7 @@ For the tests to run you will need stand alone `mongod`s running at localhost:27
 1. `sudo mkdir -p data/db1 data/log1`
 2. `sudo mongod --dbpath ~/data/db1 --logpath ~/data/log1/log --port 27018 --fork`
 
-### DADI API
+#### DADI API
 
 Install GCC to provide the latest build of the c++ bson extension (not required, but improves performance):
 
@@ -69,13 +69,13 @@ Start the API:
 
 We can test that our credentials are valid by trying:
 
-`curl -v -X POST -H "Cache-Control: no-cache" -H "content-type: application/json" -d "{ \"clientId\": \"testClient\", \"secret\": \"superSecret\"}" http://127.0.0.1:3000/token`
+`curl -v -X POST -H "Cache-Control: no-cache" -H "content-type: application/json" -d "{ \"clientId\": \"your-client-id\", \"secret\": \"your-secret\"}" http://127.0.0.1:3000/token`
 
 You should receive a 200 response containing an access token similar to the following
 
 `{"accessToken":"ccb96c94-2ddf-446b-8482-436c9423ae54","tokenType":"Bearer","expiresIn":2592000}`
 
-### Forever
+#### Forever
 
 To run the API server in the background, install [Forever](https://github.com/nodejitsu/forever) and [Forever-service](https://github.com/zapty/forever-service):
 

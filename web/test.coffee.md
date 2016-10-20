@@ -67,8 +67,8 @@ is assumed to be using the same authentication scheme as set in the main configu
       "port": "80",
       "tokenUrl": "/token",
       "credentials": {
-        "clientId": "testClient",
-        "secret": "superSecret"
+        "clientId": "your-client-id",
+        "secret": "your-secret"
       }
     },
 

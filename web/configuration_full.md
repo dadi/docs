@@ -153,7 +153,7 @@ enabled           | If false, the web server runs in stand-alone mode   |       
 :---------------|:----------------------------|:---------------|:--------------
 tokenUrl           | The endpoint to use when requesting Bearer tokens from the API   |  |  "/token"
 clientId           |    |               |        "test123"
-secret           |    |               |         "superSecret"
+secret           |    |               |         "your-secret"
 
 ###### Section: `caching`
 

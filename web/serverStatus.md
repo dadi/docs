@@ -16,7 +16,7 @@ POST /api/status HTTP/1.1
 Host: www.example.com
 Content-Type: application/json
 
-{"clientId": "testClient","secret": "superSecret"}
+{"clientId": "your-client-id","secret": "your-secret"}
 ```
 
 ### Health Check
