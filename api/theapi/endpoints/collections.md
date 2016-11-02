@@ -114,6 +114,7 @@ Each field is defined in the following way:
     "label": "Title",
     "comments": "The title of the entry",
     "example": "War and Peace",
+    "matchType": "exact",
     "validation": {
       "minLength": 4,
       "maxLength": 20,
@@ -133,22 +134,25 @@ Each field is defined in the following way:
 }
 ```
 
- Property       | Description        |  Default                                  | Example
+ Property       | Description        | Introduced        |  Default                                  | Example
 :----------------|:-------------------|:------------------------------------------|:-------
-fieldName | The name of the field | | `"title"`
-type | The type of the field. Possible values `"String"`, `"Number"`, `"Boolean"`, `"Mixed"`, `"Object"`, `"ObjectID"`, `"Reference"`  | | `"String"`
-label | The label for the field | | `"Title"`
-comments | The description of the field | | `"The article title"`
-example | An example value for the field | | `"War and Peace"`
-placement | Determines where to display the field in the backend interface  | | `"Main content"`
-validation | Validation rules, including minimum and maximum length and regular expression patterns. | |
-validation.minLength | The minimum length for the field. | unlimited | `4`
-validation.maxLength | The maximum length for the field. | unlimited | `20`
-validation.regex | A regular expression the field's value must match |  | `{ "pattern": /[A-Z]*/ }`
-required | If true, a value must be entered for the field. | `false` | `true`
-message | The message to return if field validation fails. | `"is invalid"` | `"must contain uppercase letters only"`
-default | An optional value to use as a default if no value is supplied for this field | | `"0"`
-display | Determines in which view states the field should be visible within the backend interface | | `{ "index": true, "edit": false }`
+fieldName | The name of the field | | | `"title"`
+type | The type of the field. Possible values `"String"`, `"Number"`, `"Boolean"`, `"Mixed"`, `"Object"`, `"ObjectID"`, `"Reference"`  | 1.0.0|  | `"String"`
+label | The label for the field | 1.0.0 |  | `"Title"`
+comments | The description of the field | 1.0.0 |  | `"The article title"`
+example | An example value for the field | 1.0.0 |  | `"War and Peace"`
+placement | Determines where to display the field in the backend interface  | 1.0.0 |  | `"Main content"`
+validation | Validation rules, including minimum and maximum length and regular expression patterns. | 1.3.0 |  |
+validation.minLength | The minimum length for the field.| 1.3.0  | unlimited | `4`
+validation.maxLength | The maximum length for the field.| 1.3.0  | unlimited | `20`
+validation.regex | A regular expression the field's value must match | 1.3.0  |  | `{ "pattern": /[A-Z]*/ }`
+required | If true, a value must be entered for the field. | 1.0.0 | `false` | `true`
+message | The message to return if field validation fails.| 1.0.0  | `"is invalid"` | `"must contain uppercase letters only"`
+default | An optional value to use as a default if no value is supplied for this field ||  | `"0"`
+display | Determines in which view states the field should be visible within the backend interface | 1.0.0|  | `{ "index": true, "edit": false }`
+matchType | Specify the type of query that is performed when using this field. If "exact" then API will attempt to match the query value exactly, otherwise it will performa a case-insensitive query. | 1.14.0 | | `"exact"`
+validationRule | Replaced by `validation`  | removed 1.8.2 |  |
+limit | Replaced by `validation` | removed 1.8.2 |  |
 
 #### Field Types
 
@@ -423,7 +427,7 @@ An additional `composed` property is added to the `book` document when it is ret
 
 ##### Enabling Composition
 
-Composition is disabled by default.
+> Composition is disabled by default.
 
 To return a document with resolved Reference fields at the top level, you may send a parameter either in the querystring of your request or provide it as an option to the collection's `find()` method:
 
@@ -473,7 +477,7 @@ Reference fields to resolve which are nested further within the document, add a 
 ]
 ```
 
-###### A `people` document
+##### A `people` document
 
 ```json
 [

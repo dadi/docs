@@ -1,5 +1,5 @@
 ---
-title: Serving
+title: Serving Images and Assets
 layout: default
 ---
 
@@ -15,7 +15,7 @@ body {
 
 ## Serving Images and Assets
 
-With your [sources](sources.md) configured so that CDN knows where to find them, you can start sending requests for your assets and images.
+With your [sources](sources) configured so that CDN knows where to find them, you can start sending requests for your assets and images.
 
 CDN currently responds to two types of URL scheme. One, the Path URL scheme, is a legacy format and exists for backwards compatibility with early-adoption client applications. The other, the Querystring URL scheme, is succinct, flexible and robust.
 

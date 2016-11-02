@@ -3,9 +3,9 @@ title: Delivery Recipes
 layout: default
 ---
 
-## Delivery recipes
+## Introduction
 
-A Delivery Recipe is a predefined set of image manipulation parameters stored in a JSON file. that are applied
+A Delivery Recipe is a predefined set of image manipulation parameters stored in a JSON file and applied to images at the time of request.
 
 Let's use the image from our magazine example.
 `https://cdn.example.com/thumbnail/images/man-walking-on-beach.jpg`
@@ -32,10 +32,10 @@ Recipes are defined in JSON files held in the `/workspace/recipes` folder.
 }
 ```
 
-## Using a recepe
+## Using a recipe
 
-Making use of a recepe is simple: call your image via the recipe name defined in the recepe JSON.
+Making use of a recipe is simple: call your image via the recipe name defined in the recipe JSON.
 
 For example:
 
-`http://youdomain.com/example-recipe-name/image-filename.png`
+`http://cdn.example.com/thumbnail/image-filename.png`

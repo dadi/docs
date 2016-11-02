@@ -5,6 +5,10 @@ layout: default
 
 [![npm (scoped)](https://img.shields.io/npm/v/@dadi/cdn.svg?maxAge=10800&style=flat-square)](https://www.npmjs.com/package/@dadi/cdn)&nbsp;[![Build Status](https://travis-ci.org/dadi/cdn.svg?branch=master)](https://travis-ci.org/dadi/cdn)&nbsp;[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
 
+```
+$ npm install @dadi/api
+```
+
 DADI API is a high performance RESTful API layer designed in support of [API-first development and the principle of COPE](./apiFirst).
 
 You can consider it as the data layer within a platform (including the data model). It is designed to be plugged into a templating layer, a mobile application or to be used with any other data consumer.
@@ -19,7 +23,6 @@ It is part of DADI, a suite of components covering the full development stack, b
 
 ## Contents
 
-* Overview (this document)
 * [API-first Development](./apiFirst)
 * [Installation and Configuration](./setup/)
   * [Requirements](./setup/requirements)
@@ -38,7 +41,3 @@ It is part of DADI, a suite of components covering the full development stack, b
   * [Validation](./theapi/validation)
   * [HTTP Status Codes](./theapi/httpStatuses)
 * [Cache performance](./cachePerformance)
-* [Development](./development)
-* [Contributing](./contributingGuidelines)
-* [License](./license)
-* [GPL](./gpl)

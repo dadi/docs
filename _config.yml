@@ -17,3 +17,8 @@ kramdown:
 detach:  false
 port:    4900
 host:    0.0.0.0
+
+collections:
+  tutorials:
+    output: true
+    permalink: /tutorials/:path/

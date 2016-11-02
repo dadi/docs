@@ -2,9 +2,15 @@
 <html>
   {% include head.html %}
   <body>
+    {% if page.dir %}
+      {% assign dirs = page.dir | split: '/' %}
+    {% else %}
+      {% assign dirs = page.url | split: '/' %}
+    {% endif %}
 
-    {% assign dirs = page.dir | split: '/' %}
-    {% if dirs.length > 1 %}
+    {% assign dirs_size = dirs | size %}
+
+    {% if dirs_size > 1 %}
       {% assign dir = dirs[1] | prepend: '/' | append: '/' %}
     {% else %}
       {% assign dir = '/' %}
@@ -23,6 +29,8 @@
             DADI CDN
           {% when 'web' %}
             DADI Web
+          {% when 'tutorials' %}
+            {{ page.product }}
           {% else %}
         {% endcase %}
       </span>
@@ -31,16 +39,17 @@
     </div>
 
     <div class="u-wrapper u-wrapper-gutter u-cols u-margin-top-larger">
-      <div class="c-markdown-body u-col u-col--2-3">
+      <div class="c-markdown-body u-col {% if dir != '/' %}u-col--2-3{% endif %}">
         {{ content }}
       </div>
+      {% if dir != '/' %}
       <div class="u-col u-col--1-3 u-padding u-color-black">
         <a class="u-margin-bottom c-button c-button--positive" href="http://github.com/dadi/docs/edit/master/{{ page.path }}">Edit in github</a>
-
         <div class="c-card u-padding u-docnav">
-          {% include generateMenuForPath.html root=dir activeClass="active" %}
+          {% include mnu.html root=dir activeClass="active" %}
         </div>
       </div>
+      {% endif %}
     </div>
 
     {% include components/footer.html %}

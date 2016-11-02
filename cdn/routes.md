@@ -2,10 +2,12 @@
 title: Delivery Routes
 layout: default
 ---
+## Introduction
 
-# Delivery Routes
+Routes allow CDN to make a decision about which [Delivery Recipe](recipes) to use for the current request, based on a set of configurable conditions.
 
-* [Overview](#overview)
+Conditions can include the type of device being used, the network type, user location and language.
+
 * [Creating a Route](#creating-a-route)
 * [Route Basics](#route-basics)
 * [Branches](#branches)
@@ -13,15 +15,9 @@ layout: default
 * [Caching](#caching)
 * [Example](#example)
 
-## Overview
-
-Routes allow CDN to make a decision about which [Delivery Recipe](recipes.md) to use for the current request, based on a set of configurable conditions.
-
-Conditions can include the type of device being used, the network type, user location and language.
-
 ## Creating a Route
 
-A route is defined in JSON format and added to a directory in your CDN installation. The default location for route files is `workspace/routes`, but this is [configurable](configuration.md#routes).
+A route is defined in JSON format and added to a directory in your CDN installation. The default location for route files is `workspace/routes`, but this is [configurable](configuration#routes).
 
 You can create route files in a text editor and manually copy them to the routes folder, or you can send a `POST` request to CDN with the route content and have CDN create it for you.
 
@@ -72,7 +68,7 @@ At a minimum, a route must take the following form. The `branches` array below c
 
 Each branch within the `branches` array should contain two properties, `recipe` and `condition`.
 
-* `recipe` (string) - the name of the [Delivery Recipe](recipes.md) to use when all specified conditions are met
+* `recipe` (string) - the name of the [Delivery Recipe](recipes) to use when all specified conditions are met
 
 * `condition` (object) - contains properties that correspond to test types
 

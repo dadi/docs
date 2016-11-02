@@ -3,6 +3,8 @@ title: Sources
 layout: default
 ---
 
+## Introduction
+
 Before you can serve assets or images you need to tell CDN where your files are located. Currently, CDN can serve your files from three types of source:
 
 * [Amazon S3](#amazon-s3) - store assets in existing Amazon S3 buckets

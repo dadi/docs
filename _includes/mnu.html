@@ -1,0 +1,41 @@
+{% assign sorted = site.pages | sort: 'url' %}
+{% assign url_parts = page.url | split: '/' %}
+{% assign url_parts_size = url_parts | size %}
+{% assign base = url_parts[1] %}
+
+<ul>
+{% for node in sorted %}
+  {% if node.url contains base %}
+    {% assign next_level = url_parts_size | plus: 1 %}
+    {% assign node_url_parts = node.url | split: '/' %}
+    {% assign node_url_parts_size = node_url_parts | size %}
+    {% assign filename = node_url_parts | last %}
+    {% assign fileparts = filename | split: '.' %}
+    {% assign fileparts_size = fileparts | size %}
+
+    {% assign prev_level = next_level | minus: 1 %}
+
+    {% if node_url_parts_size == prev_level and open %}
+        </li>
+      </ul>
+      {% assign open = false %}
+    {% else %}
+      {% if node_url_parts_size <= prev_level and filename != 'index.html' and fileparts_size > 1 and filename != base %}
+        <li><a class="x" href='{{node.url}}'>{{node.title}}</a></li>
+      {% endif %}
+    {% endif %}
+
+    {% if node_url_parts_size == url_parts_size and fileparts_size == 1 and filename != base %}
+      <li><a class="parent" href='{{node.url}}'>{{node.title}}</a>
+        <ul>
+        {% assign open = true %}
+    {% endif %}
+
+
+    {% if node_url_parts_size == next_level and filename != 'index.html' %}
+      <li><a class="reg" href='{{node.url}}'>{{node.title}}</a></li>
+    {% endif %}
+
+  {% endif %}
+{% endfor %}
+</ul>
