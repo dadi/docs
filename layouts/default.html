@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <link rel="stylesheet" type="text/css" href="http://beta.dadi.tech/assets/css/main.min.css">
+  <link rel="icon" type="image/png" href="http://beta.dadi.tech/assets/img/favicon.png">
+</head>
+<body class="{+bodyClass}light{/bodyClass}">
+
+<div class="top {?params.section}top--{params.section}{/params.section}">
+
+  <div class="container">
+    <header class="Page-header">
+      <nav class="DocsNav">
+        {{#each collections}}
+          <a class="DocsNav-tab" href="/{{this.0.path}}">{{@key}}</a>
+        {{/each}}
+      </nav>
+    </header>
+
+    {{#each headings}}
+      <a class="" href="#{{id}}">{{text}}</a><br/>
+    {{/each}}
+  </div>
+</div>
+
+<main>
+
+  <div class="container pad__bottom--x2">
+    <h1>{{ title }}</h1>
+    <p>{{ description }}</p>
+
+    {{{ contents }}}
+  </div>
+
+</main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="grid marg__top marg__bottom">
+        {@iter items=insights from=0 to=3}
+          <div class="col w-1-3">
+            {! <p class="txt--grey hdr">{@formatDate data=attributes.date parseFormat="YYYY-DD-MMMTh:mm:ss.ZZ" format="Do MMMM" /}</p> !}
+            <p class="hdr large txt--blue"><a href="/latest/{handle}/">{attributes.title}</a></p>
+            <p class="small txt--mid-grey">By <strong>{attributes.author}</strong></p>
+            <p class="small">{@soberMarkdown}{@Truncate data="{attributes.preface}" length="110" ellipsis="true"/}{/soberMarkdown}</p>
+            <p class="small"><a href="/latest/{handle}/" class="btn btn--blue">Read more</a></p>
+          </div>
+        {/iter}
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="/contact/">Contact us</a></li>
+          <li><a href="/success-stories/">Success stories</a></li>
+          <li><a href="/latest/">Latest</a></li>
+          <li><a href="/on-demand/">On demand</a></li>
+          <li><a href="/about/">Working with DADI</a>
+          <li><a href="/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="/platform/api/" class="fwb">
+            <img src="/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="/platform/web/" class="fwb">
+            <img src="/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="/platform/publish/" class="fwb">
+            <img src="/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="/platform/cdn/" class="fwb">
+            <img src="/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          {! <li>
+            <a href="/platform/track/" class="fwb">
+            <img src="/assets/products/dadi-track.png" class="alignv float--right" width="15">
+            Track
+            </a>
+          </li>
+          <li>
+            <a href="/platform/visualize/" class="fwb">
+            <img src="/assets/products/dadi-visualize.png" class="alignv float--right" width="19">
+            Visualize
+            </a>
+          </li>
+          <li>
+            <a href="/platform/predict/" class="fwb">
+            <img src="/assets/products/dadi-predict.png" class="alignv float--right" width="15">
+            Predict
+            </a>
+          </li>
+          <li>
+            <a href="/platform/identity/" class="fwb">
+            <img src="/assets/products/dadi-identity.png" class="alignv float--right" width="8">
+            Identity
+            </a>
+          </li> !}
+          <li><a href="/platform/concepts/">Concepts</a></li>
+          {! <li><a href="/platform/tools/">Tools &amp; Components</a></li> !}
+          <li><a href="/platform/security/">Security</a></li>
+          <li><a href="/platform/roadmap/">Roadmap</a></li>
+          {! <li><a href="/platform/licensing/">Licensing</a></li> !}
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="/solutions/publishing/">Publishing</a></li>
+          <li><a href="/solutions/product-development/">Product development</a></li>
+          <li><a href="/solutions/crm/">CRM</a></li>
+          <li><a href="/solutions/analytics/">Analytics</a></li>
+          <li><a href="/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/dadi.tech">View the repo for this site</a></li>
+      </ul>
+      <img src="/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','{global.protocol}://www.google-analytics.com/analytics.js','ga');
+</script>
+
+</body>
+</html>
