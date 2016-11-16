@@ -3,7 +3,7 @@ title: Hooks
 layout: default.html
 ---
 
-## Introduction
+## Introduction ##
 
 In its essence, a hook is simply a function that intercepts a document/query before it's executed, having the option to modify it before returning it back to the model.
 
@@ -11,7 +11,7 @@ A hook is stored as an individual file on a `hooks` directory (defaulting to `/w
 
 *collections.user.json*:
 
-```json
+```
 "settings": {
   "hooks": {
     "create": ["myhook1", "myhook2"]
@@ -24,6 +24,10 @@ This means that whenever a new user is created, the document that is about to be
 The order in which hooks are executed is defined by the order of the items in the array.
 
 ## Anatomy of a hook
+
+- one
+* two
++ three
 
 A hook always receives 3 arguments:
 

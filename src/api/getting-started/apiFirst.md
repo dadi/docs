@@ -1,5 +1,5 @@
 ---
-title: API First
+title: Getting Started
 layout: default.html
 ---
 

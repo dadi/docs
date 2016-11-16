@@ -1,5 +1,5 @@
 ---
-title: CDN Installation
+title: Getting Started
 layout: default.html
 ---
 

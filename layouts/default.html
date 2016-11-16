@@ -4,37 +4,75 @@
   <meta charset="UTF-8" />
   <title>{{ title }}</title>
   <meta name="description" content="{{ description }}">
-  <link rel="stylesheet" type="text/css" href="http://beta.dadi.tech/assets/css/main.min.css">
-  <link rel="icon" type="image/png" href="http://beta.dadi.tech/assets/img/favicon.png">
+  <link rel="stylesheet" type="text/css" href="http://stage.dadi.tech/assets/css/main.min.css">
+  <link rel="icon" type="image/png" href="http://stage.dadi.tech/assets/img/favicon.png">
 </head>
-<body class="{+bodyClass}light{/bodyClass}">
+<body class="docs light">
 
-<div class="top {?params.section}top--{params.section}{/params.section}">
-
-  <div class="container">
-    <header class="Page-header">
-      <nav class="DocsNav">
-        {{#each collections}}
-          <a class="DocsNav-tab" href="/{{this.0.path}}">{{@key}}</a>
-        {{/each}}
-      </nav>
-    </header>
-
-    {{#each headings}}
-      <a class="" href="#{{id}}">{{text}}</a><br/>
-    {{/each}}
+<div class="top__bg pattern" style="background-color: #1D0309;" data-colors="#1d0309,#190208,#160207,#130206,#100105,#0c0104,#090103,#060002,#030001,#000000"></div>
+<div class="container">
+  <header class="grid bs-grid">
+    <div class="col w-1-4">
+      <h1><a href="/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+    </div>
+    <div class="col w-1-4 bs-w-1-1">
+      <ul class="normal nav  marg__right--x2">
+        <li><a href="/platform/" class="active">Platform</a></li>
+        <li><a href="/success-stories/" >Success stories</a></li>
+        <li><a href="/latest/" >Latest</a></li>
+      </ul>
+    </div>
+    <div class="col w-1-4 bs-w-1-2">
+      <p class="fwb small">Looking for a hosted technology solution?</p>
+      <a href="/on-demand/" class="btn btn--fill btn--red">On demand</a>
+    </div>
+    <div class="col w-1-4 bs-w-1-2">
+      <p class="fwb small">Need help integrating or customising our platform?</p>
+      <a href="/solutions/" class="btn btn--fill btn--green">Solutions</a>
+    </div>
+  </header>
+  <div class="alignc marg__bottom small">
+    <ul class="list--breadcrumb titlecase">
+      <li><a href="/">home</a></li>
+      <li><a href="/platform/">Platform</a></li>
+      <li><a href="/platform/concepts/">Concepts</a></li>
+      <li class="fwb">API First &amp; COPE</li>
+    </ul>
   </div>
 </div>
-
+<!--
+      <ul>
+        {{#each collections}}
+        <li>
+          <a class="" href="/{{this.0.path}}">{{@key}}</a>
+          <ul>
+            {{#each this}}
+              {{#ifCond @index '>' 0}}
+              {{#ifCond @index '<' 4}}
+                <li><a class="" href="/{{this.path}}">{{this.title}}</a></li>
+              {{/ifCond}}
+              {{/ifCond}}
+            {{/each}}
+          </ul>
+        </li>
+        {{/each}}
+-->
 <main>
-
-  <div class="container pad__bottom--x2">
-    <h1>{{ title }}</h1>
-    <p>{{ description }}</p>
-
-    {{{ contents }}}
+  <div class="container container--divider normal">
+    <div class="grid">
+      <div class="col w-2-3 read">
+        <h1>{{ title }}</h1>
+        {{{ contents }}}
+      </div>
+      <div class="col w-1-3">
+        <ul class="list--line pad__top--half">
+          {{#each headings}}
+            <li><a class="" href="#{{id}}">{{text}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
   </div>
-
 </main>
 
 <div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
@@ -164,6 +202,8 @@
   </footer>
 </div>
 
+<script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://stage.dadi.tech/assets/js/main.js"></script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

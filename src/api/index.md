@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: API
 layout: default.html
 ---
 

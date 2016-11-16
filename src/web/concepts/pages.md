@@ -17,8 +17,7 @@ layout: default.html
 * [Events](#events)
 * [Preload Events](#preload-events)
 * [Caching](#caching)
-* Static Pages (TODO)
-* Error Pages (TODO)
+* [Error Pages](#error-pages)
 
 ### Page Specification
 
@@ -147,9 +146,7 @@ For detailed documentation of datasources, see [Datasources](https://github.com/
 
 #### Required Datasources
 
-Allows specifying an array of datasources that must return data for the page to function.
-If any of the listed datasources return no results, a 404 is returned. The datasources specified
-must exist in the `datasources` array.
+Allows specifying an array of datasources that must return data for the page to function. If any of the listed datasources return no results, a 404 is returned. The datasources specified must exist in the `datasources` array.
 
 ```js
 "requiredDatasources": [
@@ -174,8 +171,7 @@ For detailed documentation of events, see [Events](https://github.com/dadi/web/b
 
 An array containing events that should be executed before the rest of the page's datasources and events.
 
-Preload events are loaded from the filesystem in the same way as a page's regular events,
-and a Javascript file with the same name must exist in the `events` path.
+Preload events are loaded from the filesystem in the same way as a page's regular events, and a Javascript file with the same name must exist in the `events` path.
 
 ```js
 "preloadEvents": [
@@ -193,4 +189,26 @@ For detailed documentation of page caching, see [Page Caching](https://github.co
 "settings": {
   "cache": true
 }
+```
+
+### Error pages
+
+You can have error pages for any error code your application can throw. For example, a 404.
+
+`/workspace/pages/404.json`
+
+```js
+{
+  "page": {
+      "name": "404 Error page",
+      "description": "Page not found",
+      "language": "en"
+  }
+}
+```
+
+`/workspace/pages/404.dust`
+
+```html
+<h1>404 Error: page not found</h1>
 ```

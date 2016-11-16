@@ -3,13 +3,11 @@ title: Preload
 layout: default.html
 ---
 
-## Preload
-
-### Preloading data
+# Preloading data
 
 Configure Web to preload some data. Add a block to the [main configuration](configuration.md) file like the example below, using your datasource names in place of "channels":
 
-```
+```json
 "data": {
   "preload": [
     "channels"
@@ -17,9 +15,9 @@ Configure Web to preload some data. Add a block to the [main configuration](conf
 }
 ```
 
-### Accessing preloaded data
+## Accessing preloaded data
 
-```js
+```javascript
 var Preload = require('@dadi/web').Preload
 var data = Preload().get('key')
 ```
