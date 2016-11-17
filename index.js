@@ -12,6 +12,7 @@ var linkcheck = require('metalsmith-linkcheck')
 var markdown = require('metalsmith-markdown')
 var markdownTidy = require('metalsmith-markdown-tidy')
 var permalinks = require('metalsmith-permalinks')
+var sitemap = require('metalsmith-mapsite')
 
 Metalsmith(__dirname)
   .metadata({
@@ -75,6 +76,7 @@ Metalsmith(__dirname)
     engine: 'handlebars'
   }))
   .use(linkcheck())
+  .use(sitemap('http://docs.dadi.tech'))
   .build(function(err, files) {
     if (err) { throw err; }
   })
