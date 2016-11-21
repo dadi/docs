@@ -33,35 +33,28 @@
   </header>
   <div class="alignc marg__bottom small">
     <ul class="list--breadcrumb titlecase">
-      <li><a href="/">home</a></li>
-      <li><a href="/platform/">Platform</a></li>
-      <li><a href="/platform/concepts/">Concepts</a></li>
-      <li class="fwb">API First &amp; COPE</li>
+      <li><a href="/">Home</a></li>
+      {{#each breadcrumb_path}}
+        {{#each ../collections}}
+          {{#each this}}
+            {{#ifCond this.path '==' ../../path}}
+              <li  class="{{#if @../../last}}fwb{{/if}}"><a href="/{{this.path}}">{{{this.title}}}</a></li>
+            {{/ifCond}}
+          {{/each}}
+        {{/each}}
+      {{/each}}
     </ul>
   </div>
 </div>
-<!--
-      <ul>
-        {{#each collections}}
-        <li>
-          <a class="" href="/{{this.0.path}}">{{@key}}</a>
-          <ul>
-            {{#each this}}
-              {{#ifCond @index '>' 0}}
-              {{#ifCond @index '<' 4}}
-                <li><a class="" href="/{{this.path}}">{{this.title}}</a></li>
-              {{/ifCond}}
-              {{/ifCond}}
-            {{/each}}
-          </ul>
-        </li>
-        {{/each}}
--->
+
 <main>
   <div class="container container--divider normal">
     <div class="grid">
       <div class="col w-2-3 read">
         <h1>{{ title }}</h1>
+
+        {{{wordCount}}}:{{{readingTime}}}
+
         {{{ contents }}}
       </div>
       <div class="col w-1-3">
