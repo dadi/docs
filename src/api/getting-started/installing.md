@@ -2,19 +2,19 @@
 title: Getting Started
 ---
 
-# Installing DADI Web
+# Installing DADI API
 
 ## NPM
 
-All our platform microservices are available from [NPM](https://www.npmjs.com/). To install *Web*.
+All our platform microservices are available from [NPM](https://www.npmjs.com/). To install *Api*.
 
 ```
-$ npm install @dadi/web
+$ npm install @dadi/api
 ```
 
 ## Manual install
 
-If you do not want to use NPM, you can grab the latest [release](https://github.com/dadi/web/releases). Then you can install:
+If you do not want to use NPM, you can grab the latest [release](https://github.com/dadi/api/releases). Then you can install:
 
 ```
 $ cd ./release-download-location/
@@ -27,7 +27,7 @@ We have our own tool to handy tool to generate new applications easily.
 
 ```
 $ npm install -g @dadi/generator
-$ dadi-generator web /path/to/your_new_app
+$ dadi-generator api /path/to/your_new_app
 $ cd /path/to/your_new_app
 $ npm install
 $ npm start
@@ -35,7 +35,7 @@ $ npm start
 
 ## Dependencies
 
-You can see our full list of dependencies in the [package.json](https://github.com/dadi/web/blob/master/package.json).
+You can see our full list of dependencies in the [package.json](https://github.com/dadi/api/blob/master/package.json).
 
 ## Tests
 
@@ -54,10 +54,10 @@ $ [sudo] npm install forever -g
 $ [sudo] npm install -g forever-service
 ```
 
-Install DADI Web as a service and ensure it loads on boot:
+Install DADI API as a service and ensure it loads on boot:
 
 ```
-$ [sudo] forever-service install -s main.js -e NODE_ENV=production web --start
+$ [sudo] forever-service install -s main.js -e NODE_ENV=production api --start
 ```
 
 **Note** the environment variable `NODE_ENV=production` must be set to target the required config version.
@@ -65,10 +65,10 @@ $ [sudo] forever-service install -s main.js -e NODE_ENV=production web --start
 You can then interact with the service using the following command:
 
 ```
-$ [sudo] start web
-$ [sudo] stop web
-$ [sudo] status web
-$ [sudo] restart web
+$ [sudo] start api
+$ [sudo] stop api
+$ [sudo] status api
+$ [sudo] restart api
 ```
 
-**And you're done, now move on to [configuration](/web/getting-started/configuration/).**
+**And you're done, now move on to [configuration](/api/getting-started/configuration/).**
