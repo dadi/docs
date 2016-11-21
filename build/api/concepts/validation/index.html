@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Validation</title>
+  <meta name="description" content="Its about saying »Hello« to the World.">
+  <link rel="stylesheet" type="text/css" href="http://localhost:4113/assets/css/main.min.css">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+  <link rel="icon" type="image/png" href="http://stage.dadi.tech/assets/img/favicon.png">
+</head>
+<body class="docs light">
+
+<div class="top">
+  <div class="top__bg pattern" style="background-color: #333;" data-colors="#333333,#2d2d2d,#272727,#222222,#1c1c1c,#161616,#111111,#0b0b0b,#050505,#000000"></div>
+
+  <div class="container">
+    <header class="grid bs-grid">
+      <div class="col w-1-4">
+        <h1><a href="/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+      </div>
+      <div class="col w-1-4 bs-w-1-1">
+        <ul class="normal nav  marg__right--x2">
+          <li><a href="https://dadi.tech/platform/" class="active">Platform</a></li>
+          <li><a href="https://dadi.tech/success-stories/" >Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/" >Latest</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Looking for a hosted technology solution?</p>
+        <a href="https://dadi.tech/on-demand/" class="btn btn--fill btn--red">On demand</a>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Need help integrating or customising our platform?</p>
+        <a href="https://dadi.tech/solutions/" class="btn btn--fill btn--green">Solutions</a>
+      </div>
+    </header>
+    <div class="marg__bottom small">
+      <ul class="list--breadcrumb titlecase">
+        <li><a href="/">Documentation</a></li>
+                <li  class=""><a href="/api">API</a></li>
+                <li  class="fwb"><a href="/api/concepts">Concepts</a></li>
+      </ul>
+
+      <h1>Validation</h1>
+    </div>
+  </div>
+</div>
+  <main>
+    <div class="container normal">
+      <div class="grid">
+        <div class="col w-3-4 documentation pad__bottom--x2">
+          <h1 id="overview">Overview</h1>
+<p>Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema.</p>
+<ul>
+<li><a href="#validation-options">Validation Options</a></li>
+<li><a href="#validation-response">Validation Response</a></li>
+<li><a href="#error-messages">Error Messages</a></li>
+</ul>
+<h1 id="validation-options">Validation Options</h1>
+<ul>
+<li><a href="#type-validation">Type Validation</a></li>
+<li><a href="#mandatory-field-validation">Mandatory Field Validation</a></li>
+<li><a href="#length-validation">Length Validation</a></li>
+<li><a href="#regular-expression-validation">Regular Expression Validation</a></li>
+</ul>
+<h2 id="type-validation">Type Validation</h2>
+<p>A field can be validated by type. DADI API will check that the value supplied for the field is the correct type as specified in the schema. Only the following JavaScript primitives are considered for type validation: <code class="lang-autoit"><span class="hljs-built_in">String</span></code>, <code class="lang-autoit"><span class="hljs-built_in">Number</span></code>, <code class="lang-gradle"><span class="hljs-keyword">Boolean</span></code></p>
+<pre><code class="lang-xquery"><span class="hljs-string">"fields"</span>: {
+  <span class="hljs-string">"title"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"String"</span>,
+    <span class="hljs-string">"message"</span>: <span class="hljs-string">"must be a string"</span>
+  }
+}
+</code></pre><h2 id="mandatory-field-validation">Mandatory Field Validation</h2>
+<p>Fields can be made mandatory by setting their <code class="lang-protobuf"><span class="hljs-keyword">required</span></code> property to <code class="lang-actionscript"><span class="hljs-literal">true</span></code>. DADI API will check that a value has been supplied for the field when creating new documents. Validation for update requests is more relaxed and mandatory fields aren’t validated as they would have already been populated with data when the document was first created.</p>
+<pre><code class="lang-xquery"><span class="hljs-string">"fields"</span>: {
+  <span class="hljs-string">"title"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"String"</span>,
+    <span class="hljs-string">"required"</span>: true
+  }
+}
+</code></pre><h2 id="length-validation">Length Validation</h2>
+<p>A field’s length can be controlled by using the <code class="lang-pf"><span class="hljs-keyword">min</span>Length</code> and <code class="lang-pf"><span class="hljs-keyword">max</span>Length</code> properties. Validation will fail if the length of the string is greater or less than the specified length limits.</p>
+<pre><code class="lang-xquery"><span class="hljs-string">"fields"</span>: {
+  <span class="hljs-string">"username"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"String"</span>,
+    <span class="hljs-string">"validation"</span>: {
+      <span class="hljs-string">"maxLength"</span>: <span class="hljs-number">16</span>
+    },
+    <span class="hljs-string">"message"</span>: <span class="hljs-string">"is too long"</span>
+  },
+  <span class="hljs-string">"password"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"String"</span>,
+    <span class="hljs-string">"validation"</span>: {
+      <span class="hljs-string">"minLength"</span>: <span class="hljs-number">6</span>
+    },
+    <span class="hljs-string">"message"</span>: <span class="hljs-string">"is too short"</span>
+  }
+}
+</code></pre><h2 id="regular-expression-validation">Regular Expression Validation</h2>
+<p>A regular expression pattern can be specified for a field, which may help enforcing business rules.</p>
+<pre><code class="lang-xquery"><span class="hljs-string">"fields"</span>: {
+  <span class="hljs-string">"productCode"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"String"</span>,
+    <span class="hljs-string">"required"</span>: true,
+    <span class="hljs-string">"validation"</span>: {
+      <span class="hljs-string">"regex"</span>: {
+        <span class="hljs-string">"pattern"</span>: <span class="hljs-string">"^A"</span>
+      }
+    },
+    <span class="hljs-string">"message"</span>: <span class="hljs-string">"must start with 'A'"</span>
+  }
+}
+</code></pre><h1 id="validation-response">Validation Response</h1>
+<p>If a document fails validation an errors collection will be returned with the reasons for validation failure:</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">success</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+  "<span class="hljs-attribute">errors</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">field</span>": <span class="hljs-value"><span class="hljs-string">"title"</span></span>,
+      "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"must contain uppercase letters only"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">field</span>": <span class="hljs-value"><span class="hljs-string">"description"</span></span>,
+      "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"can't be blank"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">field</span>": <span class="hljs-value"><span class="hljs-string">"start_date"</span></span>,
+      "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"is invalid"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">field</span>": <span class="hljs-value"><span class="hljs-string">"extra_field"</span></span>,
+      "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"doesn't exist in the collection schema"</span>
+    </span>}
+  ]
+</span>}
+</code></pre><h1 id="error-messages">Error Messages</h1>
+<p>A set of default error messages are returned for fields that fail validation. The table below lists the built-in error messages and their associated meaning.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Message</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">“is invalid”</td>
+<td style="text-align:left">The default message returned for a field that fails validation</td>
+</tr>
+<tr>
+<td style="text-align:left">“must be specified”</td>
+<td style="text-align:left">A <code class="lang-protobuf"><span class="hljs-keyword">required</span></code> field has not been supplied</td>
+</tr>
+<tr>
+<td style="text-align:left">“can’t be blank”</td>
+<td style="text-align:left">A <code class="lang-protobuf"><span class="hljs-keyword">required</span></code> field has been supplied but with no value</td>
+</tr>
+<tr>
+<td style="text-align:left">“should match the pattern <code class="lang-accesslog">^<span class="hljs-string">[A-Z]</span>*$</code>“</td>
+<td style="text-align:left">The value does not match the configured regular expression</td>
+</tr>
+</tbody>
+</table>
+<p>It is possible to supply a custom error message by specifying a <code class="lang-cmake"><span class="hljs-keyword">message</span></code> property in a field specification.</p>
+<p>For example:</p>
+<pre><code class="lang-smalltalk"><span class="hljs-comment">"title"</span>: {
+  <span class="hljs-comment">"type"</span>: <span class="hljs-comment">"String"</span>,
+  <span class="hljs-comment">"label"</span>: <span class="hljs-comment">"Title"</span>,
+  <span class="hljs-comment">"comments"</span>: <span class="hljs-comment">"The title of the book"</span>,
+  <span class="hljs-comment">"example"</span>: <span class="hljs-comment">"The Autobiography of Benjamin Franklin"</span>,
+  <span class="hljs-comment">"required"</span>: <span class="hljs-keyword">true</span>,
+  <span class="hljs-comment">"message"</span>: <span class="hljs-comment">"must contain a value"</span>
+}
+</code></pre>
+         <!--  <p class="small">458:2 min</p> -->
+        </div>
+         <div class="col w-1-4">
+          <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
+              <li><a class="" href="#type-validation">Type Validation</a></li>
+              <li><a class="" href="#mandatory-field-validation">Mandatory Field Validation</a></li>
+              <li><a class="" href="#length-validation">Length Validation</a></li>
+              <li><a class="" href="#regular-expression-validation">Regular Expression Validation</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/dadi.tech">View the repo for this site</a></li>
+      </ul>
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://localhost:4113/assets/js/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+</script>
+
+</body>
+</html>

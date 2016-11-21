@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Delivery Routes</title>
+  <meta name="description" content="Its about saying »Hello« to the World.">
+  <link rel="stylesheet" type="text/css" href="http://localhost:4113/assets/css/main.min.css">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+  <link rel="icon" type="image/png" href="http://stage.dadi.tech/assets/img/favicon.png">
+</head>
+<body class="docs light">
+
+<div class="top">
+  <div class="top__bg pattern" style="background-color: #333;" data-colors="#333333,#2d2d2d,#272727,#222222,#1c1c1c,#161616,#111111,#0b0b0b,#050505,#000000"></div>
+
+  <div class="container">
+    <header class="grid bs-grid">
+      <div class="col w-1-4">
+        <h1><a href="/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+      </div>
+      <div class="col w-1-4 bs-w-1-1">
+        <ul class="normal nav  marg__right--x2">
+          <li><a href="https://dadi.tech/platform/" class="active">Platform</a></li>
+          <li><a href="https://dadi.tech/success-stories/" >Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/" >Latest</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Looking for a hosted technology solution?</p>
+        <a href="https://dadi.tech/on-demand/" class="btn btn--fill btn--red">On demand</a>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Need help integrating or customising our platform?</p>
+        <a href="https://dadi.tech/solutions/" class="btn btn--fill btn--green">Solutions</a>
+      </div>
+    </header>
+    <div class="marg__bottom small">
+      <ul class="list--breadcrumb titlecase">
+        <li><a href="/">Documentation</a></li>
+                <li  class=""><a href="/cdn">CDN</a></li>
+                <li  class="fwb"><a href="/cdn/concepts">Concepts</a></li>
+      </ul>
+
+      <h1>Delivery Routes</h1>
+    </div>
+  </div>
+</div>
+  <main>
+    <div class="container normal">
+      <div class="grid">
+        <div class="col w-3-4 documentation pad__bottom--x2">
+          <h1 id="introduction">Introduction</h1>
+<p>Routes allow CDN to make a decision about which <a href="recipes">Delivery Recipe</a> to use for the current request, based on a set of configurable conditions.</p>
+<p>Conditions can include the type of device being used, the network type, user location and language.</p>
+<ul>
+<li><a href="#creating-a-route">Creating a Route</a></li>
+<li><a href="#route-basics">Route Basics</a></li>
+<li><a href="#branches">Branches</a></li>
+<li><a href="#conditions">Conditions</a></li>
+<li><a href="#caching">Caching</a></li>
+<li><a href="#example">Example</a></li>
+</ul>
+<h1 id="creating-a-route">Creating a Route</h1>
+<p>A route is defined in JSON format and added to a directory in your CDN installation. The default location for route files is <code class="lang-mel"><span class="hljs-keyword">workspace</span>/routes</code>, but this is <a href="configuration#routes">configurable</a>.</p>
+<p>You can create route files in a text editor and manually copy them to the routes folder, or you can send a <code class="lang-stata"><span class="hljs-keyword">POST</span></code> request to CDN with the route content and have CDN create it for you.</p>
+<h2 id="posting-to-cdn">POSTing to CDN</h2>
+<p>Send a <code class="lang-stata"><span class="hljs-keyword">POST</span></code> request to the routes endpoint with the request body containing the route content.</p>
+<p><strong>An example using cURL</strong></p>
+<pre><code class="lang-stata">curl -i -<span class="hljs-keyword">H</span> <span class="hljs-string">"Content-Type: application/json"</span> -X <span class="hljs-keyword">POST</span> <span class="hljs-string">"http://cdn.example.com/api/routes"</span> -<span class="hljs-keyword">d</span> '{
+  <span class="hljs-string">"route"</span>: <span class="hljs-string">"example-route"</span>,
+  <span class="hljs-string">"branches"</span>: [
+    {
+      <span class="hljs-string">"recipe"</span>: <span class="hljs-string">"thumbnail"</span>
+    }
+  ]
+}'
+</code></pre><p><strong>Response Codes</strong></p>
+<table>
+<thead>
+<tr>
+<th>Status Code</th>
+<th>Description</th>
+<th>Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>Route saved successfully</td>
+<td><code class="lang-css"><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">success</span>:<span class="hljs-value"> true </span></span></span>}</code></td>
+</tr>
+<tr>
+<td>400</td>
+<td>No request body sent</td>
+<td><code class="lang-css"><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">success</span>:<span class="hljs-value"> false, errors: [<span class="hljs-string">'Bad Request'</span>] </span></span></span>}</code></td>
+</tr>
+<tr>
+<td>400</td>
+<td>Route validation failed</td>
+<td><code class="lang-css"><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">success</span>:<span class="hljs-value"> false, errors: validationErrors </span></span></span>}</code></td>
+</tr>
+<tr>
+<td>400</td>
+<td>A route with the same name already exists</td>
+<td><code class="lang-css"><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">success</span>:<span class="hljs-value"> false, errors: [<span class="hljs-string">'Route already exists'</span>] </span></span></span>}</code></td>
+</tr>
+<tr>
+<td>400</td>
+<td>An error occurred when saving</td>
+<td><code class="lang-css"><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">success</span>:<span class="hljs-value"> false, errors: [<span class="hljs-string">'Error when saving route'</span>] </span></span></span>}</code></td>
+</tr>
+</tbody>
+</table>
+<h1 id="route-basics">Route Basics</h1>
+<p>A route must contain a <code class="lang-applescript"><span class="hljs-property">name</span></code> property, as well as an array of <code>branches</code> which contain the conditions that must be true for CDN to select the route.</p>
+<p>At a minimum, a route must take the following form. The <code>branches</code> array below contains a single branch with no conditions, representing the default recipe to use.</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">route</span>": <span class="hljs-value"><span class="hljs-string">"example-route"</span></span>,
+  "<span class="hljs-attribute">branches</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">recipe</span>": <span class="hljs-value"><span class="hljs-string">"thumbnail"</span>
+    </span>}
+  ]
+</span>}
+</code></pre>
+<h1 id="branches">Branches</h1>
+<p>Each branch within the <code>branches</code> array should contain two properties, <code>recipe</code> and <code class="lang-mel"><span class="hljs-keyword">condition</span></code>.</p>
+<ul>
+<li><p><code>recipe</code> (string) - the name of the <a href="recipes">Delivery Recipe</a> to use when all specified conditions are met</p>
+</li>
+<li><p><code class="lang-mel"><span class="hljs-keyword">condition</span></code> (object) - contains properties that correspond to test types</p>
+</li>
+</ul>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">route</span>": <span class="hljs-value"><span class="hljs-string">"example-route"</span></span>,
+  "<span class="hljs-attribute">branches</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">recipe</span>": <span class="hljs-value"><span class="hljs-string">"thumbnail-120"</span></span>,
+      "<span class="hljs-attribute">condition</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">device</span>": <span class="hljs-value"><span class="hljs-string">"desktop"</span>
+      </span>}
+    </span>},
+    {
+      "<span class="hljs-attribute">recipe</span>": <span class="hljs-value"><span class="hljs-string">"thumbnail-50"</span>
+    </span>}
+  ]
+</span>}
+</code></pre>
+<h2 id="branch-evaluation">Branch Evaluation</h2>
+<p>Branches are evaluated in the order they appear in the route. If a branch condition is not met, the branch is skipped and the next one evaluated.</p>
+<p>The default case (where none of the conditions are met) is handled by a branch with a <code>recipe</code> but no <code class="lang-mel"><span class="hljs-keyword">condition</span></code>, which is matched immediately. This branch must be last in the array, otherwise it may be used when you don’t intend it to be.</p>
+<h1 id="conditions">Conditions</h1>
+<h2 id="device">Device</h2>
+<p>The <code>device</code> condition matches the user’s device type, based on the user-agent header sent in the request.</p>
+<p>Possible values:</p>
+<ul>
+<li><code class="lang-coffeescript"><span class="hljs-built_in">console</span></code></li>
+<li><code>desktop</code></li>
+<li><code>embedded</code></li>
+<li><code>mobile</code></li>
+<li><code>smarttv</code></li>
+<li><code>tablet</code></li>
+<li><code>wearable</code></li>
+</ul>
+<p>The <code>device</code> condition can test against a single device type:</p>
+<pre><code class="lang-json"><span class="hljs-string">"condition"</span>: {
+  "<span class="hljs-attribute">device</span>": <span class="hljs-value"><span class="hljs-string">"mobile"</span>
+</span>}
+</code></pre>
+<p>…or multiple device types:</p>
+<pre><code class="lang-json"><span class="hljs-string">"condition"</span>: {
+  "<span class="hljs-attribute">device</span>": <span class="hljs-value">[<span class="hljs-string">"tablet"</span>, <span class="hljs-string">"smarttv"</span>]
+</span>}
+</code></pre>
+<h3 id="default-value">Default value</h3>
+<p>If a device type is specified that doesn’t match one of the possible values above, CDN uses <code>desktop</code> in its place.</p>
+<h2 id="location">Location</h2>
+<p>The <code class="lang-sqf"><span class="hljs-built_in">location</span></code> condition uses the IP address from the request and performs a GeoLocation lookup to obtain the user’s approximate location.</p>
+<p>CDN can perform the GeoLocation lookup using the <a href="http://dev.maxmind.com/geoip/">Maxmind GeoIP</a> database (bundled with the application), or by making a request to any remote address (such as the DADI GeoLocation API).</p>
+<h3 id="configuring-cdn-to-use-the-maxmind-geoip-database">Configuring CDN to use the Maxmind GeoIP database</h3>
+<p>To use the Maxmind GeoIP database CDN’s main configuration file should contain the following block:</p>
+<pre><code class="lang-json"><span class="hljs-string">"geolocation"</span>: {
+  "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">method</span>": <span class="hljs-value"><span class="hljs-string">"maxmind"</span></span>,
+  "<span class="hljs-attribute">countryDbPath</span>": <span class="hljs-value"><span class="hljs-string">"vendor/maxmind-country.mmdb"</span>
+</span>}
+</code></pre>
+<p>If no value is provided for <code>countryDbPath</code> it defaults to the one shown in the above example.</p>
+<h3 id="configuring-cdn-for-remote-lookup">Configuring CDN for remote lookup</h3>
+<p>To use a remote lookup service, the <code>geolocation</code> block in CDN’s main configuration file should specify a remote URI.</p>
+<p>The URI format uses placeholders (shown below with curly braces) to indicate where CDN should insert the parameters required for the lookup.</p>
+<p><strong>Placeholders</strong></p>
+<ul>
+<li><code class="lang-armasm">{<span class="hljs-literal">ip</span>}</code> - the IP address to lookup</li>
+<li><code class="lang-clojure"><span class="hljs-collection">{key}</span></code> - <em>(optional)</em> an API key required to access the remote service</li>
+<li><code class="lang-clojure"><span class="hljs-collection">{secret}</span></code> - <em>(optional)</em> a secret key required to access the remote service</li>
+</ul>
+<p><code class="lang-clojure"><span class="hljs-collection">{key}</span></code> and <code class="lang-clojure"><span class="hljs-collection">{secret}</span></code> can be set either in the configuration file or as environment variables. Set the environment variables <code class="lang-objectivec">GEOLO<span class="hljs-built_in">CATION_REMOTE_KEY</span></code> and <code class="lang-objectivec">GEOLO<span class="hljs-built_in">CATION_REMOTE_SECRET</span></code> to enable CDN to read these values from the environment.</p>
+<pre><code class="lang-json"><span class="hljs-string">"geolocation"</span>: {
+  "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">method</span>": <span class="hljs-value"><span class="hljs-string">"remote"</span></span>,
+  "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"https://api.example.com/location/?key={key}&amp;secret={secret}&amp;ip={ip}"</span></span>,
+  "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"1234567"</span></span>,
+  "<span class="hljs-attribute">secret</span>": <span class="hljs-value"><span class="hljs-string">"1q2w3e4r"</span>
+</span>}
+</code></pre>
+<p><strong>Response format</strong></p>
+<p>By default CDN expects a response from the remote service in the format used by the DADI GeoLocation service, where the path for the country code within the response is <code class="lang-stylus">location<span class="hljs-class">.country</span><span class="hljs-class">.isoCode</span></code>.</p>
+<p>If the response format for the service you use differs (and it probably does), you can tell CDN where to find the country code in the response by adding a <code class="lang-dos"><span class="hljs-built_in">path</span></code> property to the <code>geolocation</code> configuration block.</p>
+<pre><code class="lang-json"><span class="hljs-string">"geolocation"</span>: {
+  "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">method</span>": <span class="hljs-value"><span class="hljs-string">"remote"</span></span>,
+  "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"https://api.other-service.com/location/?key={key}&amp;secret={secret}&amp;ip={ip}"</span></span>,
+  "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"1234567"</span></span>,
+  "<span class="hljs-attribute">secret</span>": <span class="hljs-value"><span class="hljs-string">"1q2w3e4r"</span></span>,
+  "<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"results.address.country"</span>
+</span>}
+</code></pre>
+<h2 id="language">Language</h2>
+<p>The <code class="lang-sqf"><span class="hljs-built_in">language</span></code> condition is based on the <code class="lang-mathematica">Accept-<span class="hljs-keyword">Language</span></code> headers sent in the request. Values are ISO 639-1 language codes.</p>
+<p>The following condition will be met if the request contains the header <code class="lang-http"><span class="hljs-attribute">Accept-Language</span>: <span class="hljs-string">en</span></code></p>
+<pre><code class="lang-json"><span class="hljs-string">"condition"</span>: {
+  "<span class="hljs-attribute">language</span>": <span class="hljs-value"><span class="hljs-string">"en"</span>
+</span>}
+</code></pre>
+<p>Language detection has support for <a href="https://tools.ietf.org/html/rfc2616#section-14.4">quality values</a>, which represent an estimate of the user’s preference for multiple languages. By default only the main language (<code class="lang-cpp">quality = <span class="hljs-number">1</span></code>) is used, but this can be changed by adding an optional <code class="lang-bash">languageM<span class="hljs-keyword">in</span>Quality</code> property to the condition, which adjusts the threshold.</p>
+<pre><code class="lang-json"><span class="hljs-string">"condition"</span>: {
+  "<span class="hljs-attribute">language</span>": <span class="hljs-value">[<span class="hljs-string">"en"</span>, <span class="hljs-string">"pt"</span>]</span>,
+  "<span class="hljs-attribute">languageMinQuality</span>": <span class="hljs-value"><span class="hljs-number">0.5</span>
+</span>}
+</code></pre>
+<h2 id="network">Network</h2>
+<p>Specifying the <code>network</code> condition in a route performs a remote lookup on a network connectivity API to determine the type of connection being used.</p>
+<blockquote>
+<p><strong>Note:</strong> This condition tests for a <em>connection type</em> (e.g. <code>cable</code> or <code>mobile</code>) and not <em>connection speed</em>.</p>
+</blockquote>
+<p>The condition can be specified as a single connection type:</p>
+<pre><code class="lang-json"><span class="hljs-string">"condition"</span>: {
+  "<span class="hljs-attribute">network</span>": <span class="hljs-value"><span class="hljs-string">"cable"</span>
+</span>}
+</code></pre>
+<p>…or as an array of multiple connection types:</p>
+<pre><code class="lang-json"><span class="hljs-string">"condition"</span>: {
+  "<span class="hljs-attribute">network</span>": <span class="hljs-value">[<span class="hljs-string">"cable"</span>, <span class="hljs-string">"dsl"</span>]
+</span>}
+</code></pre>
+<h3 id="configuration">Configuration</h3>
+<p>The configuration block required for network connectivity lookups is similar to that used for GeoLocation.</p>
+<pre><code class="lang-json"><span class="hljs-string">"network"</span>: {
+  "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"https://api.example.com/connectivity/?key={key}&amp;secret={secret}&amp;ip={ip}"</span></span>,
+  "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"1234567"</span></span>,
+  "<span class="hljs-attribute">secret</span>": <span class="hljs-value"><span class="hljs-string">"1q2w3e4r"</span>
+</span>}
+</code></pre>
+<p>The URI format uses placeholders (shown below with curly braces) to indicate where CDN should insert the parameters required for the lookup.</p>
+<p><strong>Placeholders</strong></p>
+<ul>
+<li><code class="lang-armasm">{<span class="hljs-literal">ip</span>}</code> - the IP address to lookup</li>
+<li><code class="lang-clojure"><span class="hljs-collection">{key}</span></code> - <em>(optional)</em> an API key required to access the remote service</li>
+<li><code class="lang-clojure"><span class="hljs-collection">{secret}</span></code> - <em>(optional)</em> a secret key required to access the remote service</li>
+</ul>
+<p><code class="lang-clojure"><span class="hljs-collection">{key}</span></code> and <code class="lang-clojure"><span class="hljs-collection">{secret}</span></code> can be set either in the configuration file or as environment variables. Set the environment variables <code>NETWORK_REMOTE_KEY</code> and <code>NETWORK_REMOTE_SECRET</code> to enable CDN to read these values from the environment.</p>
+<p><strong>Response format</strong></p>
+<p>By default CDN expects a response from the remote service in the format used by the DADI Network Connectivity service, where the path for the connection type within the response is <code class="lang-css"><span class="hljs-tag">speed</span><span class="hljs-class">.connectionType</span></code>.</p>
+<p>If the response format for the service you use differs (and it probably does), you can tell CDN where to find the connection type in the response by adding a <code class="lang-dos"><span class="hljs-built_in">path</span></code> property to the <code>network</code> configuration block.</p>
+<pre><code class="lang-json"><span class="hljs-string">"network"</span>: {
+  "<span class="hljs-attribute">url</span>": <span class="hljs-value"><span class="hljs-string">"https://api.other-service.com/connectivity/?key={key}&amp;secret={secret}&amp;ip={ip}"</span></span>,
+  "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"1234567"</span></span>,
+  "<span class="hljs-attribute">secret</span>": <span class="hljs-value"><span class="hljs-string">"1q2w3e4r"</span></span>,
+  "<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"results.connection.type"</span>
+</span>}
+</code></pre>
+<h1 id="caching">Caching</h1>
+<p>Caching is automatically enabled for routes. Depending on what’s defined in the config, it uses Redis or the local filesystem.</p>
+<h1 id="example-route">Example route</h1>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">route</span>": <span class="hljs-value"><span class="hljs-string">"sample-route"</span></span>,
+  "<span class="hljs-attribute">branches</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">recipe</span>": <span class="hljs-value"><span class="hljs-string">"thumbnail"</span></span>,
+      "<span class="hljs-attribute">condition</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">device</span>": <span class="hljs-value"><span class="hljs-string">"desktop"</span></span>,
+        "<span class="hljs-attribute">language</span>": <span class="hljs-value"><span class="hljs-string">"en"</span></span>,
+        "<span class="hljs-attribute">country</span>": <span class="hljs-value">[
+          <span class="hljs-string">"GB"</span>,
+          <span class="hljs-string">"US"</span>
+        ]</span>,
+        "<span class="hljs-attribute">network</span>": <span class="hljs-value"><span class="hljs-string">"cable"</span>
+      </span>}
+    </span>},
+    {
+      "<span class="hljs-attribute">recipe</span>": <span class="hljs-value"><span class="hljs-string">"thumbnail-lo-res"</span></span>,
+      "<span class="hljs-attribute">condition</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">device</span>": <span class="hljs-value">[
+          <span class="hljs-string">"mobile"</span>,
+          <span class="hljs-string">"tablet"</span>
+        ]</span>,
+        "<span class="hljs-attribute">language</span>": <span class="hljs-value">[
+          <span class="hljs-string">"en"</span>,
+          <span class="hljs-string">"pt"</span>
+        ]</span>,
+        "<span class="hljs-attribute">country</span>": <span class="hljs-value"><span class="hljs-string">"GB"</span></span>,
+        "<span class="hljs-attribute">network</span>": <span class="hljs-value">[
+          <span class="hljs-string">"cable"</span>,
+          <span class="hljs-string">"dsl"</span>
+        ]
+      </span>}
+    </span>},
+    {
+      "<span class="hljs-attribute">recipe</span>": <span class="hljs-value"><span class="hljs-string">"default-recipe"</span>
+    </span>}
+  ]
+</span>}
+</code></pre>
+<hr>
+
+         <!--  <p class="small">1250:5 min</p> -->
+        </div>
+         <div class="col w-1-4">
+          <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
+              <li><a class="" href="#posting-to-cdn">POSTing to CDN</a></li>
+              <li><a class="" href="#branch-evaluation">Branch Evaluation</a></li>
+              <li><a class="" href="#device">Device</a></li>
+              <li><a class="" href="#location">Location</a></li>
+              <li><a class="" href="#language">Language</a></li>
+              <li><a class="" href="#network">Network</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/dadi.tech">View the repo for this site</a></li>
+      </ul>
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://localhost:4113/assets/js/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+</script>
+
+</body>
+</html>

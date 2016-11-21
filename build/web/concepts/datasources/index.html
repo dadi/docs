@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Datasources</title>
+  <meta name="description" content="Its about saying »Hello« to the World.">
+  <link rel="stylesheet" type="text/css" href="http://localhost:4113/assets/css/main.min.css">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+  <link rel="icon" type="image/png" href="http://stage.dadi.tech/assets/img/favicon.png">
+</head>
+<body class="docs light">
+
+<div class="top">
+  <div class="top__bg pattern" style="background-color: #333;" data-colors="#333333,#2d2d2d,#272727,#222222,#1c1c1c,#161616,#111111,#0b0b0b,#050505,#000000"></div>
+
+  <div class="container">
+    <header class="grid bs-grid">
+      <div class="col w-1-4">
+        <h1><a href="/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+      </div>
+      <div class="col w-1-4 bs-w-1-1">
+        <ul class="normal nav  marg__right--x2">
+          <li><a href="https://dadi.tech/platform/" class="active">Platform</a></li>
+          <li><a href="https://dadi.tech/success-stories/" >Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/" >Latest</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Looking for a hosted technology solution?</p>
+        <a href="https://dadi.tech/on-demand/" class="btn btn--fill btn--red">On demand</a>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Need help integrating or customising our platform?</p>
+        <a href="https://dadi.tech/solutions/" class="btn btn--fill btn--green">Solutions</a>
+      </div>
+    </header>
+    <div class="marg__bottom small">
+      <ul class="list--breadcrumb titlecase">
+        <li><a href="/">Documentation</a></li>
+                <li  class=""><a href="/web">Web</a></li>
+                <li  class="fwb"><a href="/web/concepts">Concepts</a></li>
+      </ul>
+
+      <h1>Datasources</h1>
+    </div>
+  </div>
+</div>
+  <main>
+    <div class="container normal">
+      <div class="grid">
+        <div class="col w-3-4 documentation pad__bottom--x2">
+          <h1 id="datasources">Datasources</h1>
+<h2 id="overview">Overview</h2>
+<p>DADI Web.</p>
+<ul>
+<li><a href="#datasource-specification">Datasource Specification</a></li>
+<li><a href="#caching">Caching</a></li>
+</ul>
+<pre><code class="lang-applescript"><span class="hljs-keyword">my</span>-web/
+  app/
+    datasources/      
+      books.json      <span class="hljs-comment"># a datasource specification</span>
+    events/           
+    pages/
+</code></pre><h2 id="datasource-specification">Datasource Specification</h2>
+<h3 id="example-datasource-specification">Example datasource specification</h3>
+<pre><code class="lang-xquery">{
+  <span class="hljs-string">"datasource"</span>: {
+    <span class="hljs-string">"key"</span>: <span class="hljs-string">"books"</span>,
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"Books datasource"</span>,
+    <span class="hljs-string">"source"</span>: {
+      <span class="hljs-string">"endpoint"</span>: <span class="hljs-string">"1.0/library/books"</span>
+    },
+    <span class="hljs-string">"paginate"</span>: true,
+    <span class="hljs-string">"count"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">"sort"</span>: { <span class="hljs-string">"name"</span>: <span class="hljs-number">1</span> },
+    ],
+    <span class="hljs-string">"filter"</span>: {},
+    <span class="hljs-string">"fields"</span>: {}
+  }
+}
+</code></pre><pre><code class="lang-json">{
+  "<span class="hljs-attribute">datasource</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"books"</span></span>,
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Books datasource"</span></span>,
+    "<span class="hljs-attribute">source</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"remote"</span></span>,
+      "<span class="hljs-attribute">protocol</span>": <span class="hljs-value"><span class="hljs-string">"http"</span></span>,
+      "<span class="hljs-attribute">host</span>": <span class="hljs-value"><span class="hljs-string">"api.example.com"</span></span>,
+      "<span class="hljs-attribute">port</span>": <span class="hljs-value"><span class="hljs-string">"80"</span></span>,
+      "<span class="hljs-attribute">endpoint</span>": <span class="hljs-value"><span class="hljs-string">"1.0/library/books"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">caching</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">ttl</span>": <span class="hljs-value"><span class="hljs-number">300</span></span>,
+      "<span class="hljs-attribute">directory</span>": <span class="hljs-value"><span class="hljs-string">"./cache/web/"</span></span>,
+      "<span class="hljs-attribute">extension</span>": <span class="hljs-value"><span class="hljs-string">"json"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">auth</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"bearer"</span></span>,
+      "<span class="hljs-attribute">host</span>": <span class="hljs-value"><span class="hljs-string">"api.example.com"</span></span>,
+      "<span class="hljs-attribute">port</span>": <span class="hljs-value"><span class="hljs-string">"80"</span></span>,
+      "<span class="hljs-attribute">tokenUrl</span>": <span class="hljs-value"><span class="hljs-string">"/token"</span></span>,
+      "<span class="hljs-attribute">credentials</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">clientId</span>": <span class="hljs-value"><span class="hljs-string">"your-client-id"</span></span>,
+        "<span class="hljs-attribute">secret</span>": <span class="hljs-value"><span class="hljs-string">"your-secret"</span>
+      </span>}
+    </span>}</span>,
+    "<span class="hljs-attribute">paginate</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">count</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
+    "<span class="hljs-attribute">sort</span>": <span class="hljs-value">{ "<span class="hljs-attribute">name</span>": <span class="hljs-value">-<span class="hljs-number">1</span> </span>}</span>,
+    "<span class="hljs-attribute">filter</span>": <span class="hljs-value">{}</span>,
+    "<span class="hljs-attribute">fields</span>": <span class="hljs-value">{"<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>, "<span class="hljs-attribute">author_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>}</span>,
+    "<span class="hljs-attribute">requestParams</span>": <span class="hljs-value">[
+      { "<span class="hljs-attribute">param</span>": <span class="hljs-value"><span class="hljs-string">"title"</span></span>, "<span class="hljs-attribute">field</span>": <span class="hljs-value"><span class="hljs-string">"title"</span> </span>}
+    ]
+  </span>}
+</span>}
+</code></pre><pre><code class="lang-json">{
+  "<span class="hljs-attribute">datasource</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"books"</span></span>,
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Books datasource"</span></span>,
+    "<span class="hljs-attribute">source</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"remote"</span></span>,
+      "<span class="hljs-attribute">protocol</span>": <span class="hljs-value"><span class="hljs-string">"http"</span></span>,
+      "<span class="hljs-attribute">host</span>": <span class="hljs-value"><span class="hljs-string">"api.example.com"</span></span>,
+      "<span class="hljs-attribute">port</span>": <span class="hljs-value"><span class="hljs-string">"80"</span></span>,
+      "<span class="hljs-attribute">endpoint</span>": <span class="hljs-value"><span class="hljs-string">"1.0/library/books"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">caching</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">ttl</span>": <span class="hljs-value"><span class="hljs-number">300</span></span>,
+      "<span class="hljs-attribute">directory</span>": <span class="hljs-value"><span class="hljs-string">"./cache/web/"</span></span>,
+      "<span class="hljs-attribute">extension</span>": <span class="hljs-value"><span class="hljs-string">"json"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">auth</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"bearer"</span></span>,
+      "<span class="hljs-attribute">host</span>": <span class="hljs-value"><span class="hljs-string">"api.example.com"</span></span>,
+      "<span class="hljs-attribute">port</span>": <span class="hljs-value"><span class="hljs-string">"80"</span></span>,
+      "<span class="hljs-attribute">tokenUrl</span>": <span class="hljs-value"><span class="hljs-string">"/token"</span></span>,
+      "<span class="hljs-attribute">credentials</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">clientId</span>": <span class="hljs-value"><span class="hljs-string">"your-client-id"</span></span>,
+        "<span class="hljs-attribute">secret</span>": <span class="hljs-value"><span class="hljs-string">"your-secret"</span>
+      </span>}
+    </span>}</span>,
+    "<span class="hljs-attribute">paginate</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">count</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
+    "<span class="hljs-attribute">sort</span>": <span class="hljs-value">{ "<span class="hljs-attribute">name</span>": <span class="hljs-value">-<span class="hljs-number">1</span> </span>}</span>,
+    "<span class="hljs-attribute">filter</span>": <span class="hljs-value">{}</span>,
+    "<span class="hljs-attribute">fields</span>": <span class="hljs-value">{"<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>, "<span class="hljs-attribute">author_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>}</span>,
+    "<span class="hljs-attribute">requestParams</span>": <span class="hljs-value">[
+      { "<span class="hljs-attribute">param</span>": <span class="hljs-value"><span class="hljs-string">"title"</span></span>, "<span class="hljs-attribute">field</span>": <span class="hljs-value"><span class="hljs-string">"title"</span> </span>}
+    ]
+  </span>}
+</span>}
+</code></pre><h3 id="property-description">Property Description</h3>
+<h4 id="section-datasource-">Section: <code>datasource</code></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Default value</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">key</td>
+<td style="text-align:left">Short identifier of the datasource. This value is used in the page specification files to attach a datasource</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">books</td>
+</tr>
+<tr>
+<td style="text-align:left">name</td>
+<td style="text-align:left">This is the name of the datasource, it will be displayed on the front-end of the gui</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Books</td>
+</tr>
+<tr>
+<td style="text-align:left">paginate</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">true</td>
+<td style="text-align:left">true</td>
+</tr>
+<tr>
+<td style="text-align:left">count</td>
+<td style="text-align:left">Number of items to return from the endpoint per page. If set to ‘0’ then all results will be returned</td>
+<td style="text-align:left">20</td>
+<td style="text-align:left">5</td>
+</tr>
+<tr>
+<td style="text-align:left">sort</td>
+<td style="text-align:left">A JSON object with fields to order the result set by</td>
+<td style="text-align:left">{} // unsorted</td>
+<td style="text-align:left"><code class="lang-cpp">{ <span class="hljs-string">"title"</span>: <span class="hljs-number">1</span> } <span class="hljs-comment">// sort by title ascending</span></code>, <code class="lang-cpp">{ <span class="hljs-string">"title"</span>: -<span class="hljs-number">1</span> } <span class="hljs-comment">// sort by title descending</span></code></td>
+</tr>
+<tr>
+<td style="text-align:left">filter</td>
+<td style="text-align:left">A JSON object containing a MongoDB query</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">{ “SaleDate” : { “$ne” : null} }</td>
+</tr>
+<tr>
+<td style="text-align:left">filterEvent</td>
+<td style="text-align:left">An event file to execute which will generate the filter to use for this datasource. The event must exist in the configured events path</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">“getBookFilter”</td>
+</tr>
+<tr>
+<td style="text-align:left">fields</td>
+<td style="text-align:left">Limits the fields to return in the result set</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">{ “title”: 1, “author”: 1 }</td>
+</tr>
+<tr>
+<td style="text-align:left">requestParams</td>
+<td style="text-align:left">An array of parameters the datasource can accept from the querystring</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">[ { “param”: “author”, “field”: “author_id” } ]</td>
+</tr>
+</tbody>
+</table>
+<h4 id="section-datasource-source-">Section: <code class="lang-css"><span class="hljs-tag">datasource</span><span class="hljs-class">.source</span></code></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Default value</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">type</td>
+<td style="text-align:left">(optional) Determines whether the data is from a remote endpoint or local, static data</td>
+<td style="text-align:left">“remote”</td>
+<td style="text-align:left">“remote”, “static”</td>
+</tr>
+<tr>
+<td style="text-align:left">protocol</td>
+<td style="text-align:left">(optional) The protocol portion of an endpoint URI</td>
+<td style="text-align:left">“http”</td>
+<td style="text-align:left">“http”, “https”</td>
+</tr>
+<tr>
+<td style="text-align:left">host</td>
+<td style="text-align:left">(optional) The host portion of an endpoint URL</td>
+<td style="text-align:left">The main config value <code class="lang-css"><span class="hljs-tag">api</span><span class="hljs-class">.host</span></code></td>
+<td style="text-align:left">“api.example.com”</td>
+</tr>
+<tr>
+<td style="text-align:left">port</td>
+<td style="text-align:left">(optional) The port portion of an endpoint URL</td>
+<td style="text-align:left">The main config value <code class="lang-elm"><span class="hljs-title">api</span>.<span class="hljs-foreign"><span class="hljs-keyword">port</span></span></code></td>
+<td style="text-align:left">“3001”</td>
+</tr>
+<tr>
+<td style="text-align:left">endpoint</td>
+<td style="text-align:left">The path to the endpoint which contains the data for this datasource</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">“/1.0/news/articles”</td>
+</tr>
+</tbody>
+</table>
+<h4 id="section-datasource-caching-">Section: <code class="lang-css"><span class="hljs-tag">datasource</span><span class="hljs-class">.caching</span></code></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Default value</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">enabled</td>
+<td style="text-align:left">Sets caching enabled or disabled</td>
+<td style="text-align:left">enabled</td>
+<td style="text-align:left">enabled</td>
+</tr>
+<tr>
+<td style="text-align:left">ttl</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">directory</td>
+<td style="text-align:left">The directory to use for storing cache files, relative to the root of the application</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">“./cache”</td>
+</tr>
+<tr>
+<td style="text-align:left">extension</td>
+<td style="text-align:left">The file extension to use for cache files</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">“json”</td>
+</tr>
+</tbody>
+</table>
+<h4 id="section-datasource-auth-">Section: <code class="lang-css"><span class="hljs-tag">datasource</span><span class="hljs-class">.auth</span></code></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Default value</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">type</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">bearer</td>
+</tr>
+<tr>
+<td style="text-align:left">host</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">api.example.com</td>
+</tr>
+<tr>
+<td style="text-align:left">port</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">3000</td>
+</tr>
+<tr>
+<td style="text-align:left">tokenUrl</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">“/token”</td>
+</tr>
+<tr>
+<td style="text-align:left">credentials</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">{ “clientId”: “test123”, “secret”: “your-secret” }</td>
+</tr>
+</tbody>
+</table>
+<h3 id="passing-parameters-with-requestparams-">Passing parameters with <code>requestParams</code></h3>
+<p><code>requestParams</code> is an array of parameters that the datasource can accept from the querystring. Used in conjunction with the <code>route</code> property in the page specification, this allows filters to be generated for querying the collection.</p>
+<p><strong>Page specification</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-string">"route"</span>: {
+  <span class="hljs-string">"path"</span>: <span class="hljs-string">"/books/:title"</span>
+}
+</code></pre>
+<p><strong>Datasource specification</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-string">"source"</span>: {
+  <span class="hljs-string">"endpoint"</span>: <span class="hljs-string">"1.0/library/books"</span>
+},
+<span class="hljs-string">"requestParams"</span>: [
+  { <span class="hljs-string">"field"</span>: <span class="hljs-string">"title"</span>, <span class="hljs-string">"param"</span>: <span class="hljs-string">"title"</span> }
+]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>param</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The collection field to filter on</td>
+<td>The request parameter to use as the value for the filter, This must match a named parameter in the page specification’s <code>route</code> property</td>
+</tr>
+</tbody>
+</table>
+<h4 id="for-example-given-a-collection-books-with-the-fields-_id-title-">For example, given a collection <code>books</code> with the fields <code class="lang-objectivec">_<span class="hljs-keyword">id</span></code>, <code class="lang-dos"><span class="hljs-built_in">title</span></code></h4>
+<p>With the page route <code class="lang-coffeescript"><span class="hljs-regexp">/books/</span>:title</code> and the above datasource configuration, DADI Web will extract the <code class="lang-clojure"><span class="hljs-attribute">:title</span></code> parameter from the URL and use it to query the <code>books</code> collection using the field <code class="lang-dos"><span class="hljs-built_in">title</span></code>.</p>
+<p>With a request to <a href="http://www.example.com/books/sisters-brothers">http://www.example.com/books/sisters-brothers</a>, the named parameter <code class="lang-clojure"><span class="hljs-attribute">:title</span></code> is <code>sisters-brothers</code>. A filter query is constructed for DADI API using this value.</p>
+<p>The query passed to the API is: <code class="lang-json">{ "<span class="hljs-attribute">title</span>" : <span class="hljs-value"><span class="hljs-string">"sisters-brothers"</span> </span>}</code></p>
+<table>
+<thead>
+<tr>
+<th>Page Route</th>
+<th>Datasource requestParams</th>
+<th>URL</th>
+<th>req.params</th>
+<th>Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="lang-coffeescript"><span class="hljs-regexp">/books/</span>:title</code></td>
+<td><code class="lang-prolog"><span class="hljs-string">"requestParams"</span>: [ { <span class="hljs-string">"param"</span>: <span class="hljs-string">"title"</span>, <span class="hljs-string">"field"</span>: <span class="hljs-string">"title"</span> } ]</code></td>
+<td><a href="http://www.example.com/books/sisters-brothers">http://www.example.com/books/sisters-brothers</a></td>
+<td><code class="lang-ocaml">{ <span class="hljs-symbol">'title'</span>: <span class="hljs-symbol">'sisters</span>-brothers' }</code></td>
+<td><code class="lang-gradle">db.books.<span class="hljs-keyword">find</span>({ <span class="hljs-string">'title'</span>: <span class="hljs-string">'sisters-brothers'</span> })</code></td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="https://github.com/dadi/web/blob/docs/docs/pages.md#routing">Routing</a> for detailed routing documentation.</p>
+<h3 id="chaining-datasources">Chaining datasources</h3>
+<p>It is often a requirement to query a datasource using data already loaded by another datasource. DADI Web supports this through the use of chained datasources. Chained datasources are executed after all non-chained datasources.</p>
+<p>Add a <code>chained</code> property to the datasource that relies on data loaded by another datasource.</p>
+<p><em>Simple field replacement</em></p>
+<pre><code class="lang-javascript"><span class="hljs-string">"chained"</span>: {
+  <span class="hljs-string">"datasource"</span>: <span class="hljs-string">"books"</span>,              <span class="hljs-comment">// the primary (non-chained) datasource that this datasource relies on</span>
+  <span class="hljs-string">"outputParam"</span>: {
+    <span class="hljs-string">"param"</span>: <span class="hljs-string">"results.0.author_id"</span>,  <span class="hljs-comment">// the path to the value this datasource will use as a filter</span>
+    <span class="hljs-string">"field"</span>: <span class="hljs-string">"_id"</span>                   <span class="hljs-comment">// the filter property to use for this datasource</span>
+  }
+}
+</code></pre>
+<p><em>Filter replacement</em></p>
+<pre><code class="lang-javascript"><span class="hljs-string">"filter"</span>: [<span class="hljs-string">"{books}"</span>,{<span class="hljs-string">"$group"</span>:{<span class="hljs-string">"_id"</span>:{<span class="hljs-string">"genre"</span>:<span class="hljs-string">"$genre"</span>}}}],
+<span class="hljs-string">"chained"</span>: {
+  <span class="hljs-string">"datasource"</span>: <span class="hljs-string">"books"</span>,
+  <span class="hljs-string">"outputParam"</span>: {
+    <span class="hljs-string">"param"</span>: <span class="hljs-string">"results.0.genre_id"</span>,
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Number"</span>,
+    <span class="hljs-string">"query"</span>: {<span class="hljs-string">"$match"</span>:{<span class="hljs-string">"genre_id"</span>: <span class="hljs-string">"{param}"</span>}}
+  }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>x</th>
+<th>x</th>
+<th>x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>datasource</td>
+<td>Should match the <code class="lang-processing"><span class="hljs-variable">key</span></code> property of the primary datasource.</td>
+</tr>
+<tr>
+<td>outputParam.param</td>
+<td>The <code class="lang-livecodeserver"><span class="hljs-built_in">param</span></code> value specifies where to locate the output value in the results returned by the primary datasource.</td>
+</tr>
+<tr>
+<td>outputParam.field</td>
+<td>The <code class="lang-monkey"><span class="hljs-keyword">field</span></code> value should match the MongoDB field to be queried. The <code class="lang-elm"><span class="hljs-typedef"><span class="hljs-keyword">type</span></span></code> value indicates how the <code class="lang-livecodeserver"><span class="hljs-built_in">param</span></code> value should be treated (currently only “Number” is supported).</td>
+</tr>
+<tr>
+<td>outputParam.query</td>
+<td>The <code class="lang-erlang"><span class="hljs-keyword">query</span></code> property allows more advanced filtering, see below for more detail.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="for-example">For example</h4>
+<p>On a page that displays a car make and all it’s associated models, we have two datasources querying two collections, <strong>makes</strong> and <strong>models</strong>.</p>
+<p><strong>Collections</strong></p>
+<ul>
+<li><strong>makes</strong> has the fields <code class="lang-objectivec">_<span class="hljs-keyword">id</span></code> and <code class="lang-applescript"><span class="hljs-property">name</span></code></li>
+<li><strong>models</strong> has the fields <code class="lang-objectivec">_<span class="hljs-keyword">id</span></code>, <code>makeId</code> and <code class="lang-applescript"><span class="hljs-property">name</span></code></li>
+</ul>
+<p><strong>Datasources</strong></p>
+<ul>
+<li>The primary datasource, <code>makes</code> (some properties removed for brevity)</li>
+</ul>
+<pre><code class="lang-clojure"><span class="hljs-collection">{
+  <span class="hljs-string">"datasource"</span>: <span class="hljs-collection">{
+     <span class="hljs-string">"key"</span>: <span class="hljs-string">"makes"</span>,
+     <span class="hljs-string">"source"</span>: <span class="hljs-collection">{
+       <span class="hljs-string">"endpoint"</span>: <span class="hljs-string">"1.0/car-data/makes"</span>
+     }</span>,
+     filter: <span class="hljs-collection">{ <span class="hljs-string">"name"</span>: <span class="hljs-string">"Ford"</span> }</span>
+   }</span>
+}</span>
+</code></pre><p>The result of this datasource will be:</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">results</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">_id</span>": <span class="hljs-value"><span class="hljs-string">"5596048644713e80a10e0290"</span></span>,
+      "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Ford"</span>
+    </span>}
+  ]
+</span>}
+</code></pre><p>To query the models collection based on the above data being returned, add a <code>chained</code> property to the models datasource specifying <code>makes</code> as the primary datasource:</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">datasource</span>": <span class="hljs-value">{
+     "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"models"</span></span>,
+     "<span class="hljs-attribute">source</span>": <span class="hljs-value">{
+       "<span class="hljs-attribute">endpoint</span>": <span class="hljs-value"><span class="hljs-string">"1.0/car-data/models"</span>
+     </span>}</span>,
+      "<span class="hljs-attribute">chained</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">datasource</span>": <span class="hljs-value"><span class="hljs-string">"makes"</span></span>,
+        "<span class="hljs-attribute">outputParam</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">param</span>": <span class="hljs-value"><span class="hljs-string">"results.0._id"</span></span>,
+          "<span class="hljs-attribute">field</span>": <span class="hljs-value"><span class="hljs-string">"makeId"</span>
+        </span>}
+      </span>}
+   </span>}
+</span>}
+</code></pre><p>In this scenario the <strong>models</strong> collection will be queried using the value of <code class="lang-objectivec">_<span class="hljs-keyword">id</span></code> from the first document of the <code>results</code> array returned by the <strong>makes</strong> datasource.</p>
+<p>If your query parameter must be passed to the endpoint as an integer, add a <code class="lang-elm"><span class="hljs-typedef"><span class="hljs-keyword">type</span></span></code> property to the <code>outputParam</code> specifying <code class="lang-1c"><span class="hljs-string">"Number"</span></code>.</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">datasource</span>": <span class="hljs-value">{
+     "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"models"</span></span>,
+     "<span class="hljs-attribute">source</span>": <span class="hljs-value">{
+       "<span class="hljs-attribute">endpoint</span>": <span class="hljs-value"><span class="hljs-string">"1.0/car-data/models"</span>
+     </span>}</span>,
+     "<span class="hljs-attribute">chained</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">datasource</span>": <span class="hljs-value"><span class="hljs-string">"makes"</span></span>,
+        "<span class="hljs-attribute">outputParam</span>": <span class="hljs-value">{
+          "<span class="hljs-attribute">param</span>": <span class="hljs-value"><span class="hljs-string">"results.0._id"</span></span>,
+          "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Number"</span></span>,
+          "<span class="hljs-attribute">field</span>": <span class="hljs-value"><span class="hljs-string">"makeId"</span>
+        </span>}
+      </span>}
+   </span>}
+</span>}
+</code></pre><h4 id="filter-replacement">Filter replacement</h4>
+<pre><code class="lang-javascript"><span class="hljs-string">"filter"</span>: [<span class="hljs-string">"{capRangeByUrlModel}"</span>,{<span class="hljs-string">"$group"</span>:{<span class="hljs-string">"_id"</span>:{<span class="hljs-string">"fuelType"</span>:<span class="hljs-string">"$fuelType"</span>}}}],
+<span class="hljs-string">"chained"</span>: {
+  <span class="hljs-string">"datasource"</span>: <span class="hljs-string">"capRangeByUrlModel"</span>,
+  <span class="hljs-string">"outputParam"</span>: {
+    <span class="hljs-string">"param"</span>: <span class="hljs-string">"results.0.capRanId"</span>,
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"Number"</span>,
+    <span class="hljs-string">"query"</span>: {<span class="hljs-string">"$match"</span>:{<span class="hljs-string">"capRanId"</span>: <span class="hljs-string">"{param}"</span>}}
+  }
+}
+</code></pre>
+<h2 id="caching">Caching</h2>
+<p>[TODO]</p>
+
+         <!--  <p class="small">1160:4 min</p> -->
+        </div>
+         <div class="col w-1-4">
+          <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
+              <li><a class="" href="#overview">Overview</a></li>
+              <li><a class="" href="#datasource-specification">Datasource Specification</a></li>
+              <li><a class="" href="#caching">Caching</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/dadi.tech">View the repo for this site</a></li>
+      </ul>
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://localhost:4113/assets/js/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+</script>
+
+</body>
+</html>

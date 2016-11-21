@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Views</title>
+  <meta name="description" content="Its about saying »Hello« to the World.">
+  <link rel="stylesheet" type="text/css" href="http://localhost:4113/assets/css/main.min.css">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+  <link rel="icon" type="image/png" href="http://stage.dadi.tech/assets/img/favicon.png">
+</head>
+<body class="docs light">
+
+<div class="top">
+  <div class="top__bg pattern" style="background-color: #333;" data-colors="#333333,#2d2d2d,#272727,#222222,#1c1c1c,#161616,#111111,#0b0b0b,#050505,#000000"></div>
+
+  <div class="container">
+    <header class="grid bs-grid">
+      <div class="col w-1-4">
+        <h1><a href="/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+      </div>
+      <div class="col w-1-4 bs-w-1-1">
+        <ul class="normal nav  marg__right--x2">
+          <li><a href="https://dadi.tech/platform/" class="active">Platform</a></li>
+          <li><a href="https://dadi.tech/success-stories/" >Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/" >Latest</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Looking for a hosted technology solution?</p>
+        <a href="https://dadi.tech/on-demand/" class="btn btn--fill btn--red">On demand</a>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Need help integrating or customising our platform?</p>
+        <a href="https://dadi.tech/solutions/" class="btn btn--fill btn--green">Solutions</a>
+      </div>
+    </header>
+    <div class="marg__bottom small">
+      <ul class="list--breadcrumb titlecase">
+        <li><a href="/">Documentation</a></li>
+                <li  class=""><a href="/web">Web</a></li>
+                <li  class="fwb"><a href="/web/concepts">Concepts</a></li>
+      </ul>
+
+      <h1>Views</h1>
+    </div>
+  </div>
+</div>
+  <main>
+    <div class="container normal">
+      <div class="grid">
+        <div class="col w-3-4 documentation pad__bottom--x2">
+          <h1 id="views">Views</h1>
+<h2 id="overview">Overview</h2>
+<p>DADI Web.</p>
+<ul>
+<li><a href="#data">Data</a></li>
+<li><a href="#dust">Dust</a></li>
+<li><a href="#page-templates">Page Templates</a></li>
+<li><a href="#partial-templates">Partial Templates</a></li>
+<li><a href="#layouts">Master Pages/Layouts</a></li>
+<li><a href="#helpers">Helpers</a></li>
+<li><a href="#filters">Filters</a></li>
+</ul>
+<p>A <code>page</code> on your website consists of two files within your application’s file structure: a Page Specification and a Template.</p>
+<p>Template files are stored in the same folder as the JSON page specifications and have a <code class="lang-asciidoc"><span class="hljs-title">.dust</span></code> extension. The default folder for pages is <code class="lang-stata"><span class="hljs-keyword">app</span>/pages</code>, although this is configurable using the main application configuration (see <a href="https://github.com/dadi/web/blob/docs/docs/configuration_full.md">Configuration</a>).</p>
+<blockquote>
+<p><strong>Note:</strong> Unless the page specification contains an explicit <code class="lang-cpp"><span class="hljs-keyword">template</span></code> property, the template name should match the page specification name.</p>
+</blockquote>
+<pre><code class="lang-applescript"><span class="hljs-keyword">my</span>-web/
+  app/
+    datasources/      
+    events/           
+    pages/            <span class="hljs-comment"># page specifications, layouts and templates        </span>
+      layout.dust     <span class="hljs-comment"># a layout file</span>
+      people.dust     <span class="hljs-comment"># page template file</span>
+      people.json     <span class="hljs-comment"># page specification file</span>
+    partials/         <span class="hljs-comment"># partial/include templates</span>
+      header.dust     <span class="hljs-comment"># partial template file</span>
+</code></pre><h3 id="data">Data</h3>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"films"</span></span>,
+  "<span class="hljs-attribute">debug</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+  "<span class="hljs-attribute">host</span>": <span class="hljs-value"><span class="hljs-string">"www.example.com"</span></span>,
+  "<span class="hljs-attribute">params</span>": <span class="hljs-value">{}</span>,
+  "<span class="hljs-attribute">pathname</span>": <span class="hljs-value"><span class="hljs-string">"/films"</span></span>,
+  "<span class="hljs-attribute">films</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">_id</span>": <span class="hljs-value"><span class="hljs-string">"4b80c5bf-cd48-41e5-9e57-29a6dcafab1c"</span></span>,
+      "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Dallas Buyers Club"</span></span>,
+      "<span class="hljs-attribute">director</span>": <span class="hljs-value"><span class="hljs-string">"Jean-Marc Vallée"</span></span>,
+      "<span class="hljs-attribute">length</span>": <span class="hljs-value"><span class="hljs-string">"2h 10min"</span></span>,
+      "<span class="hljs-attribute">score</span>": <span class="hljs-value"><span class="hljs-string">"87%"</span>
+    </span>},
+    {
+      "<span class="hljs-attribute">_id</span>": <span class="hljs-value"><span class="hljs-string">"3ff5b730-3544-4d77-9213-93ea87ef5acf"</span></span>,
+      "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Interstellar"</span></span>,
+      "<span class="hljs-attribute">director</span>": <span class="hljs-value"><span class="hljs-string">"Christopher Nolan"</span></span>,
+      "<span class="hljs-attribute">length</span>": <span class="hljs-value"><span class="hljs-string">"2h 40min"</span></span>,
+      "<span class="hljs-attribute">score</span>": <span class="hljs-value"><span class="hljs-string">"87%"</span>
+    </span>}
+  ]
+</span>}
+</code></pre><h4 id="global-config">Global Config</h4>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"films"</span></span>,
+  "<span class="hljs-attribute">host</span>": <span class="hljs-value"><span class="hljs-string">"www.example.com"</span></span>,
+  "<span class="hljs-attribute">global</span>" : <span class="hljs-value">{
+    "<span class="hljs-attribute">mediaBaseUrl</span>": <span class="hljs-value"><span class="hljs-string">"http://media.example.com"</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">films</span>": <span class="hljs-value">[]
+</span>}
+</code></pre><h3 id="dust">Dust</h3>
+<p>Dust is a Javascript templating engine.</p>
+<ul>
+<li><a href="http://www.dustjs.com/">http://www.dustjs.com/</a></li>
+<li><a href="http://akdubya.github.io/dustjs/">http://akdubya.github.io/dustjs/</a></li>
+</ul>
+<h3 id="page-templates">Page Templates</h3>
+<p><strong>An example template: app/pages/films.dust</strong></p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Film Index<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">main</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"main"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"grid grid--gutter push-4"</span>&gt;</span>
+      {#films}
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col w-7"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{title}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+          {&gt;"partials/details"/}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      {/films}
+      <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+<h3 id="partial-templates">Partial Templates</h3>
+<p>Partials are reusable Dust templates that may be referenced from the main page templates. As for the page templates, partials also have access to the data loaded by datasources and events.</p>
+<p>In the example below the <code>details</code> partial is referenced by relative path within the template:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col w-7"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{title}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+  {&gt;"partials/details"/}
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</code></pre>
+<p><strong>An example partial: app/partials/details.dust</strong></p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">dl</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"t"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">dt</span>&gt;</span>Score<span class="hljs-tag">&lt;/<span class="hljs-title">dt</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">dd</span>&gt;</span>{score}<span class="hljs-tag">&lt;/<span class="hljs-title">dd</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">dt</span>&gt;</span>Director<span class="hljs-tag">&lt;/<span class="hljs-title">dt</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">dd</span>&gt;</span>{director}<span class="hljs-tag">&lt;/<span class="hljs-title">dd</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">dt</span>&gt;</span>Length<span class="hljs-tag">&lt;/<span class="hljs-title">dt</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">dd</span>&gt;</span>{length}<span class="hljs-tag">&lt;/<span class="hljs-title">dd</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">dl</span>&gt;</span>
+</code></pre>
+<p><strong>An example template: app/pages/films.dust</strong></p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Film Index<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">main</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"main"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"grid grid--gutter push-4"</span>&gt;</span>
+    {#films}
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col w-7"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>{title}<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+        {&gt;"partials/details"/}
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    {/films}
+    <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+<h3 id="layouts">Layouts</h3>
+<p>Dust allows you to use “master page” or “layouts” so that only the content varies within the pages templates.</p>
+<p>A layout file might contain a static header and footer, for example. These would appear on every page that references the layout, without requiring the same markup in every template. Layout files are stored in the <code>pages</code> folder.</p>
+<p><strong>An example layout: app/pages/layout.dust</strong></p>
+<p>This layout defines two blocks, <code class="lang-dos"><span class="hljs-built_in">title</span></code> and <code class="lang-scss"><span class="hljs-attribute">content</span></code>. Child pages that reference this layout can supply content to populate these blocks using the syntax shown in the next section.</p>
+<pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>{+title/}<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">nav</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"/"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">nav</span>&gt;</span>
+    {+content/}
+    <span class="hljs-tag">&lt;<span class="hljs-title">footer</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"container"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>© Copyright 2016\. DADI+<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">footer</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre>
+<p><strong>Example Page: app/pages/films.dust</strong></p>
+<p>Content within the <code class="lang-clojure"><span class="hljs-collection">{&lt;content}</span><span class="hljs-collection">{/content}</span></code> block in the below template will be injected in to the layout where the <code class="lang-clojure"><span class="hljs-collection">{+content/}</span></code> block is defined.</p>
+<pre><code class="lang-html">{&gt;layout/}
+
+{<span class="hljs-tag">&lt;<span class="hljs-title">title}</span>
+<span class="hljs-attribute">Film</span> <span class="hljs-attribute">Index</span>
+{/<span class="hljs-attribute">title</span>}
+
+{&lt;<span class="hljs-attribute">content</span>}
+&lt;<span class="hljs-attribute">main</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"main"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"grid grid--gutter push-4"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"kilo col w-12"</span>&gt;</span>Popular films in the last week<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
+{/content}
+</code></pre>
+<h3 id="dust-template-helpers-filters">Dust Template Helpers &amp; Filters</h3>
+<p>A number of Dust template helpers are built in to DADI Web. A guide to these can be found <a href="https://github.com/dadi/web/blob/docs/docs/dust_helpers.md">here</a>.</p>
+<p>Custom helpers and filters can be added to your application by including them within Javascript files in the configured <code>helpers</code> and <code>filters</code> folders. The default location is <code class="lang-gradle">app<span class="hljs-regexp">/utils/</span>helpers</code> and <code class="lang-gradle">app<span class="hljs-regexp">/utils/</span>filters</code>.</p>
+<p>You can either create one file containing all your helpers and one file containing all your filters or add them to the application as individual files.</p>
+<pre><code class="lang-applescript"><span class="hljs-keyword">my</span>-web/
+  app/
+    utils/      
+    helpers/          <span class="hljs-comment"># Dust helpers</span>
+      helpers.js      <span class="hljs-comment"># a file containing all helpers for the application</span>
+    filters/          <span class="hljs-comment"># Dust filters</span>
+      wookie.js       <span class="hljs-comment"># a single filter</span>
+      unicorns.js     <span class="hljs-comment"># a single filter</span>
+</code></pre><p>Whether you use one file or many, DADI Web will ensure all your helpers and filters are loaded at application startup.</p>
+<h4 id="dust-helpers">Dust Helpers</h4>
+<p>The following example helper returns the contents of the block wrapped in an HTML <code class="lang-apache"><span class="hljs-tag">&lt;pre&gt;</span></code> tag.</p>
+<p><strong>Helper</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// first get a reference to the `dust` instance</span>
+<span class="hljs-keyword">var</span> dust = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dustjs-linkedin'</span>);
+
+<span class="hljs-comment">/**
+ * Return the provided content wrapped in an HTML &lt;pre&gt; tag
+ */</span>
+dust.helpers.code = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">chunk, context, bodies, params</span>) </span>{
+  <span class="hljs-keyword">if</span> (bodies.block) {
+    <span class="hljs-keyword">return</span> chunk.capture(bodies.block, context, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">string, chunk</span>) </span>{
+      chunk.end(<span class="hljs-string">'&lt;pre&gt;'</span> + string + <span class="hljs-string">'&lt;/pre&gt;'</span>);
+    });
+  }
+  <span class="hljs-keyword">return</span> chunk;
+}
+</code></pre>
+<p><strong>Usage within a template</strong></p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Code Helper Example<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+{@code}
+alert('Hello World');
+{/code}
+</code></pre>
+<p><strong>Rendered output</strong></p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Code Helper Example<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">pre</span>&gt;</span>alert('Hello World');<span class="hljs-tag">&lt;/<span class="hljs-title">pre</span>&gt;</span>
+</code></pre>
+<h4 id="dust-filters">Dust Filters</h4>
+<p>The following example filter returns the data with the first instance of “unicorn” replaced with “horse”.</p>
+<p><strong>Filter</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-comment">// first get a reference to the `dust` instance</span>
+<span class="hljs-keyword">var</span> dust = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dustjs-linkedin'</span>);
+
+<span class="hljs-comment">/**
+ * Return the data with the first instance of "unicorn" replaced with "horse"
+ * @param {string} value - the input value to apply the filter to
+ * @returns {string}
+ */</span>
+dust.filters.unicorn = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+ <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'string'</span>) {
+    <span class="hljs-keyword">return</span> value.replace(<span class="hljs-string">'unicorn'</span>, <span class="hljs-string">'horse'</span>);
+  }
+  <span class="hljs-keyword">return</span> value;
+}
+</code></pre>
+<p><strong>Usage within a template</strong></p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Unicorns to Horses<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>{"I love unicorns"|unicorn}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+</code></pre>
+<p><strong>Rendered output</strong></p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Unicorns to Horses<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>I love horses<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+</code></pre>
+
+         <!--  <p class="small">813:3 min</p> -->
+        </div>
+         <div class="col w-1-4">
+          <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
+              <li><a class="" href="#overview">Overview</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/dadi.tech">View the repo for this site</a></li>
+      </ul>
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://localhost:4113/assets/js/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+</script>
+
+</body>
+</html>

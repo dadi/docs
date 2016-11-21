@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sessions</title>
+  <meta name="description" content="Its about saying »Hello« to the World.">
+  <link rel="stylesheet" type="text/css" href="http://localhost:4113/assets/css/main.min.css">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+  <link rel="icon" type="image/png" href="http://stage.dadi.tech/assets/img/favicon.png">
+</head>
+<body class="docs light">
+
+<div class="top">
+  <div class="top__bg pattern" style="background-color: #333;" data-colors="#333333,#2d2d2d,#272727,#222222,#1c1c1c,#161616,#111111,#0b0b0b,#050505,#000000"></div>
+
+  <div class="container">
+    <header class="grid bs-grid">
+      <div class="col w-1-4">
+        <h1><a href="/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+      </div>
+      <div class="col w-1-4 bs-w-1-1">
+        <ul class="normal nav  marg__right--x2">
+          <li><a href="https://dadi.tech/platform/" class="active">Platform</a></li>
+          <li><a href="https://dadi.tech/success-stories/" >Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/" >Latest</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Looking for a hosted technology solution?</p>
+        <a href="https://dadi.tech/on-demand/" class="btn btn--fill btn--red">On demand</a>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Need help integrating or customising our platform?</p>
+        <a href="https://dadi.tech/solutions/" class="btn btn--fill btn--green">Solutions</a>
+      </div>
+    </header>
+    <div class="marg__bottom small">
+      <ul class="list--breadcrumb titlecase">
+        <li><a href="/">Documentation</a></li>
+                <li  class=""><a href="/web">Web</a></li>
+                <li  class="fwb"><a href="/web/concepts">Concepts</a></li>
+      </ul>
+
+      <h1>Sessions</h1>
+    </div>
+  </div>
+</div>
+  <main>
+    <div class="container normal">
+      <div class="grid">
+        <div class="col w-3-4 documentation pad__bottom--x2">
+          <h1 id="sessions">Sessions</h1>
+<h2 id="overview">Overview</h2>
+<p>DADI Web uses the <a href="https://github.com/expressjs/session">express-session</a> library to handle sessions. Visit that project’s homepage for more detailed information regarding session configuration.</p>
+<ul>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#configuration-properties">Configuration Properties</a></li>
+<li><a href="#using-the-session">Using the session</a></li>
+</ul>
+<h3 id="configuration">Configuration</h3>
+<p><strong>Note:</strong> Sessions are disabled by default. To enable them in your application, add the following to your configuration file:</p>
+<pre><code class="lang-javascript"><span class="hljs-string">"sessions"</span>: {
+  <span class="hljs-string">"enabled"</span>: <span class="hljs-literal">true</span>
+}
+</code></pre>
+<p>A full configuration block for sessions contains the following properties:</p>
+<pre><code class="lang-javascript"><span class="hljs-string">"sessions"</span>: {
+  <span class="hljs-string">"enabled"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-string">"name"</span>: <span class="hljs-string">"dadiweb.sid"</span>,
+  <span class="hljs-string">"secret"</span>: <span class="hljs-string">"dadiwebsecretsquirrel"</span>,
+  <span class="hljs-string">"resave"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-string">"saveUninitialized"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-string">"store"</span>: <span class="hljs-string">""</span>,
+  <span class="hljs-string">"cookie"</span>: {
+    <span class="hljs-string">"maxAge"</span>: <span class="hljs-number">60000</span>,
+    <span class="hljs-string">"secure"</span>: <span class="hljs-literal">false</span>
+  }
+}
+</code></pre>
+<h3 id="configuration-properties">Configuration Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enabled</td>
+<td>If <code class="lang-actionscript"><span class="hljs-literal">true</span></code>, sessions are enabled.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>name</td>
+<td>The session cookie name.</td>
+<td>“dadiweb.sid”</td>
+</tr>
+<tr>
+<td>secret</td>
+<td>The secret used to sign the session ID cookie. This can be either a string for a single secret, or an array of multiple secrets. If an array of secrets is provided, only the first element will be used to sign the session ID cookie, while all the elements will be considered when verifying the signature in requests.</td>
+<td>“dadiwebsecretsquirrel”</td>
+</tr>
+<tr>
+<td>resave</td>
+<td>Forces the session to be saved back to the session store, even if the session was never modified during the request.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>saveUninitialized</td>
+<td>Forces a session that is “uninitialized” to be saved to the store. A session is uninitialized when it is new but not modified. Choosing false is useful for implementing login sessions, reducing server storage usage, or complying with laws that require permission before setting a cookie. Choosing false will also help with race conditions where a client makes multiple parallel requests without a session.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>store</td>
+<td>The session store instance, defaults to a new MemoryStore instance.</td>
+<td>The default is an empty string, which uses a new MemoryStore instance. To use MongoDB as the session store, specify a MongoDB connection string such as <code class="lang-1c"><span class="hljs-string">"mongodb://host:port/databaseName"</span></code> or <code class="lang-perl"><span class="hljs-string">"mongodb://username:password<span class="hljs-variable">@host</span>:port/databaseName"</span></code> if your database requires authentication. To use Redis, specify a Redis server’s address and port number: <code class="lang-1c"><span class="hljs-string">"redis://127.0.0.1:6379"</span></code>.</td>
+</tr>
+<tr>
+<td>cookie</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>cookie.maxAge</td>
+<td>Set the cookie’s expiration as an interval of seconds in the future, relative to the time the browser received the cookie. <code class="lang-actionscript"><span class="hljs-literal">null</span></code> means no ‘expires’ parameter is set so the cookie becomes a browser-session cookie. When the user closes the browser the cookie (and session) will be removed.</td>
+<td>60000</td>
+</tr>
+<tr>
+<td>cookie.secure</td>
+<td>HTTPS is necessary for secure cookies. If <code>secure</code> is <code class="lang-actionscript"><span class="hljs-literal">true</span></code> and you access your site over HTTP, the cookie will not be set.</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<h3 id="using-the-session">Using the session</h3>
+<p>Session data can easily be accessed from an <a href="https://github.com/dadi/web/blob/docs/docs/events.md">event</a> or custom <a href="https://github.com/dadi/web/blob/docs/docs/middleware.md">middleware</a>.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Event = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, data, callback</span>) </span>{
+
+ <span class="hljs-keyword">if</span> (req.session) {
+   req.session.someProperty = <span class="hljs-string">"some value"</span>;
+   req.session.save(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+     <span class="hljs-comment">// session saved</span>
+   })
+
+   data.session_id = req.session.id;
+ }
+
+ callback(<span class="hljs-literal">null</span>, data);
+}
+</code></pre>
+
+         <!--  <p class="small">430:2 min</p> -->
+        </div>
+         <div class="col w-1-4">
+          <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
+              <li><a class="" href="#overview">Overview</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/dadi.tech">View the repo for this site</a></li>
+      </ul>
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://localhost:4113/assets/js/main.js"></script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+</script>
+
+</body>
+</html>
