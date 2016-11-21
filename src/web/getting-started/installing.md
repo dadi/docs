@@ -3,13 +3,15 @@ title: Getting Started
 layout: default.html
 ---
 
-## Installing DADI Web
+# Installing DADI Web
 
 ## NPM
 
 All our platform microservices are available from [NPM](https://www.npmjs.com/). To install *Web*.
 
-`$ npm install @dadi/web`
+```
+$ npm install @dadi/web
+```
 
 ## Manual install
 
@@ -40,7 +42,9 @@ You can see our full list of dependencies in the [package.json](https://github.c
 
 If you have installed manually, you can run tests by:
 
-`$ npm run test`
+```
+$ npm run test
+```
 
 And you're done, now move on to [configuration](/web/configuration)
 
