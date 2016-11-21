@@ -5,39 +5,58 @@
   <title>{{ title }}</title>
   <meta name="description" content="{{ description }}">
   <link rel="stylesheet" type="text/css" href="http://stage.dadi.tech/assets/css/main.min.css">
+  <link rel="stylesheet" type="text/css" href="/type.css">
   <link rel="icon" type="image/png" href="http://stage.dadi.tech/assets/img/favicon.png">
 </head>
 <body class="docs light">
 
-<div class="top__bg pattern" style="background-color: #1D0309;" data-colors="#1d0309,#190208,#160207,#130206,#100105,#0c0104,#090103,#060002,#030001,#000000"></div>
-<div class="container">
-  <header class="grid bs-grid">
-    <div class="col w-1-4">
-      <h1><a href="/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+<div class="top">
+  <div class="top__bg pattern" style="background-color: #333;" data-colors="#333333,#2d2d2d,#272727,#222222,#1c1c1c,#161616,#111111,#0b0b0b,#050505,#000000"></div>
+
+  <div class="container">
+    <header class="grid bs-grid">
+      <div class="col w-1-4">
+        <h1><a href="/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+      </div>
+      <div class="col w-1-4 bs-w-1-1">
+        <ul class="normal nav  marg__right--x2">
+          <li><a href="https://dadi.tech/platform/" class="active">Platform</a></li>
+          <li><a href="https://dadi.tech/success-stories/" >Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/" >Latest</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Looking for a hosted technology solution?</p>
+        <a href="https://dadi.tech/on-demand/" class="btn btn--fill btn--red">On demand</a>
+      </div>
+      <div class="col w-1-4 bs-w-1-2">
+        <p class="fwb small">Need help integrating or customising our platform?</p>
+        <a href="https://dadi.tech/solutions/" class="btn btn--fill btn--green">Solutions</a>
+      </div>
+    </header>
+    {{#ifCond title '!=' "Documentation"}}
+    <div class="list--breadcrumb">
+      <h1 class="medium no-marg-i txt--grey">Documentation</h1>
     </div>
-    <div class="col w-1-4 bs-w-1-1">
-      <ul class="normal nav  marg__right--x2">
-        <li><a href="/platform/" class="active">Platform</a></li>
-        <li><a href="/success-stories/" >Success stories</a></li>
-        <li><a href="/latest/" >Latest</a></li>
+    {{else}}
+    <div class="alignc marg__bottom small">
+      <ul class="list--breadcrumb titlecase">
+        <li><a href="/">Home</a></li>
+        {{#each breadcrumb_path}}
+          {{#each ../collections}}
+            {{#each this}}
+              {{#ifCond this.path '==' ../../path}}
+                <li  class="{{#if @../../last}}fwb{{/if}}"><a href="/{{this.path}}">{{{this.title}}}</a></li>
+              {{/ifCond}}
+            {{/each}}
+          {{/each}}
+        {{/each}}
       </ul>
+
+      <h1>{{ title }}</h1>
+      <p class="small">{{{wordCount}}}:{{{readingTime}}}</p>
     </div>
-    <div class="col w-1-4 bs-w-1-2">
-      <p class="fwb small">Looking for a hosted technology solution?</p>
-      <a href="/on-demand/" class="btn btn--fill btn--red">On demand</a>
-    </div>
-    <div class="col w-1-4 bs-w-1-2">
-      <p class="fwb small">Need help integrating or customising our platform?</p>
-      <a href="/solutions/" class="btn btn--fill btn--green">Solutions</a>
-    </div>
-  </header>
-  <div class="alignc marg__bottom small">
-    <ul class="list--breadcrumb titlecase">
-      <li><a href="/">home</a></li>
-      <li><a href="/platform/">Platform</a></li>
-      <li><a href="/platform/concepts/">Concepts</a></li>
-      <li class="fwb">API First &amp; COPE</li>
-    </ul>
+    {{/ifCond}}
   </div>
 </div>
 <!--
@@ -57,23 +76,27 @@
         </li>
         {{/each}}
 -->
-<main>
-  <div class="container container--divider normal">
-    <div class="grid">
-      <div class="col w-2-3 read">
-        <h1>{{ title }}</h1>
-        {{{ contents }}}
-      </div>
-      <div class="col w-1-3">
-        <ul class="list--line pad__top--half">
-          {{#each headings}}
-            <li><a class="" href="#{{id}}">{{text}}</a></li>
-          {{/each}}
-        </ul>
+
+{{#ifCond title '===' "Documentation"}}
+   {{{ contents }}}
+{{else}}
+  <main>
+    <div class="container container--divider normal">
+      <div class="grid">
+        <div class="col w-2-3 read">
+          {{{ contents }}}
+        </div>
+         <div class="col w-1-3">
+          <ul class="list--line pad__top--half">
+            {{#each headings}}
+              <li><a class="" href="#{{id}}">{{text}}</a></li>
+            {{/each}}
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
+{{/ifCond}}
 
 <div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
   <footer class="small container">
@@ -89,103 +112,66 @@
           </form>
         </div>
       </div>
-      <div class="grid marg__top marg__bottom">
-        {@iter items=insights from=0 to=3}
-          <div class="col w-1-3">
-            {! <p class="txt--grey hdr">{@formatDate data=attributes.date parseFormat="YYYY-DD-MMMTh:mm:ss.ZZ" format="Do MMMM" /}</p> !}
-            <p class="hdr large txt--blue"><a href="/latest/{handle}/">{attributes.title}</a></p>
-            <p class="small txt--mid-grey">By <strong>{attributes.author}</strong></p>
-            <p class="small">{@soberMarkdown}{@Truncate data="{attributes.preface}" length="110" ellipsis="true"/}{/soberMarkdown}</p>
-            <p class="small"><a href="/latest/{handle}/" class="btn btn--blue">Read more</a></p>
-          </div>
-        {/iter}
-      </div>
     </div>
     <div class="grid">
       <div class="col w-1-3 pad__bottom">
         <ul class="list--line normal txt--blue">
-          <li><a href="/contact/">Contact us</a></li>
-          <li><a href="/success-stories/">Success stories</a></li>
-          <li><a href="/latest/">Latest</a></li>
-          <li><a href="/on-demand/">On demand</a></li>
-          <li><a href="/about/">Working with DADI</a>
-          <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
         </ul>
       </div>
       <div class="col w-1-3 pad__bottom">
-        <p class="normal hdr"><a href="/platform/">Platform</a></p>
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
         <ul class="list--line">
           <li>
-            <a href="/platform/api/" class="fwb">
-            <img src="/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
             API
             </a>
           </li>
           <li>
-            <a href="/platform/web/" class="fwb">
-            <img src="/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
             Web
             </a>
           </li>
           <li>
-            <a href="/platform/publish/" class="fwb">
-            <img src="/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
             Publish
             </a>
           </li>
           <li>
-            <a href="/platform/cdn/" class="fwb">
-            <img src="/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
             CDN
             </a>
           </li>
-          {! <li>
-            <a href="/platform/track/" class="fwb">
-            <img src="/assets/products/dadi-track.png" class="alignv float--right" width="15">
-            Track
-            </a>
-          </li>
-          <li>
-            <a href="/platform/visualize/" class="fwb">
-            <img src="/assets/products/dadi-visualize.png" class="alignv float--right" width="19">
-            Visualize
-            </a>
-          </li>
-          <li>
-            <a href="/platform/predict/" class="fwb">
-            <img src="/assets/products/dadi-predict.png" class="alignv float--right" width="15">
-            Predict
-            </a>
-          </li>
-          <li>
-            <a href="/platform/identity/" class="fwb">
-            <img src="/assets/products/dadi-identity.png" class="alignv float--right" width="8">
-            Identity
-            </a>
-          </li> !}
-          <li><a href="/platform/concepts/">Concepts</a></li>
-          {! <li><a href="/platform/tools/">Tools &amp; Components</a></li> !}
-          <li><a href="/platform/security/">Security</a></li>
-          <li><a href="/platform/roadmap/">Roadmap</a></li>
-          {! <li><a href="/platform/licensing/">Licensing</a></li> !}
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
           <li>
             <a href="http://docs.dadi.tech" target="_blank">
-            <img src="/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
             Documentation
             </a>
           </li>
         </ul>
       </div>
       <div class="col w-1-3 pad__bottom">
-        <p class="normal hdr"><a href="/solutions/">Solutions</a></p>
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
         <ul class="list--line">
-          <li><a href="/solutions/data-strategy/">Data strategy</a></li>
-          <li><a href="/solutions/publishing/">Publishing</a></li>
-          <li><a href="/solutions/product-development/">Product development</a></li>
-          <li><a href="/solutions/crm/">CRM</a></li>
-          <li><a href="/solutions/analytics/">Analytics</a></li>
-          <li><a href="/solutions/content-personalisation/">Content personalisation</a></li>
-          <li><a href="/solutions/commerce/">Commerce</a></li>
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
         </ul>
       </div>
     </div>
@@ -197,7 +183,7 @@
         <li><a href="https://github.com/dadi">Find us on Github</a></li>
         <li><a href="https://github.com/dadi/dadi.tech">View the repo for this site</a></li>
       </ul>
-      <img src="/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
     </div>
   </footer>
 </div>
@@ -208,7 +194,7 @@
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','{global.protocol}://www.google-analytics.com/analytics.js','ga');
+})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
 </script>
 
 </body>
