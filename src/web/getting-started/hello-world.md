@@ -3,7 +3,9 @@ title: The "Hello World" App
 layout: default.html
 ---
 
-The minimal folder structure for a project would look like:
+# Introduction
+
+This is a brief outline of the minimum files you might need to an app to say "hello world". The folder structure looks like:
 
 ```
 /your-project
@@ -36,7 +38,7 @@ The minimal folder structure for a project would look like:
 |__/cdn
 ```
 
-# package.json
+## package.json
 
 This is where we manage the _Web_ dependency and also tell _Node.js_ how to run our app when we `$ npm start`.
 
@@ -60,7 +62,7 @@ This is where we manage the _Web_ dependency and also tell _Node.js_ how to run 
 }
 ```
 
-# main.js
+`main.js`
 
 This is where we reference the installation of _Web_ for booting.
 
@@ -68,15 +70,15 @@ This is where we reference the installation of _Web_ for booting.
 require('@dadi/web')
 ```
 
-# /config/config.development.json
+`/config/config.development.json`
 
 See [configuration](/web/configuration/) for full information.
 
-# /workspace/
+## /workspace/
 
 This is the heart of the project lives. We can organise this how we like in time - the `config.json` can be updated to let it know where to find the core files it needs to run. We can also store our front-end assets in here.
 
-## /workspace/datasources/greeting.json
+### /workspace/datasources/greeting.json
 
 You can read more about datasources later, but for now we are using a static datasource to keep things simple.
 
@@ -95,7 +97,7 @@ You can read more about datasources later, but for now we are using a static dat
 }
 ```
 
-## /workspace/pages/index.json
+### /workspace/pages/index.json
 
 This is how we define a page (or section) of our project. Again, you can read more about advanced configuration options later.
 
@@ -117,7 +119,7 @@ Notice we are referencing the datasource we created by its assigned `key`.
 }
 ```
 
-## /workspace/pages/index.dust
+### /workspace/pages/index.dust
 
 _Web_ uses [Dust.js](http://www.dustjs.com/) as it's templating language
 
@@ -130,7 +132,7 @@ _Web_ uses [Dust.js](http://www.dustjs.com/) as it's templating language
 {<"partials/footer" /}
 ```
 
-## /workspace/partials/header.dust
+### /workspace/partials/header.dust
 
 This is a typical Dust.js partial.
 
@@ -144,7 +146,7 @@ This is a typical Dust.js partial.
 <body>
 ```
 
-## /workspace/partials/footer.dust
+### /workspace/partials/footer.dust
 
 Finishing what we started.
 
@@ -153,9 +155,9 @@ Finishing what we started.
 </html>
 ```
 
-## /workspace/public/styles.css
+### /workspace/public/styles.css
 
-Giving it all al lick of paint
+Giving it all a lick of paint:
 
 ```css
 body {
@@ -165,4 +167,4 @@ body {
 h1 {
   color: red;
 }
-``
+```
