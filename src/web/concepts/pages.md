@@ -2,24 +2,9 @@
 title: Pages
 layout: default.html
 ---
+# Pages
 
-## Pages
-
-### Overview
-
-* [Page Specification](#page-specification)
-* [Basic Page Configuration](#basic-page-configuration)
-* [Advanced Page Configuration](#advanced-page-configuration)
-* [Configuration Properties](#configuration-properties)
-* [Routing](#routing)
-* [Datasources](#datasources)
-* [Required Datasources](#required-datasources)
-* [Events](#events)
-* [Preload Events](#preload-events)
-* [Caching](#caching)
-* [Error Pages](#error-pages)
-
-### Page Specification
+## Page Specification
 
 A `page` on your website consists of two files within your application's file structure: a Page Specification and a Template.
 
@@ -27,7 +12,7 @@ Page Specifications exist as JSON files in your application's `pages` folder. Th
 
 [TODO] DADI Web monitors the `app` folder for changes and will automatically reload pages and templates when these files change.
 
-```
+```bash
 my-web/
   app/
     datasources/      # datasource specifications
@@ -37,7 +22,7 @@ my-web/
       people.json     # page specification file
 ```
 
-#### Basic Page Configuration
+### Basic Page Configuration
 
 ```js
 {
@@ -51,7 +36,7 @@ my-web/
 }
 ```
 
-#### Advanced Page Configuration
+### Advanced Page Configuration
 
 ```js
 {
@@ -86,7 +71,7 @@ my-web/
 }
 ```
 
-#### Configuration Properties
+### Configuration Properties
 
 Property    |   Description        |  Type        | Default         
 ------------|----------------|------------------|----------------
@@ -109,33 +94,37 @@ requiredDatasources  | An array containing the datasources that must return data
 events           | An array containing the events that should be executed once all the page's datasources have returned data | Array | `[]`
 preloadEvents    | An array containing the events that should be executed before the rest of the page's datasources and events | Array | `[]`
 
-### Routing
+## Routing
 
-A page's default route is a value matching the page name. For example if the page name is `books` the page will be available in the browser at `/books`. The page specification's route property becomes:
+For every page added to your application, a route is created by default. A page’s default route is a value matching the page name. For example if the page name is books the page will be available in the browser at /books.
+
+To make the books page reachable via a different URL, simply add (or modify) the page’s routes property:
 
 ```js
-"route": {
-  "paths": ["/books"]
-}
+"routes": [
+  {
+    "paths": ["/books"]
+  }
+]
 ```
 
-For detailed documentation of routing, see [Routing](https://github.com/dadi/web/blob/docs/docs/routing.md#page-routing).
+For detailed documentation of routing, see [Routing](/web/concepts/routing#page-routing).
 
-### Templates
+## Templates
 
 Template files are stored in the same folder as the page specifications and have a `.dust` extension. Unless the page specification contains an explicit `template` property, the template name should match the page specification name.
 
-See [Views](https://github.com/dadi/web/blob/docs/docs/views.md#page-templates) for further documentation.
+See [Views](/web/concepts/views#page-templates) for further documentation.
 
-### Data
+## Data
 
 [TODO]
 
-#### Datasources
+### Datasources
 
 An array containing datasources that should be executed to load data for the page.
 
-For detailed documentation of datasources, see [Datasources](https://github.com/dadi/web/blob/docs/docs/datasources.md)
+For detailed documentation of datasources, see [Datasources](/web/concepts/datasources)
 
 ```js
 "datasources": [
@@ -144,7 +133,7 @@ For detailed documentation of datasources, see [Datasources](https://github.com/
 ]
 ```
 
-#### Required Datasources
+### Required Datasources
 
 Allows specifying an array of datasources that must return data for the page to function. If any of the listed datasources return no results, a 404 is returned. The datasources specified must exist in the `datasources` array.
 
@@ -154,11 +143,11 @@ Allows specifying an array of datasources that must return data for the page to 
 ]
 ```
 
-#### Events
+### Events
 
 An array containing events that should be executed after the page's datasources have loaded data.
 
-For detailed documentation of events, see [Events](https://github.com/dadi/web/blob/docs/docs/events.md)
+For detailed documentation of events, see [Events](/web/concepts/events)
 
 ```js
 "events": [
@@ -167,7 +156,7 @@ For detailed documentation of events, see [Events](https://github.com/dadi/web/b
 ]
 ```
 
-#### Preload Events
+### Preload Events
 
 An array containing events that should be executed before the rest of the page's datasources and events.
 
@@ -179,11 +168,11 @@ Preload events are loaded from the filesystem in the same way as a page's regula
 ]
 ```
 
-### Caching
+## Caching
 
 If true the output of the page will be cached using cache settings in the main configuration file.
 
-For detailed documentation of page caching, see [Page Caching](https://github.com/dadi/web/blob/docs/docs/caching.md#page-caching).
+For detailed documentation of page caching, see [Page Caching](/web/concepts/caching#page-caching).
 
 ```js
 "settings": {
@@ -191,7 +180,7 @@ For detailed documentation of page caching, see [Page Caching](https://github.co
 }
 ```
 
-### Error pages
+## Error pages
 
 You can have error pages for any error code your application can throw. For example, a 404.
 
