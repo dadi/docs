@@ -2,19 +2,16 @@
 title: Pages
 layout: default.html
 ---
-# Pages
 
-## Page Specification
+# Introduction
 
 A `page` on your website consists of two files within your application's file structure: a Page Specification and a Template.
 
-Page Specifications exist as JSON files in your application's `pages` folder. The location of this folder is configurable, but defaults to `app/pages`.
-
-[TODO] DADI Web monitors the `app` folder for changes and will automatically reload pages and templates when these files change.
+Page Specifications exist as JSON files in your application's `pages` folder. The location of this folder is [configurable](/web/getting-started/configuration/), but defaults to `workspace/pages`.
 
 ```bash
-my-web/
-  app/
+your-project/
+  workspace/
     datasources/      # datasource specifications
     events/           # event files
     pages/            # page specifications        
@@ -22,7 +19,7 @@ my-web/
       people.json     # page specification file
 ```
 
-### Basic Page Configuration
+## Basic Page Configuration
 
 ```js
 {
@@ -36,7 +33,7 @@ my-web/
 }
 ```
 
-### Advanced Page Configuration
+## Advanced Page Configuration
 
 ```js
 {
@@ -51,9 +48,11 @@ my-web/
     "keepWhitespace": true,
     "passFilters": true
   },
-  "route": {
-    "path": "/people"
-  },
+  "routes": [
+    {
+      "path": "/people"
+    }
+  ],
   "contentType": "text/html",
   "template": "people.dust",
   "datasources": [
@@ -71,7 +70,7 @@ my-web/
 }
 ```
 
-### Configuration Properties
+## Configuration Properties
 
 Property    |   Description        |  Type        | Default         
 ------------|----------------|------------------|----------------
@@ -103,7 +102,7 @@ To make the books page reachable via a different URL, simply add (or modify) the
 ```js
 "routes": [
   {
-    "paths": ["/books"]
+    "path": "/reading"
   }
 ]
 ```
@@ -116,11 +115,7 @@ Template files are stored in the same folder as the page specifications and have
 
 See [Views](/web/concepts/views#page-templates) for further documentation.
 
-## Data
-
-[TODO]
-
-### Datasources
+## Datasources
 
 An array containing datasources that should be executed to load data for the page.
 
@@ -133,7 +128,7 @@ For detailed documentation of datasources, see [Datasources](/web/concepts/datas
 ]
 ```
 
-### Required Datasources
+## Required Datasources
 
 Allows specifying an array of datasources that must return data for the page to function. If any of the listed datasources return no results, a 404 is returned. The datasources specified must exist in the `datasources` array.
 
@@ -143,7 +138,7 @@ Allows specifying an array of datasources that must return data for the page to 
 ]
 ```
 
-### Events
+## Events
 
 An array containing events that should be executed after the page's datasources have loaded data.
 
@@ -156,7 +151,7 @@ For detailed documentation of events, see [Events](/web/concepts/events)
 ]
 ```
 
-### Preload Events
+## Preload Events
 
 An array containing events that should be executed before the rest of the page's datasources and events.
 

@@ -132,6 +132,18 @@ A very basic `config.development.json` file looks like this:
     "global" : {
       "baseUrl": "https://www.example.com"
     },
+    "paths": {
+      "datasources": "./workspace/datasources",
+      "events": "./workspace/events",
+      "media": "./workspace/media",
+      "middleware": "./workspace/middleware",
+      "pages": "./workspace/pages",
+      "partials": "./workspace/partials",
+      "public": "./workspace/public",
+      "routes": "./workspace/routes",
+      "helpers": "./workspace/utils/helpers",
+      "filters": "./workspace/utils/filters"
+    }
     "debug": true,
     "allowJsonView": true
 }
@@ -263,3 +275,7 @@ In the above example `baseUrl` would be availabe to a page template and could be
 </body>
 </html>
 ```
+
+### Section: `paths`
+
+Paths can be used to configure where any folder of the app assets are located.

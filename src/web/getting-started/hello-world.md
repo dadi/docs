@@ -8,34 +8,26 @@ layout: default.html
 This is a brief outline of the minimum files you might need to an app to say "hello world". The folder structure looks like:
 
 ```
-/your-project
-│
-│__/web
-│  |  package.json
-│  |  main.js
-│  |  /config
-│  |  |  config.development.json
-│  |  |
-│  |  /workspace  
-│  |  |__/datasources
-│  |  |  greeting.json
-│  |  |
-│  |  |__/pages
-│  |  |  index.json
-│  |  |  index.dust
-│  |  |
-│  |  |__/partials
-│  |  |  header.dust
-│  |  |  footer.dust
-│  |  |
-│  |  |__/public
-│  |  |  styles.css
-│  |  |
-│  |  /node_modules # Location of Web after installing
-│
-|__/api
-│
-|__/cdn
+your-project/
+  web/
+    package.json
+    main.js
+    config/
+      config.development.json
+    workspace/
+      datasources/
+        greeting.json
+      pages/
+        index.json
+        index.dust
+      partials/
+        header.dust
+        footer.dust
+      public/
+        styles.css
+    node_modules/ # Location of Web after installing
+  api/
+  cdn/
 ```
 
 ## package.json
