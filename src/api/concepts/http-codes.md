@@ -1,6 +1,5 @@
 ---
 title: HTTP Status codes
-layout: default.html
 ---
 
 ## Overview

@@ -43,3 +43,13 @@ Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
   ]
 }
 ```
+
+
+
+# Custom Endpoints
+
+**URL Format:** `http(s)://{url}/{version}/{endpoint}`
+
+**Example:** `http://api.example.com/1.0/new-books`
+
+Returns a JSON object. Parameters and return are completely customisable. The output is generated using the file:

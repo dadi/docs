@@ -3,7 +3,7 @@ title: Cache performance
 layout: default.html
 ---
 
-### Overview
+# Overview
 
 DADI API has caching xupport built in for both a file-based cache and Redis. Caching can be configured globally and at individual collection level.
 
@@ -11,9 +11,9 @@ Due to the thin nature of the server, and because we assume the use of Mongo's m
 
 Benchmarks undertaken with ApacheBenchmark (ab) can be seen below.
 
-### File based cache
+# File based cache
 
-#### Config
+## Config
 
 Inside config.{ENVIRONMENT}.json
 
@@ -29,13 +29,13 @@ Inside config.{ENVIRONMENT}.json
 * `directory` path to the directory where files should be stored. **Important:** this dir must already exist! (required if cache is enabled)
 * `extension` the file extension to use when naming the cache files. This has no bearing on the `content-type` of the response, so feel free to put anything here (required if cache is enabled)
 
-#### Notes
+## Notes
 
 The naming convention for files is based on a hex string from a sha1 hash of node's `req.url` value, with the extension per config appended. This keeps cache values unique and avoids naming conflicts.
 
-#### Benchmarks
+## Benchmarks
 
-##### Benchmarks With disk Cache
+### Benchmarks With disk Cache
 
     Server Hostname:        localhost
     Server Port:            3000
@@ -73,7 +73,7 @@ The naming convention for files is based on a hex string from a sha1 hash of nod
       99%     14
      100%     17 (longest request)
 
-##### Benchmarks Without disk Cache
+### Benchmarks Without disk Cache
 
     Server Hostname:        localhost
     Server Port:            3000
@@ -111,6 +111,6 @@ The naming convention for files is based on a hex string from a sha1 hash of nod
       99%     17
      100%     23 (longest request)
 
-### Redis
+# Redis
 
 **_To be added icne Redis support is available_**
