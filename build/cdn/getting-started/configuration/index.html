@@ -37,7 +37,6 @@
     <div class="marg__bottom small">
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
-                <li  class=""><a href="/cdn">CDN</a></li>
       </ul>
 
       <h1>Configuration</h1>
@@ -48,6 +47,8 @@
     <div class="container normal">
       <div class="grid">
         <div class="col w-3-4 documentation pad__bottom--x2">
+          <p class="small fwb txt--grey">254 words ( 1 min read)</p>
+
           <h1 id="basic-configuration">Basic configuration</h1>
 <p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class="lang-vim"><span class="hljs-built_in">hostname</span></code> i.e., it will also look for <code class="lang-css"><span class="hljs-tag">config</span>." + <span class="hljs-tag">req</span><span class="hljs-class">.headers</span><span class="hljs-class">.host</span> + "<span class="hljs-class">.json</span></code></p>
 <p>A very basic <code class="lang-stylus">config<span class="hljs-class">.development</span><span class="hljs-class">.json</span></code> file looks like this:</p>
@@ -165,7 +166,6 @@
 </span>}
 </code></pre>
 
-         <!--  <p class="small">254:1 min</p> -->
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">

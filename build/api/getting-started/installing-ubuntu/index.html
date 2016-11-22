@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Getting Started</title>
+  <title>Installing API on Ubuntu</title>
   <meta name="description" content="Its about saying »Hello« to the World.">
   <link rel="stylesheet" type="text/css" href="http://localhost:4113/assets/css/main.min.css">
   <link rel="stylesheet" type="text/css" href="/type.css">
@@ -37,9 +37,10 @@
     <div class="marg__bottom small">
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
+                <li  class=""><a href="/api">API</a></li>
       </ul>
 
-      <h1>Getting Started</h1>
+      <h1>Installing API on Ubuntu</h1>
     </div>
   </div>
 </div>
@@ -47,52 +48,33 @@
     <div class="container normal">
       <div class="grid">
         <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">224 words ( 1 min read)</p>
+          <p class="small fwb txt--grey">138 words ( 1 min read)</p>
 
-          <h1 id="installing-dadi-cdn">Installing DADI CDN</h1>
-<h2 id="npm">NPM</h2>
-<p>All our platform microservices are available from <a href="https://www.npmjs.com/">NPM</a>. To install <em>CDN</em>.</p>
-<pre><code class="lang-coffeescript">$ <span class="hljs-built_in">npm</span> install <span class="hljs-property">@dadi</span>/cdn
-</code></pre><h2 id="manual-install">Manual install</h2>
-<p>If you do not want to use NPM, you can grab the latest <a href="https://github.com/dadi/cdn/releases">release</a>. Then you can install:</p>
-<pre><code class="lang-coffeescript">$ cd .<span class="hljs-regexp">/release-download-location/</span>
-$ <span class="hljs-built_in">npm</span> install
-</code></pre><h2 id="using-dadi-generator-https-github-com-dadi-generator-">Using <a href="https://github.com/dadi/generator">DADI Generator</a></h2>
-<p>We have a handy tool to generate new applications easily.</p>
-<pre><code class="lang-sql">$ npm <span class="hljs-operator"><span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> @dadi/generator
-$ dadi-generator cdn /<span class="hljs-keyword">path</span>/<span class="hljs-keyword">to</span>/your_new_app
-$ cd /<span class="hljs-keyword">path</span>/<span class="hljs-keyword">to</span>/your_new_app
-$ npm <span class="hljs-keyword">install</span>
-$ npm <span class="hljs-keyword">start</span>
-</span></code></pre><h2 id="dependencies">Dependencies</h2>
-<p><em>API</em> requires <a href="https://www.mongodb.com/">MongoDB</a>. There is a complete guide to installing this and <em>API</em> together <a href="">here</a>.</p>
-<p>You can see our full list of dependencies in the <a href="https://github.com/dadi/cdn/blob/master/package.json">package.json</a>.</p>
-<h2 id="tests">Tests</h2>
-<p>If you have installed manually, you can run tests by:</p>
-<pre><code class="lang-stata">$ npm <span class="hljs-keyword">run</span> <span class="hljs-keyword">test</span>
-</code></pre><h2 id="forever-optional-">Forever (optional)</h2>
-<p>As with most Node.js applications, to run the app in the background you will need to install install <a href="https://github.com/nodejitsu/forever">Forever</a> and <a href="https://github.com/zapty/forever-service">Forever-service</a>:</p>
-<pre><code class="lang-sql">$ [sudo] npm <span class="hljs-operator"><span class="hljs-keyword">install</span> forever -<span class="hljs-keyword">g</span>
-$ [sudo] npm <span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> forever-service
-</span></code></pre><p>Install DADI CDN as a service and ensure it loads on boot:</p>
-<pre><code class="lang-sql">$ [sudo] forever-service <span class="hljs-operator"><span class="hljs-keyword">install</span> -s <span class="hljs-keyword">main</span>.js -<span class="hljs-keyword">e</span> NODE_ENV=production cdn <span class="hljs-comment">--start</span>
-</span></code></pre><p><strong>Note</strong> the environment variable <code class="lang-fix"><span class="hljs-attribute">NODE_ENV</span>=<span class="hljs-string">production</span></code> must be set to target the required config version.</p>
-<p>You can then interact with the service using the following command:</p>
-<pre><code class="lang-accesslog">$ <span class="hljs-string">[sudo]</span> start cdn
-$ <span class="hljs-string">[sudo]</span> stop cdn
-$ <span class="hljs-string">[sudo]</span> status cdn
-$ <span class="hljs-string">[sudo]</span> restart cdn
-</code></pre><p><strong>And you’re done, now move on to <a href="/cdn/getting-started/configuration/">configuration</a>.</strong></p>
-
+          <h1 id="introduction">Introduction</h1>
+<p>This document provides a simple step by step guide to installation on Ubuntu <a href="http://releases.ubuntu.com/14.04.1/">14.04.1 LTS</a>.</p>
+<p>This guide assumes a single server holding both the database and the API.</p>
+<h2 id="node-js-latest">Node.js latest</h2>
+<pre><code class="lang-vim">$ sudo apt-<span class="hljs-built_in">get</span> -<span class="hljs-keyword">y</span> <span class="hljs-keyword">update</span>
+$ sudo apt-<span class="hljs-built_in">get</span> -<span class="hljs-keyword">y</span> upgrade
+$ sudo apt-<span class="hljs-built_in">get</span> -<span class="hljs-keyword">y</span> install <span class="hljs-keyword">python</span>-software-properties
+$ sudo <span class="hljs-built_in">add</span>-apt-repository <span class="hljs-keyword">pp</span><span class="hljs-variable">a:chris</span>-lea/node.js
+$ sudo apt-<span class="hljs-built_in">get</span> -<span class="hljs-keyword">y</span> <span class="hljs-keyword">update</span>
+$ sudo apt-<span class="hljs-built_in">get</span> -<span class="hljs-keyword">y</span> install nodejs
+</code></pre><h2 id="mongodb">MongoDB</h2>
+<pre><code class="lang-actionscript">$ sudo apt-<span class="hljs-keyword">get</span> -y install mongodb
+</code></pre><p>For the tests to run you will need stand alone <code>mongod</code>s running at localhost:27017 and localhost:27018. To do this you need to define a new mongod on 27108:</p>
+<pre><code class="lang-fortran">$ sudo mkdir -p <span class="hljs-type">data</span>/db1 <span class="hljs-type">data</span>/log1
+$ sudo mongod --dbpath ~/<span class="hljs-type">data</span>/db1 --logpath ~/<span class="hljs-type">data</span>/log1/<span class="hljs-built_in">log</span> --port <span class="hljs-number">27018</span> --fork
+</code></pre><h2 id="dadi-api">DADI API</h2>
+<p>Install GCC to provide the latest build of the c++ bson extension (not required, but improves performance):</p>
+<pre><code class="lang-armasm"><span class="hljs-label">sudo</span> apt-<span class="hljs-preprocessor">get</span> install gcc make <span class="hljs-keyword">build-essential
+</span></code></pre>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
-              <li><a class="" href="#npm">NPM</a></li>
-              <li><a class="" href="#manual-install">Manual install</a></li>
-              <li><a class="" href="#using-dadi-generator-https-github-com-dadi-generator-">Using DADI Generator</a></li>
-              <li><a class="" href="#dependencies">Dependencies</a></li>
-              <li><a class="" href="#tests">Tests</a></li>
-              <li><a class="" href="#forever-optional-">Forever (optional)</a></li>
+              <li><a class="" href="#node-js-latest">Node.js latest</a></li>
+              <li><a class="" href="#mongodb">MongoDB</a></li>
+              <li><a class="" href="#dadi-api">DADI API</a></li>
           </ul>
         </div>
       </div>

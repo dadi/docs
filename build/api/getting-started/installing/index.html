@@ -37,6 +37,7 @@
     <div class="marg__bottom small">
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
+                <li  class=""><a href="/api">API</a></li>
       </ul>
 
       <h1>Getting Started</h1>
@@ -47,26 +48,25 @@
     <div class="container normal">
       <div class="grid">
         <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">224 words ( 1 min read)</p>
+          <p class="small fwb txt--grey">212 words ( 1 min read)</p>
 
-          <h1 id="installing-dadi-cdn">Installing DADI CDN</h1>
+          <h1 id="installing-dadi-api">Installing DADI API</h1>
 <h2 id="npm">NPM</h2>
-<p>All our platform microservices are available from <a href="https://www.npmjs.com/">NPM</a>. To install <em>CDN</em>.</p>
-<pre><code class="lang-coffeescript">$ <span class="hljs-built_in">npm</span> install <span class="hljs-property">@dadi</span>/cdn
+<p>All our platform microservices are available from <a href="https://www.npmjs.com/">NPM</a>. To install <em>Api</em>.</p>
+<pre><code class="lang-coffeescript">$ <span class="hljs-built_in">npm</span> install <span class="hljs-property">@dadi</span>/api
 </code></pre><h2 id="manual-install">Manual install</h2>
-<p>If you do not want to use NPM, you can grab the latest <a href="https://github.com/dadi/cdn/releases">release</a>. Then you can install:</p>
+<p>If you do not want to use NPM, you can grab the latest <a href="https://github.com/dadi/api/releases">release</a>. Then you can install:</p>
 <pre><code class="lang-coffeescript">$ cd .<span class="hljs-regexp">/release-download-location/</span>
 $ <span class="hljs-built_in">npm</span> install
 </code></pre><h2 id="using-dadi-generator-https-github-com-dadi-generator-">Using <a href="https://github.com/dadi/generator">DADI Generator</a></h2>
-<p>We have a handy tool to generate new applications easily.</p>
+<p>We have our own tool to handy tool to generate new applications easily.</p>
 <pre><code class="lang-sql">$ npm <span class="hljs-operator"><span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> @dadi/generator
-$ dadi-generator cdn /<span class="hljs-keyword">path</span>/<span class="hljs-keyword">to</span>/your_new_app
+$ dadi-generator api /<span class="hljs-keyword">path</span>/<span class="hljs-keyword">to</span>/your_new_app
 $ cd /<span class="hljs-keyword">path</span>/<span class="hljs-keyword">to</span>/your_new_app
 $ npm <span class="hljs-keyword">install</span>
 $ npm <span class="hljs-keyword">start</span>
 </span></code></pre><h2 id="dependencies">Dependencies</h2>
-<p><em>API</em> requires <a href="https://www.mongodb.com/">MongoDB</a>. There is a complete guide to installing this and <em>API</em> together <a href="">here</a>.</p>
-<p>You can see our full list of dependencies in the <a href="https://github.com/dadi/cdn/blob/master/package.json">package.json</a>.</p>
+<p>You can see our full list of dependencies in the <a href="https://github.com/dadi/api/blob/master/package.json">package.json</a>.</p>
 <h2 id="tests">Tests</h2>
 <p>If you have installed manually, you can run tests by:</p>
 <pre><code class="lang-stata">$ npm <span class="hljs-keyword">run</span> <span class="hljs-keyword">test</span>
@@ -74,15 +74,15 @@ $ npm <span class="hljs-keyword">start</span>
 <p>As with most Node.js applications, to run the app in the background you will need to install install <a href="https://github.com/nodejitsu/forever">Forever</a> and <a href="https://github.com/zapty/forever-service">Forever-service</a>:</p>
 <pre><code class="lang-sql">$ [sudo] npm <span class="hljs-operator"><span class="hljs-keyword">install</span> forever -<span class="hljs-keyword">g</span>
 $ [sudo] npm <span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> forever-service
-</span></code></pre><p>Install DADI CDN as a service and ensure it loads on boot:</p>
-<pre><code class="lang-sql">$ [sudo] forever-service <span class="hljs-operator"><span class="hljs-keyword">install</span> -s <span class="hljs-keyword">main</span>.js -<span class="hljs-keyword">e</span> NODE_ENV=production cdn <span class="hljs-comment">--start</span>
+</span></code></pre><p>Install DADI API as a service and ensure it loads on boot:</p>
+<pre><code class="lang-sql">$ [sudo] forever-service <span class="hljs-operator"><span class="hljs-keyword">install</span> -s <span class="hljs-keyword">main</span>.js -<span class="hljs-keyword">e</span> NODE_ENV=production api <span class="hljs-comment">--start</span>
 </span></code></pre><p><strong>Note</strong> the environment variable <code class="lang-fix"><span class="hljs-attribute">NODE_ENV</span>=<span class="hljs-string">production</span></code> must be set to target the required config version.</p>
 <p>You can then interact with the service using the following command:</p>
-<pre><code class="lang-accesslog">$ <span class="hljs-string">[sudo]</span> start cdn
-$ <span class="hljs-string">[sudo]</span> stop cdn
-$ <span class="hljs-string">[sudo]</span> status cdn
-$ <span class="hljs-string">[sudo]</span> restart cdn
-</code></pre><p><strong>And you’re done, now move on to <a href="/cdn/getting-started/configuration/">configuration</a>.</strong></p>
+<pre><code class="lang-accesslog">$ <span class="hljs-string">[sudo]</span> start api
+$ <span class="hljs-string">[sudo]</span> stop api
+$ <span class="hljs-string">[sudo]</span> status api
+$ <span class="hljs-string">[sudo]</span> restart api
+</code></pre><p><strong>And you’re done, now move on to <a href="/api/getting-started/configuration/">configuration</a>.</strong></p>
 
         </div>
          <div class="col w-1-4">

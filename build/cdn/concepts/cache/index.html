@@ -37,7 +37,6 @@
     <div class="marg__bottom small">
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
-                <li  class=""><a href="/cdn">CDN</a></li>
                 <li  class="fwb"><a href="/cdn/concepts">Concepts</a></li>
       </ul>
 
@@ -49,11 +48,12 @@
     <div class="container normal">
       <div class="grid">
         <div class="col w-3-4 documentation pad__bottom--x2">
+          <p class="small fwb txt--grey">75 words ( 1 min read)</p>
+
           <p>DADI CDN outputs <code class="lang-sql">X-<span class="hljs-operator"><span class="hljs-keyword">Cache</span></span></code> headers, which are set to <code>HIT</code> for images/assets delivered from the cach and <code>MISS</code> for images/assets that are delivered directly from source.</p>
 <p>The first request to an uncached image or asset will always return <code>MISS</code>, as the image/asset has to be returned once in order for it to be cached.</p>
 <p>Make use of a <a href="http://www.webconfs.com/http-header-check.php">header check tool</a> in order to check that your installation is properly caching and delivering your media.</p>
 
-         <!--  <p class="small">75:1 min</p> -->
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">

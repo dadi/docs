@@ -37,7 +37,6 @@
     <div class="marg__bottom small">
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
-                <li  class=""><a href="/web">Web</a></li>
                 <li  class="fwb"><a href="/web/everyday">Everyday Usage</a></li>
       </ul>
 
@@ -49,6 +48,8 @@
     <div class="container normal">
       <div class="grid">
         <div class="col w-3-4 documentation pad__bottom--x2">
+          <p class="small fwb txt--grey">135 words ( 1 min read)</p>
+
           <p>An endpoint is provided at <code class="lang-fortran">/api/<span class="hljs-keyword">status</span></code> which returns server/application data in JSON format.</p>
 <p>The request must be a POST and a valid Bearer token must be supplied in the Authorization header. See <a href="../authorisation">Authorisation</a> for information regarding obtaining a Bearer token.</p>
 <h1 id="configuration">Configuration</h1>
@@ -116,7 +117,6 @@
 </code></pre><h2 id="sample-request-using-curl">Sample request using curl</h2>
 <pre><code class="lang-stata">curl -X <span class="hljs-keyword">POST</span> -<span class="hljs-keyword">H</span> <span class="hljs-string">"Content-Type: application/json"</span> -<span class="hljs-keyword">H</span> <span class="hljs-string">"Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6"</span> <span class="hljs-string">"http://example.com/api/status"</span>
 </code></pre>
-         <!--  <p class="small">135:1 min</p> -->
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
