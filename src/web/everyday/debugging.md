@@ -1,6 +1,5 @@
 ---
 title: Debugging
-layout: default.html
 ---
 
 # Debug mode
