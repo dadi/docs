@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>{{ title }}</title>
+  <title>{{ pageTitle }}</title>
   <meta name="description" content="{{ description }}">
   <link rel="stylesheet" type="text/css" href="http://stage.dadi.tech/assets/css/main.min.css">
   <link rel="stylesheet" type="text/css" href="/type.css">
@@ -46,7 +46,7 @@
           {{#each ../collections}}
             {{#each this}}
               {{#ifCond this.path '==' ../../path}}
-                <li  class="{{#if @../../last}}fwb{{/if}}"><a href="/{{this.path}}">{{{this.title}}}</a></li>
+                <li class="{{#if @../../last}}fwb{{/if}}"><a href="/{{this.path}}">{{{this.title}}}</a></li>
               {{/ifCond}}
             {{/each}}
           {{/each}}
@@ -60,6 +60,8 @@
 </div>
 {{#ifCond title '===' "Documentation"}}
    {{{ contents }}}
+
+   {{toc}}
 {{else}}
   <main>
     <div class="container normal">
