@@ -1,6 +1,5 @@
 ---
 title: Blur
-layout: default.html
 ---
 ## blur: Add blur to an image
 

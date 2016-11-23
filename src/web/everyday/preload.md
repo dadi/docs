@@ -1,6 +1,5 @@
 ---
 title: Preload
-layout: default.html
 ---
 
 # Preloading data

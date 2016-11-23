@@ -1,6 +1,5 @@
 ---
 title: Dust.js helpers
-layout: default.html
 ---
 
 # Template helpers

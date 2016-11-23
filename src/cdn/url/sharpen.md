@@ -1,6 +1,5 @@
 ---
 title: Sharpen
-layout: default.html
 ---
 ## sharpen
 

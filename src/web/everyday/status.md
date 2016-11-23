@@ -1,6 +1,5 @@
 ---
 title: Server status
-layout: default.html
 ---
 
 An endpoint is provided at `/api/status` which returns server/application data in JSON format.

@@ -1,6 +1,5 @@
 ---
 title: Datasources
-layout: default.html
 ---
 
 ## Datasources

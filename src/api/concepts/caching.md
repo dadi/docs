@@ -1,6 +1,5 @@
 ---
 title: Cache performance
-layout: default.html
 ---
 
 # Overview

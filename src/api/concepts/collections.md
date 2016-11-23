@@ -1,6 +1,5 @@
 ---
 title: Collections
-layout: default.html
 ---
 
 ### Introduction

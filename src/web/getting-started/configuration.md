@@ -1,6 +1,5 @@
 ---
 title: Configuration
-layout: default.html
 ---
 
 All the core platform services are configured using enviroment specific configuration.json files, the default being `development`. For more advanced users this can also load based on the `hostname` i.e., it will also look for `config." + req.headers.host + ".json`

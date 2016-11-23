@@ -1,6 +1,5 @@
 ---
 title: Format
-layout: default.html
 ---
 ## format: Convert between image formats
 

@@ -1,6 +1,5 @@
 ---
 title: Caching
-layout: default.html
 ---
 
 DADI CDN outputs `X-Cache` headers, which are set to `HIT` for images/assets delivered from the cach and `MISS` for images/assets that are delivered directly from source.

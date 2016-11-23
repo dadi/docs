@@ -1,6 +1,5 @@
 ---
 title: Sessions
-layout: default.html
 ---
 
 ## Sessions

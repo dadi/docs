@@ -1,6 +1,5 @@
 ---
 title: Querying Collections
-layout: default.html
 ---
 
 ## Introduction

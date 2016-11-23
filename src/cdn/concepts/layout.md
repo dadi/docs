@@ -1,6 +1,5 @@
 ---
 title: Layout Processor
-layout: default.html
 ---
 
 ## Layout Processor

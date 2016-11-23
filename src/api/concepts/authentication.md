@@ -1,6 +1,5 @@
 ---
 title: Authorisation
-layout: default.html
 ---
 
 ## Introduction

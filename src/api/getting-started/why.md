@@ -1,6 +1,5 @@
 ---
 title: Getting Started
-layout: default.html
 ---
 
 ## API-first development & COPE

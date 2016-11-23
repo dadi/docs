@@ -1,6 +1,5 @@
 ---
 title: Custom Endpoints
-layout: default.html
 ---
 
 ## Introduction

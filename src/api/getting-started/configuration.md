@@ -1,6 +1,5 @@
 ---
 title: Configuration
-layout: default.html
 ---
 
 ### Introduction

@@ -1,6 +1,5 @@
 ---
 title: Validation
-layout: default.html
 ---
 
 ## Overview

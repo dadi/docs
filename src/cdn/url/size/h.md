@@ -1,6 +1,5 @@
 ---
 title: Height
-layout: default.html
 ---
 
 ## h: Image height

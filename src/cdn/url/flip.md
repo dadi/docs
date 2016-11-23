@@ -1,6 +1,5 @@
 ---
 title: Flip
-layout: default.html
 ---
 ## flip: Flip Axis
 

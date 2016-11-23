@@ -1,6 +1,5 @@
 ---
 title: Saturate
-layout: default.html
 ---
 ## saturate
 

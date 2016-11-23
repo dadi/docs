@@ -1,6 +1,5 @@
 ---
 title: Working with endpoints
-layout: default.html
 ---
 
 Endpoints in DADI API can be either be mapped directly to collections in MongoDB or custom based on a wider requirements set.

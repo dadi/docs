@@ -1,6 +1,5 @@
 ---
 title: URL API Reference
-layout: default.html
 ---
 
 | Parameter     | Type          | Description |

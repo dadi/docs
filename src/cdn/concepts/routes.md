@@ -1,6 +1,5 @@
 ---
 title: Delivery Routes
-layout: default.html
 ---
 ## Introduction
 

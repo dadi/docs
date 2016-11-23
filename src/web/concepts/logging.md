@@ -1,6 +1,5 @@
 ---
 title: Logging
-layout: default.html
 ---
 
 ## Logging

@@ -1,6 +1,5 @@
 ---
 title: Server Status
-layout: default.html
 ---
 
 ## Introduction

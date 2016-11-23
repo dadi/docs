@@ -1,6 +1,5 @@
 ---
 title: Connecting to DADI API
-layout: default.html
 ---
 
 If you are using _Web_ in conjunction with [DADI API](https://beta.dadi.tech/platform/api) you can connect it so you make use of it with datasources.

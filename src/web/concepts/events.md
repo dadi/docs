@@ -1,6 +1,5 @@
 ---
 title: Events
-layout: default.html
 ---
 
 ## Events

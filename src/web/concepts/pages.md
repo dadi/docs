@@ -1,6 +1,5 @@
 ---
 title: Pages
-layout: default.html
 ---
 
 # Introduction

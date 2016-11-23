@@ -1,6 +1,5 @@
 ---
 title: Hooks
-layout: default.html
 ---
 
 ## Introduction ##

@@ -1,6 +1,5 @@
 ---
 title: Width
-layout: default.html
 ---
 ## w: Image Width
 

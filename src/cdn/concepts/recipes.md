@@ -1,6 +1,5 @@
 ---
 title: Delivery Recipes
-layout: default.html
 ---
 
 ## Introduction

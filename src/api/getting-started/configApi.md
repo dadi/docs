@@ -1,6 +1,5 @@
 ---
 title: Configuration API
-layout: default.html
 ---
 
 ## Introduction

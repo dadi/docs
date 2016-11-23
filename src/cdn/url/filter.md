@@ -1,6 +1,5 @@
 ---
 title: Filter
-layout: default.html
 ---
 ## filter
 

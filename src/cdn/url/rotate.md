@@ -1,6 +1,5 @@
 ---
 title: Rotate
-layout: default.html
 ---
 ## rotate
 

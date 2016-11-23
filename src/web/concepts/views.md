@@ -1,6 +1,5 @@
 ---
 title: Views
-layout: default.html
 ---
 
 ## Views

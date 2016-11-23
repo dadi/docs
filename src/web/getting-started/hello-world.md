@@ -1,6 +1,5 @@
 ---
 title: The "Hello World" App
-layout: default.html
 ---
 
 # Introduction

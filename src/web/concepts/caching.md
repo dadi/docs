@@ -1,6 +1,5 @@
 ---
 title: Caching
-layout: default.html
 ---
 
 ## Caching

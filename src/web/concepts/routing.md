@@ -1,6 +1,5 @@
 ---
 title: Routing
-layout: default.html
 ---
 
 # Routing

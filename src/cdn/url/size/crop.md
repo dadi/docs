@@ -1,6 +1,5 @@
 ---
 title: Crop
-layout: default.html
 ---
 
 ## crop

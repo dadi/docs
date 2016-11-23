@@ -1,6 +1,5 @@
 ---
 title: Security
-layout: default.html
 ---
 
 # Redirecting HTTP traffic to HTTPS

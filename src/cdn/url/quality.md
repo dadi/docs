@@ -1,6 +1,5 @@
 ---
 title: Quality
-layout: default.html
 ---
 ## quality: Image compression
 
