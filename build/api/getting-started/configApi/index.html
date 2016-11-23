@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Configuration API</title>
+  <title></title>
   <meta name="description" content="Its about saying »Hello« to the World.">
   <link rel="stylesheet" type="text/css" href="http://localhost:4113/assets/css/main.min.css">
   <link rel="stylesheet" type="text/css" href="/type.css">
-  <link rel="icon" type="image/png" href="http://stage.dadi.tech/assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="http://localhost:4113/assets/img/favicon.png">
 </head>
 <body class="docs light">
 
@@ -16,7 +16,7 @@
   <div class="container">
     <header class="grid bs-grid">
       <div class="col w-1-4">
-        <h1><a href="/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+        <h1><a href="/" class="inline-block"><img src="http://localhost:4113/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
       </div>
       <div class="col w-1-4 bs-w-1-1">
         <ul class="normal nav  marg__right--x2">
@@ -37,10 +37,10 @@
     <div class="marg__bottom small">
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
-                <li  class=""><a href="/api">API</a></li>
+                <li class=""><a href="/api">API</a></li>
       </ul>
 
-      <h1>Configuration API</h1>
+      <div class="larger hdr">Configuration API</div>
     </div>
   </div>
 </div>
@@ -50,7 +50,7 @@
         <div class="col w-3-4 documentation pad__bottom--x2">
           <p class="small fwb txt--grey">616 words ( 3 min read)</p>
 
-          <h1 id="introduction">Introduction</h1>
+          <h2 id="introduction">Introduction</h2>
 <p>DADI API allows creating and updating collection and custom endpoints by sending a POST request to the API.</p>
 <ul>
 <li>Create new collection endpoint</li>
@@ -59,8 +59,8 @@
 <li>Create new custom endpoint</li>
 <li>Update custom endpoint</li>
 </ul>
-<h1 id="collection-endpoints">Collection Endpoints</h1>
-<h2 id="creating-a-new-collection">Creating a new collection</h2>
+<h2 id="collection-endpoints">Collection Endpoints</h2>
+<h3 id="creating-a-new-collection">Creating a new collection</h3>
 <p>A new collection can be created by sending a POST request using the URL format below. The body of the request should be a JSON string containing the collection specification.</p>
 <p><strong>Note:</strong> This operation requires client credentials with <code class="lang-avrasm"><span class="hljs-label">accessType:</span> <span class="hljs-string">"admin"</span></code>.</p>
 <p><strong>URL Format:</strong> <code class="lang-mathematica">http(s)://<span class="hljs-list">{url}</span>/<span class="hljs-list">{version}</span>/<span class="hljs-list">{database}</span>/<span class="hljs-list">{collection}</span>/config</code></p>
@@ -85,11 +85,11 @@
 </span>}
 </span></code></pre><p><em><strong>WARNING</strong>: If the version, database and collection already exist, the request will overwrite the existing specification</em></p>
 <p>Validation is performed against schema updates to ensure that the minimum viable structure is present and correct.</p>
-<h2 id="updating-an-existing-collection">Updating an existing collection</h2>
+<h3 id="updating-an-existing-collection">Updating an existing collection</h3>
 <p>An existing collection can be updated by sending a POST request to the <code>/config</code> endpoint. The body of the request should be a JSON string containing the new collection specification.</p>
 <p><strong>Note:</strong> This operation requires client credentials with <code class="lang-avrasm"><span class="hljs-label">accessType:</span> <span class="hljs-string">"admin"</span></code>.</p>
 <p>See the example request in the above section <a href="creating-a-new-collection">Creating a new collection</a>.</p>
-<h2 id="deleting-a-collection">Deleting a collection</h2>
+<h3 id="deleting-a-collection">Deleting a collection</h3>
 <p>You may remove a collection endpoint by sending a DELETE request to the collection’s <code>/config</code> endpoint.</p>
 <p><strong>URL Format:</strong> <code class="lang-mathematica">http(s)://<span class="hljs-list">{url}</span>/<span class="hljs-list">{version}</span>/<span class="hljs-list">{database}</span>/<span class="hljs-list">{collection}</span>/config</code></p>
 <p><strong>Example Request</strong></p>
@@ -97,7 +97,7 @@
 <span class="hljs-attribute">Host</span>: <span class="hljs-string">api.example.com</span>
 <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span>
 <span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65</span>
-</code></pre><h2 id="viewing-a-collection-specification">Viewing a Collection Specification</h2>
+</code></pre><h3 id="viewing-a-collection-specification">Viewing a Collection Specification</h3>
 <p>An existing collection’s specification can be viewed by sending a GET request to the <code>/config</code> endpoint of an existing collection. The response will contain a JSON string containing the collection specification.</p>
 <p><strong>URL Format:</strong> <code class="lang-mathematica">http(s)://<span class="hljs-list">{url}</span>/<span class="hljs-list">{version}</span>/<span class="hljs-list">{database}</span>/<span class="hljs-list">{collection}</span>/config</code></p>
 <p><strong>Example Request</strong></p>
@@ -120,7 +120,7 @@
   }
 </span>}
 </code></pre>
-<h1 id="custom-endpoints">Custom Endpoints</h1>
+<h2 id="custom-endpoints">Custom Endpoints</h2>
 <p>A new custom endpoint can be created by sending a POST request using the URL format below. The body of the request should be plain text containing the Javascript code for the endpoint.</p>
 <p><strong>Note:</strong> This operation requires client credentials with <code class="lang-avrasm"><span class="hljs-label">accessType:</span> <span class="hljs-string">"admin"</span></code>.</p>
 <p><strong>URL Format:</strong> <code class="lang-stylus"><span class="hljs-function"><span class="hljs-title">http</span><span class="hljs-params">(s)</span></span>:<span class="hljs-comment">//{url}/{version}/{endpoint}/config</span></code></p>
@@ -145,16 +145,16 @@
 </code></pre><p><strong>Example Response</strong></p>
 <pre><code class="lang-json">{ "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Hello World"</span> </span>}
 </code></pre>
-<h1 id="main-api-configuration">Main API Configuration</h1>
+<h2 id="main-api-configuration">Main API Configuration</h2>
 <p><strong>Note:</strong> The two operations below require client credentials with <code class="lang-avrasm"><span class="hljs-label">accessType:</span> <span class="hljs-string">"admin"</span></code>. See <a href="https://github.com/dadi/api/blob/docs/docs/auth.md">Authorisation</a> for more information regarding the permissions required for working with the main configuration.</p>
-<h2 id="viewing-the-api-configuration">Viewing the API configuration</h2>
+<h3 id="viewing-the-api-configuration">Viewing the API configuration</h3>
 <p>DADI API allows users with appropriate permissions to view the current configuration by sending a GET request to the <code class="lang-gradle"><span class="hljs-regexp">/api/</span>config</code> endpoint.</p>
 <p><strong>Example Request</strong></p>
 <pre><code class="lang-http"><span class="hljs-request">GET <span class="hljs-string">/api/config</span> HTTP/1.1</span>
 <span class="hljs-attribute">Host</span>: <span class="hljs-string">api.example.com</span>
 <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span>
 <span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65</span>
-</code></pre><h2 id="updating-the-api-configuration">Updating the API configuration</h2>
+</code></pre><h3 id="updating-the-api-configuration">Updating the API configuration</h3>
 <p>DADI API allows users with appropriate permissions to update the main configuration by sending a POST request to the <code class="lang-gradle"><span class="hljs-regexp">/api/</span>config</code> endpoint.</p>
 <p>The body of the request should be a JSON string containing the new configuration settings.</p>
 <pre><code class="lang-sql">This may contain only a partial <span class="hljs-operator"><span class="hljs-keyword">update</span>, <span class="hljs-keyword">i</span>.<span class="hljs-keyword">e</span>. <span class="hljs-keyword">if</span> the requesting <span class="hljs-keyword">agent</span> doesnt want <span class="hljs-keyword">to</span> <span class="hljs-keyword">update</span> the <span class="hljs-keyword">database</span> they can still <span class="hljs-keyword">update</span> the <span class="hljs-keyword">caching</span> config <span class="hljs-keyword">by</span> just sending the <span class="hljs-keyword">cache</span> <span class="hljs-keyword">JSON</span>.
@@ -165,15 +165,17 @@
 <span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65</span>
 </code></pre><p><em>Note: for updated configuration to take affect, the API instance will need to be restarted</em></p>
 
+
+          <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+            See something to improve? <a target="_blank" href="http://github.com/jimlambie/metalsmith-docs/edit/master/src/api/getting-started/configApi.md">Edit in Github</a>.
+          </p>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
-              <li><a class="" href="#creating-a-new-collection">Creating a new collection</a></li>
-              <li><a class="" href="#updating-an-existing-collection">Updating an existing collection</a></li>
-              <li><a class="" href="#deleting-a-collection">Deleting a collection</a></li>
-              <li><a class="" href="#viewing-a-collection-specification">Viewing a Collection Specification</a></li>
-              <li><a class="" href="#viewing-the-api-configuration">Viewing the API configuration</a></li>
-              <li><a class="" href="#updating-the-api-configuration">Updating the API configuration</a></li>
+              <li><a class="" href="#introduction">Introduction</a></li>
+              <li><a class="" href="#collection-endpoints">Collection Endpoints</a></li>
+              <li><a class="" href="#custom-endpoints">Custom Endpoints</a></li>
+              <li><a class="" href="#main-api-configuration">Main API Configuration</a></li>
           </ul>
         </div>
       </div>
@@ -270,7 +272,7 @@
   </footer>
 </div>
 
-<script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://localhost:4113/assets/js/pattern.min.js"></script>
 <script src="http://localhost:4113/assets/js/main.js"></script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

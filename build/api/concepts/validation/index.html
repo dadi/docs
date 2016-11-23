@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Validation</title>
+  <title></title>
   <meta name="description" content="Its about saying »Hello« to the World.">
   <link rel="stylesheet" type="text/css" href="http://localhost:4113/assets/css/main.min.css">
   <link rel="stylesheet" type="text/css" href="/type.css">
-  <link rel="icon" type="image/png" href="http://stage.dadi.tech/assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="http://localhost:4113/assets/img/favicon.png">
 </head>
 <body class="docs light">
 
@@ -16,7 +16,7 @@
   <div class="container">
     <header class="grid bs-grid">
       <div class="col w-1-4">
-        <h1><a href="/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+        <h1><a href="/" class="inline-block"><img src="http://localhost:4113/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
       </div>
       <div class="col w-1-4 bs-w-1-1">
         <ul class="normal nav  marg__right--x2">
@@ -37,11 +37,10 @@
     <div class="marg__bottom small">
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
-                <li  class=""><a href="/api">API</a></li>
-                <li  class="fwb"><a href="/api/concepts">Concepts</a></li>
+                <li class=""><a href="/api">API</a></li>
       </ul>
 
-      <h1>Validation</h1>
+      <div class="larger hdr">Validation</div>
     </div>
   </div>
 </div>
@@ -51,21 +50,21 @@
         <div class="col w-3-4 documentation pad__bottom--x2">
           <p class="small fwb txt--grey">458 words ( 2 min read)</p>
 
-          <h1 id="overview">Overview</h1>
+          <h2 id="overview">Overview</h2>
 <p>Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema.</p>
 <ul>
 <li><a href="#validation-options">Validation Options</a></li>
 <li><a href="#validation-response">Validation Response</a></li>
 <li><a href="#error-messages">Error Messages</a></li>
 </ul>
-<h1 id="validation-options">Validation Options</h1>
+<h2 id="validation-options">Validation Options</h2>
 <ul>
 <li><a href="#type-validation">Type Validation</a></li>
 <li><a href="#mandatory-field-validation">Mandatory Field Validation</a></li>
 <li><a href="#length-validation">Length Validation</a></li>
 <li><a href="#regular-expression-validation">Regular Expression Validation</a></li>
 </ul>
-<h2 id="type-validation">Type Validation</h2>
+<h3 id="type-validation">Type Validation</h3>
 <p>A field can be validated by type. DADI API will check that the value supplied for the field is the correct type as specified in the schema. Only the following JavaScript primitives are considered for type validation: <code class="lang-autoit"><span class="hljs-built_in">String</span></code>, <code class="lang-autoit"><span class="hljs-built_in">Number</span></code>, <code class="lang-gradle"><span class="hljs-keyword">Boolean</span></code></p>
 <pre><code class="lang-xquery"><span class="hljs-string">"fields"</span>: {
   <span class="hljs-string">"title"</span>: {
@@ -73,7 +72,7 @@
     <span class="hljs-string">"message"</span>: <span class="hljs-string">"must be a string"</span>
   }
 }
-</code></pre><h2 id="mandatory-field-validation">Mandatory Field Validation</h2>
+</code></pre><h3 id="mandatory-field-validation">Mandatory Field Validation</h3>
 <p>Fields can be made mandatory by setting their <code class="lang-protobuf"><span class="hljs-keyword">required</span></code> property to <code class="lang-actionscript"><span class="hljs-literal">true</span></code>. DADI API will check that a value has been supplied for the field when creating new documents. Validation for update requests is more relaxed and mandatory fields aren’t validated as they would have already been populated with data when the document was first created.</p>
 <pre><code class="lang-xquery"><span class="hljs-string">"fields"</span>: {
   <span class="hljs-string">"title"</span>: {
@@ -81,7 +80,7 @@
     <span class="hljs-string">"required"</span>: true
   }
 }
-</code></pre><h2 id="length-validation">Length Validation</h2>
+</code></pre><h3 id="length-validation">Length Validation</h3>
 <p>A field’s length can be controlled by using the <code class="lang-pf"><span class="hljs-keyword">min</span>Length</code> and <code class="lang-pf"><span class="hljs-keyword">max</span>Length</code> properties. Validation will fail if the length of the string is greater or less than the specified length limits.</p>
 <pre><code class="lang-xquery"><span class="hljs-string">"fields"</span>: {
   <span class="hljs-string">"username"</span>: {
@@ -99,7 +98,7 @@
     <span class="hljs-string">"message"</span>: <span class="hljs-string">"is too short"</span>
   }
 }
-</code></pre><h2 id="regular-expression-validation">Regular Expression Validation</h2>
+</code></pre><h3 id="regular-expression-validation">Regular Expression Validation</h3>
 <p>A regular expression pattern can be specified for a field, which may help enforcing business rules.</p>
 <pre><code class="lang-xquery"><span class="hljs-string">"fields"</span>: {
   <span class="hljs-string">"productCode"</span>: {
@@ -113,7 +112,7 @@
     <span class="hljs-string">"message"</span>: <span class="hljs-string">"must start with 'A'"</span>
   }
 }
-</code></pre><h1 id="validation-response">Validation Response</h1>
+</code></pre><h2 id="validation-response">Validation Response</h2>
 <p>If a document fails validation an errors collection will be returned with the reasons for validation failure:</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">success</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
@@ -136,7 +135,7 @@
     </span>}
   ]
 </span>}
-</code></pre><h1 id="error-messages">Error Messages</h1>
+</code></pre><h2 id="error-messages">Error Messages</h2>
 <p>A set of default error messages are returned for fields that fail validation. The table below lists the built-in error messages and their associated meaning.</p>
 <table>
 <thead>
@@ -175,13 +174,17 @@
   <span class="hljs-comment">"message"</span>: <span class="hljs-comment">"must contain a value"</span>
 }
 </code></pre>
+
+          <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+            See something to improve? <a target="_blank" href="http://github.com/jimlambie/metalsmith-docs/edit/master/src/api/concepts/validation.md">Edit in Github</a>.
+          </p>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
-              <li><a class="" href="#type-validation">Type Validation</a></li>
-              <li><a class="" href="#mandatory-field-validation">Mandatory Field Validation</a></li>
-              <li><a class="" href="#length-validation">Length Validation</a></li>
-              <li><a class="" href="#regular-expression-validation">Regular Expression Validation</a></li>
+              <li><a class="" href="#overview">Overview</a></li>
+              <li><a class="" href="#validation-options">Validation Options</a></li>
+              <li><a class="" href="#validation-response">Validation Response</a></li>
+              <li><a class="" href="#error-messages">Error Messages</a></li>
           </ul>
         </div>
       </div>
@@ -278,7 +281,7 @@
   </footer>
 </div>
 
-<script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://localhost:4113/assets/js/pattern.min.js"></script>
 <script src="http://localhost:4113/assets/js/main.js"></script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

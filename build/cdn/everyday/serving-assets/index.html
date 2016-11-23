@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Serving Images and Assets</title>
+  <title></title>
   <meta name="description" content="Its about saying »Hello« to the World.">
   <link rel="stylesheet" type="text/css" href="http://localhost:4113/assets/css/main.min.css">
   <link rel="stylesheet" type="text/css" href="/type.css">
-  <link rel="icon" type="image/png" href="http://stage.dadi.tech/assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="http://localhost:4113/assets/img/favicon.png">
 </head>
 <body class="docs light">
 
@@ -16,7 +16,7 @@
   <div class="container">
     <header class="grid bs-grid">
       <div class="col w-1-4">
-        <h1><a href="/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+        <h1><a href="/" class="inline-block"><img src="http://localhost:4113/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
       </div>
       <div class="col w-1-4 bs-w-1-1">
         <ul class="normal nav  marg__right--x2">
@@ -37,10 +37,11 @@
     <div class="marg__bottom small">
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
-                <li  class="fwb"><a href="/cdn/everyday">Everyday Usage</a></li>
+                <li class=""><a href="/cdn">CDN</a></li>
+                <li class="fwb"><a href="/cdn/everyday">Everyday Usage</a></li>
       </ul>
 
-      <h1>Serving Images and Assets</h1>
+      <div class="larger hdr">Serving Images and Assets</div>
     </div>
   </div>
 </div>
@@ -48,20 +49,17 @@
     <div class="container normal">
       <div class="grid">
         <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">1385 words ( 5 min read)</p>
+          <p class="small fwb txt--grey">1386 words ( 5 min read)</p>
 
           <style>
 body {
   font-family: sans-serif;
   color: #4d5d6a;
 }
-
-
-
 </style>
 
 <h1 id="serving-images-and-assets">Serving Images and Assets</h1>
-<p>With your <sources> configured so that CDN knows where to find them, you can start sending requests for your assets and images.</sources></p>
+<p>With your <a href="/cdn/getting-started/defining-sources/">sources</a> configured so that CDN knows where to find them, you can start sending requests for your assets and images.</p>
 <p>CDN currently responds to two types of URL scheme. One, the Path URL scheme, is a legacy format and exists for backwards compatibility with early-adoption client applications. The other, the Querystring URL scheme, is succinct, flexible and robust.</p>
 <blockquote>
 <p>The Querystring URL scheme is the preferred format and is where future development efforts will be focused. In the event that new image manipulation parameters are added to CDN, the Querystring URL scheme will be the only format that supports them.</p>
@@ -521,7 +519,7 @@ body {
   </footer>
 </div>
 
-<script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://localhost:4113/assets/js/pattern.min.js"></script>
 <script src="http://localhost:4113/assets/js/main.js"></script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
