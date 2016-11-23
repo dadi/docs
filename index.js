@@ -142,7 +142,7 @@ Metalsmith(__dirname)
   .use(paths({ property: 'paths' }))
   .use(nav)
   .use(autotoc({selector: 'h2, h3, h4'}))
-  .use(markdownTidy())
+  .use(markdownTidy({ ensureFirstHeaderIsH1: false }))
   .use(markdown({
     smartypants: true,
     smartLists: true,
