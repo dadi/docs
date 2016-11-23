@@ -21,6 +21,7 @@
       <div class="col w-1-4 bs-w-1-1">
         <ul class="normal nav  marg__right--x2">
           <li><a href="https://dadi.tech/platform/" class="active">Platform</a></li>
+          <li><a href="http://docs.dadi.tech/">Documentation</a></li>
           <li><a href="https://dadi.tech/success-stories/" >Success stories</a></li>
           <li><a href="https://dadi.tech/latest/" >Latest</a></li>
         </ul>
@@ -48,19 +49,18 @@
     <div class="container normal">
       <div class="grid">
         <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">1464 words (5 min read)</p>
+          <p class="small fwb txt--grey">1463 words (5 min read)</p>
 
-          <h3 id="introduction">Introduction</h3>
-<p>Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.</p>
+          <p>Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.</p>
 <p>To most important configuration blocks for starting your API are <a href="#server">server</a>, <a href="#database">database</a> and <a href="#auth">authentication</a>.</p>
-<h4 id="configuration-files">Configuration Files</h4>
+<h2 id="configuration-files">Configuration Files</h2>
 <p>Configuration settings are defined in JSON files within a <code>/config</code> directory at the root of your application. DADI API has provision for multiple configuration files, one for each environment that your API is expected to run under: <code>development</code>, <code class="lang-vim"><span class="hljs-keyword">qa</span></code> and <code>production</code>.</p>
 <p>The naming convention for configuration files follows the format <code class="lang-xml">config.<span class="hljs-tag">&lt;<span class="hljs-title">environment</span>&gt;</span>.json</code></p>
 <p>For example:</p>
 <pre><code class="lang-stylus">config<span class="hljs-class">.development</span><span class="hljs-class">.json</span>
 config<span class="hljs-class">.qa</span><span class="hljs-class">.json</span>
 config<span class="hljs-class">.production</span><span class="hljs-class">.json</span>
-</code></pre><h4 id="application-anatomy">Application Anatomy</h4>
+</code></pre><h2 id="application-anatomy">Application Anatomy</h2>
 <pre><code class="lang-sh">my-api/
   config/            <span class="hljs-comment"># contains environment-specific</span>
                      <span class="hljs-comment"># configuration properties</span>
@@ -76,15 +76,15 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
     collections/     <span class="hljs-comment"># collection schema files</span>
     endpoints/       <span class="hljs-comment"># custom Javascript endpoints</span>
 </code></pre>
-<h4 id="loading-an-environment-configuration-file">Loading an environment configuration file</h4>
+<h2 id="loading-an-environment-configuration-file">Loading an environment configuration file</h2>
 <p>DADI API loads the <code>development</code> configuration by default. Loading an enviroment-specific configuration can be done in one of two ways:</p>
-<h5 id="1-environment-variable">1. Environment Variable</h5>
+<h3 id="1-environment-variable">1. Environment Variable</h3>
 <p>Set an environment variable called <code>NODE_ENV</code> with the value of the environment you wish to run your application under.</p>
 <pre><code class="lang-bash"><span class="hljs-built_in">export</span> NODE_ENV=production
-</code></pre><h5 id="2-command-line-argument">2. Command Line Argument</h5>
+</code></pre><h3 id="2-command-line-argument">2. Command Line Argument</h3>
 <p>Pass an argument to Node when starting your application with the value of the environment you wish to run your application under.</p>
 <pre><code class="lang-crmsh"><span class="hljs-keyword">node</span><span class="hljs-identifier"> </span><span class="hljs-title">main</span>.js --<span class="hljs-keyword">node</span><span class="hljs-identifier"></span><span class="hljs-title">-env</span>=production
-</code></pre><h4 id="example-configuration-file">Example configuration file</h4>
+</code></pre><h2 id="example-configuration-file">Example configuration file</h2>
 <p>An example file containing all of the available configuration options can be found in <code class="lang-stylus">/config/config<span class="hljs-class">.development</span><span class="hljs-class">.json</span><span class="hljs-class">.sample</span></code>.</p>
 <h3 id="configuration-options">Configuration Options</h3>
 <ul>
@@ -97,7 +97,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
 <li><a href="#feedback">feedback</a></li>
 <li><a href="#cors">cors</a></li>
 </ul>
-<h4 id="app">app</h4>
+<h2 id="app">app</h2>
 <p>Application-specific settings, such as <code class="lang-applescript"><span class="hljs-property">name</span></code>.</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">app</span>": <span class="hljs-value">{
@@ -105,7 +105,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
   </span>}
 </span>}
 </code></pre>
-<h4 id="server">server</h4>
+<h2 id="server">server</h2>
 <p>Specifies <code>host</code> and <code class="lang-elm"><span class="hljs-foreign"><span class="hljs-keyword">port</span></span></code> to begin accepting connections on. If the <code>host</code> is omitted or <code class="lang-actionscript"><span class="hljs-literal">null</span></code>, the server will accept connections on any IPv6 address (::) when IPv6 is available, or any IPv4 address (0.0.0.0) otherwise.</p>
 <p>A <code class="lang-elm"><span class="hljs-foreign"><span class="hljs-keyword">port</span></span></code> value of zero will assign a random port.</p>
 <p><strong>NB:</strong> You should be able to set <code>host</code> to your IP address as well, but depending on your hosting that may be tricky. On AWS you would need to use your private IP instead of your public IP, or alternatively use <code class="lang-cpp"><span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span></code> which has already been proven to work without fail.</p>
@@ -116,7 +116,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
   </span>}
 </span>}
 </code></pre>
-<h4 id="database">database</h4>
+<h2 id="database">database</h2>
 <p>Specifies the MongoDB database(s) to connect to.</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">database</span>": <span class="hljs-value">{
@@ -168,7 +168,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
 <p>This configuration will produce the following MongoDB connection string:</p>
 <pre><code class="lang-profile">mongodb://apiUser:apiPassword@ds012345-<span class="hljs-filename">z1.mongolab.com</span>:<span class="hljs-number">12345</span>,ds012345-<span class="hljs-filename">z2.mongolab.com</span>:<span class="hljs-number">12345</span>,ds012345-<span class="hljs-filename">z3.mongolab.com</span>:<span class="hljs-number">12345</span>/myApi?replSet=rs0001
 </code></pre><p>The Node.js MongoDB driver handles communication with the database servers to determine the primary instance.</p>
-<h4 id="collection-specific-databases">Collection-specific Databases</h4>
+<h2 id="collection-specific-databases">Collection-specific Databases</h2>
 <p>The <code class="lang-bash"><span class="hljs-built_in">enable</span>CollectionDatabases</code> setting determines whether the API will store collection data in separate databases as defined by the collection URLs.</p>
 <pre><code class="lang-armasm">/<span class="hljs-number">1</span>.<span class="hljs-number">0</span>/library/<span class="hljs-keyword">books
 </span></code></pre><p>The URL format contains three segments:</p>
@@ -179,7 +179,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
 </ul>
 <p>If <code class="lang-actionscript"><span class="hljs-string">"enableCollectionDatabases"</span>: <span class="hljs-literal">true</span></code> the API will store the <code>books</code> data in the <code class="lang-dart"><span class="hljs-literal">library</span></code> database, regardless of the <code>database</code> setting in the configuration file.</p>
 <p>Otherwise, if <code class="lang-actionscript"><span class="hljs-string">"enableCollectionDatabases"</span>: <span class="hljs-literal">false</span></code> the API will store the <code>books</code> data (and all other collection data) in the database specified in the configuration file’s <code>database</code> setting.</p>
-<h5 id="configuration-properties">Configuration Properties</h5>
+<h3 id="configuration-properties">Configuration Properties</h3>
 <table>
 <thead>
 <tr>
@@ -242,7 +242,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
 </tr>
 </tbody>
 </table>
-<h4 id="auth">auth</h4>
+<h2 id="auth">auth</h2>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">auth</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">tokenUrl</span>": <span class="hljs-value"><span class="hljs-string">"/token"</span></span>,
@@ -263,7 +263,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
   </span>}
 </span>}
 </code></pre>
-<h5 id="configuration-properties">Configuration Properties</h5>
+<h3 id="configuration-properties">Configuration Properties</h3>
 <table>
 <thead>
 <tr>
@@ -340,7 +340,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
 </tr>
 </tbody>
 </table>
-<h4 id="caching">caching</h4>
+<h2 id="caching">caching</h2>
 <p>Enabling caching in your API allows data to be cached the first time it is requested, with subsequent requests for the same data returned from the cache. This process reduces load on the database and improves response times for frequently accessed data.</p>
 <pre><code class="lang-cpp"><span class="hljs-string">"caching"</span>: {
   <span class="hljs-string">"enabled"</span>: <span class="hljs-literal">true</span>,
@@ -348,7 +348,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
   <span class="hljs-string">"directory"</span>: <span class="hljs-string">"./cache/api/"</span>,
   <span class="hljs-string">"extension"</span>: <span class="hljs-string">"json"</span>
 }
-</code></pre><h5 id="configuration-properties">Configuration Properties</h5>
+</code></pre><h3 id="configuration-properties">Configuration Properties</h3>
 <table>
 <thead>
 <tr>
@@ -390,7 +390,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
 </tr>
 </tbody>
 </table>
-<h5 id="collection-caching-settings">Collection Caching Settings</h5>
+<h3 id="collection-caching-settings">Collection Caching Settings</h3>
 <p>While caching can be enabled in the configuration file, whether or not caching is enabled for a particular collection also depends on the <code class="lang-lasso"><span class="hljs-keyword">cache</span></code> setting in that collection’s schema file. For example:</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">fields</span>": <span class="hljs-value">{
@@ -403,7 +403,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
   </span>}
 </span>}
 </code></pre>
-<h4 id="logging">logging</h4>
+<h2 id="logging">logging</h2>
 <p>Logging is enabled by default with the below settings.</p>
 <p>The specified path will be created at startup if it doesn’t exist. The actual log filename will contain a reference to the environment that is loaded. For example, running the application in <code>development</code> mode with the default configuration will produce a log file at <code class="lang-stylus">./log/api<span class="hljs-class">.development</span><span class="hljs-class">.log</span></code></p>
 <pre><code class="lang-json">{
@@ -422,9 +422,9 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
 <blockquote>
 <p>For more detailed documentation on the configuration options for logging, see the <a href="https://github.com/dadi/logger">@dadi/logger</a> repository. See <a href="https://github.com/dadi/logger#log-rotation">Log Rotation</a> for information regarding log file rotation.</p>
 </blockquote>
-<h4 id="aws">aws</h4>
+<h2 id="aws">aws</h2>
 <p>Amazon Web Service client key</p>
-<h4 id="paths">paths</h4>
+<h2 id="paths">paths</h2>
 <p>Specifies the location of collection schema files and custom endpoints, relative to the application route. The default configuration is shown below, these values will be used if no <code>paths</code> configuration is provided.</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">paths</span>": <span class="hljs-value">{
@@ -433,7 +433,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
   </span>}
 </span>}
 </code></pre>
-<h4 id="query">query</h4>
+<h2 id="query">query</h2>
 <p>Controls aspects of the query that is sent to the database.</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">query</span>": <span class="hljs-value">{
@@ -459,7 +459,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
 </tr>
 </tbody>
 </table>
-<h4 id="feedback">feedback</h4>
+<h2 id="feedback">feedback</h2>
 <p>Specifies whether the API should return content when deleting records from a collection.</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">feedback</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
@@ -475,7 +475,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
   "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Document deleted successfully"</span>
 </span>}
 </code></pre>
-<h4 id="apidoc">apidoc</h4>
+<h2 id="apidoc">apidoc</h2>
 <p>This configuration section controls the behaviour of the DADI API Documentation module, if installed.</p>
 <p>Install the package:</p>
 <pre><code class="lang-sql">npm <span class="hljs-operator"><span class="hljs-keyword">install</span> dadi-apidoc <span class="hljs-comment">--save</span>
@@ -487,7 +487,7 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
   <span class="hljs-comment">"path"</span>: <span class="hljs-comment">"/docs"</span>,
   <span class="hljs-comment">"generateCodeSnippets"</span>: <span class="hljs-keyword">true</span>
 }
-</code></pre><h5 id="configuration-properties">Configuration Properties</h5>
+</code></pre><h3 id="configuration-properties">Configuration Properties</h3>
 <table>
 <thead>
 <tr>
@@ -580,6 +580,22 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
+              <li><a class="" href="#configuration-files">Configuration Files</a></li>
+              <li><a class="" href="#application-anatomy">Application Anatomy</a></li>
+              <li><a class="" href="#loading-an-environment-configuration-file">Loading an environment configuration file</a></li>
+              <li><a class="" href="#example-configuration-file">Example configuration file</a></li>
+              <li><a class="" href="#app">app</a></li>
+              <li><a class="" href="#server">server</a></li>
+              <li><a class="" href="#database">database</a></li>
+              <li><a class="" href="#collection-specific-databases">Collection-specific Databases</a></li>
+              <li><a class="" href="#auth">auth</a></li>
+              <li><a class="" href="#caching">caching</a></li>
+              <li><a class="" href="#logging">logging</a></li>
+              <li><a class="" href="#aws">aws</a></li>
+              <li><a class="" href="#paths">paths</a></li>
+              <li><a class="" href="#query">query</a></li>
+              <li><a class="" href="#feedback">feedback</a></li>
+              <li><a class="" href="#apidoc">apidoc</a></li>
           </ul>
         </div>
       </div>
