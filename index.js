@@ -105,15 +105,16 @@ var nav = navigation(navConfigs, navSettings)
 
 Metalsmith(__dirname)
   .metadata({
-    title: 'DADI Documentation',
-    description: 'It\s about saying »Hello« to the World.',
-    generator: 'Metalsmith',
-    url: 'http://www.metalsmith.io/'
+    site: {
+      title: 'DADI Documentation',
+      description: 'DADI is a modern, flexible platform for content and data management built in Node.js.',
+      generator: 'Metalsmith',
+      url: 'http://docs.dadi.tech/'
+    }
   })
   .source('./src')
   .destination('./build')
   .clean(false)
-  .use(pageTitles())
   .use(default_values([
     {
       pattern : '**/*.md',
@@ -139,6 +140,7 @@ Metalsmith(__dirname)
       sortBy: sorter(['Web', 'Getting Started', 'Concepts', 'Everyday Usage'])
     }
   }))
+  .use(pageTitles())
   .use(paths({ property: 'paths' }))
   .use(nav)
   .use(autotoc({selector: 'h2, h3, h4'}))
@@ -170,7 +172,9 @@ Metalsmith(__dirname)
     engine: 'handlebars'
   }))
   .use(redirect({
-    '/web': '/web/getting-started/installing/'
+    '/api': '/api/getting-started/installing/',
+    '/web': '/web/getting-started/installing/',
+    '/cdn': '/cdn/getting-started/installing/'
   }))
   //.use(linkcheck())
   //.use(spellcheck())
