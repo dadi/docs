@@ -3,9 +3,7 @@ title: Contributing guidelines
 url: /contributing/
 ---
 
-We'd love for you to contribute to our source code and to make DADI API even better.
-
-Here are the guidelines we'd like you to follow:
+We'd love for you to contribute to our source code and to make DADI even better. If you're interested, here are the guidelines we'd like you to follow:
 
 ## Got a Question or Problem?
 
@@ -14,13 +12,13 @@ DADI team directly on: team@dadi.tech
 
 ## Found an Issue?
 
-If you find a bug in the source code or a mistake in the documentation, you can help us by submitting an issue to our [GitHub repository][https://github.com/dadi/]. But we'd love it if you submitted a Pull Request with a fix instead!
+If you find a bug in the source code or a mistake in the documentation, you can help us by submitting an issue to our [GitHub repository](https://github.com/dadi/). But we'd love it if you submitted a Pull Request with a fix instead!
 
 **Please see the Submission Guidelines below**.
 
 ## Want a Feature?
 
-You can request a new feature by submitting an issue to our [GitHub][issues] issue tracker. If you would like to implement a new feature then consider what kind of change it is:
+You can request a new feature by submitting an issue to the GitHub issue tracker in the repo of each app. If you would like to implement a new feature then consider what kind of change it is:
 
 * **Major Changes** that you wish to contribute to the project should be added as a Feature Request in the GitHub issue tracker for the app. This will get the conversation started.
 * **Small Changes** can be crafted and submitted to the GitHub repository as a Pull Request.
