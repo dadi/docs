@@ -11,16 +11,17 @@ layout: default.html
         <p class="normal read inline-block">This is the current line-up of our microservices app. There are more in the pipeline and we are open to suggestions for the direction of all products.</p>
         <p class="no-marg-i"><a class="btn btn--blue btn--fill txt--white" href="https://dadi.tech/platform/roadmap/">Our roadmap</a></p>
       </div> -->
-      <div class="col w-1-3">
-        <div class="card"> 
-          <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-api-full.png" height="40">
-          <p style="min-height: 195px;" class="normal no-marg-i pad__top">High-performance RESTful API layer designed in support of API-first development and the principle of COPE (Create Once Publish Everywhere).</p>
-          <pre class="installbanner marg__top marg__bottom"><code>$ npm install @dadi/api</code></pre>
+      <div class="col w-1-3"> 
+        <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-api-full.png" height="40">
+        <p style="min-height: 195px;" class="normal no-marg-i pad__top">High-performance RESTful API layer designed in support of API-first development and the principle of COPE (Create Once Publish Everywhere).</p>
 
-          <style type="text/css">h3 {margin: 20px 0 10px}</style>
-        
-          <h3 style="color:#0BA6DD">Getting started</h3>
-          <ul class="list--line">
+        <div class="documentation marg__bottom">
+          <pre><code>$ npm install @dadi/api</code></pre>
+        </div>
+
+        <div class="card">        
+          <h3 class="no-marg-i pad__bottom--half" style="color:#0BA6DD">Getting started</h3>
+          <ul class="list--line marg__bottom">
             <li><a href="/api/getting-started/why/">Why do I need an API?</a></li>
             <li><a href="/api/getting-started/installing/">Installing</a></li>
             <li><a href="/api/getting-started/installing-ubuntu/">Installing MongoDB on Ubuntu</a></li>
@@ -29,7 +30,7 @@ layout: default.html
           </ul>
 
           <h3 style="color:#0BA6DD">Concepts in detail</h3>
-          <ul class="list--line">
+          <ul class="list--line marg__bottom">
             <li><a href="/api/concepts/authentication/">Authentication</a></li>
             <li><a href="/api/concepts/caching/">Caching</a></li>
             <li><a href="/api/concepts/filtering/">Filtering</a></li>
@@ -42,7 +43,7 @@ layout: default.html
           </ul>
 
           <h3 style="color:#0BA6DD">Every-day usage</h3>
-          <ul class="list--line">
+          <ul class="list--line marg__bottom">
             <li><a href="/api/everyday/creating/">Creating</a></li>
             <li><a href="/api/everyday/editing/">Editing</a></li>
             <li><a href="/api/everyday/retrieving/">Retrieving</a></li>
@@ -50,7 +51,7 @@ layout: default.html
           </ul>
 
           <h3 style="color:#0BA6DD">Code examples</h3>
-          <ul class="list--line">
+          <ul class="list--line marg__bottom">
             <li><a href="/api/examples/react/">React</a></li>
             <li><a href="/api/examples/php/">PHP</a></li>
             <li><a href="/api/examples/node/">Node.js (straight-up Node, DADI API wrapper)</a></li>
@@ -65,72 +66,78 @@ layout: default.html
         </div>
       </div>
 
-      <div class="col w-1-3">
-         <div class="card">
-            <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-web-full.png" height="40">
-            
-            <p style="min-height: 195px;" class="normal no-marg-i pad__top">High-performance schema-less templating layer for browser-based product development.</p>
-            <pre class="installbanner marg__top marg__bottom"><code>$ npm install @dadi/web</code></pre>
-          
-            <h3 style="color:#e42918">Getting started</h3>
-            <ul class="list--line">
-              <li><a href="/web/getting-started/installing/">Installing</a></li>
-              <li><a href="/web/getting-started/configuration/">Configuration</a></li>
-              <li><a href="/web/getting-started/connecting-api/">Connecting to DADI API</a></li>
-              <li><a href="/web/getting-started/hello-world/">The “Hello World” app</a></li>
-            </ul>
-          
-            <h3 style="color:#e42918">Concepts in detail</h3>
-            <ul class="list--line">
-              <li><a href="/web/concepts/pages/">Pages</a></li>
-              <li><a href="/web/concepts/views/">Views</a></li>
-              <li><a href="/web/concepts/routing/">Routing</a></li>
-              <li><a href="/web/concepts/datasources/">Datasources</a></li>
-              <li><a href="/web/concepts/events/">Events</a></li>
-              <li><a href="/web/concepts/logging/">Logging</a></li>
-              <li><a href="/web/concepts/middleware/">Middleware</a></li>
-              <li><a href="/web/concepts/security/">Security</a></li>
-              <li><a href="/web/concepts/sessions/">Sessions</a></li>
-              <li><a href="/web/concepts/caching/">Caching</a></li>
-            </ul>
-           
-            <h3 style="color:#e42918">Every-day usage</h3>
-            <ul class="list--line">
-              <li><a href="/web/everyday/debugging/">Debugging</a></li>
-              <li><a href="/web/everyday/status/">Checking online status</a></li>
-              <li><a href="/web/everyday/preload/">Preloading data</a></li>
-              <li><a href="/web/everyday/dustjs/">Dust.js: Pages and partials</a></li>
-              <li><a href="/web/everyday/npm/">Using NPM modules</a></li>
-              <li><a href="/web/everyday/frontend/">Front end assets</a></li>
-              <li><a href="/web/everyday/forms/">Posting data with forms</a></li>
-              <li><a href="/web/everyday/public/">The public folder</a></li>
-              <li><a href="/web/everyday/routing/">Routing &amp; rewrites</a></li>
-              <li><a href="/web/everyday/errors/">Error handling </a></li>
-              <li><a href="/web/everyday/logging/">Logging</a></li>
-              <li><a href="/web/everyday/content-types/">Content types</a></li>
-              <li><a href="/web/everyday/caching/">Cache control</a></li>
-              <li><a href="/web/everyday/virtual-directories/">Virtual directories for static content</a></li>
-            </ul>
+      <div class="col w-1-3">         
+        <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-web-full.png" height="40">
         
-            <h3 style="color:#e42918">Code examples</h3>
-            <ul class="list--line">
-              <li><a href="/web/examples/external-data/">Loading external data</a></li>
-              <li><a href="/web/examples/api-event/">Misc API using an Event</a></li>
-              <li><a href="/web/examples/geolocate/">Geolocate visitors</a></li>
-              <li><a href="/web/examples/sendgrid/">Adding a contact form</a></li>
-              <li><a href="/web/examples/stripe/">Taking payments</a></li>
-            </ul>
+        <p style="min-height: 195px;" class="normal no-marg-i pad__top">High-performance schema-less templating layer for browser-based product development.</p>
+
+        <div class="documentation marg__bottom">
+          <pre><code>$ npm install @dadi/web</code></pre>
+        </div>
+
+        <div class="card">      
+          <h3 class="no-marg-i pad__bottom--half" style="color:#e42918">Getting started</h3>
+          <ul class="list--line marg__bottom">
+            <li><a href="/web/getting-started/installing/">Installing</a></li>
+            <li><a href="/web/getting-started/configuration/">Configuration</a></li>
+            <li><a href="/web/getting-started/connecting-api/">Connecting to DADI API</a></li>
+            <li><a href="/web/getting-started/hello-world/">The “Hello World” app</a></li>
+          </ul>
+        
+          <h3 style="color:#e42918">Concepts in detail</h3>
+          <ul class="list--line marg__bottom">
+            <li><a href="/web/concepts/pages/">Pages</a></li>
+            <li><a href="/web/concepts/views/">Views</a></li>
+            <li><a href="/web/concepts/routing/">Routing</a></li>
+            <li><a href="/web/concepts/datasources/">Datasources</a></li>
+            <li><a href="/web/concepts/events/">Events</a></li>
+            <li><a href="/web/concepts/logging/">Logging</a></li>
+            <li><a href="/web/concepts/middleware/">Middleware</a></li>
+            <li><a href="/web/concepts/security/">Security</a></li>
+            <li><a href="/web/concepts/sessions/">Sessions</a></li>
+            <li><a href="/web/concepts/caching/">Caching</a></li>
+          </ul>
+         
+          <h3 style="color:#e42918">Every-day usage</h3>
+          <ul class="list--line marg__bottom">
+            <li><a href="/web/everyday/debugging/">Debugging</a></li>
+            <li><a href="/web/everyday/status/">Checking online status</a></li>
+            <li><a href="/web/everyday/preload/">Preloading data</a></li>
+            <li><a href="/web/everyday/dustjs/">Dust.js: Pages and partials</a></li>
+            <li><a href="/web/everyday/npm/">Using NPM modules</a></li>
+            <li><a href="/web/everyday/frontend/">Front end assets</a></li>
+            <li><a href="/web/everyday/forms/">Posting data with forms</a></li>
+            <li><a href="/web/everyday/public/">The public folder</a></li>
+            <li><a href="/web/everyday/routing/">Routing &amp; rewrites</a></li>
+            <li><a href="/web/everyday/errors/">Error handling </a></li>
+            <li><a href="/web/everyday/logging/">Logging</a></li>
+            <li><a href="/web/everyday/content-types/">Content types</a></li>
+            <li><a href="/web/everyday/caching/">Cache control</a></li>
+            <li><a href="/web/everyday/virtual-directories/">Virtual directories for static content</a></li>
+          </ul>
+      
+          <h3 style="color:#e42918">Code examples</h3>
+          <ul class="list--line marg__bottom">
+            <li><a href="/web/examples/external-data/">Loading external data</a></li>
+            <li><a href="/web/examples/api-event/">Misc API using an Event</a></li>
+            <li><a href="/web/examples/geolocate/">Geolocate visitors</a></li>
+            <li><a href="/web/examples/sendgrid/">Adding a contact form</a></li>
+            <li><a href="/web/examples/stripe/">Taking payments</a></li>
+          </ul>
         </div>
       </div>
 
-      <div class="col w-1-3">
+      <div class="col w-1-3">        
+        <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-cdn-full.png" height="40">
+        <p style="min-height: 195px;" class="normal no-marg-i pad__top">Real-time asset manipulation and delivery application, providing a complete content distribution solution.</p>
+
+        <div class="documentation marg__bottom">
+          <pre><code>$ npm install @dadi/cdn</code></pre>
+        </div> 
+
         <div class="card">
-          <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-cdn-full.png" height="40">
-          <p style="min-height: 195px;" class="normal no-marg-i pad__top">Real-time asset manipulation and delivery application, providing a complete content distribution solution.</p>
-          <pre class="installbanner marg__top marg__bottom"><code>$ npm install @dadi/cdn</code></pre>
-        
-          <h3 style="color:#e02975">Getting started</h3>
-          <ul class="list--line">
+          <h3 class="no-marg-i pad__bottom--half" style="color:#e02975">Getting started</h3>
+          <ul class="list--line marg__bottom">
             <li><a href="/cdn/getting-started/installing/">Installing</a></li>
             <li><a href="/cdn/getting-started/configuration/">Configuration</a></li>
             <li><a href="/cdn/getting-started/defining-sources/">Defining sources</a></li>
@@ -138,7 +145,7 @@ layout: default.html
           </ul>
 
           <h3 style="color:#e02975">Concepts in detail</h3>
-          <ul class="list--line">
+          <ul class="list--line marg__bottom">
             <li><a href="/cdn/concepts/layout/">Combining images with layout</a></li>
             <li><a href="/cdn/concepts/recipes/">Recipes</a></li>
             <li><a href="/cdn/concepts/routes/">Routes</a></li>
@@ -155,7 +162,7 @@ layout: default.html
           </ul>
 
           <h3 style="color:#e02975">Every-day usage</h3>
-          <ul class="list--line">
+          <ul class="list--line marg__bottom">
             <li><a href="/cdn/everyday/pixel-ratios/">Dealing with pixel ratios</a></li>
             <li><a href="/cdn/everyday/url-variables/">Using URL variables</a></li>
             <li><a href="/cdn/everyday/smart-crop/">Cropping based on subject matter</a></li>
@@ -163,7 +170,7 @@ layout: default.html
           </ul>
 
           <h3 style="color:#e02975">Code examples</h3>
-          <ul class="list--line">         
+          <ul class="list--line marg__bottom">         
             <li><a href="/cdn/examples/responsive/">Responsive images</a></li>
             <li><a href="/cdn/examples/combining/">Combining images into a single file</a></li>
             <li><a href="/cdn/examples/dadi-web/">Using with DADI Web</a></li>
