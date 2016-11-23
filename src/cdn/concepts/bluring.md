@@ -1,7 +1,6 @@
 ---
 title: Blur
 ---
-## blur: Add blur to an image
 
 Adds blur to an image, using any value above zero.
 

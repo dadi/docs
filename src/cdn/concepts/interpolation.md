@@ -1,7 +1,6 @@
 ---
-title: Filter
+title: Interpolation filter
 ---
-## filter
 
 Specify the interpolation method to use when resizing images. If not specified, the default is "lanczos".
 

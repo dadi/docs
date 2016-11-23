@@ -2,15 +2,13 @@
 title: Layout Processor
 ---
 
-## Layout Processor
-
 The layout processor provides a way to generate a new image by combining existing images accessible by CDN.
 
 A request to CDN specifying the processor name of "layout" and including a set of input images (or colour tiles) along with a size and position for each, will result in a new image being rendered as the response.
 
 Each part of the request must be separated by a pipe character: `|`
 
-**Example request**
+## Example request
 
 The following request contains the following:
 
@@ -20,11 +18,17 @@ The following request contains the following:
   * the image `original.jpeg`, resized to 200 pixels wide by 300 pixels high, positioned at 0,400 in the output image
 * Output: an image 600 pixels wide by 300 pixels high, in JPEG format
 
-http://cdn.example.com/layout/i:test.jpg,h_300,w_200,x_0,y_0|c:01ee88,h_300,w_200,x_200,y_0|i:original.jpeg,h_300,w_200,x_400,y_0|o:output.jpg,h_300,w_600
+```
+http://cdn.example.com/layout/i:test.jpg,
+  h_300,w_200,x_0,y_0 | 
+  c:01ee88,h_300,w_200,x_200,y_0 | 
+  i:original.jpeg,h_300,w_200,x_400,y_0 | 
+  o:output.jpg,h_300,w_600
+```
 
 ![Output image](/cdn/assets/layout-output.jpg)
 
-### Input Images
+## Input Images
 
 An input image is specified in the request using the format `i:IMAGE_URL,h_HEIGHT,w_WIDTH,x_HORIZONTAL,y_VERTICAL`
 
@@ -36,7 +40,7 @@ An input image is specified in the request using the format `i:IMAGE_URL,h_HEIGH
 
 **Example:** `i:path/to/image.jpg,w_640,h_480,x_0,y_0`
 
-### Colour tiles
+## Colour tiles
 
 A colour tile can be used as an input image by using the format `c:COLOUR,h_HEIGHT,w_WIDTH,x_HORIZONTAL,y_VERTICAL`
 
@@ -48,7 +52,7 @@ A colour tile can be used as an input image by using the format `c:COLOUR,h_HEIG
 
 **Example:** `c:F3EACD,w_320,h_480,x_320,y_0`
 
-### Output Image
+## Output Image
 
 The format and dimensions of the output image are controlled using the output image portion of the request, using the format `o:IMAGE_URL,h_HEIGHT,w_WIDTH`
 

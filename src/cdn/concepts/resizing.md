@@ -76,3 +76,9 @@ You should set this to the maximum size required for images in your application.
 **h=400&resize=aspectfit**
 
 ![Height 400, Aspect Fit](/cdn/assets/canoe-h400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+
+## Aspect ratio
+
+A width (`w`) or (`h`) can be provided with the addition of the variable `ratio` to give back a cropped version of the image to the specificed ratio. [Resize styles](/cdn/concepts/cropping/) are respected.
+
+`https://cdn.example.com/images/canoe.jpg?h=400&ratio=16-9`

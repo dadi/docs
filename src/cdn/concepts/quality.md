@@ -1,7 +1,6 @@
 ---
-title: Quality
+title: Image compression quality
 ---
-## quality: Image compression
 
 Applies compression to the image, reducing file size. Accepts any number from 1-100. If not specified, the default is 75.
 

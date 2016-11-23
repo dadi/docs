@@ -1,7 +1,6 @@
 ---
 title: Saturate
 ---
-## saturate
 
 Increase or decrease an image's colour saturation. To desaturate (convert to black and white), use `-1`. If not specified, the default value is `0.1`.
 

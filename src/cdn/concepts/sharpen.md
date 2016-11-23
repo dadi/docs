@@ -1,7 +1,6 @@
 ---
 title: Sharpen
 ---
-## sharpen
 
 Add sharpness to an image. If not specified, the default value is `5`.
 

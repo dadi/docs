@@ -1,22 +1,14 @@
 ---
 title: Delivery Routes
 ---
-## Introduction
 
-Routes allow CDN to make a decision about which [Delivery Recipe](recipes) to use for the current request, based on a set of configurable conditions.
+Routes allow CDN to make a decision about which [Delivery Recipe](/cdn/concepts/recipes/) to use for the current request, based on a set of configurable conditions.
 
 Conditions can include the type of device being used, the network type, user location and language.
 
-* [Creating a Route](#creating-a-route)
-* [Route Basics](#route-basics)
-* [Branches](#branches)
-* [Conditions](#conditions)
-* [Caching](#caching)
-* [Example](#example)
-
 ## Creating a Route
 
-A route is defined in JSON format and added to a directory in your CDN installation. The default location for route files is `workspace/routes`, but this is [configurable](configuration#routes).
+A route is defined in JSON format and added to a directory in your CDN installation. The default location for route files is `workspace/routes`, but this is [configurable](/web/getting-started/configuration/).
 
 You can create route files in a text editor and manually copy them to the routes folder, or you can send a `POST` request to CDN with the route content and have CDN create it for you.
 
@@ -67,7 +59,7 @@ At a minimum, a route must take the following form. The `branches` array below c
 
 Each branch within the `branches` array should contain two properties, `recipe` and `condition`.
 
-* `recipe` (string) - the name of the [Delivery Recipe](recipes) to use when all specified conditions are met
+* `recipe` (string) - the name of the [Delivery Recipe](/cdn/concepts/recipes/) to use when all specified conditions are met
 
 * `condition` (object) - contains properties that correspond to test types
 
@@ -319,5 +311,3 @@ Caching is automatically enabled for routes. Depending on what's defined in the 
   ]
 }
 ```
-
----
