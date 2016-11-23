@@ -1,8 +1,6 @@
 ---
-title: Getting Started
+title: Installing DADI API
 ---
-
-# Installing DADI API
 
 ## NPM
 

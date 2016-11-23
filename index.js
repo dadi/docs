@@ -113,7 +113,7 @@ Metalsmith(__dirname)
     }
   })
   .source('./src')
-  .destination('./build')
+  .destination('./')
   .clean(false)
   .use(default_values([
     {

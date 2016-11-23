@@ -1,8 +1,6 @@
 ---
-title: Getting Started
+title: Installing DADI Web
 ---
-
-# Installing DADI Web
 
 ## NPM
 

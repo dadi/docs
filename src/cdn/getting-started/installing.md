@@ -1,8 +1,6 @@
 ---
-title: Getting Started
+title: Installing DADI CDN
 ---
-
-# Installing DADI CDN
 
 ## NPM
 
