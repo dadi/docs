@@ -22,7 +22,7 @@ The following request contains the following:
 
 http://cdn.example.com/layout/i:test.jpg,h_300,w_200,x_0,y_0|c:01ee88,h_300,w_200,x_200,y_0|i:original.jpeg,h_300,w_200,x_400,y_0|o:output.jpg,h_300,w_600
 
-![Output image](assets/layout-output.jpg)
+![Output image](/cdn/assets/layout-output.jpg)
 
 ### Input Images
 

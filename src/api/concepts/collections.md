@@ -2,7 +2,7 @@
 title: Collections
 ---
 
-### Introduction
+# Introduction
 
  * [Collection specification](#collection-specification)
  * [Field specification](#field-specification)
@@ -15,7 +15,7 @@ title: Collections
  * [Collection statistics](#collection-statistics)
  * [Available collections](#available-collections)
 
-#### Collection Specification
+## Collection Specification
 
 DADI API handles creation and modification of database collections in MongoDB directly. All that is required in order to create a new database collection and it's associated collection endpoint is the creation of the collection specification file.
 
@@ -34,23 +34,23 @@ my-api/
 
 ```
 
-##### API Version
+### API Version
 
 Specific versions of your API are represented by "version" folders within the collections folder.
 [MORE]
 
-##### Database
+### Database
 
 Collection documents may be stored in separate databases, represented by the name of the folder within the "version" folder.
 
 > **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](../../setup/configuration#collection-specific-databases) for more information.
 
 
-##### Collection
+### Collection
 
 Collection specifications exist as JSON files containing any number of field specifications and a configuration block. The naming convention for the collection specifications is `collection.<collection name>.json` where `<collection name>` is used as the name of the collection in MongoDB.
 
-###### Use the Plural Form
+#### Use the Plural Form
 
 We recommend you use the plural form for all collection endpoints to keep consistency across your API. Using the singular form means a GET request for a list of results can easily be confused with a request for a single entity.
 
@@ -228,7 +228,7 @@ http://api.example.com/1.0/magazine/articles?filter={"magazineTitle":"Vogue"}
 
 Specifies a default list of fields for inclusion/exclusion. Fields can be included or excluded, but not both.
 
-###### Selecting fields for inclusion
+#### Selecting fields for inclusion
 
 For example to include only `name` and `email`:
 
@@ -248,7 +248,7 @@ Attempting to mix included with excluded results in a MongoDB error:
 fieldLimiters: {"name":1, "email": 0}
 ```
 
-###### Selecting fields for exclusion
+#### Selecting fields for exclusion
 
 To exclude fields, list only the fields for exclusion:
 
@@ -356,7 +356,7 @@ fields    | An array of fields to return for each referenced document.   | `["fi
 
 Consider the following two collections, `books` and `people`. `books` contains a Reference field `author` which is capable of loading documents from the `people` collection. By creating a `book` document and setting the `author` field to the `_id` value of a document from the `people` collection, the application is able to resolve this reference and return the `author` document within a result set for a `books` query.
 
-###### Books `(collection.books.json)`
+#### Books `(collection.books.json)`
 
 ```json
 {
@@ -385,7 +385,7 @@ Consider the following two collections, `books` and `people`. `books` contains a
 }
 ```
 
-###### People `(collection.people.json)`
+#### People `(collection.people.json)`
 
 ```json
 {

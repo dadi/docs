@@ -28,7 +28,7 @@ Used to position the crop area. Available options: `NorthWest`, `North`, `NorthE
 
 **Original image**
 
-![](../../../assets/med-portrait.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+![](/cdn/assets/med-portrait.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
 > In each example, the output image is 400 x 300 pixels.
 
@@ -36,19 +36,19 @@ Used to position the crop area. Available options: `NorthWest`, `North`, `NorthE
 
 `https://cdn.example.com/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=North`
 
-![](../../../assets/med-portrait-north.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+![](/cdn/assets/med-portrait-north.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
 **g=Center**
 
 `https://cdn.example.com/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=Center`
 
-![](../../../assets/med-portrait-center.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+![](/cdn/assets/med-portrait-center.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
 **g=South**
 
 `https://cdn.example.com/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=South`
 
-![](../../../assets/med-portrait-south.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+![](/cdn/assets/med-portrait-south.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
 #### aspectfit
 
@@ -60,7 +60,7 @@ Keeps the aspect ratio of the original image and generates an output image with 
 
 The output image is 400 x 267 pixels.
 
-![](../../../assets/canoe-w400-h300-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+![](/cdn/assets/canoe-w400-h300-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
 #### fill
 
@@ -74,7 +74,7 @@ The output image may appear squashed or stretched.
 
 The output image is 400 x 300 pixels.
 
-![](../../../assets/canoe-w400-h300-fill.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+![](/cdn/assets/canoe-w400-h300-fill.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
 #### entropy
 
@@ -84,11 +84,11 @@ Crops the image using a technique that determines the most important areas. Area
 
 **Original image**
 
-![](../../../assets/med-portrait.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+![](/cdn/assets/med-portrait.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
 `https://cdn.example.com/images/med-portrait.jpg?w=400&h=300&resize=entropy`
 
-![](../../../assets/med-portrait-entropy.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+![](/cdn/assets/med-portrait-entropy.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
 #### crop
 

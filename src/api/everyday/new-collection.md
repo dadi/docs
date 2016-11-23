@@ -1,8 +1,8 @@
 ---
-title: Configuration API
+title: Creating a Collection of content
 ---
 
-## Introduction
+## Using the RESTful API
 
 DADI API allows creating and updating collection and custom endpoints by sending a POST request to the API.
 

@@ -1,4 +1,3 @@
 ---
 title: CDN
-url: /cdn/
 ---
