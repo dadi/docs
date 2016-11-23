@@ -67,6 +67,15 @@
   font-family: 'Gilroy';
   font-style: bold;
   src: local('Gilroy Bold'), url(./fonts/gilroy-bold.woff2) format('woff2'), url(./fonts/gilroy-bold.eot) format('woff'), url(./fonts/gilroy-bold.ttf) format('ttf'), url(./fonts/gilroy-bold.eot) format('eot');
-
 }
 
+@font-face {
+  font-family: 'Menlo';
+  font-style: normal;
+  font-weight: normal;
+  src: local("Menlo Regular"), url("./fonts/Menlo-Regular.woff") format("woff"); }
+
+
+pre, code {
+  font-family: 'Menlo';
+}
