@@ -1,4 +1,6 @@
-# DADI Docs - metalsmith
+<img src="http://52.209.207.148/assets/img/dadi-colour.svg" width="200">
+
+# Documentation
 
 ## Install
 
@@ -7,6 +9,10 @@
 ## Setup
 
 `$ npm install`
+
+## Edit
+
+All markdown source files are in `/src/`
 
 ## Rebuild Documentation
 

@@ -232,11 +232,11 @@ enableCollectionDatabases | If true, the API allows splitting collection data in
 
 Property       | Description        |  Type        | Default         |  Example
 :----------------|:------------|:------------------|:----------------|:---------
-tokenUrl | The path that access token POST requests should be sent to | String | `"/token"` | |
-tokenTtl | The time, in seconds, after which an access token is revoked | Number | `1800` | |
+tokenUrl | The path that access token POST requests should be sent to | String | `"/token"` |
+tokenTtl | The time, in seconds, after which an access token is revoked | Number | `1800` |
 clientCollection | The database collection that will contain client records | String | `"clientStore"` |
 tokenCollection | The database collection that will contain access tokens generated for authorised clients | String | `"tokenStore"` |
-**database** | **Specifies the authentication database settings**  |
+**database** | **Specifies the authentication database settings**  | | | |
 database.hosts | An array of database hosts to connect to for authorisation | Array | `[ { host: "127.0.0.1", port: 27017 } ]` | `""`
 database.database | The database to use for authorisation | String | `""` | `"myApi"`
 database.username | The username used to connect to the authorisation database | String | `""` | `"apiUser"`
