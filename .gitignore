@@ -39,3 +39,5 @@ jspm_packages
 .DS_Store
 /src/.links_checked.json
 /src/links_failed.json
+/.links_checked.json
+/links_failed.json
