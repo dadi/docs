@@ -49,9 +49,21 @@
     <div class="container normal">
       <div class="grid">
         <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">221 words (1 min read)</p>
+          <p class="small fwb txt--grey">269 words (1 min read)</p>
 
-          <h2 id="npm">NPM</h2>
+          <h2 id="image-libraries">Image libraries</h2>
+<pre><code class="lang-bash">$ sudo apt-get install libcairo2-dev libjpeg-dev libgif-dev
+</code></pre>
+<h2 id="sqwish-css-compressor">Sqwish CSS Compressor</h2>
+<pre><code class="lang-bash">$ sudo npm install -g sqwish
+</code></pre>
+<h2 id="upgrade-gcc-compiler">Upgrade GCC++ Compiler</h2>
+<pre><code class="lang-bash">$ sudo add-apt-repository ppa:ubuntu-toolchain-r/<span class="hljs-built_in">test</span>
+$ sudo apt-get update -y
+$ sudo apt-get install gcc-<span class="hljs-number">4.9</span> g++-<span class="hljs-number">4.9</span>
+$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-<span class="hljs-number">4.9</span> <span class="hljs-number">60</span> --slave /usr/bin/g++ g++ /usr/bin/g++-<span class="hljs-number">4.9</span>
+</code></pre>
+<h2 id="npm">NPM</h2>
 <p>All our platform microservices are available from <a href="https://www.npmjs.com/">NPM</a>. To install <em>CDN</em>.</p>
 <pre><code class="lang-coffeescript">$ <span class="hljs-built_in">npm</span> install <span class="hljs-property">@dadi</span>/cdn
 </code></pre><h2 id="manual-install">Manual install</h2>
@@ -92,6 +104,9 @@ $ <span class="hljs-string">[sudo]</span> restart cdn
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
+              <li><a class="" href="#image-libraries">Image libraries</a></li>
+              <li><a class="" href="#sqwish-css-compressor">Sqwish CSS Compressor</a></li>
+              <li><a class="" href="#upgrade-gcc-compiler">Upgrade GCC++ Compiler</a></li>
               <li><a class="" href="#npm">NPM</a></li>
               <li><a class="" href="#manual-install">Manual install</a></li>
               <li><a class="" href="#using-dadi-generator-https-github-com-dadi-generator-">Using DADI Generator</a></li>
