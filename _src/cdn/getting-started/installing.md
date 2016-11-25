@@ -2,6 +2,27 @@
 title: Installing DADI CDN
 ---
 
+## Image libraries
+
+```bash
+$ sudo apt-get install libcairo2-dev libjpeg-dev libgif-dev
+```
+
+## Sqwish CSS Compressor
+
+```bash
+$ sudo npm install -g sqwish
+```
+
+## Upgrade GCC++ Compiler
+
+```bash
+$ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+$ sudo apt-get update -y
+$ sudo apt-get install gcc-4.9 g++-4.9
+$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
+```
+
 ## NPM
 
 All our platform microservices are available from [NPM](https://www.npmjs.com/). To install *CDN*.

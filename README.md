@@ -12,7 +12,7 @@
 
 ## Edit
 
-All markdown source files are in `/src/`
+All markdown source files are in `/_src/`
 
 ## Rebuild Documentation
 

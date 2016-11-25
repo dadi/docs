@@ -112,7 +112,7 @@ Metalsmith(__dirname)
       url: 'http://docs.dadi.tech/'
     }
   })
-  .source('./src')
+  .source('./_src')
   .destination('./')
   .clean(false)
   .use(default_values([
