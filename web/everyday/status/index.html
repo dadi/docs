@@ -49,10 +49,16 @@
   <main>
     <div class="container normal">
       <div class="grid">
-        <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">135 words (1 min read)</p>
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top--x2">
+            <div class="inline-block">
+              <div class="block fwb">135 words</div>
+              <div class="txt--grey">1 min read</div>
+            </div>
+          </div>
 
-          <p>An endpoint is provided at <code class="lang-fortran">/api/<span class="hljs-keyword">status</span></code> which returns server/application data in JSON format.</p>
+          <div class="documentation">
+            <p>An endpoint is provided at <code class="lang-fortran">/api/<span class="hljs-keyword">status</span></code> which returns server/application data in JSON format.</p>
 <p>The request must be a POST and a valid Bearer token must be supplied in the Authorization header. See <a href="../authorisation">Authorisation</a> for information regarding obtaining a Bearer token.</p>
 <h2 id="configuration">Configuration</h2>
 <pre><code class="lang-javascript"><span class="hljs-string">"status"</span>: {
@@ -120,9 +126,10 @@
 <pre><code class="lang-stata">curl -X <span class="hljs-keyword">POST</span> -<span class="hljs-keyword">H</span> <span class="hljs-string">"Content-Type: application/json"</span> -<span class="hljs-keyword">H</span> <span class="hljs-string">"Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6"</span> <span class="hljs-string">"http://example.com/api/status"</span>
 </code></pre>
 
-          <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
-            See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/web/everyday/status.md">Edit in Github</a>.
-          </p>
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/web/everyday/status.md">Edit in Github</a>.
+            </p>
+          </div>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">

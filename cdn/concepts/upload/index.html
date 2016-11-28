@@ -49,10 +49,23 @@
   <main>
     <div class="container normal">
       <div class="grid">
-        <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">333 words (2 min read)</p>
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top--x2">
+              <div class="small fwb float--right w-1-2 alignr">
+                <a href="https://github.com/abovebored" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                </a>   
+                <a class="block fwb">David Longworth</a>
+                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+              </div>
+            <div class="inline-block">
+              <div class="block fwb">333 words</div>
+              <div class="txt--grey">2 min read</div>
+            </div>
+          </div>
 
-          <h3 id="configuration">Configuration</h3>
+          <div class="documentation">
+            <h3 id="configuration">Configuration</h3>
 <ul>
 <li><strong>requireAuthentication</strong>: If true, POST requests must include the authentication credentials specified in the <code>auth</code> property</li>
 <li><strong>pathFormat</strong>: “none”, “date”, “datetime”, “sha1/4”, “sha1/5”, sha1/8”</li>
@@ -137,9 +150,10 @@ form.append(<span class="hljs-string">'file'</span>, <span class="hljs-string">'
 <span class="json">{"<span class="hljs-attribute">Error</span>":<span class="hljs-value"><span class="hljs-string">"HTTP 401 Unauthorized"</span></span>}
 </span></code></pre>
 
-          <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
-            See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/concepts/upload.md">Edit in Github</a>.
-          </p>
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/concepts/upload.md">Edit in Github</a>.
+            </p>
+          </div>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">

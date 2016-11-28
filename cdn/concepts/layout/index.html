@@ -49,10 +49,16 @@
   <main>
     <div class="container normal">
       <div class="grid">
-        <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">380 words (2 min read)</p>
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top--x2">
+            <div class="inline-block">
+              <div class="block fwb">380 words</div>
+              <div class="txt--grey">2 min read</div>
+            </div>
+          </div>
 
-          <p>The layout processor provides a way to generate a new image by combining existing images accessible by CDN.</p>
+          <div class="documentation">
+            <p>The layout processor provides a way to generate a new image by combining existing images accessible by CDN.</p>
 <p>A request to CDN specifying the processor name of “layout” and including a set of input images (or colour tiles) along with a size and position for each, will result in a new image being rendered as the response.</p>
 <p>Each part of the request must be separated by a pipe character: <code class="lang-1c"><span class="hljs-string">|</span></code></p>
 <h2 id="example-request">Example request</h2>
@@ -73,7 +79,7 @@
   <span class="hljs-attribute">c</span>:<span class="hljs-number">01</span>ee88,h_300,w_200,x_200,y_0 | 
   <span class="hljs-attribute">i</span>:original.jpeg,h_300,w_200,x_400,y_0 | 
   <span class="hljs-attribute">o</span>:output.jpg,h_300,w_600
-</code></pre><p><img src="/cdn/assets/layout-output.jpg" alt="Output image"></p>
+</code></pre><p><img src="/assets/cdn/layout-output.jpg" alt="Output image"></p>
 <h2 id="input-images">Input Images</h2>
 <p>An input image is specified in the request using the format <code class="lang-stylus"><span class="hljs-tag">i</span>:IMAGE_URL,h_HEIGHT,w_WIDTH,x_HORIZONTAL,y_VERTICAL</code></p>
 <ul>
@@ -102,9 +108,10 @@
 <p><strong>Example:</strong> <code class="lang-css"><span class="hljs-tag">o</span><span class="hljs-pseudo">:test</span><span class="hljs-class">.png</span>,<span class="hljs-tag">w_640</span>,<span class="hljs-tag">h_480</span></code></p>
 
 
-          <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
-            See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/concepts/layout.md">Edit in Github</a>.
-          </p>
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/concepts/layout.md">Edit in Github</a>.
+            </p>
+          </div>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">

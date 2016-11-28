@@ -49,14 +49,20 @@
   <main>
     <div class="container normal">
       <div class="grid">
-        <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">90 words (1 min read)</p>
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top--x2">
+            <div class="inline-block">
+              <div class="block fwb">90 words</div>
+              <div class="txt--grey">1 min read</div>
+            </div>
+          </div>
 
-          <p>A Delivery Recipe is a predefined set of image manipulation parameters stored in a JSON file and applied to images at the time of request.</p>
+          <div class="documentation">
+            <p>A Delivery Recipe is a predefined set of image manipulation parameters stored in a JSON file and applied to images at the time of request.</p>
 <p>Let’s use the image from our magazine example.</p>
 <p><code class="lang-livecodeserver"><span class="hljs-keyword">https</span>://cdn.example.com/thumbnail/images/man-walking-<span class="hljs-command"><span class="hljs-keyword">on</span>-beach.<span class="hljs-title">jpg</span></span></code></p>
 <p><code class="lang-livecodeserver"><span class="hljs-keyword">https</span>://cdn.example.com/images/man-walking-<span class="hljs-command"><span class="hljs-keyword">on</span>-beach.<span class="hljs-title">jpg</span>?<span class="hljs-title">width</span>=<span class="hljs-title">100</span>&amp;<span class="hljs-title">height</span>=<span class="hljs-title">100</span>&amp;<span class="hljs-title">resizeStyle</span>=<span class="hljs-title">entropy</span></span></code></p>
-<p><img src="/cdn/assets/thumbnail-100x100.jpeg" alt="Thumbnail image, 100 × 100 px, 9kB" title="Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)"></p>
+<p><img src="/assets/cdn/thumbnail-100x100.jpeg" alt="Thumbnail image, 100 × 100 px, 9kB" title="Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)"></p>
 <p>Recipes are defined in JSON files held in the <code class="lang-gradle"><span class="hljs-regexp">/workspace/</span>recipes</code> folder.</p>
 <h2 id="example-recipe">Example recipe</h2>
 <pre><code class="lang-javascript">{
@@ -76,9 +82,10 @@
 <p><code class="lang-groovy"><span class="hljs-string">http:</span><span class="hljs-comment">//cdn.example.com/thumbnail/image-filename.png</span></code></p>
 
 
-          <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
-            See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/concepts/recipes.md">Edit in Github</a>.
-          </p>
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/concepts/recipes.md">Edit in Github</a>.
+            </p>
+          </div>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">

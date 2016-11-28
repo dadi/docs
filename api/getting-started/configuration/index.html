@@ -48,10 +48,23 @@
   <main>
     <div class="container normal">
       <div class="grid">
-        <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">1463 words (5 min read)</p>
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top--x2">
+              <div class="small fwb float--right w-1-2 alignr">
+                <a href="https://github.com/abovebored" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                </a>   
+                <a class="block fwb">David Longworth</a>
+                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+              </div>
+            <div class="inline-block">
+              <div class="block fwb">1463 words</div>
+              <div class="txt--grey">5 min read</div>
+            </div>
+          </div>
 
-          <p>Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.</p>
+          <div class="documentation">
+            <p>Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.</p>
 <p>To most important configuration blocks for starting your API are <a href="#server">server</a>, <a href="#database">database</a> and <a href="#auth">authentication</a>.</p>
 <h2 id="configuration-files">Configuration Files</h2>
 <p>Configuration settings are defined in JSON files within a <code>/config</code> directory at the root of your application. DADI API has provision for multiple configuration files, one for each environment that your API is expected to run under: <code>development</code>, <code class="lang-vim"><span class="hljs-keyword">qa</span></code> and <code>production</code>.</p>
@@ -575,9 +588,10 @@ config<span class="hljs-class">.production</span><span class="hljs-class">.json<
 </table>
 
 
-          <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
-            See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/api/getting-started/configuration.md">Edit in Github</a>.
-          </p>
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/api/getting-started/configuration.md">Edit in Github</a>.
+            </p>
+          </div>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">

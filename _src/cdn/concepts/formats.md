@@ -8,52 +8,52 @@ title: Format
 
 ## Original JPG Image
 
-![Original JPG](/cdn/assets/dog-w600.jpeg)
+![Original JPG](/assets/cdn/dog-w600.jpeg)
 
 ## JPG to PNG
 
 `https://cdn.example.com/images/dog.jpg?format=png`
 
-![PNG](/cdn/assets/dog-w600.png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![PNG](/assets/cdn/dog-w600.png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 ## JPG to GIF
 
 `https://cdn.example.com/images/dog.jpg?format=gif`
 
-![GIF](/cdn/assets/dog-w600.gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![GIF](/assets/cdn/dog-w600.gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 # From GIF
 
 ## Original GIF Image
 
-![Original GIF](/cdn/assets/giphy.gif)
+![Original GIF](/assets/cdn/giphy.gif)
 
 ## GIF to JPG
 
 `https://cdn.example.com/images/giphy.gif?format=jpg`
 
-![JPG](/cdn/assets/giphy.jpeg)
+![JPG](/assets/cdn/giphy.jpeg)
 
 ## GIF to PNG
 
 `https://cdn.example.com/images/giphy.gif?format=png`
 
-![PNG](/cdn/assets/giphy.png)
+![PNG](/assets/cdn/giphy.png)
 
 # From PNG
 
 ## Original PNG Image
 
-![Original PNG](/cdn/assets/landscape.png)
+![Original PNG](/assets/cdn/landscape.png)
 
 ## PNG to JPG
 
 `https://cdn.example.com/images/landscape.png?format=jpg`
 
-![JPG](/cdn/assets/landscape.jpeg)
+![JPG](/assets/cdn/landscape.jpeg)
 
 ## PNG to GIF
 
 `https://cdn.example.com/images/landscape.png?format=gif`
 
-![GIF](/cdn/assets/landscape.gif)
+![GIF](/assets/cdn/landscape.gif)
