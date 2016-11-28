@@ -48,10 +48,16 @@
   <main>
     <div class="container normal">
       <div class="grid">
-        <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">1166 words (4 min read)</p>
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top--x2">
+            <div class="inline-block">
+              <div class="block fwb">1166 words</div>
+              <div class="txt--grey">4 min read</div>
+            </div>
+          </div>
 
-          <p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class="lang-vim"><span class="hljs-built_in">hostname</span></code> i.e., it will also look for <code class="lang-css"><span class="hljs-tag">config</span>." + <span class="hljs-tag">req</span><span class="hljs-class">.headers</span><span class="hljs-class">.host</span> + "<span class="hljs-class">.json</span></code></p>
+          <div class="documentation">
+            <p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class="lang-vim"><span class="hljs-built_in">hostname</span></code> i.e., it will also look for <code class="lang-css"><span class="hljs-tag">config</span>." + <span class="hljs-tag">req</span><span class="hljs-class">.headers</span><span class="hljs-class">.host</span> + "<span class="hljs-class">.json</span></code></p>
 <p>A very basic <code class="lang-stylus">config<span class="hljs-class">.development</span><span class="hljs-class">.json</span></code> file looks like this:</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">app</span>": <span class="hljs-value">{
@@ -653,9 +659,10 @@
 <p>Paths can be used to configure where any folder of the app assets are located.</p>
 
 
-          <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
-            See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/web/getting-started/configuration.md">Edit in Github</a>.
-          </p>
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/web/getting-started/configuration.md">Edit in Github</a>.
+            </p>
+          </div>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">

@@ -29,15 +29,15 @@ You should set this to the maximum size required for images in your application.
 
 **Original image**
 
-![Original JPG](/cdn/assets/canoe.jpeg)
+![Original JPG](/assets/cdn/canoe.jpeg)
 
 **w=400**
 
-![Width 400](/cdn/assets/canoe-w400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+![Width 400](/assets/cdn/canoe-w400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
 **w=400&resize=aspectfit**
 
-![Width 400, Aspect Fit](/cdn/assets/canoe-w400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+![Width 400, Aspect Fit](/assets/cdn/canoe-w400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
 
 ## Height
@@ -67,15 +67,15 @@ You should set this to the maximum size required for images in your application.
 
 **Original image**
 
-![Original JPG](/cdn/assets/canoe.jpeg)
+![Original JPG](/assets/cdn/canoe.jpeg)
 
 **h=400**
 
-![Height 400](/cdn/assets/canoe-h400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+![Height 400](/assets/cdn/canoe-h400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
 **h=400&resize=aspectfit**
 
-![Height 400, Aspect Fit](/cdn/assets/canoe-h400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+![Height 400, Aspect Fit](/assets/cdn/canoe-h400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
 ## Aspect ratio
 

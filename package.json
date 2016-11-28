@@ -1,13 +1,15 @@
 {
-  "name": "metalsmith-docs",
+  "name": "dadi-docs",
   "dependencies": {
     "handlebars": "^4.0.5",
     "handlebars-helpers": "^0.7.5",
+    "helper-moment": "^0.1.0",
     "metalsmith": "^2.1.0",
     "metalsmith-autotoc": "^0.1.3",
     "metalsmith-code-highlight": "0.0.3",
     "metalsmith-collections": "^0.9.0",
     "metalsmith-default-values": "^1.0.1",
+    "metalsmith-github-meta": "^1.1.0",
     "metalsmith-headings": "^0.1.0",
     "metalsmith-html-tidy": "^1.1.2",
     "metalsmith-layouts": "^1.4.1",

@@ -49,18 +49,32 @@
   <main>
     <div class="container normal">
       <div class="grid">
-        <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">58 words (1 min read)</p>
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top--x2">
+              <div class="small fwb float--right w-1-2 alignr">
+                <a href="https://github.com/abovebored" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                </a>   
+                <a class="block fwb">David Longworth</a>
+                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+              </div>
+            <div class="inline-block">
+              <div class="block fwb">58 words</div>
+              <div class="txt--grey">1 min read</div>
+            </div>
+          </div>
 
-          <p>When dealing with mulitiple device pixel ratios, you can ‘multiply’ the outputted size of the image by adding the variable name <code class="lang-cpp">?devicePixelRatio=[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]</code>.</p>
+          <div class="documentation">
+            <p>When dealing with mulitiple device pixel ratios, you can ‘multiply’ the outputted size of the image by adding the variable name <code class="lang-cpp">?devicePixelRatio=[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]</code>.</p>
 <p>For example a <code class="lang-cpp"><span class="hljs-number">100</span>px x <span class="hljs-number">100</span>px</code> image with the variable <code class="lang-cpp">devicePixelRatio=<span class="hljs-number">2</span></code> will return an image of <code class="lang-cpp"><span class="hljs-number">200</span>px x <span class="hljs-number">200</span>px</code> in size. You can then scale down the image in your front-end output e.g.,</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">img</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"https://cdn.example.com/images/dog.jpg?w=200&amp;height=200&amp;devicePixelRatio=2"</span> <span class="hljs-attribute">width</span>=<span class="hljs-value">"100"</span>&gt;</span>
 </code></pre>
 
 
-          <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
-            See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/everyday/pixel-ratios.md">Edit in Github</a>.
-          </p>
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/everyday/pixel-ratios.md">Edit in Github</a>.
+            </p>
+          </div>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">

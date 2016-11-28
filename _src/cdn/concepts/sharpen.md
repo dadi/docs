@@ -10,12 +10,12 @@ Add sharpness to an image. If not specified, the default value is `5`.
 
 **Default amount = 5**
 
-![Sharpen 5](/cdn/assets/beach-sharp-5.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 5](/assets/cdn/beach-sharp-5.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Sharpen amount = 20**
 
-![Sharpen 20](/cdn/assets/beach-sharp-20.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 20](/assets/cdn/beach-sharp-20.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Sharpen amount = 80**
 
-![Sharpen 80](/cdn/assets/beach-sharp-80.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 80](/assets/cdn/beach-sharp-80.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")

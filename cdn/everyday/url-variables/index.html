@@ -49,10 +49,23 @@
   <main>
     <div class="container normal">
       <div class="grid">
-        <div class="col w-3-4 documentation pad__bottom--x2">
-          <p class="small fwb txt--grey">1375 words (5 min read)</p>
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top--x2">
+              <div class="small fwb float--right w-1-2 alignr">
+                <a href="https://github.com/abovebored" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                </a>   
+                <a class="block fwb">David Longworth</a>
+                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+              </div>
+            <div class="inline-block">
+              <div class="block fwb">1375 words</div>
+              <div class="txt--grey">5 min read</div>
+            </div>
+          </div>
 
-          <p>With your <a href="/cdn/getting-started/defining-sources/">sources</a> configured so that CDN knows where to find them, you can start sending requests for your assets and images.</p>
+          <div class="documentation">
+            <p>With your <a href="/cdn/getting-started/defining-sources/">sources</a> configured so that CDN knows where to find them, you can start sending requests for your assets and images.</p>
 <p>CDN currently responds to two types of URL scheme. One, the Path URL scheme, is a legacy format and exists for backwards compatibility with early-adoption client applications. The other, the Querystring URL scheme, is succinct, flexible and robust.</p>
 <blockquote>
 <p>The Querystring URL scheme is the preferred format and is where future development efforts will be focused. In the event that new image manipulation parameters are added to CDN, the Querystring URL scheme will be the only format that supports them.</p>
@@ -380,7 +393,7 @@
 <p>For this example we’re going to imagine you have a magazine-style website with a list of articles on the homepage and an article page. We’ll start with the following image, which your editor wants to use as the main article image.</p>
 <p><code class="lang-livecodeserver"><span class="hljs-keyword">https</span>://cdn.example.com/images/man-walking-<span class="hljs-command"><span class="hljs-keyword">on</span>-beach.<span class="hljs-title">jpg</span></span></code></p>
 <p><strong>Original image, 5616 × 3744 px, 4MB</strong></p>
-<p><img src="/cdn/assets/original.jpeg" alt="Original image, 5616 × 3744 px, 4MB" title="Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)"></p>
+<p><img src="/assets/cdn/original.jpeg" alt="Original image, 5616 × 3744 px, 4MB" title="Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)"></p>
 <p>This is a large image, and it’s not going to fit easily into the two spaces we have available for it. Unfortunately, no one in the department knows how to use Adobe Photoshop to make appropriately sized images. Fortunately, CDN can handle this task for you.</p>
 <h5 id="resizing-and-cropping">Resizing and Cropping</h5>
 <p>On the article page, let’s assume your main image spot is a 500×300 pixel container. It’s an odd size, but illustrates this concept well. To fit the base image into that container, we’ll need to change the dimensions and crop some data from the top and bottom.</p>
@@ -393,14 +406,14 @@
 </li>
 </ul>
 <p><strong>Resized image, 500 × 300 px, 98kB</strong></p>
-<p><img src="/cdn/assets/entropy-500x300.jpeg" alt="Resized image, 500 × 300 px, 98kB" title="Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)"></p>
+<p><img src="/assets/cdn/entropy-500x300.jpeg" alt="Resized image, 500 × 300 px, 98kB" title="Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)"></p>
 <p>Now, on the homepage page, let’s assume each feature article has an image container that is 200×200 pixels. With the main subject of the image so close to the right, we’ll once again need to tell CDN how we want the image cropped.</p>
 <p><code class="lang-livecodeserver"><span class="hljs-keyword">https</span>://cdn.example.com/images/man-walking-<span class="hljs-command"><span class="hljs-keyword">on</span>-beach.<span class="hljs-title">jpg</span>?<span class="hljs-title">w</span>=<span class="hljs-title">200</span>&amp;<span class="hljs-title">h</span>=<span class="hljs-title">200</span>&amp;<span class="hljs-title">crop</span>=<span class="hljs-title">entropy</span></span></code></p>
 <p><strong>Resized image, 200 × 200 px, 29kB</strong></p>
-<p><img src="/cdn/assets/entropy-200x200.jpeg" alt="Resized image, 200 × 200 px, 29kB" title="Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)"></p>
+<p><img src="/assets/cdn/entropy-200x200.jpeg" alt="Resized image, 200 × 200 px, 29kB" title="Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)"></p>
 <p>If we don’t specify <code>entropy</code> as the <code>crop</code> parameter, CDN defaults to using <code>aspectfill</code> and our image would look a little different, with the main subject almost excluded from the image.</p>
 <p><code class="lang-livecodeserver"><span class="hljs-keyword">https</span>://cdn.example.com/images/man-walking-<span class="hljs-command"><span class="hljs-keyword">on</span>-beach.<span class="hljs-title">jpg</span>?<span class="hljs-title">w</span>=<span class="hljs-title">200</span>&amp;<span class="hljs-title">h</span>=<span class="hljs-title">200</span></span></code></p>
-<p><img src="/cdn/assets/aspectfill-200x200.jpeg" alt="Aspectfill, 200 × 200 px, 29kB" title="Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)"></p>
+<p><img src="/assets/cdn/aspectfill-200x200.jpeg" alt="Aspectfill, 200 × 200 px, 29kB" title="Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)"></p>
 <h3 id="next-steps">Next Steps</h3>
 <p>Resizing and cropping are just the beginning. CDN helps you to serve assets and images to your customers easier and faster, giving you complete control over how they are served.</p>
 <ul>
@@ -410,9 +423,10 @@
 </ul>
 
 
-          <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
-            See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/everyday/url-variables.md">Edit in Github</a>.
-          </p>
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/everyday/url-variables.md">Edit in Github</a>.
+            </p>
+          </div>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">

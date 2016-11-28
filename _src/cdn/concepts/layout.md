@@ -26,7 +26,7 @@ http://cdn.example.com/layout/i:test.jpg,
   o:output.jpg,h_300,w_600
 ```
 
-![Output image](/cdn/assets/layout-output.jpg)
+![Output image](/assets/cdn/layout-output.jpg)
 
 ## Input Images
 

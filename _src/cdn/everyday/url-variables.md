@@ -497,7 +497,7 @@ For this example we're going to imagine you have a magazine-style website with a
 
 **Original image, 5616 × 3744 px, 4MB**
 
-![Original image, 5616 × 3744 px, 4MB](/cdn/assets/original.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Original image, 5616 × 3744 px, 4MB](/assets/cdn/original.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 This is a large image, and it's not going to fit easily into the two spaces we have available for it. Unfortunately, no one in the department knows how to use Adobe Photoshop to make appropriately sized images. Fortunately, CDN can handle this task for you.
 
@@ -515,7 +515,7 @@ To adjust the image we need to specify the new width and height, as well as tell
 
 **Resized image, 500 × 300 px, 98kB**
 
-![Resized image, 500 × 300 px, 98kB](/cdn/assets/entropy-500x300.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Resized image, 500 × 300 px, 98kB](/assets/cdn/entropy-500x300.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 Now, on the homepage page, let’s assume each feature article has an image container that is 200×200 pixels. With the main subject of the image so close to the right, we'll once again need to tell CDN how we want the image cropped.
 
@@ -523,13 +523,13 @@ Now, on the homepage page, let’s assume each feature article has an image cont
 
 **Resized image, 200 × 200 px, 29kB**
 
-![Resized image, 200 × 200 px, 29kB](/cdn/assets/entropy-200x200.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Resized image, 200 × 200 px, 29kB](/assets/cdn/entropy-200x200.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 If we don't specify `entropy` as the `crop` parameter, CDN defaults to using `aspectfill` and our image would look a little different, with the main subject almost excluded from the image.
 
 `https://cdn.example.com/images/man-walking-on-beach.jpg?w=200&h=200`
 
-![Aspectfill, 200 × 200 px, 29kB](/cdn/assets/aspectfill-200x200.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Aspectfill, 200 × 200 px, 29kB](/assets/cdn/aspectfill-200x200.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 ## Next Steps
 

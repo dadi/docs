@@ -20,7 +20,8 @@ var sitemap = require('metalsmith-mapsite')
 var spellcheck = require('metalsmith-spellcheck')
 var wordcount = require("metalsmith-word-count")
 
-var navigation = require('metalsmith-navigation');
+var navigation = require('metalsmith-navigation')
+var githubMeta = require('metalsmith-github-meta')
 
 // default values shown
 var navConfigs = {
@@ -141,6 +142,11 @@ Metalsmith(__dirname)
     }
   }))
   .use(pageTitles())
+  .use(githubMeta({
+    repo: 'dadi/docs',
+    source: '_src',
+    userAgent: 'DADI Docs BuildAgent'
+  }))
   .use(paths({ property: 'paths' }))
   .use(nav)
   .use(autotoc({selector: 'h2, h3, h4'}))
@@ -207,6 +213,18 @@ Metalsmith(__dirname)
         return (v1 || v2) ? options.fn(this) : options.inverse(this)
       default:
         return options.inverse(this)
+    }
+  })
+
+  Handlebars.registerHelper("debug", function (optionalValue) {
+    // console.log("Current Context")
+    // console.log("====================")
+    // console.log(this)
+
+    if (optionalValue) {
+      console.log("Value")
+      console.log("====================")
+      console.log(optionalValue)
     }
   })
 

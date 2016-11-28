@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Crop | DADI Documentation</title>
+  <title>Blur | DADI Documentation</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="http://stage.dadi.tech/assets/css/main.min.css?v=2">
@@ -42,7 +42,7 @@
                 <li class="fwb"><a href="/cdn/concepts">Concepts</a></li>
       </ul>
 
-      <div class="larger hdr">Crop</div>
+      <div class="larger hdr">Blur</div>
     </div>
   </div>
 </div>
@@ -52,69 +52,38 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top--x2">
             <div class="inline-block">
-              <div class="block fwb">224 words</div>
+              <div class="block fwb">47 words</div>
               <div class="txt--grey">1 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h2 id="resize">resize</h2>
-<h3 id="aspectfill">aspectfill</h3>
-<p>Keeps the aspect ratio of the original image and generates an output image of the specified width and height.</p>
+            <p>Adds blur to an image, using any value above zero.</p>
 <blockquote>
-<p><strong>Note:</strong> The output image may be cropped, however by specifying the <code class="lang-mel"><span class="hljs-keyword">gravity</span></code> parameter you can tell CDN which part of the image should be retained.</p>
+<p>The <code>blur</code> parameter can be added to the querystring as either <code>b</code> or <code>blur</code></p>
 </blockquote>
-<h3 id="gravity">gravity</h3>
-<p>Used to position the crop area. Available options: <code>NorthWest</code>, <code>North</code>, <code>NorthEast</code>, <code class="lang-sqf"><span class="hljs-built_in">West</span></code>, <code class="lang-mathematica"><span class="hljs-keyword">Center</span></code>, <code class="lang-sqf"><span class="hljs-built_in">East</span></code>, <code>SouthWest</code>, <code>South</code>, <code>SouthEast</code>, <code class="lang-fortran"><span class="hljs-type">None</span></code></p>
-<p><strong>Example</strong></p>
+<p><code class="lang-groovy"><span class="hljs-string">https:</span><span class="hljs-comment">//cdn.example.com/images/dog.jpg?b=5</span></code></p>
 <p><strong>Original image</strong></p>
-<p><img src="/assets/cdn/med-portrait.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)"></p>
-<blockquote>
-<p>In each example, the output image is 400 x 300 pixels.</p>
-</blockquote>
-<p><strong>g=North</strong></p>
-<p><code class="lang-vim">http<span class="hljs-variable">s:</span>//cdn.example.<span class="hljs-keyword">com</span>/images/med-portrait.jpg?<span class="hljs-keyword">w</span>=<span class="hljs-number">400</span>&amp;<span class="hljs-keyword">h</span>=<span class="hljs-number">300</span>&amp;<span class="hljs-keyword">resize</span>=aspectfit&amp;<span class="hljs-keyword">g</span>=North</code></p>
-<p><img src="/assets/cdn/med-portrait-north.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)"></p>
-<p><strong>g=Center</strong></p>
-<p><code class="lang-vim">http<span class="hljs-variable">s:</span>//cdn.example.<span class="hljs-keyword">com</span>/images/med-portrait.jpg?<span class="hljs-keyword">w</span>=<span class="hljs-number">400</span>&amp;<span class="hljs-keyword">h</span>=<span class="hljs-number">300</span>&amp;<span class="hljs-keyword">resize</span>=aspectfit&amp;<span class="hljs-keyword">g</span>=Center</code></p>
-<p><img src="/assets/cdn/med-portrait-center.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)"></p>
-<p><strong>g=South</strong></p>
-<p><code class="lang-vim">http<span class="hljs-variable">s:</span>//cdn.example.<span class="hljs-keyword">com</span>/images/med-portrait.jpg?<span class="hljs-keyword">w</span>=<span class="hljs-number">400</span>&amp;<span class="hljs-keyword">h</span>=<span class="hljs-number">300</span>&amp;<span class="hljs-keyword">resize</span>=aspectfit&amp;<span class="hljs-keyword">g</span>=South</code></p>
-<p><img src="/assets/cdn/med-portrait-south.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)"></p>
-<h3 id="aspectfit">aspectfit</h3>
-<p>Keeps the aspect ratio of the original image and generates an output image with the maximum dimensions that fit inside the specified width and height.</p>
-<p><strong>Example</strong></p>
-<p><code class="lang-vim">http<span class="hljs-variable">s:</span>//cdn.example.<span class="hljs-keyword">com</span>/images/canoe.jpg?<span class="hljs-keyword">w</span>=<span class="hljs-number">400</span>&amp;<span class="hljs-keyword">h</span>=<span class="hljs-number">300</span>&amp;<span class="hljs-keyword">resize</span>=aspectfit</code></p>
-<p>The output image is 400 x 267 pixels.</p>
-<p><img src="/assets/cdn/canoe-w400-h300-aspectfit.jpeg" alt="" title="Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)"></p>
-<h3 id="fill">fill</h3>
-<p>Ignores the aspect ratio of the original image and generates an output image with specified width and height.</p>
-<p>The output image may appear squashed or stretched.</p>
-<p><strong>Example</strong></p>
-<p><code class="lang-vim">http<span class="hljs-variable">s:</span>//cdn.example.<span class="hljs-keyword">com</span>/images/canoe.jpg?<span class="hljs-keyword">w</span>=<span class="hljs-number">400</span>&amp;<span class="hljs-keyword">h</span>=<span class="hljs-number">300</span>&amp;<span class="hljs-keyword">resize</span>=fill</code></p>
-<p>The output image is 400 x 300 pixels.</p>
-<p><img src="/assets/cdn/canoe-w400-h300-fill.jpeg" alt="" title="Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)"></p>
-<h3 id="entropy">entropy</h3>
-<p>Crops the image using a technique that determines the most important areas. Areas of higher contrast are considered more important, and images are often cropped to remove large areas of static color.</p>
-<p><strong>Example</strong></p>
-<p><strong>Original image</strong></p>
-<p><img src="/assets/cdn/med-portrait.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)"></p>
-<p><code class="lang-vim">http<span class="hljs-variable">s:</span>//cdn.example.<span class="hljs-keyword">com</span>/images/med-portrait.jpg?<span class="hljs-keyword">w</span>=<span class="hljs-number">400</span>&amp;<span class="hljs-keyword">h</span>=<span class="hljs-number">300</span>&amp;<span class="hljs-keyword">resize</span>=entropy</code></p>
-<p><img src="/assets/cdn/med-portrait-entropy.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)"></p>
-<h2 id="crop">crop</h2>
-<p>| crop-x | Integer | Default: 0. X position of crop area | | crop-y | Integer | Default: 0. Y position of crop area |</p>
-<p>Coming soon…</p>
+<p><img src="/assets/cdn/dog-w600.jpeg" alt="Original JPG"></p>
+<p><strong>Blur amount = 1</strong></p>
+<p><img src="/assets/cdn/dog-w600-blur-1.jpeg" alt="Blur 1" title="Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)"></p>
+<p><strong>Blur amount = 5</strong></p>
+<p><img src="/assets/cdn/dog-w600-blur-5.jpeg" alt="Blur 5" title="Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)"></p>
+<p><strong>Blur amount = 10</strong></p>
+<p><img src="/assets/cdn/dog-w600-blur-10.jpeg" alt="Blur 10" title="Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)"></p>
+<p><strong>Blur amount = 20</strong></p>
+<p><img src="/assets/cdn/dog-w600-blur-20.jpeg" alt="Blur 20" title="Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)"></p>
+<p><strong>Blur amount = 100</strong></p>
+<p><img src="/assets/cdn/dog-w600-blur-100.jpeg" alt="Blur 20" title="Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)"></p>
 
 
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
-              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/concepts/cropping.md">Edit in Github</a>.
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/src/cdn/concepts/blurring.md">Edit in Github</a>.
             </p>
           </div>
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
-              <li><a class="" href="#resize">resize</a></li>
-              <li><a class="" href="#crop">crop</a></li>
           </ul>
         </div>
       </div>

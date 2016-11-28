@@ -53,6 +53,6 @@ Response JSON:
   },
  ```
 
-![input image](/cdn/assets/palette-source.jpg)
+![input image](/assets/cdn/palette-source.jpg)
 
-![generated palette](/cdn/assets/palette-output.png)
+![generated palette](/assets/cdn/palette-output.png)
