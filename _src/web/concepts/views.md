@@ -2,20 +2,6 @@
 title: Views
 ---
 
-## Views
-
-### Overview
-
-DADI Web.
-
-  * [Data](#data)
-  * [Dust](#dust)
-  * [Page Templates](#page-templates)
-  * [Partial Templates](#partial-templates)
-  * [Master Pages/Layouts](#layouts)
-  * [Helpers](#helpers)
-  * [Filters](#filters)
-
 A `page` on your website consists of two files within your application's file structure: a Page Specification and a Template.
 
 Template files are stored in the same folder as the JSON page specifications and have a `.dust` extension. The default folder for pages is `app/pages`, although this is configurable using the main application configuration (see [Configuration](https://github.com/dadi/web/blob/docs/docs/configuration_full.md)).
@@ -35,7 +21,7 @@ my-web/
       header.dust     # partial template file
 ```
 
-#### Data
+## Data
 
 ```
 {
@@ -63,7 +49,7 @@ my-web/
 }
 ```
 
-##### Global Config
+### Global Config
 
 ```
 {
@@ -76,14 +62,14 @@ my-web/
 }
 ```
 
-#### Dust
+## Dust
 
 Dust is a Javascript templating engine.
 
  * http://www.dustjs.com/
  * http://akdubya.github.io/dustjs/
 
-#### Page Templates
+## Page Templates
 
 **An example template: app/pages/films.dust**
 
@@ -108,7 +94,7 @@ Dust is a Javascript templating engine.
 </html>
 ```
 
-#### Partial Templates
+## Partial Templates
 
 Partials are reusable Dust templates that may be referenced from the main page templates. As for the page templates, partials also have access to the data loaded by datasources and events.
 
@@ -157,7 +143,7 @@ In the example below the `details` partial is referenced by relative path within
 </html>
 ```
 
-#### Layouts
+## Layouts
 
 Dust allows you to use "master page" or "layouts" so that only the content varies within the pages templates.
 
@@ -210,7 +196,7 @@ Film Index
 {/content}
 ```
 
-#### Dust Template Helpers & Filters
+## Dust Template Helpers & Filters
 
 A number of Dust template helpers are built in to DADI Web. A guide to these can be found [here](https://github.com/dadi/web/blob/docs/docs/dust_helpers.md).
 
@@ -231,7 +217,7 @@ my-web/
 
 Whether you use one file or many, DADI Web will ensure all your helpers and filters are loaded at application startup.
 
-##### Dust Helpers
+### Dust Helpers
 
 The following example helper returns the contents of the block wrapped in an HTML `<pre>` tag.
 
@@ -270,7 +256,7 @@ alert('Hello World');
 <pre>alert('Hello World');</pre>
 ```
 
-##### Dust Filters
+### Dust Filters
 
 The following example filter returns the data with the first instance of "unicorn" replaced with "horse".
 

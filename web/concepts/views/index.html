@@ -52,25 +52,13 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top--x2">
             <div class="inline-block">
-              <div class="block fwb">813 words</div>
+              <div class="block fwb">799 words</div>
               <div class="txt--grey">3 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h2 id="views">Views</h2>
-<h3 id="overview">Overview</h3>
-<p>DADI Web.</p>
-<ul>
-<li><a href="#data">Data</a></li>
-<li><a href="#dust">Dust</a></li>
-<li><a href="#page-templates">Page Templates</a></li>
-<li><a href="#partial-templates">Partial Templates</a></li>
-<li><a href="#layouts">Master Pages/Layouts</a></li>
-<li><a href="#helpers">Helpers</a></li>
-<li><a href="#filters">Filters</a></li>
-</ul>
-<p>A <code>page</code> on your website consists of two files within your application’s file structure: a Page Specification and a Template.</p>
+            <p>A <code>page</code> on your website consists of two files within your application’s file structure: a Page Specification and a Template.</p>
 <p>Template files are stored in the same folder as the JSON page specifications and have a <code class="lang-asciidoc"><span class="hljs-title">.dust</span></code> extension. The default folder for pages is <code class="lang-stata"><span class="hljs-keyword">app</span>/pages</code>, although this is configurable using the main application configuration (see <a href="https://github.com/dadi/web/blob/docs/docs/configuration_full.md">Configuration</a>).</p>
 <blockquote>
 <p><strong>Note:</strong> Unless the page specification contains an explicit <code class="lang-cpp"><span class="hljs-keyword">template</span></code> property, the template name should match the page specification name.</p>
@@ -85,7 +73,7 @@
       people.json     <span class="hljs-comment"># page specification file</span>
     partials/         <span class="hljs-comment"># partial/include templates</span>
       header.dust     <span class="hljs-comment"># partial template file</span>
-</code></pre><h4 id="data">Data</h4>
+</code></pre><h2 id="data">Data</h2>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"films"</span></span>,
   "<span class="hljs-attribute">debug</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
@@ -109,7 +97,7 @@
     </span>}
   ]
 </span>}
-</code></pre><h5 id="global-config">Global Config</h5>
+</code></pre><h3 id="global-config">Global Config</h3>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"films"</span></span>,
   "<span class="hljs-attribute">host</span>": <span class="hljs-value"><span class="hljs-string">"www.example.com"</span></span>,
@@ -118,13 +106,13 @@
   </span>}</span>,
   "<span class="hljs-attribute">films</span>": <span class="hljs-value">[]
 </span>}
-</code></pre><h4 id="dust">Dust</h4>
+</code></pre><h2 id="dust">Dust</h2>
 <p>Dust is a Javascript templating engine.</p>
 <ul>
 <li><a href="http://www.dustjs.com/">http://www.dustjs.com/</a></li>
 <li><a href="http://akdubya.github.io/dustjs/">http://akdubya.github.io/dustjs/</a></li>
 </ul>
-<h4 id="page-templates">Page Templates</h4>
+<h2 id="page-templates">Page Templates</h2>
 <p><strong>An example template: app/pages/films.dust</strong></p>
 <pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span>&gt;</span>
@@ -145,7 +133,7 @@
   <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
 </code></pre>
-<h4 id="partial-templates">Partial Templates</h4>
+<h2 id="partial-templates">Partial Templates</h2>
 <p>Partials are reusable Dust templates that may be referenced from the main page templates. As for the page templates, partials also have access to the data loaded by datasources and events.</p>
 <p>In the example below the <code>details</code> partial is referenced by relative path within the template:</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"col w-7"</span>&gt;</span>
@@ -183,7 +171,7 @@
   <span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
 </code></pre>
-<h4 id="layouts">Layouts</h4>
+<h2 id="layouts">Layouts</h2>
 <p>Dust allows you to use “master page” or “layouts” so that only the content varies within the pages templates.</p>
 <p>A layout file might contain a static header and footer, for example. These would appear on every page that references the layout, without requiring the same markup in every template. Layout files are stored in the <code>pages</code> folder.</p>
 <p><strong>An example layout: app/pages/layout.dust</strong></p>
@@ -225,7 +213,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-title">main</span>&gt;</span>
 {/content}
 </code></pre>
-<h4 id="dust-template-helpers-filters">Dust Template Helpers &amp; Filters</h4>
+<h2 id="dust-template-helpers-filters">Dust Template Helpers &amp; Filters</h2>
 <p>A number of Dust template helpers are built in to DADI Web. A guide to these can be found <a href="https://github.com/dadi/web/blob/docs/docs/dust_helpers.md">here</a>.</p>
 <p>Custom helpers and filters can be added to your application by including them within Javascript files in the configured <code>helpers</code> and <code>filters</code> folders. The default location is <code class="lang-gradle">app<span class="hljs-regexp">/utils/</span>helpers</code> and <code class="lang-gradle">app<span class="hljs-regexp">/utils/</span>filters</code>.</p>
 <p>You can either create one file containing all your helpers and one file containing all your filters or add them to the application as individual files.</p>
@@ -238,7 +226,7 @@
       wookie.js       <span class="hljs-comment"># a single filter</span>
       unicorns.js     <span class="hljs-comment"># a single filter</span>
 </code></pre><p>Whether you use one file or many, DADI Web will ensure all your helpers and filters are loaded at application startup.</p>
-<h5 id="dust-helpers">Dust Helpers</h5>
+<h3 id="dust-helpers">Dust Helpers</h3>
 <p>The following example helper returns the contents of the block wrapped in an HTML <code class="lang-apache"><span class="hljs-tag">&lt;pre&gt;</span></code> tag.</p>
 <p><strong>Helper</strong></p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// first get a reference to the `dust` instance</span>
@@ -266,7 +254,7 @@ alert('Hello World');
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Code Helper Example<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-title">pre</span>&gt;</span>alert('Hello World');<span class="hljs-tag">&lt;/<span class="hljs-title">pre</span>&gt;</span>
 </code></pre>
-<h5 id="dust-filters">Dust Filters</h5>
+<h3 id="dust-filters">Dust Filters</h3>
 <p>The following example filter returns the data with the first instance of “unicorn” replaced with “horse”.</p>
 <p><strong>Filter</strong></p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// first get a reference to the `dust` instance</span>
@@ -301,7 +289,12 @@ dust.filters.unicorn = <span class="hljs-function"><span class="hljs-keyword">fu
         </div>
          <div class="col w-1-4">
           <ul class="list--line pad__top--half stick" stick-spacer="false" stick-parent=".container">
-              <li><a class="" href="#views">Views</a></li>
+              <li><a class="" href="#data">Data</a></li>
+              <li><a class="" href="#dust">Dust</a></li>
+              <li><a class="" href="#page-templates">Page Templates</a></li>
+              <li><a class="" href="#partial-templates">Partial Templates</a></li>
+              <li><a class="" href="#layouts">Layouts</a></li>
+              <li><a class="" href="#dust-template-helpers-filters">Dust Template Helpers &amp; Filters</a></li>
           </ul>
         </div>
       </div>
