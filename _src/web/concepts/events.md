@@ -23,7 +23,7 @@ my-web/
 
 ### Global Events
 
-In main configuration file
+In the main configuration file:
 
 ```js
 globalEvents: [
@@ -33,7 +33,7 @@ globalEvents: [
 
 ### Preload Events
 
-In page specification file
+In a page specification file:
 
 ```js
 "preloadEvents": [
@@ -43,7 +43,7 @@ In page specification file
 
 ### Filter Events
 
-In datasource specification file
+In a datasource specification file:
 
 ```js
 "filterEvent": "filterevent-one"
