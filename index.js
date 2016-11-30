@@ -138,7 +138,10 @@ Metalsmith(__dirname)
     },
     Web: {
       pattern: 'web/**/*.md',
-      sortBy: sorter(['Web', 'Getting Started', 'Concepts', 'Everyday Usage'])
+      sortBy: sorter(['Web', 'Getting Started', 'Concepts', 'Everyday Usage',
+        'Pages', 'Datasources', 'Events', 'Views', 'Routing', 'Caching', 'Security', 'Sessions',
+        'Examples'
+      ])
     }
   }))
   .use(pageTitles())
