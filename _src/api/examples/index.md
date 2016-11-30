@@ -5,7 +5,7 @@ title: Code Examples
 * [cURL](curl)
 * [Go](go)
 * [Javascript](javascript)
-* [Node.js](node)
+* [Node.js](nodejs)
 * [Perl](perl)
 * [PHP](php)
 * [Python](python)
