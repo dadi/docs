@@ -11,7 +11,7 @@ Obtain a token by sending a POST request to the `/token` endpoint and passing yo
 ### Example Request using curl
 
 ```
-curl -X POST -H "Content-Type: application/json" --data "clientId=your-client-id&secret=your-secret" "http://api.example.com/token"
+curl -X POST -H "Content-Type: application/json" --data "{\"clientId\":\"testClient\",\"secret\":\"superSecret\"}" "http://api.example.com/token"
 ```
 
 ### Example request using Node.JS
