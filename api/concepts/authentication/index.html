@@ -51,11 +51,11 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
                 </a>   
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2016-12-10T01:50:15Z">10th December 2016</span>
               </div>
             <div class="inline-block">
               <div class="block fwb">218 words</div>
@@ -68,7 +68,7 @@
 <p>Every request to the API requires a Bearer token which should be passed as a header.</p>
 <p>Obtain a token by sending a POST request to the <code class="lang-livecodeserver">/<span class="hljs-keyword">token</span></code> endpoint and passing your client credentials in the body of the request:</p>
 <h3 id="example-request-using-curl">Example Request using curl</h3>
-<pre><code class="lang-smalltalk">curl -<span class="hljs-class">X</span> <span class="hljs-class">POST</span> -<span class="hljs-class">H</span> <span class="hljs-comment">"Content-Type: application/json"</span> --data <span class="hljs-comment">"clientId=your-client-id&amp;secret=your-secret"</span> <span class="hljs-comment">"http://api.example.com/token"</span>
+<pre><code class="lang-stata">curl -X <span class="hljs-keyword">POST</span> -<span class="hljs-keyword">H</span> <span class="hljs-string">"Content-Type: application/json"</span> --data <span class="hljs-string">"{\"</span>clientId\<span class="hljs-string">":\"</span>testClient\<span class="hljs-string">",\"</span>secret\<span class="hljs-string">":\"</span>superSecret\<span class="hljs-string">"}"</span> <span class="hljs-string">"http://api.example.com/token"</span>
 </code></pre><h3 id="example-request-using-node-js">Example request using Node.JS</h3>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http'</span>)
 

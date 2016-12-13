@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Uploading Images | DADI Documentation</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="http://stage.dadi.tech/assets/css/main.min.css?v=2">
@@ -42,7 +42,7 @@
                 <li class="fwb"><a href="/cdn/concepts">Concepts</a></li>
       </ul>
 
-      <div class="larger hdr"></div>
+      <div class="larger hdr">Uploading Images</div>
     </div>
   </div>
 </div>
@@ -52,28 +52,40 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
                 </a>   
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2016-11-30T05:14:38Z">30th November 2016</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">333 words</div>
+              <div class="block fwb">459 words</div>
               <div class="txt--grey">2 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h3 id="configuration">Configuration</h3>
+            <h3 id="filename-clashes">Filename clashes</h3>
+<p>If the filename of an image being uploaded is the same as an existing file on the CDN, the new file will have it’s name changed by adding the current timestamp:</p>
+<ul>
+<li>Existing filename: <code class="lang-css"><span class="hljs-tag">test</span><span class="hljs-class">.jpg</span></code></li>
+<li>New filename: <code class="lang-bash"><span class="hljs-built_in">test</span>-<span class="hljs-number">1480482847099</span>.jpg</code></li>
+</ul>
+<h3 id="configuration">Configuration</h3>
 <ul>
 <li><strong>requireAuthentication</strong>: If true, POST requests must include the authentication credentials specified in the <code>auth</code> property</li>
-<li><strong>pathFormat</strong>: “none”, “date”, “datetime”, “sha1/4”, “sha1/5”, sha1/8”</li>
+<li><strong>pathFormat</strong>: must be one of <code class="lang-1c"><span class="hljs-string">"none"</span></code>, <code class="lang-1c"><span class="hljs-string">"date"</span></code>, <code class="lang-1c"><span class="hljs-string">"datetime"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/4"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/5"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/8"</span></code></li>
 </ul>
-<h4 id="pathformat-by-example">pathFormat by example</h4>
+<h4 id="pathformats">pathFormats</h4>
 <ul>
-<li><strong>sha1/4</strong>: computes the SHA1 hash of the image’s filename and splits this into chunks x-characters long, where x is determined by the number following “sha1/“</li>
+<li><strong>none</strong>:</li>
+<li><strong>date</strong>:</li>
+<li><strong>datetime</strong>:</li>
+<li><strong>sha1/4</strong>: computes the SHA1 hash of the image’s filename and splits this into chunks x-characters long, where x is determined by the number following <code>sha1/</code></li>
+<li><strong>sha1/5</strong>: computes the SHA1 hash of the image’s filename and splits this into chunks x-characters long, where x is determined by the number following <code>sha1/</code></li>
+<li><strong>sha1/8</strong>: computes the SHA1 hash of the image’s filename and splits this into chunks x-characters long, where x is determined by the number following <code>sha1/</code></li>
 </ul>
+<h4 id="example">Example</h4>
 <pre><code class="lang-json"><span class="hljs-string">"upload"</span>: {
   "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
   "<span class="hljs-attribute">requireAuthentication</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
@@ -84,8 +96,9 @@
 <p>If <code>requireAuthentication</code> is true then a Bearer token must be supplied in an <code>Authorization</code> header along with the POST request.</p>
 <h4 id="obtaining-a-token">Obtaining a token</h4>
 <p>The <code>clientId</code> and <code>secret</code> values must match those specified in the <code>auth</code> property of the configuration file.</p>
-<pre><code class="lang-stata">curl -i -X <span class="hljs-keyword">POST</span> -<span class="hljs-keyword">H</span> <span class="hljs-string">"Content-Type: application/json"</span> --data '{<span class="hljs-string">"clientId"</span>: <span class="hljs-string">"your-client-idId"</span>,<span class="hljs-string">"secret"</span>: <span class="hljs-string">"testSecret"</span>}' <span class="hljs-string">"http://cdn.example.com/token"</span>
-</code></pre><pre><code class="lang-http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
+<pre><code class="lang-bash">curl -i -X POST -H <span class="hljs-string">"Content-Type: application/json"</span> --data <span class="hljs-string">'{"clientId": "your-client-idId","secret": "testSecret"}'</span> <span class="hljs-string">"http://cdn.example.com/token"</span>
+</code></pre>
+<pre><code class="lang-http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
 <span class="hljs-attribute">Server</span>: <span class="hljs-string">DADI (CDN)</span>
 <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span>
 <span class="hljs-attribute">Cache-Control</span>: <span class="hljs-string">no-store</span>
@@ -95,28 +108,47 @@
 <span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">92</span>
 
 <span class="json">{"<span class="hljs-attribute">accessToken</span>":<span class="hljs-value"><span class="hljs-string">"8df4a823-1e1e-4bc4-800c-97bb480ccbbe"</span></span>,"<span class="hljs-attribute">tokenType</span>":<span class="hljs-value"><span class="hljs-string">"Bearer"</span></span>,"<span class="hljs-attribute">expiresIn</span>":<span class="hljs-value"><span class="hljs-number">1800</span></span>}
-</span></code></pre><h3 id="request">Request</h3>
-<pre><code class="lang-nginx"><span class="hljs-title">curl</span> -i -X POST -F <span class="hljs-string">"data=<span class="hljs-variable">@test</span>.jpg"</span> <span class="hljs-url">http://cdn.example.com/api/upload</span> -H <span class="hljs-string">"Authorization: Bearer 8df4a823-1e1e-4bc4-800c-97bb480ccbb1"</span>
-</code></pre><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> req = request.post(url, (err, resp, body) =&gt; {
-  <span class="hljs-keyword">if</span> (err) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error!'</span>)
-  } <span class="hljs-keyword">else</span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'URL: '</span> + body)
-  }
-})
-
-<span class="hljs-keyword">var</span> form = req.form()
-
-form.append(<span class="hljs-string">'file'</span>, <span class="hljs-string">'&lt;FILE_DATA&gt;'</span>, {
-  filename: <span class="hljs-string">'myfile.jpg'</span>,
-  contentType: <span class="hljs-string">'image/jpeg'</span>
-})
+</span></code></pre>
+<h3 id="uploading-a-file-with-curl">Uploading a file with cURL</h3>
+<pre><code class="lang-bash">curl -X POST
+  -H <span class="hljs-string">"Content-Type: multipart/form-data"</span>
+  -H <span class="hljs-string">"Authorization: Bearer 8df4a823-1e1e-4bc4-800c-97bb480ccbb1"</span>
+  -F <span class="hljs-string">"data=@test.jpg"</span> <span class="hljs-string">"http://cdn.somedomain.tech/api/upload"</span>
 </code></pre>
-<p>However if you want to post an existing file from your file system, then you may simply pass it as a readable stream:</p>
-<pre><code class="lang-javascript">form.append(<span class="hljs-string">'file'</span>, fs.createReadStream(filepath))
+<h3 id="uploading-a-file-with-node-js">Uploading a file with Node.js</h3>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'request'</span>)
+<span class="hljs-keyword">var</span> FormData = <span class="hljs-built_in">require</span>(<span class="hljs-string">'form-data'</span>)
+
+<span class="hljs-keyword">var</span> options = {
+  host: <span class="hljs-string">'cdn.somedomain.tech'</span>,
+  port: <span class="hljs-number">80</span>,
+  path: <span class="hljs-string">'/api/upload'</span>,
+  headers: {
+    <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'Bearer '</span> + accessToken,
+    <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json'</span>
+  }
+}
+
+<span class="hljs-keyword">var</span> uploadResult
+
+<span class="hljs-keyword">var</span> form = <span class="hljs-keyword">new</span> FormData()
+form.append(<span class="hljs-string">'file'</span>, fs.createReadStream(filePath))
+
+form.submit(options, (err, response, body) =&gt; {
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> reject(err)
+
+  response.on(<span class="hljs-string">'data'</span>, (chunk) =&gt; {
+    <span class="hljs-keyword">if</span> (chunk) uploadResult += chunk
+  })
+
+  response.on(<span class="hljs-string">'end'</span>, () =&gt; {
+    uploadResult = <span class="hljs-built_in">JSON</span>.parse(uploadResult)
+    <span class="hljs-built_in">console</span>.log(uploadResult.path)
+  })
+})
 </code></pre>
 <h3 id="response">Response</h3>
-<p>If successful, expect a response similar to the below example. If using file storage, the <code>ETag</code> and <code>awsUrl</code> properties will not be returned.</p>
+<p>If successful, expect a response similar to the below example. If using filesystem storage, the <code>ETag</code> and <code>awsUrl</code> properties will not be returned.</p>
 <pre><code class="lang-http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">201</span> Created</span>
 <span class="hljs-attribute">Server</span>: <span class="hljs-string">DADI (CDN)</span>
 <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span>
@@ -125,7 +157,10 @@ form.append(<span class="hljs-string">'file'</span>, <span class="hljs-string">'
 <span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
 
 <span class="json">{"<span class="hljs-attribute">ETag</span>":<span class="hljs-value"><span class="hljs-string">"\"25bdabbcaeffdba81ed006f720042222\""</span></span>,"<span class="hljs-attribute">message</span>":<span class="hljs-value"><span class="hljs-string">"File uploaded"</span></span>,"<span class="hljs-attribute">path</span>":<span class="hljs-value"><span class="hljs-string">"8307a11d/9c0006c8/78d84b43/7b2044fb/ca1d31b1/test.jpg"</span></span>,"<span class="hljs-attribute">awsUrl</span>":<span class="hljs-value"><span class="hljs-string">"https://bucket.s3.amazonaws.com/8307a11d/9c0006c8/78d84b43/7b2044fb/ca1d31b1/test.jpg"</span></span>}
-</span></code></pre><pre><code class="lang-http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">401</span> Unauthorized</span>
+</span></code></pre>
+<h3 id="errors">Errors</h3>
+<h4 id="using-an-expired-or-invalid-access-token">Using an expired or invalid access token</h4>
+<pre><code class="lang-http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">401</span> Unauthorized</span>
 <span class="hljs-attribute">Server</span>: <span class="hljs-string">DADI (CDN)</span>
 <span class="hljs-attribute">WWW-Authenticate</span>: <span class="hljs-string">Bearer, error="invalid_token", error_description="Invalid or expired access token"</span>
 <span class="hljs-attribute">Cache-Control</span>: <span class="hljs-string">private, no-cache, no-store, must-revalidate</span>
@@ -136,8 +171,11 @@ form.append(<span class="hljs-string">'file'</span>, <span class="hljs-string">'
 <span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">33</span>
 
 <span class="json">{"<span class="hljs-attribute">Error</span>":<span class="hljs-value"><span class="hljs-string">"HTTP 401 Unauthorized"</span></span>}
-</span></code></pre><pre><code class="lang-nginx"><span class="hljs-title">curl</span> -i -X POST -F <span class="hljs-string">"data=<span class="hljs-variable">@test</span>.jpg"</span> <span class="hljs-url">http://cdn.example.com/api/upload</span>
-</code></pre><pre><code class="lang-http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">401</span> Unauthorized</span>
+</span></code></pre>
+<h4 id="no-token-supplied">No token supplied</h4>
+<pre><code class="lang-bash">curl -i -X POST -F <span class="hljs-string">"data=@test.jpg"</span> http://cdn.example.com/api/upload
+</code></pre>
+<pre><code class="lang-http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">401</span> Unauthorized</span>
 <span class="hljs-attribute">Server</span>: <span class="hljs-string">DADI (CDN)</span>
 <span class="hljs-attribute">WWW-Authenticate</span>: <span class="hljs-string">Bearer, error="no_token", error_description="No access token supplied"</span>
 <span class="hljs-attribute">Cache-Control</span>: <span class="hljs-string">private, no-cache, no-store, must-revalidate</span>
@@ -150,6 +188,7 @@ form.append(<span class="hljs-string">'file'</span>, <span class="hljs-string">'
 <span class="json">{"<span class="hljs-attribute">Error</span>":<span class="hljs-value"><span class="hljs-string">"HTTP 401 Unauthorized"</span></span>}
 </span></code></pre>
 
+
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
               See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/cdn/concepts/upload.md">Edit in Github</a>.
             </p>
@@ -160,6 +199,10 @@ form.append(<span class="hljs-string">'file'</span>, <span class="hljs-string">'
             <ul class="list--line">
                 <li>
                   <strong class="txt--grey block">Prev</strong>
+                  <a href="/cdn/concepts/sharpen">Sharpen</a>
+                </li>
+                <li>
+                  <strong class="txt--grey block">Next</strong>
                   <a href="/cdn/examples/dadi-web">Using with DADI Web</a>
                 </li>
             </ul>
