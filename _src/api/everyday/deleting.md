@@ -14,6 +14,8 @@ Deletes the record with the id of `{:id}` from the `{collection}` collection in 
 
 ## Delete Existing Resource with query body
 
+**URL Format:** http(s)://{url}/{version}/{database}/{collection}/
+
 **Example:** `http://api.example.com/1.0/library/books/`
 
 **Body**
