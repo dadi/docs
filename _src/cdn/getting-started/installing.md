@@ -28,7 +28,7 @@ $ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slav
 All our platform microservices are available from [NPM](https://www.npmjs.com/). To install *CDN*:
 
 ```
-$ npm install --prefix cdn @dadi/cdn
+$ npm install @dadi/cdn
 ```
 
 ## Manual install
