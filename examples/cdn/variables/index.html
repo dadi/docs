@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DADI CDN example</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="./main.css">
+  <link rel="stylesheet" type="text/css" href="./selectize.default.css">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+</head>
+<body>
+
+<h1><span>The sandbox</span> <img src="cdn.png" width="170"></h1>
+
+<div class="sources">
+  <ul>
+    <li><a href="#sample" class="active">Sample</a></li>
+    <li><a href="#upload">Upload</a></li>
+    <li><a href="#external">External</a></li>
+  </ul>
+
+  <div class="source" id="sample">
+    <a href=""><img src="eg.jpg" width="55"></a>
+    <a href=""><img src="eg.jpg" width="55"></a>
+    <a href=""><img src="eg.jpg" width="55"></a>
+    <a href=""><img src="eg.jpg" width="55"></a>
+    <a href=""><img src="eg.jpg" width="55"></a>
+    <a href=""><img src="eg.jpg" width="55"></a>
+  </div>
+  <div class="source hide" id="upload">
+    <form method="post" action="">
+      <input type="file" name="upload">
+      <input type="submit" value="Upload">
+    </form>
+  </div>
+  <div class="source hide" id="external">
+    <form method="post" action="">
+      <input type="text" name="image">
+      <input type="submit" value="Fetch">
+    </form>
+  </div>
+
+  <div class="url">
+    https://cdn.example.com/images/man-walking-on-beach.jpg?w=200&h=340&resizeStyle=stretch
+  </div>
+</div>
+
+<div class="page cf">
+  <div class="image">
+    <img src="eg2.jpg">
+  </div>
+  <div class="settings">
+    <ul>
+      <li><strong style="color:#ECB344">Domain</strong> somedomain.tech</li>
+      <li><strong style="color:#C969F5">Source</strong> images</li>
+      <li><strong style="color:#FF5252">File</strong> test.jpg</li>
+
+      <li id="addprop" class="hide">
+        <div class="prop-select">
+          <select>
+            <optgroup label="Resizing">
+              <option value="width">Width</option>
+              <option value="height">Height</option>
+              <option value="ratio">Aspect ratio</option>
+              <option value="resize">Resize style</option>
+            </optgroup>
+          </select> 
+        </div>
+        <input class="prop-input" type="text" placeholder="value">
+        <span class="js-killprop">𝖷</span>
+      </li>
+    </ul>
+    <a href="#" class="btn js-addprop">New property +</a>
+  </div>
+</div>
+
+
+<!-- 
+parse url
+selectize properties
+-->
+
+
+<!-- <h1>Features</h1>
+<ul>
+  <li>Upload or drag from URL</li>
+  <li>Pre made examples</li>
+  <li>Combining images with layout
+  <li>Resizing</li>
+  <li>Flipping</li>
+  <li>Bluring</li>
+  <li>Cropping</li>
+  <li>Interpolation</li>
+  <li>Converting between formats</li>
+  <li>Compression &amp; quality</li>
+  <li>Adjusting saturation</li>
+  <li>Sharpen images</li>
+  <li>Rotating</li>
+  <li>Dynamic responsive images</li>
+</ul> -->
+
+<script type="text/javascript" src="./jquery.min.js"></script>
+<script type="text/javascript" src="./selectize.min.js"></script>
+<script type="text/javascript" src="./main.js"></script>
+</body>
+</html>
