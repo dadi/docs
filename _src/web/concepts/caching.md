@@ -2,16 +2,7 @@
 title: Caching
 ---
 
-## Caching
-
-### Overview
-
-* [Configuration](#configuration)
-* [Page Caching](#page-caching)
-* [Datasource Caching](#datasource-caching)
-* [Cache Invalidation](#cache-invalidation)
-
-### Configuration
+## Configuration
 
 ```js
 "caching": {
@@ -41,7 +32,7 @@ redis.enabled           | If true, cache files will be stored in the Redis cache
 redis.host           | The host for the Redis caching service   |    ""           |  "localhost"
 redis.port           | The port for the Redis caching service   |    6379           |  6379
 
-### Page Caching
+## Page Caching
 
 Controls the caching of rendered HTML output. To enable page caching, ensure that the main configuration file has either `directory` or `redis` caching enabled, and the below `cache` setting is set for the page in question.
 
@@ -51,7 +42,7 @@ Controls the caching of rendered HTML output. To enable page caching, ensure tha
 }
 ```
 
-### Datasource Caching
+## Datasource Caching
 
 Data received from the API via datasources can be cached by adding a `caching` block to the datasource specification file.
 
@@ -74,7 +65,7 @@ extension           | (optional) The file extension to use for datasource cache 
 **Note:** If `directory` or `extension` are not specified, values from the main configuration file will be used instead.
 
 
-### Cache Invalidation
+## Cache Invalidation
 
 DADI Web supports two types of cache invalidation: by specific path or the entire cache.
 
@@ -84,7 +75,7 @@ In both cases the request must be a POST and the body must have the following pr
 * `clientId`: must match the `auth.clientId` in the application's config file
 * `secret`: must match the `auth.secret` in the application's config file
 
-#### Specific Path Invalidation
+### Specific Path Invalidation
 
 ```
 POST /api/flush HTTP/1.1
@@ -94,7 +85,7 @@ Content-Type: application/json
 {"path": "/books", "clientId": "your-client-id", "secret": "your-secret"}
 ```
 
-#### Entire Cache Invalidation
+### Entire Cache Invalidation
 
 ```
 POST /api/flush HTTP/1.1
