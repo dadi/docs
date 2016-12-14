@@ -56,24 +56,16 @@
                   <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
                 </a>   
                 <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+                <span class="block txt--grey" title="Last updated: 2016-12-14T12:45:32Z">14th December 2016</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">452 words</div>
+              <div class="block fwb">443 words</div>
               <div class="txt--grey">2 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h2 id="caching">Caching</h2>
-<h3 id="overview">Overview</h3>
-<ul>
-<li><a href="#configuration">Configuration</a></li>
-<li><a href="#page-caching">Page Caching</a></li>
-<li><a href="#datasource-caching">Datasource Caching</a></li>
-<li><a href="#cache-invalidation">Cache Invalidation</a></li>
-</ul>
-<h3 id="configuration">Configuration</h3>
+            <h2 id="configuration">Configuration</h2>
 <pre><code class="lang-javascript"><span class="hljs-string">"caching"</span>: {
   <span class="hljs-string">"ttl"</span>: <span class="hljs-number">300</span>,
   <span class="hljs-string">"directory"</span>: {
@@ -154,13 +146,13 @@
 </tr>
 </tbody>
 </table>
-<h3 id="page-caching">Page Caching</h3>
+<h2 id="page-caching">Page Caching</h2>
 <p>Controls the caching of rendered HTML output. To enable page caching, ensure that the main configuration file has either <code class="lang-livecodeserver"><span class="hljs-built_in">directory</span></code> or <code>redis</code> caching enabled, and the below <code class="lang-lasso"><span class="hljs-keyword">cache</span></code> setting is set for the page in question.</p>
 <pre><code class="lang-javascript"><span class="hljs-string">"settings"</span>: {
   <span class="hljs-string">"cache"</span>: <span class="hljs-literal">true</span>
 }
 </code></pre>
-<h3 id="datasource-caching">Datasource Caching</h3>
+<h2 id="datasource-caching">Datasource Caching</h2>
 <p>Data received from the API via datasources can be cached by adding a <code>caching</code> block to the datasource specification file.</p>
 <pre><code class="lang-javascript"><span class="hljs-string">"caching"</span>: {
   <span class="hljs-string">"enabled"</span>: <span class="hljs-literal">true</span>,
@@ -206,7 +198,7 @@
 </tbody>
 </table>
 <p><strong>Note:</strong> If <code class="lang-livecodeserver"><span class="hljs-built_in">directory</span></code> or <code class="lang-oxygene"><span class="hljs-keyword">extension</span></code> are not specified, values from the main configuration file will be used instead.</p>
-<h3 id="cache-invalidation">Cache Invalidation</h3>
+<h2 id="cache-invalidation">Cache Invalidation</h2>
 <p>DADI Web supports two types of cache invalidation: by specific path or the entire cache.</p>
 <p>In both cases the request must be a POST and the body must have the following properties:</p>
 <ul>
@@ -214,13 +206,13 @@
 <li><code>clientId</code>: must match the <code class="lang-css"><span class="hljs-tag">auth</span><span class="hljs-class">.clientId</span></code> in the application’s config file</li>
 <li><code>secret</code>: must match the <code class="lang-css"><span class="hljs-tag">auth</span><span class="hljs-class">.secret</span></code> in the application’s config file</li>
 </ul>
-<h4 id="specific-path-invalidation">Specific Path Invalidation</h4>
+<h3 id="specific-path-invalidation">Specific Path Invalidation</h3>
 <pre><code class="lang-http"><span class="hljs-request">POST <span class="hljs-string">/api/flush</span> HTTP/1.1</span>
 <span class="hljs-attribute">Host</span>: <span class="hljs-string">www.example.com</span>
 <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span>
 
 <span class="json">{"<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"/books"</span></span>, "<span class="hljs-attribute">clientId</span>": <span class="hljs-value"><span class="hljs-string">"your-client-id"</span></span>, "<span class="hljs-attribute">secret</span>": <span class="hljs-value"><span class="hljs-string">"your-secret"</span></span>}
-</span></code></pre><h4 id="entire-cache-invalidation">Entire Cache Invalidation</h4>
+</span></code></pre><h3 id="entire-cache-invalidation">Entire Cache Invalidation</h3>
 <pre><code class="lang-http"><span class="hljs-request">POST <span class="hljs-string">/api/flush</span> HTTP/1.1</span>
 <span class="hljs-attribute">Host</span>: <span class="hljs-string">www.example.com</span>
 <span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span>
@@ -247,7 +239,10 @@
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#caching">Caching</a></li>
+                <li><a class="" href="#configuration">Configuration</a></li>
+                <li><a class="" href="#page-caching">Page Caching</a></li>
+                <li><a class="" href="#datasource-caching">Datasource Caching</a></li>
+                <li><a class="" href="#cache-invalidation">Cache Invalidation</a></li>
             </ul>
         </div>
       </div>
