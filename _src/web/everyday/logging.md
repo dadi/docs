@@ -1,5 +1,0 @@
----
-title: Logging
----
-
-Coming soon…
