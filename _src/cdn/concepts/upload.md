@@ -1,5 +1,6 @@
 ---
 title: Uploading Images
+order: 6
 ---
 
 ### Filename clashes
@@ -42,7 +43,7 @@ If `requireAuthentication` is true then a Bearer token must be supplied in an `A
 The `clientId` and `secret` values must match those specified in the `auth` property of the configuration file.
 
 ```bash
-curl -i -X POST -H "Content-Type: application/json" --data '{"clientId": "your-client-idId","secret": "testSecret"}' "http://cdn.example.com/token"
+curl -i -X POST -H "Content-Type: application/json" --data '{"clientId": "your-client-id","secret": "testSecret"}' "http://cdn.example.com/token"
 ```
 
 ```http

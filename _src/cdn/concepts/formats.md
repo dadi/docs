@@ -1,8 +1,9 @@
 ---
-title: Format
+title: Image format conversion
+order: 100
 ---
 
-> The `format` parameter can be added to the querystring as either `fmt` or `format`
+> **URL parameter:** `format`, `fmt`
 
 # From JPG
 

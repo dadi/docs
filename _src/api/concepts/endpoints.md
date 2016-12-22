@@ -1,5 +1,7 @@
 ---
 title: Working with endpoints
+excerpt: Let CDN choose the recipe based on device, network, location or language
+order: 9
 ---
 
 Endpoints in DADI API can be either be mapped directly to collections in MongoDB or custom based on a wider requirements set.

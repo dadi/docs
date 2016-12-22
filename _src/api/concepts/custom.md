@@ -1,5 +1,7 @@
 ---
 title: Custom Endpoints
+excerpt: Let CDN choose the recipe based on device, network, location or language
+order: 9
 ---
 
 ## Introduction

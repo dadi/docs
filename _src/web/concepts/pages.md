@@ -1,8 +1,8 @@
 ---
 title: Pages
+excerpt: Add pages to your application and configure routing
+order: 1
 ---
-
-# Introduction
 
 A `page` on your website consists of two files within your application's file structure: a Page Specification and a Template.
 
