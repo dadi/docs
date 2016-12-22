@@ -1,6 +1,6 @@
 ---
 title: Uploading Media
-excerpt: Let CDN choose the recipe based on device, network, location or language
+excerpt: Configure your API to accept file uploads, and store your file-based content with your text-based content
 order: 9
 ---
 

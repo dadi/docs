@@ -1,6 +1,6 @@
 ---
-title: Authorisation
-excerpt: Let CDN choose the recipe based on device, network, location or language
+title: Authentication
+excerpt: Using client credentials to obtain access tokens for accessing your API 
 order: 9
 ---
 

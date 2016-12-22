@@ -1,10 +1,8 @@
 ---
 title: Collections
-excerpt: Let CDN choose the recipe based on device, network, location or language
+excerpt: Configure Collections, the storage containers for your data within API
 order: 9
 ---
-
-# Introduction
 
  * [Collection specification](#collection-specification)
  * [Field specification](#field-specification)
@@ -23,8 +21,7 @@ DADI API handles creation and modification of database collections in MongoDB di
 
 Collection specifications are simply JSON files stored in your application's `/workspace/collections` folder. It is important to understand how the folder hierarchy in the collections folder affects the behaviour of your API.
 
-
-```sh
+```bash
 my-api/
   workspace/
     collections/                    

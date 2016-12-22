@@ -1,16 +1,12 @@
 ---
 title: Custom Endpoints
-excerpt: Let CDN choose the recipe based on device, network, location or language
+excerpt: Combine datasources and modify or enrich data using custom endpoints
 order: 9
 ---
 
-## Introduction
-
 DADI API custom endpoints give you the ability to modify, enrich and massage your data before it is returned to the user making the request. Collection endpoints return raw data in response to requests, custom endpoints give you more control over what you return.
 
- * [Endpoint specification](#endpoint-specification)
-
-### Endpoint Specification
+## Endpoint Specification
 
 Endpoint specifications are simply Javascript files stored in your application's `/workspace/endpoints` folder. It is important to understand how the folder hierarchy in the endpoints folder affects the behaviour of your API.
 

@@ -1,10 +1,8 @@
 ---
 title: Hooks
-excerpt: Let CDN choose the recipe based on device, network, location or language
+excerpt: Perform operations on data before/after GET, UPDATE and DELETE requests
 order: 9
 ---
-
-## Introduction ##
 
 In its essence, a hook is simply a function that intercepts a document/query before it's executed, having the option to modify it before returning it back to the model.
 

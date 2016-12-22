@@ -1,6 +1,6 @@
 ---
 title: Querying Collections
-excerpt: Let CDN choose the recipe based on device, network, location or language
+excerpt: Query collections using predefined or runtime filters, returning only the data you need
 order: 9
 ---
 

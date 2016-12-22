@@ -1,6 +1,6 @@
 ---
 title: Server Status
-excerpt: Let CDN choose the recipe based on device, network, location or language
+excerpt: Obtain realtime information regarding the health of your API
 order: 9
 ---
 

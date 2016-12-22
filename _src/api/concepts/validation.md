@@ -1,10 +1,8 @@
 ---
-title: Validation
-excerpt: Let CDN choose the recipe based on device, network, location or language
+title: Data Validation
+excerpt: Configure API collections to validate incoming data  
 order: 9
 ---
-
-## Overview
 
 Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema.
 
