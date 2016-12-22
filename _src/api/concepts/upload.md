@@ -1,6 +1,6 @@
 ---
 title: Uploading Media
-excerpt: Configure your API to accept file uploads, and store your file-based content with your text-based content
+excerpt: Accept file uploads, and store your file-based content with your text-based content
 order: 9
 ---
 
