@@ -51,34 +51,40 @@
       <div class="grid">
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
-              <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
-                </a>   
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
-              </div>
             <div class="inline-block">
-              <div class="block fwb">39 words</div>
+              <div class="block fwb">193 words</div>
               <div class="txt--grey">1 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <p>Specify the interpolation method to use when resizing images. If not specified, the default is “lanczos”.</p>
-<blockquote>
-<p>The <code class="lang-golo"><span class="hljs-keyword">filter</span></code> parameter can be added to the querystring as either <code class="lang-stata"><span class="hljs-literal">f</span></code> or <code class="lang-golo"><span class="hljs-keyword">filter</span></code></p>
+            <blockquote>
+<p><strong>URL parameter:</strong> <code class="lang-golo"><span class="hljs-keyword">filter</span></code>, <code class="lang-stata"><span class="hljs-literal">f</span></code></p>
 </blockquote>
-<p><code class="lang-vim">http<span class="hljs-variable">s:</span>//cdn.example.<span class="hljs-keyword">com</span>/images/dog.jpg?width=<span class="hljs-number">600</span>&amp;height=<span class="hljs-number">400</span>&amp;<span class="hljs-keyword">resize</span>=aspectfill&amp;<span class="hljs-built_in">filter</span>=linear</code></p>
+<p>This parameter allows you to specify the interpolation method to use when resizing images. If not specified, the default is <code>lanczos</code>.</p>
+<p>When reducing the size of an image (or downsampling), some image data is simply discarded. However when increasing image dimensions, the image is expanded and gaps must be “filled in”. Each interpolation filter uses a different algorithm for determining how to fill the gaps.</p>
 <p>Possible values:</p>
 <ul>
-<li>“nearest-neighbor”</li>
-<li>“moving-average”</li>
-<li>“linear”</li>
-<li>“grid”</li>
-<li>“cubic”</li>
-<li>“lanczos”</li>
+<li><code>lanczos</code> (default)</li>
+<li><code class="lang-fortran"><span class="hljs-built_in">nearest</span>-neighbor</code></li>
+<li><code>linear</code></li>
+<li><code>cubic</code></li>
+<li><code class="lang-mel"><span class="hljs-keyword">grid</span></code></li>
+<li><code class="lang-livecodeserver">moving-<span class="hljs-built_in">average</span></code></li>
 </ul>
+<h2 id="example">Example</h2>
+<pre><code class="lang-http"><span class="hljs-attribute">https://cdn.somedomain.tech/images/dog.jpg?width=600&amp;height=400&amp;resize=aspectfill&amp;filter=linear
+</span></code></pre>
+<h2 id="filters">Filters</h2>
+<h3 id="nearest-neighbor">nearest-neighbor</h3>
+<p>The simplest approach to interpolation. Rather than calculating an average value by some weighting criteria or generating an intermediate value based on complicated rules, this method simply determines the “nearest” neighbouring pixel, and assumes the intensity value of it.</p>
+<h3 id="linear">linear</h3>
+<p>Considers the closest two pixels and takes a weighted average to arrive at its final interpolated value. Results in a much smoother image than <code class="lang-fortran"><span class="hljs-built_in">nearest</span>-neighbor</code>.</p>
+<h3 id="cubic">cubic</h3>
+<p>Images resampled with cubic interpolation are smoother and have fewer interpolation artifacts, but processing is slower than with <code>linear</code> or <code class="lang-fortran"><span class="hljs-built_in">nearest</span>-neighbor</code>.</p>
+<h3 id="lanczos">lanczos</h3>
+<p>Tends to reduce aliasing artifacts and preserve sharp edges. <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.116.7898">It has been considered the “best compromise”</a> among several simple filters for this purpose.</p>
+
 
 
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
@@ -91,15 +97,17 @@
             <ul class="list--line">
                 <li>
                   <strong class="txt--grey block">Prev</strong>
-                  <a href="/cdn/getting-started/installing">Installing DADI CDN</a>
+                  <a href="/cdn/concepts/cache">Caching</a>
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
-                  <a href="/cdn/concepts/layout">Layout Processor</a>
+                  <a href="/cdn/concepts/blurring">Blur</a>
                 </li>
             </ul>
 
             <ul class="list--line pad__top--half">
+                <li><a class="" href="#example">Example</a></li>
+                <li><a class="" href="#filters">Filters</a></li>
             </ul>
         </div>
       </div>

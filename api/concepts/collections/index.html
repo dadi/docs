@@ -39,6 +39,7 @@
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
                 <li class=""><a href="/api">API</a></li>
+                <li class="fwb"><a href="/api/concepts">Concepts</a></li>
       </ul>
 
       <div class="larger hdr">Collections</div>
@@ -51,21 +52,20 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
-                </a>   
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2016-12-22T06:11:09Z">22nd December 2016</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">2146 words</div>
+              <div class="block fwb">2145 words</div>
               <div class="txt--grey">8 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h1 id="introduction">Introduction</h1>
-<ul>
+            <ul>
 <li><a href="#collection-specification">Collection specification</a></li>
 <li><a href="#field-specification">Field specification</a></li>
 <li><a href="#field-types">Field types</a></li>
@@ -80,7 +80,7 @@
 <h2 id="collection-specification">Collection Specification</h2>
 <p>DADI API handles creation and modification of database collections in MongoDB directly. All that is required in order to create a new database collection and it’s associated collection endpoint is the creation of the collection specification file.</p>
 <p>Collection specifications are simply JSON files stored in your application’s <code class="lang-gradle"><span class="hljs-regexp">/workspace/</span>collections</code> folder. It is important to understand how the folder hierarchy in the collections folder affects the behaviour of your API.</p>
-<pre><code class="lang-sh">my-api/
+<pre><code class="lang-bash">my-api/
   workspace/
     collections/                    
       <span class="hljs-number">1.0</span>/                          <span class="hljs-comment"># API version label</span>
@@ -697,6 +697,7 @@ books.find({ title: <span class="hljs-string">"Harry Potter 2"</span> }, { <span
 </code></pre>
 
 
+
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
               See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/api/concepts/collections.md">Edit in Github</a>.
             </p>
@@ -707,11 +708,11 @@ books.find({ title: <span class="hljs-string">"Harry Potter 2"</span> }, { <span
             <ul class="list--line">
                 <li>
                   <strong class="txt--grey block">Prev</strong>
-                  <a href="/api/examples">Code Examples</a>
+                  <a href="/api/concepts/authentication">Authentication</a>
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
-                  <a href="/api/getting-started/configuration">Configuration</a>
+                  <a href="/api/concepts/custom">Custom Endpoints</a>
                 </li>
             </ul>
 

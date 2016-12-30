@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Crop | DADI Documentation</title>
+  <title>Cropping an image | DADI Documentation</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="http://stage.dadi.tech/assets/css/main.min.css?v=3">
@@ -42,7 +42,7 @@
                 <li class="fwb"><a href="/cdn/concepts">Concepts</a></li>
       </ul>
 
-      <div class="larger hdr">Crop</div>
+      <div class="larger hdr">Cropping an image</div>
     </div>
   </div>
 </div>
@@ -52,20 +52,21 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
-                </a>   
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-28T14:24:02Z">28th November 2016</span>
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2016-12-22T05:50:53Z">22nd December 2016</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">224 words</div>
+              <div class="block fwb">274 words</div>
               <div class="txt--grey">1 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h2 id="resize">resize</h2>
+            <p>xxx</p>
+<h2 id="resize">resize</h2>
 <h3 id="aspectfill">aspectfill</h3>
 <p>Keeps the aspect ratio of the original image and generates an output image of the specified width and height.</p>
 <blockquote>
@@ -95,8 +96,7 @@
 <p>The output image is 400 x 267 pixels.</p>
 <p><img src="/assets/cdn/canoe-w400-h300-aspectfit.jpeg" alt="" title="Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)"></p>
 <h3 id="fill">fill</h3>
-<p>Ignores the aspect ratio of the original image and generates an output image with specified width and height.</p>
-<p>The output image may appear squashed or stretched.</p>
+<p>Ignores the aspect ratio of the original image and generates an output image with specified width and height. <em>The output image may appear squashed or stretched.</em></p>
 <p><strong>Example</strong></p>
 <p><code class="lang-vim">http<span class="hljs-variable">s:</span>//cdn.example.<span class="hljs-keyword">com</span>/images/canoe.jpg?<span class="hljs-keyword">w</span>=<span class="hljs-number">400</span>&amp;<span class="hljs-keyword">h</span>=<span class="hljs-number">300</span>&amp;<span class="hljs-keyword">resize</span>=fill</code></p>
 <p>The output image is 400 x 300 pixels.</p>
@@ -108,9 +108,14 @@
 <p><img src="/assets/cdn/med-portrait.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)"></p>
 <p><code class="lang-vim">http<span class="hljs-variable">s:</span>//cdn.example.<span class="hljs-keyword">com</span>/images/med-portrait.jpg?<span class="hljs-keyword">w</span>=<span class="hljs-number">400</span>&amp;<span class="hljs-keyword">h</span>=<span class="hljs-number">300</span>&amp;<span class="hljs-keyword">resize</span>=entropy</code></p>
 <p><img src="/assets/cdn/med-portrait-entropy.jpeg" alt="" title="Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)"></p>
-<h2 id="crop">crop</h2>
+<h3 id="crop">crop</h3>
 <p>| crop-x | Integer | Default: 0. X position of crop area | | crop-y | Integer | Default: 0. Y position of crop area |</p>
-<p>Coming soon…</p>
+<p>When <code class="lang-fix"><span class="hljs-attribute">resize</span>=<span class="hljs-string">crop</span></code> an additional <code>crop</code> parameter must be used to specify the coordinates of the crop rectangle. There are two ways to pass the crop rectangle coordinates:</p>
+<h4 id="specify-only-the-top-left-corner-of-the-rectangle">Specify only the top left corner of the rectangle</h4>
+<p><code class="lang-cpp">?resize=crop&amp;crop=<span class="hljs-number">10</span>,<span class="hljs-number">15</span></code></p>
+<h4 id="specify-the-top-left-corner-and-the-bottom-right-corner-of-the-rectangle">Specify the top left corner and the bottom right corner of the rectangle</h4>
+<p><code class="lang-cpp">?resize=crop&amp;crop=<span class="hljs-number">10</span>,<span class="hljs-number">15</span>,<span class="hljs-number">200</span>,<span class="hljs-number">300</span></code></p>
+
 
 
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
@@ -123,17 +128,16 @@
             <ul class="list--line">
                 <li>
                   <strong class="txt--grey block">Prev</strong>
-                  <a href="/cdn/getting-started/configuration">Configuration</a>
+                  <a href="/cdn/concepts/blurring">Blur</a>
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
-                  <a href="/cdn/everyday/pixel-ratios">Dealing with pixel ratios</a>
+                  <a href="/cdn/concepts/flipping">Flipping an image</a>
                 </li>
             </ul>
 
             <ul class="list--line pad__top--half">
                 <li><a class="" href="#resize">resize</a></li>
-                <li><a class="" href="#crop">crop</a></li>
             </ul>
         </div>
       </div>

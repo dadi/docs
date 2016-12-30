@@ -39,6 +39,7 @@
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
                 <li class=""><a href="/api">API</a></li>
+                <li class="fwb"><a href="/api/concepts">Concepts</a></li>
       </ul>
 
       <div class="larger hdr">Custom Endpoints</div>
@@ -51,25 +52,21 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
-                </a>   
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2016-12-22T06:11:09Z">22nd December 2016</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">522 words</div>
+              <div class="block fwb">519 words</div>
               <div class="txt--grey">2 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h2 id="introduction">Introduction</h2>
-<p>DADI API custom endpoints give you the ability to modify, enrich and massage your data before it is returned to the user making the request. Collection endpoints return raw data in response to requests, custom endpoints give you more control over what you return.</p>
-<ul>
-<li><a href="#endpoint-specification">Endpoint specification</a></li>
-</ul>
-<h3 id="endpoint-specification">Endpoint Specification</h3>
+            <p>DADI API custom endpoints give you the ability to modify, enrich and massage your data before it is returned to the user making the request. Collection endpoints return raw data in response to requests, custom endpoints give you more control over what you return.</p>
+<h2 id="endpoint-specification">Endpoint Specification</h2>
 <p>Endpoint specifications are simply Javascript files stored in your application’s <code class="lang-gradle"><span class="hljs-regexp">/workspace/</span>endpoints</code> folder. It is important to understand how the folder hierarchy in the endpoints folder affects the behaviour of your API.</p>
 <pre><code class="lang-cpp">my-api/
   workspace/
@@ -77,16 +74,16 @@
       <span class="hljs-number">1.0</span>/                          <span class="hljs-preprocessor"># API version label</span>
     endpoints/                      <span class="hljs-preprocessor"># Custom Javascript endpoints</span>
       <span class="hljs-number">1.0</span>/                          <span class="hljs-preprocessor"># API version label</span>
-</code></pre><h4 id="api-version">API Version</h4>
+</code></pre><h3 id="api-version">API Version</h3>
 <p>[TODO]</p>
-<h4 id="endpoint">Endpoint</h4>
+<h3 id="endpoint">Endpoint</h3>
 <p>Endpoint specifications exist as Javascript files within a <code class="lang-applescript"><span class="hljs-property">version</span></code> folder as mentioned above. The naming convention for the collection specifications is <code class="lang-applescript">endpoint.&lt;endpoint <span class="hljs-property">name</span>&gt;.js</code></p>
-<h4 id="endpoint-url">Endpoint URL</h4>
+<h3 id="endpoint-url">Endpoint URL</h3>
 <p>With the above folder and file hierarchy an endpoint’s URL uses the following format:</p>
 <p><code class="lang-groovy"><span class="hljs-string">http:</span><span class="hljs-comment">//api.example.com/{version}/{endpoint name}</span></code></p>
 <p>In actual use this might look like the following:</p>
 <p><code class="lang-groovy"><span class="hljs-string">http:</span><span class="hljs-comment">//api.example.com/1.0/booksByAuthor</span></code></p>
-<h4 id="the-endpoint-file">The Endpoint file</h4>
+<h3 id="the-endpoint-file">The Endpoint file</h3>
 <p>Endpoint specification files should export functions with lowercase names that correspond to the HTTP method that the function is designed to handle.</p>
 <p>For example:</p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
@@ -155,7 +152,7 @@
   res.end(<span class="hljs-built_in">JSON</span>.stringify(data))
 }
 </code></pre>
-<h4 id="custom-endpoint-routing">Custom Endpoint Routing</h4>
+<h3 id="custom-endpoint-routing">Custom Endpoint Routing</h3>
 <p>It is possible to override the default endpoint route by including a <code>config</code> function in the endpoint file. The function should return a <code>config</code> object with a <code>route</code> property. The value of this property will be used for the endpoint’s route.</p>
 <p>The following example returns a config object with a route that specifies an optional request parameter, <code class="lang-applescript"><span class="hljs-property">id</span></code>.</p>
 <pre><code class="lang-javascript"><span class="hljs-built_in">module</span>.exports.config = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
@@ -182,6 +179,7 @@
 </code></pre>
 
 
+
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
               See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/api/concepts/custom.md">Edit in Github</a>.
             </p>
@@ -192,16 +190,16 @@
             <ul class="list--line">
                 <li>
                   <strong class="txt--grey block">Prev</strong>
-                  <a href="/api/examples/curl">cURL</a>
+                  <a href="/api/concepts/collections">Collections</a>
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
-                  <a href="/api/concepts/data-types">Data types</a>
+                  <a href="/api/concepts/hooks">Hooks</a>
                 </li>
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#introduction">Introduction</a></li>
+                <li><a class="" href="#endpoint-specification">Endpoint Specification</a></li>
             </ul>
         </div>
       </div>

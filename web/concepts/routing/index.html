@@ -52,21 +52,20 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
-                </a>   
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2016-12-22T05:50:53Z">22nd December 2016</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">1709 words</div>
+              <div class="block fwb">1708 words</div>
               <div class="txt--grey">6 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h1 id="routing">Routing</h1>
-<p>Routing allows you to define URL endpoints for your application and control how Web responds to client requests.</p>
+            <p>Routing allows you to define URL endpoints for your application and control how Web responds to client requests.</p>
 <ul>
 <li><a href="#basic-routing">Basic Routing</a></li>
 <li><p><a href="#page-routing">Page Routing</a></p>
@@ -112,9 +111,9 @@
 <li><p><a href="#migrating-to-version-1-7-0">Migrating to Version 1.7.0</a></p>
 </li>
 </ul>
-<h2 id="basic-routing">Basic Routing</h2>
+<h3 id="basic-routing">Basic Routing</h3>
 <p>Adding routes provides URLs for interacting with the application. A route specified as <code class="lang-stata">/contact-<span class="hljs-keyword">us</span></code>, for example, will make a URL available to your end users as <code class="lang-groovy"><span class="hljs-string">http:</span><span class="hljs-comment">//www.example.com/contact-us</span></code>.</p>
-<h2 id="page-routing">Page Routing</h2>
+<h3 id="page-routing">Page Routing</h3>
 <p>For every page added to your application, a <code>route</code> is created by default. A page’s default route is a value matching the page name. For example if the page name is <code>books</code> the page will be available in the browser at <code>/books</code>.</p>
 <p>To make the <code>books</code> page reachable via a different URL, simply add (or modify) the page’s <code>routes</code> property:</p>
 <pre><code class="lang-json">{
@@ -129,7 +128,7 @@
 <p>In earlier versions of DADI Web, the syntax for defining routes was slightly different. Instead of a <code>routes</code> property defined as an array, we used a <code>route</code> property (notice the plural vs singular forms) containing an array of paths. This format is still valid in versions prior to 1.7.0. In 1.7.0 and above, this format will be resolved at startup to match the required format.</p>
 <p>For example, starting in 1.7.0, a value such as <code class="lang-xquery"><span class="hljs-string">"route"</span>: { <span class="hljs-string">"path"</span>: <span class="hljs-string">"/books"</span> }</code> will be resolved at startup to <code class="lang-prolog"><span class="hljs-string">"routes"</span>: [ { <span class="hljs-string">"path"</span>: <span class="hljs-string">"/books"</span> } ]</code>.</p>
 <p>Should you have existing page routes in this format <code class="lang-1c"><span class="hljs-string">"route"</span>: <span class="hljs-string">"/books"</span></code>, <a href="#migrating-to-version-1.7.0">please see the note</a> at the end of this page.</p>
-<h3 id="dynamic-route-segments-and-named-parameters">Dynamic route segments and named parameters</h3>
+<h4 id="dynamic-route-segments-and-named-parameters">Dynamic route segments and named parameters</h4>
 <p>Routes may contain dynamic segments or named parameters which are resolved from the request URL and can be utilised by the datasources and events attached to the page.</p>
 <p>A route segment with a colon at the beginning indicates a dynamic segment which will match any value. For example, a page with the route <code class="lang-coffeescript"><span class="hljs-regexp">/books/</span>:title</code> will be loaded for any request matching the format. DADI Web will extract the <code class="lang-clojure"><span class="hljs-attribute">:title</span></code> parameter and add it to the <code class="lang-crmsh">req.<span class="hljs-keyword">params</span></code> object, making it available for use in the page’s attached datasources and events.</p>
 <p>The following URLs match the above route, with the segment defined by <code class="lang-clojure"><span class="hljs-attribute">:title</span></code> extracted, placed into <code class="lang-crmsh">req.<span class="hljs-keyword">params</span></code> and accessible via the property <code class="lang-dos"><span class="hljs-built_in">title</span></code>.</p>
@@ -154,7 +153,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="optional-parameters">Optional Parameters</h4>
+<h5 id="optional-parameters">Optional Parameters</h5>
 <p>Parameters can be made optional by adding a question mark <code>?</code>.</p>
 <p>For example the route <code class="lang-coffeescript"><span class="hljs-regexp">/books/</span>:page?</code> will match requests in both the following formats:</p>
 <table>
@@ -181,7 +180,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="parameter-format">Parameter Format</h4>
+<h5 id="parameter-format">Parameter Format</h5>
 <p>Specifying a format for a parameter can help Web identify the correct route to use. We can use the same example as above, where the URL has an optional <code>page</code> parameter. If we add a regular expression to this parameter indicating that it should only match numbers, any URL that doesn’t contain numbers in this segment will not match the route.</p>
 <p><strong>Example</strong></p>
 <p>The route <code class="lang-stylus">/books/:<span class="hljs-function"><span class="hljs-title">page</span><span class="hljs-params">(\\d+)</span></span></code> will only match a URL that has <code>books</code> in the first segment and a number in the second segment:</p>
@@ -212,7 +211,7 @@
 <blockquote>
 <p><strong>Note:</strong> DADI Web uses the <a href="https://github.com/pillarjs/path-to-regexp">Path to Regexp</a> library when parsing routes and parameters. More information on parameter usage can be found in the Github repository.</p>
 </blockquote>
-<h2 id="multiple-route-pages">Multiple Route Pages</h2>
+<h3 id="multiple-route-pages">Multiple Route Pages</h3>
 <p>The <code>routes</code> property makes it easy for you to define “multiple route” pages, where one page specification can respond to requests for multiple routes.</p>
 <p><strong>DADI Web versions &gt;= 1.7.0</strong></p>
 <p>DADI Web 1.7.0 introduced a more explicit way of specifying multiple routes per page . The <code>route</code> property has been replaced with <code>routes</code> which should be an Array of route objects.</p>
@@ -239,7 +238,7 @@
   </span>}
 </span>}
 </code></pre>
-<h2 id="route-priority">Route Priority</h2>
+<h3 id="route-priority">Route Priority</h3>
 <p>DADI Web sorts your routes into a priority order so that the most likely matches are easier to find.</p>
 <ul>
 <li><p>In Web, the most important parts of a route are the static segments, or rather the non-dynamic segments, for example <code>/books</code>. The more static segments in a route the its priority.</p>
@@ -266,7 +265,7 @@
 </tbody>
 </table>
 <p><code class="lang-gradle"><span class="hljs-regexp">/movies/</span>news<span class="hljs-regexp">/:page(\\d+)?/</span></code> | 12 <code class="lang-livescript"><span class="hljs-pi">/movies/reviews/</span>:page(<span class="hljs-string">\\d+)?</span></code> | 12 <code class="lang-gradle"><span class="hljs-regexp">/movies/</span>features<span class="hljs-regexp">/:page(\\d+)?/</span></code> | 12 <code class="lang-elixir">/movies/news/<span class="hljs-symbol">:title?/</span></code> | 11 <code class="lang-elixir">/movies/features/<span class="hljs-symbol">:title?/</span></code> | 11 <code class="lang-coffeescript"><span class="hljs-regexp">/movies/reviews/</span></code> | 10 <code class="lang-elixir">/movies/<span class="hljs-symbol">:title/</span><span class="hljs-symbol">:page</span>(\\d+)?</code> | 9 <code class="lang-elixir">/movies/<span class="hljs-symbol">:title/</span><span class="hljs-symbol">:content?</span></code> | 8 <code class="lang-coffeescript"><span class="hljs-regexp">/movies/</span></code> | 5</p>
-<h2 id="route-validation">Route Validation</h2>
+<h3 id="route-validation">Route Validation</h3>
 <p>An application may have more than one route that matches a particular URL, for example two routes that each have one dynamic segment:</p>
 <pre><code class="lang-elixir">/<span class="hljs-symbol">:genres</span>
 /<span class="hljs-symbol">:categories</span>
@@ -276,8 +275,8 @@
 <li><code class="lang-actionscript"><span class="hljs-keyword">in</span></code> - tests the parameter value exists in an array of static values</li>
 <li><code>fetch</code> - performs a datasource lookup using the parameter value as a filter</li>
 </ul>
-<h3 id="parameter-validation">Parameter Validation</h3>
-<h4 id="preloaded-data-preload-">Preloaded data (<code>preload</code>)</h4>
+<h4 id="parameter-validation">Parameter Validation</h4>
+<h5 id="preloaded-data-preload-">Preloaded data (<code>preload</code>)</h5>
 <p>To validate parameters against preloaded data, you first need to configure Web to preload some data. Add a block to the <a href="configuration.md">main configuration</a> file like the example below, using your datasource names in place of “channels”:</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
@@ -304,7 +303,7 @@
   ]
 </span>}
 </code></pre>
-<h4 id="static-array-test-in-">Static array test (<code class="lang-actionscript"><span class="hljs-keyword">in</span></code>)</h4>
+<h5 id="static-array-test-in-">Static array test (<code class="lang-actionscript"><span class="hljs-keyword">in</span></code>)</h5>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">routes</span>": <span class="hljs-value">[
     {
@@ -319,7 +318,7 @@
   ]
 </span>}
 </code></pre>
-<h4 id="datasource-lookup-fetch-">Datasource lookup (<code>fetch</code>)</h4>
+<h5 id="datasource-lookup-fetch-">Datasource lookup (<code>fetch</code>)</h5>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">routes</span>": <span class="hljs-value">[
     {
@@ -333,7 +332,7 @@
   ]
 </span>}
 </code></pre>
-<h3 id="route-constraint-functions">Route Constraint Functions</h3>
+<h4 id="route-constraint-functions">Route Constraint Functions</h4>
 <p>In the case of ambiguous routes it is possible to provide DADI Web with a constraint function to check each matching route against some business logic or existing data.</p>
 <blockquote>
 <p>Returning <code class="lang-actionscript"><span class="hljs-literal">true</span></code> from a constraint instructs DADI Web that this is the correct route, the attached datasources and events should be run and the page displayed.</p>
@@ -372,7 +371,7 @@
 }
 }
 </code></pre>
-<h4 id="constraint-datasources">Constraint Datasources</h4>
+<h5 id="constraint-datasources">Constraint Datasources</h5>
 <blockquote>
 <p><strong>Note:</strong> Deprecated in Version 1.7.0</p>
 </blockquote>
@@ -404,38 +403,38 @@
 <p>In the above example a request for <code class="lang-groovy"><span class="hljs-string">http:</span><span class="hljs-comment">//www.example.com/crime</span></code> will call the <code class="lang-gcode"><span class="hljs-keyword">ge</span><span class="hljs-label">nres</span></code> datasource, using the <code>requestParams</code> to supply a filter to the endpoint. The request parameter <code class="lang-clojure"><span class="hljs-attribute">:genre</span></code> will be set to <code>crime</code> and the resulting datasource endpoint will become:</p>
 <pre><code class="lang-cpp">/<span class="hljs-number">1.0</span>/library/genres?filter={<span class="hljs-string">"title"</span>:<span class="hljs-string">"crime"</span>}
 </code></pre><p>If there is a result for this datasource query, the constraint will return <code class="lang-actionscript"><span class="hljs-literal">true</span></code>, otherwise <code class="lang-actionscript"><span class="hljs-literal">false</span></code>.</p>
-<h3 id="template-url-building">Template URL Building</h3>
+<h4 id="template-url-building">Template URL Building</h4>
 <p>Using <code class="lang-stylus"><span class="hljs-function"><span class="hljs-title">toPath</span><span class="hljs-params">()</span></span></code>:</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'dadi-web'</span>);
 <span class="hljs-keyword">var</span> page = app.getComponent(<span class="hljs-string">'people'</span>);
 <span class="hljs-keyword">var</span> url = page.toPath({ id: <span class="hljs-string">'1234'</span> });
 </code></pre>
 <pre><code class="lang-1c"><span class="hljs-string">"/person/1234"</span>
-</code></pre><h3 id="using-request-parameters">Using Request Parameters</h3>
+</code></pre><h4 id="using-request-parameters">Using Request Parameters</h4>
 <p>See <a href="datasource_specification.md">Datasource Specification</a> for more information regarding the use of named parameters in datasource queries.</p>
-<h2 id="url-rewriting-and-redirects">URL Rewriting and Redirects</h2>
-<h3 id="forcelowercase">forceLowerCase</h3>
+<h3 id="url-rewriting-and-redirects">URL Rewriting and Redirects</h3>
+<h4 id="forcelowercase">forceLowerCase</h4>
 <p>With this property set to true, Web converts incoming URLs to lowercase and sends a 301 Redirect response to the browser with the lowercased version of the URL.</p>
 <pre><code class="lang-javascript">{
   <span class="hljs-string">"forceLowerCase"</span>: <span class="hljs-literal">true</span>
 }
 </code></pre>
-<h3 id="forcetrailingslash">forceTrailingSlash</h3>
+<h4 id="forcetrailingslash">forceTrailingSlash</h4>
 <p>With this property set to true, Web adds a trailing slash to incoming URLs and sends a 301 Redirect response to the browser with the new version of the URL.</p>
 <pre><code class="lang-javascript">{
   <span class="hljs-string">"forceTrailingSlash"</span>: <span class="hljs-literal">true</span>
 }
 </code></pre>
-<h3 id="stripindexpages">stripIndexPages</h3>
+<h4 id="stripindexpages">stripIndexPages</h4>
 <p>This property accepts an array of filenames to remove from URLs. Useful for when you’re migrating from another system and search engines may have indexed URLs containing legacy files. For example <code class="lang-groovy"><span class="hljs-string">http:</span><span class="hljs-comment">//legacy-web.example.com/index.php</span></code></p>
 <pre><code class="lang-javascript">{
   <span class="hljs-string">"stripIndexPages"</span>: [<span class="hljs-string">"index.php"</span>, <span class="hljs-string">"default.aspx"</span>]
 }
 </code></pre>
-<h3 id="url-rewrites-file">URL Rewrites File</h3>
+<h4 id="url-rewrites-file">URL Rewrites File</h4>
 <pre><code class="lang-xquery">^(.*[^/])$ <span class="hljs-variable">$1</span>/ [R=<span class="hljs-number">301</span>,L]
 ^/books/(.*)$ /books?authorId=<span class="hljs-variable">$1</span> [R=<span class="hljs-number">301</span>,L]
-</code></pre><h2 id="migrating-to-version-1-7-0">Migrating to Version 1.7.0</h2>
+</code></pre><h3 id="migrating-to-version-1-7-0">Migrating to Version 1.7.0</h3>
 <p>To help you migrate your Web installation to v1.7.0, the router will inform you of any changes required to page specifications if the existing <code>route</code> property has not yet been modified.</p>
 <p>Look out for console messages similar to the following:</p>
 <pre><code class="lang-xquery">The `route` property <span class="hljs-keyword">for</span> pages has been extended <span class="hljs-keyword">to</span> provide better routing functionality.
@@ -460,6 +459,7 @@ Please <span class="hljs-keyword">modify</span> the route property <span class="
 }
 </code></pre>
 
+
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
               See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/web/concepts/routing.md">Edit in Github</a>.
             </p>
@@ -470,22 +470,15 @@ Please <span class="hljs-keyword">modify</span> the route property <span class="
             <ul class="list--line">
                 <li>
                   <strong class="txt--grey block">Prev</strong>
-                  <a href="/web/concepts/views">Views</a>
+                  <a href="/web/concepts/pages">Pages</a>
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
-                  <a href="/web/concepts/caching">Caching</a>
+                  <a href="/web/concepts/datasources">Datasources</a>
                 </li>
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#basic-routing">Basic Routing</a></li>
-                <li><a class="" href="#page-routing">Page Routing</a></li>
-                <li><a class="" href="#multiple-route-pages">Multiple Route Pages</a></li>
-                <li><a class="" href="#route-priority">Route Priority</a></li>
-                <li><a class="" href="#route-validation">Route Validation</a></li>
-                <li><a class="" href="#url-rewriting-and-redirects">URL Rewriting and Redirects</a></li>
-                <li><a class="" href="#migrating-to-version-1-7-0">Migrating to Version 1.7.0</a></li>
             </ul>
         </div>
       </div>

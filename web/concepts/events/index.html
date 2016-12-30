@@ -52,46 +52,39 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/josephdenne" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/150408?v&#x3D;3" width="40" height="40">
-                </a>   
-                <a class="block fwb">Joseph Denne</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-29T22:14:23Z">29th November 2016</span>
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2016-12-22T05:50:53Z">22nd December 2016</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">321 words</div>
+              <div class="block fwb">323 words</div>
               <div class="txt--grey">2 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h2 id="events">Events</h2>
-<h3 id="overview">Overview</h3>
-<p>Events are server side Javascript that can add additional functionality to a page. Events can serve as a useful way to implement logic to a logicless Dust template.</p>
-<ul>
-<li>Global Events</li>
-<li>Preload Events</li>
-<li>Filter Events</li>
-</ul>
+            <p>Events are server side Javascript that can add additional functionality to a page. Events can serve as a useful way to implement logic to a logicless Dust template.</p>
 <pre><code class="lang-applescript"><span class="hljs-keyword">my</span>-web/
   app/
     datasources/      
     events/           
       addAuthorInformation.js      <span class="hljs-comment"># an Event file</span>
     pages/
-</code></pre><h3 id="global-events">Global Events</h3>
+</code></pre><h2 id="global-events">Global Events</h2>
 <p>In the main configuration file:</p>
 <pre><code class="lang-javascript">globalEvents: [
   <span class="hljs-string">"eventName"</span>
 ]
 </code></pre>
-<h3 id="preload-events">Preload Events</h3>
+<h2 id="preload-events">Preload Events</h2>
 <p>In a page specification file:</p>
 <pre><code class="lang-javascript"><span class="hljs-string">"preloadEvents"</span>: [
   <span class="hljs-string">"preloadevent-one"</span>
 ]
 </code></pre>
-<h3 id="filter-events">Filter Events</h3>
+<h2 id="filter-events">Filter Events</h2>
 <p>In a datasource specification file:</p>
 <pre><code class="lang-javascript"><span class="hljs-string">"filterEvent"</span>: <span class="hljs-string">"filterevent-one"</span>
 </code></pre>
@@ -118,43 +111,41 @@
     <span class="hljs-string">"addAuthorInformation"</span>
   ]
 </span>}
-</code></pre><h4 id="sample-event-file">Sample event file</h4>
-<pre><code class="lang-javascript"><span class="hljs-comment">/* optional Node includes */</span>
-<span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
-<span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">"http"</span>);
-<span class="hljs-keyword">var</span> querystring = <span class="hljs-built_in">require</span>(<span class="hljs-string">'querystring'</span>);
-
-<span class="hljs-comment">/* optional DADI Web includes */</span>
-<span class="hljs-keyword">var</span> config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@dadi/web'</span>).Config;
-
-<span class="hljs-comment">// the `data` parameter contains the data already loaded by</span>
-<span class="hljs-comment">// the page's datasources and any previous events that have fired</span>
-
+</code></pre>
+<h3 id="sample-event-file">Sample event file</h3>
+<pre><code class="lang-javascript"><span class="hljs-comment">/**
+ * &lt;Event Description&gt;
+ *
+ * @param {IncomingMessage} req -
+ * @param {ServerResponse} res -
+ * @param {object} data - contains the data already loaded by the page's datasources and any previous events that have fired
+ * @param {function} callback - call back to the controller with two arguments, `err` and the result of the event processing
+ */</span>
 <span class="hljs-keyword">var</span> Event = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, data, callback</span>) </span>{
-
-  <span class="hljs-keyword">var</span> result = {};
+  <span class="hljs-keyword">var</span> result = {}
 
   <span class="hljs-keyword">if</span> (data.books &amp;&amp; data.books.results) {
     result = {
       title: data.books.results[<span class="hljs-number">0</span>].title
-    };
+    }
   }
   <span class="hljs-keyword">else</span> {
     result = {
       title: <span class="hljs-string">"Not found"</span>
-    };
+    }
   }
 
   <span class="hljs-comment">// return a null error and the result</span>
-  callback(<span class="hljs-literal">null</span>, result);
-};
+  callback(<span class="hljs-literal">null</span>, result)
+}
 
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, data, callback</span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Event(req, res, data, callback);
-};
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Event(req, res, data, callback)
+}
 
-<span class="hljs-built_in">module</span>.exports.Event = Event;
+<span class="hljs-built_in">module</span>.exports.Event = Event
 </code></pre>
+
 
 
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
@@ -176,7 +167,9 @@
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#events">Events</a></li>
+                <li><a class="" href="#global-events">Global Events</a></li>
+                <li><a class="" href="#preload-events">Preload Events</a></li>
+                <li><a class="" href="#filter-events">Filter Events</a></li>
             </ul>
         </div>
       </div>

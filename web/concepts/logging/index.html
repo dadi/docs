@@ -52,231 +52,58 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
-                </a>   
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2016-12-22T05:50:53Z">22nd December 2016</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">932 words</div>
-              <div class="txt--grey">4 min read</div>
+              <div class="block fwb">241 words</div>
+              <div class="txt--grey">1 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h2 id="logging">Logging</h2>
-<ul>
-<li><a href="#basic-logging">Basic Logging</a></li>
-<li><a href="#default-configuration">Default Configuration</a></li>
-<li><a href="#configuration-properties">Configuration Properties</a></li>
-<li><a href="#request-logging">Request Logging</a></li>
-<li>Log Rotation</li>
-<li><a href="#viewing-the-logs">Viewing the logs</a></li>
-</ul>
-<h3 id="basic-logging">Basic Logging</h3>
+            <h2 id="basic-logging">Basic Logging</h2>
 <p>DADI Web starts with a default configuration for logging which enables both error/event logging and HTTP request logging.</p>
 <p>To disable logging, simply add a <code>logging</code> section to your configuration file and set <code>enabled</code> to <code class="lang-actionscript"><span class="hljs-literal">false</span></code>. To change the name and location of your log files, change the <code class="lang-dos"><span class="hljs-built_in">path</span></code>, <code class="lang-tcl"><span class="hljs-keyword">filename</span></code> and <code class="lang-oxygene"><span class="hljs-keyword">extension</span></code> properties.</p>
 <p>DADI Web checks for the existence of the configured log path at startup, and creates it if necessary.</p>
-<h4 id="default-configuration">Default Configuration</h4>
-<pre><code class="lang-xquery"><span class="hljs-string">"logging"</span>: {
-  <span class="hljs-string">"enabled"</span>: true,
-  <span class="hljs-string">"level"</span>: <span class="hljs-string">"info"</span>,
-  <span class="hljs-string">"path"</span>: <span class="hljs-string">"./log"</span>,
-  <span class="hljs-string">"filename"</span>: <span class="hljs-string">"web"</span>,
-  <span class="hljs-string">"extension"</span>: <span class="hljs-string">"log"</span>,
-  <span class="hljs-string">"accessLog"</span>: {
-    <span class="hljs-string">"enabled"</span>: true,
-    <span class="hljs-string">"kinesisStream"</span>: <span class="hljs-string">""</span>
-  },
-  <span class="hljs-string">"sentry"</span>: {
-    dsn: <span class="hljs-string">""</span>
-  }
-}
-</code></pre><h3 id="configuration-properties">Configuration Properties</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Property</th>
-<th style="text-align:left">Description</th>
-<th style="text-align:left">Type</th>
-<th style="text-align:left">Default</th>
-<th style="text-align:left">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">enabled</td>
-<td style="text-align:left">If true, logging is enabled</td>
-<td style="text-align:left">Boolean</td>
-<td style="text-align:left">true</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">level</td>
-<td style="text-align:left">Sets the logging level</td>
-<td style="text-align:left">String</td>
-<td style="text-align:left">“info”</td>
-<td style="text-align:left">“warn”</td>
-</tr>
-<tr>
-<td style="text-align:left">path</td>
-<td style="text-align:left">The path relative to the root of the application where log files should be stored</td>
-<td style="text-align:left">String</td>
-<td style="text-align:left">“./log”</td>
-<td style="text-align:left">“/var/log/web”</td>
-</tr>
-<tr>
-<td style="text-align:left">filename</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">String</td>
-<td style="text-align:left">“web”</td>
-<td style="text-align:left">“your-application-name”</td>
-</tr>
-<tr>
-<td style="text-align:left">extension</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">String</td>
-<td style="text-align:left">“log”</td>
-<td style="text-align:left">“txt”</td>
-</tr>
-<tr>
-<td style="text-align:left">-</td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><strong>accessLog</strong></td>
-<td style="text-align:left"><strong>Allows configuration of HTTP request logging</strong></td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">accessLog.enabled</td>
-<td style="text-align:left">If true, HTTP requests are logged to a separate file. The filename used will be a combination of <code class="lang-css"><span class="hljs-tag">logging</span><span class="hljs-class">.filename</span></code> + access + <code class="lang-css"><span class="hljs-tag">logging</span><span class="hljs-class">.extension</span></code>. For example, <code class="lang-stylus">web<span class="hljs-class">.access</span><span class="hljs-class">.log</span></code></td>
-<td style="text-align:left">Boolean</td>
-<td style="text-align:left">true</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">accessLog.kinesisStream</td>
-<td style="text-align:left">The name of an AWS Kinesis stream to write to log records to</td>
-<td style="text-align:left">String</td>
-<td style="text-align:left">Empty, therefore disabled</td>
-<td style="text-align:left">“webAppLogStream”</td>
-</tr>
-<tr>
-<td style="text-align:left">-</td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><strong>sentry</strong></td>
-<td style="text-align:left"><strong>Allows sending events to a Sentry server</strong></td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">sentry.dsn</td>
-<td style="text-align:left">A DSN key as provided by your Sentry integration</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">“<a href="mailto:https://693ef18da3184cffa82144fde2979cbc:a0651b0286784761a62ef8e8fc128722@app.getsentry.com/59524">https://693ef18da3184cffa82144fde2979cbc:a0651b0286784761a62ef8e8fc128722@app.getsentry.com/59524</a>“</td>
-<td style="text-align:left"></td>
-</tr>
-</tbody>
-</table>
-<h3 id="using-the-logger-in-your-own-modules">Using the logger in your own modules</h3>
-<p>DADI Web exposes it’s log module so you can use it within your own modules or events. Use the following code to get a reference to the log, then call one of the log methods to send data to the log file. Available log methods are <code class="lang-d"><span class="hljs-keyword">debug</span></code>, <code class="lang-tcl"><span class="hljs-keyword">info</span></code>, <code class="lang-perl"><span class="hljs-keyword">warn</span></code>, <code class="lang-applescript"><span class="hljs-keyword">error</span></code>, <code class="lang-haxe"><span class="hljs-keyword">trace</span></code>.</p>
-<pre><code class="lang-lasso"><span class="hljs-built_in">var</span> Logger = <span class="hljs-keyword">require</span>(<span class="hljs-string">'dadi-api'</span>)<span class="hljs-built_in">.</span><span class="hljs-keyword">Log</span>;
-<span class="hljs-built_in">var</span> <span class="hljs-keyword">log</span> = Logger<span class="hljs-built_in">.</span>get();
-
-<span class="hljs-keyword">log</span><span class="hljs-built_in">.</span>info(<span class="hljs-string">'Something worth logging'</span>);
-<span class="hljs-keyword">log</span><span class="hljs-built_in">.</span>err<span class="hljs-subst">or</span>(<span class="hljs-literal">new</span> Err<span class="hljs-subst">or</span>(<span class="hljs-string">'Something bad happened'</span>));
-</code></pre><h4 id="adding-a-module-identifier-to-log-records">Adding a module identifier to log records</h4>
-<p>To make it easier to identify log records from your own modules or events, pass a <code class="lang-crystal"><span class="hljs-class"><span class="hljs-keyword">module</span></span></code> property into the log call:</p>
-<pre><code class="lang-lasso"><span class="hljs-built_in">var</span> Logger = <span class="hljs-keyword">require</span>(<span class="hljs-string">'dadi-api'</span>)<span class="hljs-built_in">.</span><span class="hljs-keyword">Log</span>;
-<span class="hljs-built_in">var</span> <span class="hljs-keyword">log</span> = Logger<span class="hljs-built_in">.</span>get();
-
-<span class="hljs-keyword">log</span><span class="hljs-built_in">.</span>info({ module: <span class="hljs-string">'your module'</span> }, <span class="hljs-string">'Something worth logging'</span>);
-</code></pre><p>Log records created using the above child logger will include a property containing the specified module name:</p>
-<pre><code class="lang-json">{"<span class="hljs-attribute">name</span>":<span class="hljs-value"><span class="hljs-string">"web"</span></span>,"<span class="hljs-attribute">hostname</span>":<span class="hljs-value"><span class="hljs-string">"localhost"</span></span>,"<span class="hljs-attribute">pid</span>":<span class="hljs-value"><span class="hljs-number">12010</span></span>,"<span class="hljs-attribute">module</span>":<span class="hljs-value"><span class="hljs-string">"your module"</span></span>,"<span class="hljs-attribute">level</span>":<span class="hljs-value"><span class="hljs-number">30</span></span>,"<span class="hljs-attribute">msg</span>":<span class="hljs-value"><span class="hljs-string">"Something worth logging"</span></span>,"<span class="hljs-attribute">time</span>":<span class="hljs-value"><span class="hljs-string">"2015-12-17T08:57:56.678Z"</span></span>,"<span class="hljs-attribute">v</span>":<span class="hljs-value"><span class="hljs-number">0</span></span>}
-</code></pre><h3 id="request-logging">Request Logging</h3>
-<pre><code class="lang-cpp"><span class="hljs-string">"logging"</span>: {
+<h3 id="default-configuration">Default Configuration</h3>
+<pre><code class="lang-actionscript"><span class="hljs-string">"logging"</span>: {
   <span class="hljs-string">"enabled"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-string">"level"</span>: <span class="hljs-string">"info"</span>,
   <span class="hljs-string">"path"</span>: <span class="hljs-string">"./log"</span>,
   <span class="hljs-string">"filename"</span>: <span class="hljs-string">"web"</span>,
   <span class="hljs-string">"extension"</span>: <span class="hljs-string">"log"</span>,
   <span class="hljs-string">"accessLog"</span>: {
-    <span class="hljs-string">"enabled"</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-string">"fileRotationPeriod"</span>: <span class="hljs-string">"1d"</span>,
-    <span class="hljs-string">"fileRetentionCount"</span>: <span class="hljs-number">7</span>,
-    <span class="hljs-string">"kinesisStream"</span>: <span class="hljs-string">""</span>
+    <span class="hljs-string">"enabled"</span>: <span class="hljs-literal">true</span>
   }
 }
-</code></pre><p>The request log contains a stream of JSON records. Each record contains a <code>msg</code> property containing details about the HTTP request, formatted using the nginx server log format.</p>
-<h4 id="the-raw-log-record">The raw log record</h4>
-<pre><code class="lang-json">{"<span class="hljs-attribute">name</span>":<span class="hljs-value"><span class="hljs-string">"web_access"</span></span>,"<span class="hljs-attribute">hostname</span>":<span class="hljs-value"><span class="hljs-string">"localhost"</span></span>,"<span class="hljs-attribute">pid</span>":<span class="hljs-value"><span class="hljs-number">14157</span></span>,"<span class="hljs-attribute">level</span>":<span class="hljs-value"><span class="hljs-number">30</span></span>,"<span class="hljs-attribute">msg</span>":<span class="hljs-value"><span class="hljs-string">"127.0.0.1 - 2015-12-17T19:02:08+08:00 GET /movies/ HTTP/1.1 200 17529 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36"</span></span>,"<span class="hljs-attribute">time</span>":<span class="hljs-value"><span class="hljs-string">"2015-12-17T11:02:08.676Z"</span></span>,"<span class="hljs-attribute">v</span>":<span class="hljs-value"><span class="hljs-number">0</span></span>}
-</code></pre><h4 id="the-actual-log-record-in-nginx-format">The actual log record, in nginx format</h4>
-<pre><code class="lang-cpp"><span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> - <span class="hljs-number">2015</span>-<span class="hljs-number">12</span>-<span class="hljs-number">17</span>T19:<span class="hljs-number">02</span>:<span class="hljs-number">08</span>+<span class="hljs-number">08</span>:<span class="hljs-number">00</span> GET /movies/ HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">200</span> <span class="hljs-number">17529</span> Mozilla/<span class="hljs-number">5.0</span> (Macintosh; Intel Mac OS X <span class="hljs-number">10</span>_10_5) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML, like Gecko) Chrome/<span class="hljs-number">46.0</span><span class="hljs-number">.2490</span><span class="hljs-number">.86</span> Safari/<span class="hljs-number">537.36</span>
-</code></pre><p>This record consists of the following fields: <code class="lang-nginx"><span class="hljs-title">remote</span> address</code> - <code class="lang-applescript"><span class="hljs-property">time</span></code> <code class="lang-vbscript"><span class="hljs-built_in">request</span></code> <code>status_code</code> <code>bytes_sent</code> <code class="lang-lisp">http_referer <span class="hljs-list">(<span class="hljs-keyword">optional</span>)</span></code> <code>http_user_agent</code></p>
-<p>For example:</p>
-<ul>
-<li><code class="lang-nginx"><span class="hljs-title">remote</span> address</code>: 127.0.0.1</li>
-<li><code class="lang-applescript"><span class="hljs-property">time</span></code>: 2015-12-17T19:02:08+08:00</li>
-<li><code class="lang-vbscript"><span class="hljs-built_in">request</span></code>: GET /movies/ HTTP/1.1</li>
-<li><code>status_code</code>: 200</li>
-<li><code>bytes_sent</code>: 17529</li>
-<li><code class="lang-lisp">http_referer <span class="hljs-list">(<span class="hljs-keyword">optional</span>)</span></code>:</li>
-<li><code>http_user_agent</code>: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36</li>
-</ul>
-<h3 id="log-rotation">Log Rotation</h3>
-<p>[TODO]</p>
-<h3 id="viewing-the-logs">Viewing the logs</h3>
-<p>DADI Web uses <a href="https://github.com/trentm/node-bunyan">Bunyan</a> to log errors and events. The Bunyan log output is a stream of JSON objects. A CLI tool is provided for pretty-printing Bunyan logs and for filtering.</p>
-<h4 id="install-the-cli">Install the CLI</h4>
-<p>To make reading the application logs easier install the Bunyan CLI tool globally:</p>
-<pre><code class="lang-sql">$ npm <span class="hljs-operator"><span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> bunyan
-</span></code></pre><h4 id="example-pass-the-log-contents-to-the-cli-tool">Example: pass the log contents to the CLI tool</h4>
-<pre><code class="lang-applescript">$ tail <span class="hljs-command">log</span>/web.<span class="hljs-command">log</span> | bunyan
-</code></pre><pre><code class="lang-scheme"><span class="hljs-list">[<span class="hljs-keyword">2015-10-27T09:14:01.856Z</span>]  INFO: web/67025 on localhost: <span class="hljs-number">5</span> rewrites/redirects loaded. <span class="hljs-list">(<span class="hljs-keyword">module=router</span>)</span>
-<span class="hljs-list">[<span class="hljs-keyword">2015-10-27T09:14:03.380Z</span>]  INFO: web/67025 on localhost: Generating new access token for <span class="hljs-string">"/home"</span> <span class="hljs-list">(<span class="hljs-keyword">module=auth</span>)</span>
-<span class="hljs-list">[<span class="hljs-keyword">2015-10-27T09:14:04.510Z</span>]  INFO: web/67025 on localhost: Token received. <span class="hljs-list">(<span class="hljs-keyword">module=auth</span>)</span>
-<span class="hljs-list">[<span class="hljs-keyword">2015-10-27T09:14:04.517Z</span>]  INFO: web/67025 on localhost: Generating new access token for datasource movies <span class="hljs-list">(<span class="hljs-keyword">module=auth/bearer</span>)</span>
-<span class="hljs-list">[<span class="hljs-keyword">2015-10-27T09:14:04.623Z</span>]  INFO: web/67025 on localhost: https://127.0.0.1:3000/1.0/app/movies?count=3&amp;page=1&amp;filter={<span class="hljs-string">"state"</span>:<span class="hljs-string">"published"</span>}&amp;fields={}&amp;sort={} <span class="hljs-list">(<span class="hljs-keyword">module=helper</span>)</span>
-<span class="hljs-list">[<span class="hljs-keyword">2015-10-27T09:14:04.643Z</span>]  INFO: web/67025 on localhost: GET /home <span class="hljs-number">200</span> <span class="hljs-number">65</span>ms <span class="hljs-list">(<span class="hljs-keyword">module=router</span>)</span>
-<span class="hljs-list">[<span class="hljs-keyword">2015-10-27T09:16:46.331Z</span>]  INFO: web/67025 on localhost: Server stopped, process exiting. <span class="hljs-list">(<span class="hljs-keyword">module=server</span>)</span>
-</span></span></span></span></span></span></span></code></pre><h4 id="example-filter-logs-by-module">Example: filter logs by module</h4>
-<p>In the next two examples, a valid Javascript condition can be specified. Here, <code class="lang-actionscript"><span class="hljs-keyword">this</span></code> refers to the log record as JSON.</p>
-<pre><code class="lang-openscad">$ tail -n30 <span class="hljs-built_in">log</span>/web.<span class="hljs-built_in">log</span> | bunyan -c 'this.<span class="hljs-keyword">module</span>==<span class="hljs-string">"router"</span>'
-</code></pre><pre><code class="lang-scheme"><span class="hljs-list">[<span class="hljs-keyword">2015-10-27T09:14:01.413Z</span>]  INFO: web/67025 on localhost: Added route constraint function <span class="hljs-variable">'nextIfPaginationRequest</span>' for <span class="hljs-variable">'/movies/reviews/</span>' <span class="hljs-list">(<span class="hljs-keyword">module=router</span>)</span>
-<span class="hljs-list">[<span class="hljs-keyword">2015-10-27T09:14:01.856Z</span>]  INFO: web/67025 on localhost: Rewrite module loaded. <span class="hljs-list">(<span class="hljs-keyword">module=router</span>)</span>
-<span class="hljs-list">[<span class="hljs-keyword">2015-10-27T09:14:01.856Z</span>]  INFO: web/67025 on localhost: <span class="hljs-number">5</span> rewrites/redirects loaded. <span class="hljs-list">(<span class="hljs-keyword">module=router</span>)</span>
-<span class="hljs-list">[<span class="hljs-keyword">2015-10-27T09:14:04.643Z</span>]  INFO: web/67025 on localhost: GET /home <span class="hljs-number">200</span> <span class="hljs-number">65</span>ms <span class="hljs-list">(<span class="hljs-keyword">module=router</span>)</span>
-</span></span></span></span></code></pre><h4 id="example-filter-logs-by-any-other-valid-javascript-condition">Example: filter logs by any other valid Javascript condition</h4>
-<p>In this example we also pass a formatting option to the command to view shorter output. See the full range of options available <a href="https://github.com/trentm/node-bunyan">here</a></p>
-<pre><code class="lang-accesslog">$ tail log/web.log | bunyan -c 'this.msg.indexOf(<span class="hljs-string">"<span class="hljs-keyword">GET</span>"</span>) &gt; -<span class="hljs-number">1</span>' -o short
-</code></pre><pre><code class="lang-cpp"><span class="hljs-number">09</span>:<span class="hljs-number">11</span>:<span class="hljs-number">57.618</span>Z  INFO web: GET /home <span class="hljs-number">200</span> <span class="hljs-number">460</span>ms (module=router)
-<span class="hljs-number">09</span>:<span class="hljs-number">13</span>:<span class="hljs-number">18.325</span>Z  INFO web: GET /home <span class="hljs-number">200</span> <span class="hljs-number">2</span>ms (module=router)
-</code></pre><h4 id="example-filter-logs-by-level">Example: filter logs by level</h4>
-<pre><code class="lang-perl">$ tail <span class="hljs-keyword">log</span>/web.<span class="hljs-keyword">log</span> | bunyan -l <span class="hljs-keyword">warn</span>
-</code></pre><pre><code class="lang-stylus">[<span class="hljs-number">2015</span>-<span class="hljs-number">10</span>-<span class="hljs-number">25</span>T13:<span class="hljs-number">54</span>:<span class="hljs-number">25.429</span>Z]  WARN: web/<span class="hljs-number">58045</span> on localhost<span class="hljs-class">.local</span>: log.<span class="hljs-function"><span class="hljs-title">stage</span><span class="hljs-params">()</span></span> is deprecated and will be removed <span class="hljs-keyword">in</span> <span class="hljs-tag">a</span> future release. Use log.<span class="hljs-function"><span class="hljs-title">debug</span><span class="hljs-params">()</span></span>, log.<span class="hljs-function"><span class="hljs-title">info</span><span class="hljs-params">()</span></span>, log.<span class="hljs-function"><span class="hljs-title">warn</span><span class="hljs-params">()</span></span>, log.<span class="hljs-function"><span class="hljs-title">error</span><span class="hljs-params">()</span></span>, log.<span class="hljs-function"><span class="hljs-title">trace</span><span class="hljs-params">()</span></span> instead.
-</code></pre><h3 id="sentry-error-reporting">Sentry Error Reporting</h3>
-<p>DADI Web contains functionality to integrate your application with <a href="https://getsentry.com/welcome/">Sentry</a>, a real-time crash reporting solution.</p>
-<p>Whether you already have an account with the cloud-hosted version of Sentry, or are hosting your own server, it is easy to start sending data from your DADI Web application.</p>
-<p>Simply locate or create your project’s Sentry DSN under Settings &gt; Client Keys. Copy the DSN to your configuration file so it looks similar to the following (some properties omitted for brevity):</p>
-<pre><code class="lang-xquery"><span class="hljs-string">"logging"</span>: {
-  <span class="hljs-string">"sentry"</span>: {
-    <span class="hljs-string">"dsn"</span>: <span class="hljs-string">"https://693ef18da3184cffa82144fde2979cbc:a0651b0286784761a62ef8e8fc128722@app.getsentry.com/59524"</span>
-  }
-}
+</code></pre><blockquote>
+<p><strong>Note:</strong> for a full description of each configuration property, see here: <a href="https://github.com/dadi/logger#configure">https://github.com/dadi/logger#configure</a></p>
+</blockquote>
+<h2 id="using-the-logger">Using the logger</h2>
+<p>DADI Web exposes the log module so you can use it within your own modules or events. For usage information, go here: <a href="https://github.com/dadi/logger#using-the-logger">https://github.com/dadi/logger#using-the-logger</a></p>
+<h2 id="request-logging">Request Logging</h2>
+<p>Configuring Web to log all HTTP requests is possible by adding an <code>accessLog</code> block. The request logger function will executed every time the app receives a request. For detailed documentation, go here: <a href="https://github.com/dadi/logger#http-request-logging">https://github.com/dadi/logger#http-request-logging</a></p>
+<pre><code class="lang-json"><span class="hljs-string">"logging"</span>: {
+  "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">level</span>": <span class="hljs-value"><span class="hljs-string">"info"</span></span>,
+  "<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"./log"</span></span>,
+  "<span class="hljs-attribute">filename</span>": <span class="hljs-value"><span class="hljs-string">"web"</span></span>,
+  "<span class="hljs-attribute">extension</span>": <span class="hljs-value"><span class="hljs-string">"log"</span></span>,
+  "<span class="hljs-attribute">accessLog</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+  </span>}
+</span>}
 </code></pre>
+<h2 id="log-rotation">Log Rotation</h2>
+<p>Rotating log files should be configured via your operating system. For detailed documentation, go here: <a href="https://github.com/dadi/logger#log-rotation">https://github.com/dadi/logger#log-rotation</a></p>
+<h2 id="viewing-the-logs">Viewing the logs</h2>
+<p>DADI Web uses <a href="https://github.com/trentm/node-bunyan">Bunyan</a> to log errors and events. The Bunyan log output is a stream of JSON objects. A CLI tool is provided for pretty-printing Bunyan logs and for filtering. For detailed documentation, go here: <a href="https://github.com/dadi/logger#viewing-the-logs">https://github.com/dadi/logger#viewing-the-logs</a></p>
+
+
 
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
               See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/web/concepts/logging.md">Edit in Github</a>.
@@ -288,16 +115,20 @@
             <ul class="list--line">
                 <li>
                   <strong class="txt--grey block">Prev</strong>
-                  <a href="/web/examples/external-data">Loading external data</a>
+                  <a href="/web/concepts/caching">Caching</a>
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
-                  <a href="/web/everyday/logging">Logging</a>
+                  <a href="/web/concepts/security">Security</a>
                 </li>
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#logging">Logging</a></li>
+                <li><a class="" href="#basic-logging">Basic Logging</a></li>
+                <li><a class="" href="#using-the-logger">Using the logger</a></li>
+                <li><a class="" href="#request-logging">Request Logging</a></li>
+                <li><a class="" href="#log-rotation">Log Rotation</a></li>
+                <li><a class="" href="#viewing-the-logs">Viewing the logs</a></li>
             </ul>
         </div>
       </div>

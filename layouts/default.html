@@ -46,7 +46,7 @@
         {{#each breadcrumb_path}}
           {{#each ../collections}}
             {{#each this}}
-              {{#ifCond this.path '==' ../../path}}
+              {{#ifCond this.path '==' ../../path }}
                 <li class="{{#if @../../last}}fwb{{/if}}"><a href="/{{this.path}}">{{{this.title}}}</a></li>
               {{/ifCond}}
             {{/each}}
@@ -73,7 +73,7 @@
               <div class="small fwb float--right w-1-2 alignr">
                 <a href="{{{githubMeta.author.html_url}}}" target="_blank">
                   <img class="float--right pad__left--half" src="{{githubMeta.author.avatar_url}}" width="40" height="40">
-                </a>   
+                </a>
                 <a class="block fwb">{{{githubMeta.commit.author.name}}}</a>
                 <span class="block txt--grey" title="Last updated: {{{githubMeta.commit.author.date}}}">{{ moment githubMeta.commit.author.date format="Do MMMM YYYY"}}</span>
               </div>
@@ -86,6 +86,10 @@
 
           <div class="documentation">
             {{{ contents }}}
+
+            {{#ifCond title '==' 'Concepts'}}
+              {{> concepts currentPath=path }}
+            {{/ifCond}}
 
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
               See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/{{ this.path }}.md">Edit in Github</a>.

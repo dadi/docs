@@ -39,6 +39,7 @@
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
                 <li class=""><a href="/api">API</a></li>
+                <li class="fwb"><a href="/api/concepts">Concepts</a></li>
       </ul>
 
       <div class="larger hdr">Hooks</div>
@@ -51,21 +52,20 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
-                </a>   
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2016-12-22T06:11:09Z">22nd December 2016</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">797 words</div>
+              <div class="block fwb">796 words</div>
               <div class="txt--grey">3 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h2 id="introduction">Introduction</h2>
-<p>In its essence, a hook is simply a function that intercepts a document/query before it’s executed, having the option to modify it before returning it back to the model.</p>
+            <p>In its essence, a hook is simply a function that intercepts a document/query before it’s executed, having the option to modify it before returning it back to the model.</p>
 <p>A hook is stored as an individual file on a <code>hooks</code> directory (defaulting to <code class="lang-gradle"><span class="hljs-regexp">/workspace/</span>hooks</code>) and can be used by being attached to a <code class="lang-livecodeserver"><span class="hljs-built_in">create</span></code>, <code class="lang-q"><span class="hljs-keyword">update</span></code> or <code class="lang-actionscript"><span class="hljs-keyword">delete</span></code> operation in the <code>settings</code> section of the schema definition.</p>
 <p><em>collections.user.json</em>:</p>
 <pre><code class="lang-xquery"><span class="hljs-string">"settings"</span>: {
@@ -229,6 +229,7 @@
 </code></pre>
 
 
+
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
               See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/api/concepts/hooks.md">Edit in Github</a>.
             </p>
@@ -239,16 +240,15 @@
             <ul class="list--line">
                 <li>
                   <strong class="txt--grey block">Prev</strong>
-                  <a href="/api/examples/go">Go</a>
+                  <a href="/api/concepts/custom">Custom Endpoints</a>
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
-                  <a href="/api/concepts/http-codes">HTTP Status codes</a>
+                  <a href="/api/concepts/querying">Querying Collections</a>
                 </li>
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#introduction">Introduction</a></li>
                 <li><a class="" href="#anatomy-of-a-hook">Anatomy of a hook</a></li>
                 <li><a class="" href="#use-cases">Use cases</a></li>
                 <li><a class="" href="#before-and-after-hooks">Before and After Hooks</a></li>

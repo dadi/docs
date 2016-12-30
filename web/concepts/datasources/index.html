@@ -52,50 +52,43 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
-                </a>   
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2016-12-22T05:50:53Z">22nd December 2016</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">1160 words</div>
+              <div class="block fwb">1151 words</div>
               <div class="txt--grey">4 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h2 id="datasources">Datasources</h2>
-<h3 id="overview">Overview</h3>
-<p>DADI Web.</p>
-<ul>
-<li><a href="#datasource-specification">Datasource Specification</a></li>
-<li><a href="#caching">Caching</a></li>
-</ul>
-<pre><code class="lang-applescript"><span class="hljs-keyword">my</span>-web/
+            <pre><code class="lang-applescript"><span class="hljs-keyword">my</span>-web/
   app/
     datasources/      
       books.json      <span class="hljs-comment"># a datasource specification</span>
     events/           
     pages/
-</code></pre><h3 id="datasource-specification">Datasource Specification</h3>
-<h4 id="example-datasource-specification">Example datasource specification</h4>
-<pre><code class="lang-xquery">{
-  <span class="hljs-string">"datasource"</span>: {
-    <span class="hljs-string">"key"</span>: <span class="hljs-string">"books"</span>,
-    <span class="hljs-string">"name"</span>: <span class="hljs-string">"Books datasource"</span>,
-    <span class="hljs-string">"source"</span>: {
-      <span class="hljs-string">"endpoint"</span>: <span class="hljs-string">"1.0/library/books"</span>
-    },
-    <span class="hljs-string">"paginate"</span>: true,
-    <span class="hljs-string">"count"</span>: <span class="hljs-number">5</span>,
-    <span class="hljs-string">"sort"</span>: { <span class="hljs-string">"name"</span>: <span class="hljs-number">1</span> },
-    ],
-    <span class="hljs-string">"filter"</span>: {},
-    <span class="hljs-string">"fields"</span>: {}
-  }
-}
-</code></pre><pre><code class="lang-json">{
+</code></pre><h2 id="datasource-specification">Datasource Specification</h2>
+<h3 id="example-datasource-specification">Example datasource specification</h3>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">datasource</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"books"</span></span>,
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Books datasource"</span></span>,
+    "<span class="hljs-attribute">source</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">endpoint</span>": <span class="hljs-value"><span class="hljs-string">"1.0/library/books"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">paginate</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">count</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
+    "<span class="hljs-attribute">sort</span>": <span class="hljs-value">{ "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-number">1</span> </span>}</span>,
+    "<span class="hljs-attribute">filter</span>": <span class="hljs-value">{}</span>,
+    "<span class="hljs-attribute">fields</span>": <span class="hljs-value">{}
+  </span>}
+</span>}
+</code></pre>
+<pre><code class="lang-json">{
   "<span class="hljs-attribute">datasource</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"books"</span></span>,
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Books datasource"</span></span>,
@@ -132,7 +125,8 @@
     ]
   </span>}
 </span>}
-</code></pre><pre><code class="lang-json">{
+</code></pre>
+<pre><code class="lang-json">{
   "<span class="hljs-attribute">datasource</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"books"</span></span>,
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Books datasource"</span></span>,
@@ -169,7 +163,8 @@
     ]
   </span>}
 </span>}
-</code></pre><h4 id="property-description">Property Description</h4>
+</code></pre>
+<h4 id="property-description">Property Description</h4>
 <h5 id="section-datasource-">Section: <code>datasource</code></h5>
 <table>
 <thead>
@@ -360,7 +355,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="passing-parameters-with-requestparams-">Passing parameters with <code>requestParams</code></h4>
+<h3 id="passing-parameters-with-requestparams-">Passing parameters with <code>requestParams</code></h3>
 <p><code>requestParams</code> is an array of parameters that the datasource can accept from the querystring. Used in conjunction with the <code>route</code> property in the page specification, this allows filters to be generated for querying the collection.</p>
 <p><strong>Page specification</strong></p>
 <pre><code class="lang-javascript"><span class="hljs-string">"route"</span>: {
@@ -389,7 +384,7 @@
 </tr>
 </tbody>
 </table>
-<h5 id="for-example-given-a-collection-books-with-the-fields-_id-title-">For example, given a collection <code>books</code> with the fields <code class="lang-objectivec">_<span class="hljs-keyword">id</span></code>, <code class="lang-dos"><span class="hljs-built_in">title</span></code></h5>
+<h4 id="for-example-given-a-collection-books-with-the-fields-_id-title-">For example, given a collection <code>books</code> with the fields <code class="lang-objectivec">_<span class="hljs-keyword">id</span></code>, <code class="lang-dos"><span class="hljs-built_in">title</span></code></h4>
 <p>With the page route <code class="lang-coffeescript"><span class="hljs-regexp">/books/</span>:title</code> and the above datasource configuration, DADI Web will extract the <code class="lang-clojure"><span class="hljs-attribute">:title</span></code> parameter from the URL and use it to query the <code>books</code> collection using the field <code class="lang-dos"><span class="hljs-built_in">title</span></code>.</p>
 <p>With a request to <a href="http://www.example.com/books/sisters-brothers">http://www.example.com/books/sisters-brothers</a>, the named parameter <code class="lang-clojure"><span class="hljs-attribute">:title</span></code> is <code>sisters-brothers</code>. A filter query is constructed for DADI API using this value.</p>
 <p>The query passed to the API is: <code class="lang-json">{ "<span class="hljs-attribute">title</span>" : <span class="hljs-value"><span class="hljs-string">"sisters-brothers"</span> </span>}</code></p>
@@ -413,8 +408,8 @@
 </tr>
 </tbody>
 </table>
-<p>See <a href="https://github.com/dadi/web/blob/docs/docs/pages.md#routing">Routing</a> for detailed routing documentation.</p>
-<h4 id="chaining-datasources">Chaining datasources</h4>
+<p>See <a href="routing">Routing</a> for detailed routing documentation.</p>
+<h3 id="chaining-datasources">Chaining datasources</h3>
 <p>It is often a requirement to query a datasource using data already loaded by another datasource. DADI Web supports this through the use of chained datasources. Chained datasources are executed after all non-chained datasources.</p>
 <p>Add a <code>chained</code> property to the datasource that relies on data loaded by another datasource.</p>
 <p><em>Simple field replacement</em></p>
@@ -464,7 +459,7 @@
 </tr>
 </tbody>
 </table>
-<h5 id="for-example">For example</h5>
+<h4 id="example">Example</h4>
 <p>On a page that displays a car make and all it’s associated models, we have two datasources querying two collections, <strong>makes</strong> and <strong>models</strong>.</p>
 <p><strong>Collections</strong></p>
 <ul>
@@ -527,7 +522,7 @@
       </span>}
    </span>}
 </span>}
-</code></pre><h5 id="filter-replacement">Filter replacement</h5>
+</code></pre><h4 id="filter-replacement">Filter replacement</h4>
 <pre><code class="lang-javascript"><span class="hljs-string">"filter"</span>: [<span class="hljs-string">"{capRangeByUrlModel}"</span>,{<span class="hljs-string">"$group"</span>:{<span class="hljs-string">"_id"</span>:{<span class="hljs-string">"fuelType"</span>:<span class="hljs-string">"$fuelType"</span>}}}],
 <span class="hljs-string">"chained"</span>: {
   <span class="hljs-string">"datasource"</span>: <span class="hljs-string">"capRangeByUrlModel"</span>,
@@ -538,8 +533,9 @@
   }
 }
 </code></pre>
-<h3 id="caching">Caching</h3>
+<h2 id="caching">Caching</h2>
 <p>[TODO]</p>
+
 
 
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
@@ -552,7 +548,7 @@
             <ul class="list--line">
                 <li>
                   <strong class="txt--grey block">Prev</strong>
-                  <a href="/web/concepts/pages">Pages</a>
+                  <a href="/web/concepts/routing">Routing</a>
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
@@ -561,7 +557,8 @@
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#datasources">Datasources</a></li>
+                <li><a class="" href="#datasource-specification">Datasource Specification</a></li>
+                <li><a class="" href="#caching">Caching</a></li>
             </ul>
         </div>
       </div>

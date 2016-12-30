@@ -51,22 +51,78 @@
       <div class="grid">
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
-              <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
-                </a>   
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">25th November 2016</span>
-              </div>
             <div class="inline-block">
-              <div class="block fwb">1 words</div>
+              <div class="block fwb">33 words</div>
               <div class="txt--grey">1 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <h2 id="concepts">Concepts</h2>
+            <p>Learn the basic concepts involved in using DADI CDN to deliver images, JavaScript and CSS to your application. Topics include resizing and cropping images, boosting saturation, converting between image formats and file compression.</p>
 
+
+                  <div class="grid">
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/layout">Layout Processor</a>
+                          <p class="normal no-marg-i pad__top"><p>The layout processor provides a way to generate a new image by combining existing images accessible by CDN.</p></p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/upload">Uploading Images</a>
+                          <p class="normal no-marg-i pad__top"><p>If the filename of an image being uploaded is the same as an existing file on the CDN, the new file will have it’s name changed by adding the current timestamp:</p></p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/recipes">Delivery Recipes</a>
+                          <p class="normal no-marg-i pad__top">Create a "recipe" of image manipulation parameters to apply to images at runtime</p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/routes">Delivery Routes</a>
+                          <p class="normal no-marg-i pad__top">Let CDN choose the recipe based on device, network, location or language</p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/cache">Caching</a>
+                          <p class="normal no-marg-i pad__top">See how to improve performance by caching images processed with CDN</p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/interpolation">Interpolation filter</a>
+                          <p class="normal no-marg-i pad__top">Choose the interpolation method when resizing images</p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/blurring">Blur</a>
+                          <p class="normal no-marg-i pad__top">Add blur to an image</p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/cropping">Cropping an image</a>
+                          <p class="normal no-marg-i pad__top">Crop and resize images</p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/flipping">Flipping an image</a>
+                          <p class="normal no-marg-i pad__top">Flip images horizontally, vertically or both</p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/resizing">Resizing an image</a>
+                          <p class="normal no-marg-i pad__top"><p>The width (<code class="lang-stata"><span class="hljs-literal">w</span></code>) of the required output image, in pixels.</p></p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/rotating">Rotating an image</a>
+                          <p class="normal no-marg-i pad__top"><p>Rotates the image according to the value specified in degrees. Valid values are in the range 0 - 359. The default value is 0 which leaves the image unchanged. The image will be zoomed so that it covers the entire area after rotation.</p></p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/formats">Image format conversion</a>
+                          <p class="normal no-marg-i pad__top"><p><strong>URL parameter:</strong> <code class="lang-dos"><span class="hljs-built_in">format</span></code>, <code class="lang-fortran"><span class="hljs-keyword">fmt</span></code></p></p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/saturation">Saturation</a>
+                          <p class="normal no-marg-i pad__top">Increase or reduce colour saturation, or convert to black and white</p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/sharpen">Sharpen</a>
+                          <p class="normal no-marg-i pad__top">Sharpen images</p>
+                        </div>
+                        <div class="col w-1-3 pad__bottom">
+                          <a href="/cdn/concepts/quality">Image compression quality</a>
+                          <p class="normal no-marg-i pad__top">Reduce file size by applying compression to images</p>
+                        </div>
+                  </div>
 
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
               See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/cdn/concepts.md">Edit in Github</a>.
@@ -87,7 +143,6 @@
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#concepts">Concepts</a></li>
             </ul>
         </div>
       </div>
