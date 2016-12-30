@@ -1,5 +1,6 @@
 ---
 title: Resizing an image
+order: 100
 ---
 
 ## Width

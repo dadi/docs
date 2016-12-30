@@ -1,5 +1,7 @@
 ---
 title: Blur
+excerpt: Add blur to an image
+order: 100
 ---
 
 Adds blur to an image, using any value above zero.

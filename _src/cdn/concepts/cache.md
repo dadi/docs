@@ -1,5 +1,7 @@
 ---
 title: Caching
+excerpt: See how to improve performance by caching images processed with CDN
+order: 10
 ---
 
 DADI CDN outputs `X-Cache` headers, which are set to `HIT` for images/assets delivered from the cach and `MISS` for images/assets that are delivered directly from source.

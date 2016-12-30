@@ -1,10 +1,8 @@
 ---
 title: Sessions
+excerpt: Add the handling of session data to your application
+order: 6
 ---
-
-## Sessions
-
-### Overview
 
 DADI Web uses the [express-session](https://github.com/expressjs/session) library to handle sessions. Visit that project's homepage for more detailed information regarding session configuration.
 
@@ -12,7 +10,7 @@ DADI Web uses the [express-session](https://github.com/expressjs/session) librar
  * [Configuration Properties](#configuration-properties)
  * [Using the session](#using-the-session)
 
-#### Configuration
+## Configuration
 
 **Note:** Sessions are disabled by default. To enable them in your application, add the following to your configuration file:
 
@@ -39,7 +37,7 @@ A full configuration block for sessions contains the following properties:
 }
 ```
 
-#### Configuration Properties
+### Configuration Properties
 
 Property      | Description        |  Default                                  
 ---------------|--------------------|-------------------------------------------
@@ -54,22 +52,21 @@ cookie.maxAge | Set the cookie’s expiration as an interval of seconds in the f
 cookie.secure | HTTPS is necessary for secure cookies. If `secure` is `true` and you access your site over HTTP, the cookie will not be set. | false
 
 
-#### Using the session
+## Using the session
 
 Session data can easily be accessed from an [event](https://github.com/dadi/web/blob/docs/docs/events.md) or custom [middleware](https://github.com/dadi/web/blob/docs/docs/middleware.md).
 
 ```js
 var Event = function (req, res, data, callback) {
+  if (req.session) {
+    req.session.someProperty = "some value"
+    req.session.save(function (err) {
+      // session saved
+    })
 
- if (req.session) {
-   req.session.someProperty = "some value";
-   req.session.save(function (err) {
-     // session saved
-   })
+    data.session_id = req.session.id
+  }
 
-   data.session_id = req.session.id;
- }
-
- callback(null, data);
+  callback(null, data)
 }
 ```

@@ -1,12 +1,16 @@
 ---
-title: Saturate
+title: Saturation
+excerpt: Increase or reduce colour saturation, or convert to black and white
+order: 100
 ---
+
+> **URL parameter:** `saturate`, `sat`
 
 Increase or decrease an image's colour saturation. To desaturate (convert to black and white), use `-1`. If not specified, the default value is `0.1`.
 
-> The `saturate` parameter can be added to the querystring as either `sat` or `saturate`
-
-`https://cdn.example.com/images/beach.jpg?saturate=2.5`
+```http
+http://cdn.somedomain.tech/images/beach.jpg?saturate=2.5
+```
 
 **Default amount = 0.1**
 

@@ -1,5 +1,7 @@
 ---
 title: Caching
+excerpt: Improve performance with page and datasource caching
+order: 7
 ---
 
 ## Configuration

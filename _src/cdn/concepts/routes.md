@@ -1,5 +1,7 @@
 ---
 title: Delivery Routes
+excerpt: Let CDN choose the recipe based on device, network, location or language
+order: 9
 ---
 
 Routes allow CDN to make a decision about which [Delivery Recipe](/cdn/concepts/recipes/) to use for the current request, based on a set of configurable conditions.
