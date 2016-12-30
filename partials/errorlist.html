@@ -1,0 +1,10 @@
+
+  {{#each collections}}
+    {{#ifCond @key '==' 'Errors'}}
+      <ul>
+        {{#each this}}
+          <li><a href="/{{path}}">{{{title}}}</a></li>
+        {{/each}}
+      </ul>
+    {{/ifCond}}
+  {{/each}}

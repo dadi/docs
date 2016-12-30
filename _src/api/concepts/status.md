@@ -1,5 +1,7 @@
 ---
 title: Server Status
+excerpt: Obtain realtime information regarding the health of your API instance
+order: 9
 ---
 
 ## Introduction

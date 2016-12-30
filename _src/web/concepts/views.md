@@ -1,5 +1,7 @@
 ---
 title: Views
+excerpt: Learn how to use page templates and partials to render your data
+order: 5
 ---
 
 A `page` on your website consists of two files within your application's file structure: a Page Specification and a Template.
@@ -23,7 +25,7 @@ my-web/
 
 ## Data
 
-```
+```json
 {
   "title": "films",
   "debug": false,
@@ -49,9 +51,9 @@ my-web/
 }
 ```
 
-### Global Config
+## Global Config
 
-```
+```json
 {
   "title": "films",
   "host": "www.example.com",

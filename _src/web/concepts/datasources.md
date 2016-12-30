@@ -1,15 +1,8 @@
 ---
 title: Datasources
+excerpt: Configure datasources to load data for rendering pages
+order: 3
 ---
-
-## Datasources
-
-### Overview
-
-DADI Web.
-
-* [Datasource Specification](#datasource-specification)
-* [Caching](#caching)
 
 ```
 my-web/
@@ -20,12 +13,11 @@ my-web/
     pages/            
 ```
 
-### Datasource Specification
+## Datasource Specification
 
-#### Example datasource specification
+### Example datasource specification
 
-
-```
+```json
 {
   "datasource": {
     "key": "books",
@@ -36,14 +28,13 @@ my-web/
     "paginate": true,
     "count": 5,
     "sort": { "name": 1 },
-    ],
     "filter": {},
     "fields": {}
   }
 }
 ```
 
-```
+```json
 {
   "datasource": {
     "key": "books",
@@ -83,7 +74,7 @@ my-web/
 }
 ```
 
-```
+```json
 {
   "datasource": {
     "key": "books",
@@ -125,7 +116,7 @@ my-web/
 
 #### Property Description
 
-###### Section: `datasource`
+##### Section: `datasource`
 
  Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
@@ -139,7 +130,7 @@ filterEvent           | An event file to execute which will generate the filter 
 fields           | Limits the fields to return in the result set   |               | { "title": 1, "author": 1 }
 requestParams           | An array of parameters the datasource can accept from the querystring   |               | [ { "param": "author", "field": "author_id" } ]
 
-###### Section: `datasource.source`
+##### Section: `datasource.source`
 
  Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
@@ -149,7 +140,7 @@ host           | (optional) The host portion of an endpoint URL   | The main con
 port           | (optional) The port portion of an endpoint URL   | The main config value `api.port`  | "3001"
 endpoint           | The path to the endpoint which contains the data for this datasource   |               | "/1.0/news/articles"       
 
-###### Section: `datasource.caching`
+##### Section: `datasource.caching`
 
  Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
@@ -158,7 +149,7 @@ ttl           |    |               |
 directory           | The directory to use for storing cache files, relative to the root of the application   |               | "./cache"
 extension           | The file extension to use for cache files   |               |  "json"
 
-###### Section: `datasource.auth`
+##### Section: `datasource.auth`
 
  Property       | Description                 | Default value  |  Example
 :---------------|:----------------------------|:---------------|:--------------
@@ -168,7 +159,7 @@ port           |    |               | 3000
 tokenUrl           |    |               |     "/token"   
 credentials           |    |               |        { "clientId": "test123", "secret": "your-secret" }
 
-#### Passing parameters with `requestParams`
+### Passing parameters with `requestParams`
 
 `requestParams` is an array of parameters that the datasource can accept from the querystring.
 Used in conjunction with the `route` property in the page specification, this allows
@@ -195,7 +186,7 @@ filters to be generated for querying the collection.
 |--|---
 | The collection field to filter on | The request parameter to use as the value for the filter, This must match a named parameter in the page specification's `route` property
 
-###### For example, given a collection `books` with the fields `_id`, `title`
+##### For example, given a collection `books` with the fields `_id`, `title`
 
 With the page route `/books/:title` and the above datasource configuration, DADI Web will extract the `:title` parameter from the URL and use it to query the `books` collection using the field `title`.
 
@@ -207,9 +198,9 @@ The query passed to the API is: `{ "title" : "sisters-brothers" }`
 |--|---|---|----|---
 | `/books/:title` | ```"requestParams": [ { "param": "title", "field": "title" } ]``` | http://www.example.com/books/sisters-brothers | `{ 'title': 'sisters-brothers' }` | `db.books.find({ 'title': 'sisters-brothers' })`
 
-See [Routing](https://github.com/dadi/web/blob/docs/docs/pages.md#routing) for detailed routing documentation.
+See [Routing](routing) for detailed routing documentation.
 
-#### Chaining datasources
+### Chaining datasources
 
 It is often a requirement to query a datasource using data already loaded by another datasource. DADI Web supports this through the use of chained datasources. Chained datasources are executed after all non-chained datasources.
 
@@ -248,7 +239,7 @@ _Filter replacement_
 | outputParam.field | The `field` value should match the MongoDB field to be queried. The `type` value indicates how the `param` value should be treated (currently only "Number" is supported). |
 | outputParam.query | The `query` property allows more advanced filtering, see below for more detail.   |
 
-###### For example
+##### Example
 
 On a page that displays a car make and all it's associated models, we have two datasources querying two collections, __makes__ and __models__.
 
@@ -327,7 +318,7 @@ If your query parameter must be passed to the endpoint as an integer, add a `typ
 }
 ```
 
-###### Filter replacement
+##### Filter replacement
 
 ```js
 "filter": ["{capRangeByUrlModel}",{"$group":{"_id":{"fuelType":"$fuelType"}}}],
@@ -341,6 +332,6 @@ If your query parameter must be passed to the endpoint as an integer, add a `typ
 }
 ```
 
-### Caching
+## Caching
 
 [TODO]

@@ -1,5 +1,7 @@
 ---
 title: Delivery Recipes
+excerpt: Create a "recipe" of image manipulation parameters to apply to images at runtime
+order: 8
 ---
 
 A Delivery Recipe is a predefined set of image manipulation parameters stored in a JSON file and applied to images at the time of request.

@@ -1,12 +1,18 @@
 ---
 title: Sharpen
+excerpt: Sharpen images
+order: 100
 ---
+
+> **URL parameter:** `sharpen`, `sh`
 
 Add sharpness to an image. If not specified, the default value is `5`.
 
-> The `sharpen` parameter can be added to the querystring as either `sh` or `sharpen`
+## Example
 
-`https://cdn.example.com/images/beach.jpg?sharpen=25`
+```http
+http://cdn.somedomain.tech/images/beach.jpg?sharpen=25
+```
 
 **Default amount = 5**
 

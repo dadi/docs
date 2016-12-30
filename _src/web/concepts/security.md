@@ -1,5 +1,7 @@
 ---
 title: Security
+excerpt: Add SSL to secure your application
+order: 9
 ---
 
 # Redirecting HTTP traffic to HTTPS

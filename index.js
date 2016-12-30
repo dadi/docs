@@ -4,6 +4,7 @@ var autotoc = require('metalsmith-autotoc')
 var collections = require('metalsmith-collections')
 var customHelpers = require('metalsmith-register-helpers')
 var default_values = require('metalsmith-default-values')
+var excerpts = require('metalsmith-excerpts')
 var headings = require('metalsmith-headings')
 var helpers = require('handlebars-helpers')
 var highlight = require('metalsmith-code-highlight')
@@ -13,6 +14,7 @@ var linkcheck = require('metalsmith-linkcheck')
 var markdown = require('metalsmith-markdown')
 var markdownTidy = require('metalsmith-markdown-tidy')
 var pageTitles = require('metalsmith-page-titles')
+var partials = require('metalsmith-discover-partials')
 var paths = require('metalsmith-paths')
 var permalinks = require('metalsmith-permalinks')
 var redirect = require('metalsmith-redirect')
@@ -116,6 +118,10 @@ Metalsmith(__dirname)
   .source('./_src')
   .destination('./')
   .clean(false)
+  .use(partials({
+    directory: 'partials',
+    pattern: /\.html$/
+  }))
   .use(default_values([
     {
       pattern : '**/*.md',
@@ -142,6 +148,21 @@ Metalsmith(__dirname)
         'Pages', 'Datasources', 'Events', 'Views', 'Routing', 'Caching', 'Security', 'Sessions',
         'Examples'
       ])
+    },
+    'api/concepts': {
+      pattern: ['api/concepts/*.md', '!api/concepts/index.md'],
+      sortBy: 'order'
+    },
+    'cdn/concepts': {
+      pattern: ['cdn/concepts/*.md', '!cdn/concepts/index.md'],
+      sortBy: 'order'
+    },
+    'web/concepts': {
+      pattern: ['web/concepts/*.md', '!web/concepts/index.md'],
+      sortBy: 'order'
+    },
+    Errors: {
+      pattern: 'errors/**/*.md'
     }
   }))
   .use(pageTitles())
@@ -174,6 +195,7 @@ Metalsmith(__dirname)
   //   }
   // }))
   .use(permalinks())
+  .use(excerpts())
   .use(customHelpers({
     directory: '_helpers'
   }))

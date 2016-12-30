@@ -1,5 +1,7 @@
 ---
 title: Image compression quality
+excerpt: Reduce file size by applying compression to images
+order: 100
 ---
 
 Applies compression to the image, reducing file size. Accepts any number from 1-100. If not specified, the default is 75.

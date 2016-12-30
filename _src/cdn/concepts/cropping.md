@@ -1,6 +1,10 @@
 ---
-title: Crop
+title: Cropping an image
+excerpt: Crop and resize images
+order: 100
 ---
+
+xxx
 
 ## resize
 
@@ -54,9 +58,7 @@ The output image is 400 x 267 pixels.
 
 ### fill
 
-Ignores the aspect ratio of the original image and generates an output image with specified width and height.
-
-The output image may appear squashed or stretched.
+Ignores the aspect ratio of the original image and generates an output image with specified width and height. _The output image may appear squashed or stretched._
 
 **Example**
 
@@ -80,9 +82,19 @@ Crops the image using a technique that determines the most important areas. Area
 
 ![](/assets/cdn/med-portrait-entropy.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
-## crop
+### crop
 
 | crop-x | Integer | Default: 0. X position of crop area |
 | crop-y | Integer | Default: 0. Y position of crop area |
 
-Coming soon…
+When `resize=crop` an additional `crop` parameter must be used to specify the coordinates of the crop rectangle. There are two ways to pass the crop rectangle coordinates:
+
+#### Specify only the top left corner of the rectangle
+
+`?resize=crop&crop=10,15`
+
+
+#### Specify the top left corner and the bottom right corner of the rectangle
+
+`?resize=crop&crop=10,15,200,300`
+
