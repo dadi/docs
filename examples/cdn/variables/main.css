@@ -239,6 +239,9 @@ h1 img {
 	padding: 25px;
 	border-radius: 15px;
 	box-shadow: 10px 14px 16px rgba(0,0,0,0.3);
+	max-height: calc(100vh - 100px);
+	overflow: scroll;
+	-webkit-overflow-scroll: touch;
 }
 .settings__list {
 	margin-bottom: 20px;
@@ -319,24 +322,23 @@ h1 img {
 .js-killprop {
     border-radius: 0 5px 5px 0;
     font-size: 11px;
-    width: 20px;
-    line-height: 22px;
-    height: 20px;
+    width: 22px;
+    line-height: 30px;
+    height: 27px;
     display: inline-block;
     text-align: center;
     cursor: pointer;
     position: absolute;
     left: 100%;
-    top: 3px;
-    margin-left: 25px;
+    top: -1px;
     color: #666;
-    background: rgba(0,0,0,0.9);
     padding: 10px 0;
+    z-index: 1;
+    color: #e54c4c;
 }
 .js-killprop:hover {
 	background: #e54c4c;
 	color: #000;
-	width: 23px;
 }
 
 .js-update.btn {
