@@ -4,8 +4,6 @@ excerpt: Crop and resize images
 order: 100
 ---
 
-xxx
-
 ## resize
 
 ### aspectfill
