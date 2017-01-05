@@ -1,6 +1,8 @@
 $(document).ready(function() {
   $('body').on('click', '.js-addprop', function(){
     createSelectBox();
+
+    return false;
   });
 
   $('body').on('click', '.js-loadimage', function(){
@@ -26,6 +28,8 @@ $(document).ready(function() {
 
   $('body').on('click', '.js-update', function(){
     updateImage();
+
+    return false;
   });
 
   $('body').on('click', '.js-switchsource', function(){
