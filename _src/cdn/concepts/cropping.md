@@ -16,7 +16,7 @@ Keeps the aspect ratio of the original image and generates an output image of th
 
 ### gravity
 
-Used to position the crop area. Available options: `NorthWest`, `North`, `NorthEast`, `West`, `Center`, `East`, `SouthWest`, `South`, `SouthEast`, `None`
+Used to position the crop area. Available options (case sensitive): `northwest`, `north`, `northeast`, `west`, `center`, `east`, `southWest`, `south`, `southeast`, `none`
 
 **Example**
 
