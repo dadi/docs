@@ -2,6 +2,22 @@ $(document).ready(function() {
   $('body').on('click', '.js-addprop', function(){
     createSelectBox();
   });
+
+  $('body').on('click', '.js-loadimage', function(){
+    $('.spinner').removeClass('hide');
+
+    $('.image img')
+      .addClass('loading')
+      .attr('src', $(this).attr('href'))
+      .one('load', function() {
+        $('.spinner').addClass('hide');
+        $('.image img').removeClass('loading')
+      });
+
+    parseImage();
+
+    return false;
+  });
   
   $('body').on('click', '.js-killprop', function(){
     $(this).parent().remove();
@@ -12,7 +28,7 @@ $(document).ready(function() {
     updateImage();
   });
 
-  $('body').on('click', '.sources a', function(){
+  $('body').on('click', '.js-switchsource', function(){
     $('.source').addClass('hide');
     $($(this).attr('href')).removeClass('hide');
     $('.sources a').removeClass('active');
@@ -24,6 +40,7 @@ $(document).ready(function() {
   function parseImage() {
     var startUrl = $('.image img').attr('src'),
         url = new URI(startUrl),
+        port = url._parts.port,
         path = url._parts.path.split('/'),
         hostname = url._parts.hostname,
         source = path.slice(0,-1).join('/').substring(1),
@@ -32,6 +49,8 @@ $(document).ready(function() {
         queryLen = Object.keys(query).length,
         qs = '',
         i = 0;
+
+    if (port) hostname = hostname + ':' + port;
 
     $('.settings li.active').remove();
 
@@ -52,7 +71,7 @@ $(document).ready(function() {
       qs
     );
 
-    $('#imgDomain').text(hostname);
+    $('#imgDomain').text(hostname);  
     $('#imgSrc').text(source);
     $('#imgFile').text(file);
   }
@@ -64,7 +83,7 @@ $(document).ready(function() {
 
     // Create html
     $new = $('<li class="active">' + $('#addprop').html() + '</li>');
-    $('.settings ul').append($new);
+    $('.settings__list').append($new);
 
     // Set the key
     $new.find('.theKey').val(key);
