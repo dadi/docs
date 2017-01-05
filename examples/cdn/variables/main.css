@@ -210,17 +210,15 @@ h1 img {
 	opacity: 1;
 }
 
-
 .page {
 	height: 100vh;
 	display: flex;
 }
-
 .page .image {
 	text-align: center;
 	margin: auto;
 	padding: 120px;
-	margin-left: 435px;
+	margin-left: 400px;
 	position: relative;
 }
 .page img {
