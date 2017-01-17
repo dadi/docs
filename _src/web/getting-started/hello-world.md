@@ -86,7 +86,7 @@ For this example we will use this basic configuration.
 }
 ```
 
-See [configuration](/web/configuration/) for full information.
+See [configuration](/web/getting-started/configuration/) for full information.
 
 ## /workspace/
 
