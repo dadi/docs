@@ -1,4 +1,5 @@
 ---
+lunr: true
 title: Data Validation
 excerpt: Configure API collections to validate incoming data  
 order: 9

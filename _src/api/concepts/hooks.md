@@ -1,4 +1,5 @@
 ---
+lunr: true
 title: Hooks
 excerpt: Perform operations on data before/after GET, UPDATE and DELETE requests
 order: 9

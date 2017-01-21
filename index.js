@@ -1,3 +1,5 @@
+var fs = require('fs')
+
 var Metalsmith = require('metalsmith')
 var Handlebars = require('handlebars')
 var autotoc = require('metalsmith-autotoc')
@@ -11,6 +13,7 @@ var highlight = require('metalsmith-code-highlight')
 var htmlTidy = require('metalsmith-html-tidy')
 var layouts = require('metalsmith-layouts')
 var linkcheck = require('metalsmith-linkcheck')
+var lunr = require('metalsmith-lunr')
 var markdown = require('metalsmith-markdown')
 var markdownTidy = require('metalsmith-markdown-tidy')
 var pageTitles = require('metalsmith-page-titles')
@@ -24,6 +27,8 @@ var wordcount = require("metalsmith-word-count")
 
 var navigation = require('metalsmith-navigation')
 var githubMeta = require('metalsmith-github-meta')
+
+var data = []
 
 // default values shown
 var navConfigs = {
@@ -210,8 +215,24 @@ Metalsmith(__dirname)
   //.use(linkcheck())
   //.use(spellcheck())
   .use(sitemap('http://docs.dadi.tech'))
+  .use(lunr({
+    ref: 'path',
+    preprocess: function (content) {
+      var page = {
+        title: this.title,
+        excerpt: this.excerpt,
+        path: this.path
+      }
+
+      data.push(page)
+
+      return content
+    }
+  }))
   .build(function(err, files) {
-    if (err) { throw err; }
+    if (err) { throw err }
+
+    fs.writeFileSync('./data.json', JSON.stringify(data, null, 2))
   })
 
   Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {

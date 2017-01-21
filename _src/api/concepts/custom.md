@@ -1,4 +1,5 @@
 ---
+lunr: true
 title: Custom Endpoints
 excerpt: Combine datasources and modify or enrich data using custom endpoints
 order: 9
