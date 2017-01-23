@@ -236,7 +236,6 @@
 
 <script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
 <script src="http://stage.dadi.tech/assets/js/main.js?v=2"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/assets/lunr.js"></script>
 
 <script>
@@ -290,7 +289,7 @@ var renderResults = function (results) {
     console.log(results);
 
     results.forEach(function(result) {
-      $("#results").append('<li><a href="' + result.path + '"><h2 class="txt--blue block medium hdr no-marg-i pad__bottom--half">' + result.title + '</h2><p class="no-marg">' + result.excerpt + '</p><p class="txt--grey smaller no-marg pad__top--half">' + result.path + '</p></a></li>')
+      $("#results").append('<li><a href="' + result.path + '"><h2 class="txt--blue block medium hdr no-marg-i pad__bottom--half">' + result.title + '</h2><div class="no-marg small">' + $(result.excerpt).text() + '</div><div class="txt--grey small no-marg pad__top--half">' + result.path + '</div></a></li>')
     })
   } else {
     $("#results").append('<li>No results found.</li>');
