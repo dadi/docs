@@ -216,6 +216,7 @@ Metalsmith(__dirname)
   //.use(spellcheck())
   .use(sitemap('http://docs.dadi.tech'))
   .use(lunr({
+    indexAll: true,
     ref: 'path',
     preprocess: function (content) {
       var page = {
@@ -224,7 +225,9 @@ Metalsmith(__dirname)
         path: this.path
       }
 
-      data.push(page)
+      if (this.title != 'Documentation') {
+        data.push(page)
+      }
 
       return content
     }
