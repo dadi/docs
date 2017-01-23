@@ -200,7 +200,7 @@
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
-                  <a href="/api/concepts/hooks">Hooks</a>
+                  <a href="/api/concepts/upload">Uploading Media</a>
                 </li>
             </ul>
 
@@ -307,6 +307,69 @@
 
 <script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
 <script src="http://stage.dadi.tech/assets/js/main.js?v=2"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/assets/lunr.js"></script>
+
+<script>
+var allPageData
+var idx
+
+var debounce = function (fn) {
+  var timeout
+  return function () {
+    var args = Array.prototype.slice.call(arguments),
+        ctx = this
+
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      fn.apply(ctx, args)
+    }, 100)
+  }
+}
+
+$(document).ready(function() {
+  $.getJSON('data.json', function (allData) {
+    allPageData = allData
+
+    $.getJSON('searchIndex.json', function (data) {
+      idx = lunr.Index.load(data)
+
+      $('input').bind('keyup', debounce(function () {
+        if ($(this).val()) {
+          $("#results").removeClass('hide')
+          if ($(this).val() < 2) return
+          var query = $(this).val()
+          var results = idx.search(query)
+
+          results = results.map(function (result) {
+            return allPageData.filter(function (page) { return page.path === result.ref })[0]
+          })
+
+          renderResults(results)
+        } else {
+          $("#results").addClass('hide')
+        }
+      }))
+    })
+  })
+})
+
+var renderResults = function (results) {
+  $("#results").empty()
+
+  if (results.length) {
+    console.log(results);
+
+    results.forEach(function(result) {
+      $("#results").append('<li><a href="' + result.path + '"><h2 class="txt--blue block medium hdr no-marg-i pad__bottom--half">' + result.title + '</h2><p class="no-marg">' + result.excerpt + '</p><p class="txt--grey smaller no-marg pad__top--half">' + result.path + '</p></a></li>')
+    })
+  } else {
+    $("#results").append('<li>No results found.</li>');
+  }
+}
+
+</script>
+
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
