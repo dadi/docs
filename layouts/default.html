@@ -59,12 +59,75 @@
     {{/ifCond}}
   </div>
 </div>
-{{#ifCond title '===' "Documentation"}}
-   {{{ contents }}}
 
-   {{toc}}
-{{else}}
-  <main>
+<main>
+  {{#ifCond title '===' "API"}}
+    <div class="container normal">
+      {{> index_api }}
+    </div>
+  {{/ifCond}}
+  {{#ifCond title '===' "Web"}}
+    <div class="container normal">
+      {{> index_web }}
+    </div>
+  {{/ifCond}}
+  {{#ifCond title '===' "CDN"}}
+    <div class="container normal">
+      {{> index_cdn }}
+    </div>
+  {{/ifCond}}
+
+  {{#ifCond title '===' "Documentation"}}
+    {{> search }}
+    {{> intro }}
+
+    <div class="container container--divider">
+      <div class="grid">
+        <div class="col w-1-3">
+          <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-api-full.png" height="42">
+          <p style="min-height: 195px;" class="normal no-marg-i pad__top">High-performance RESTful API layer designed in support of API-first development and the principle of COPE (Create Once Publish Everywhere).</p>
+
+          <div class="documentation marg__bottom">
+            <pre><code>$ npm install @dadi/api</code></pre>
+          </div>
+
+          <div class="card">
+            {{> index_api }}
+          </div>
+        </div>
+        <div class="col w-1-3">
+          <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-web-full.png" height="43">
+
+          <p style="min-height: 195px;" class="normal no-marg-i pad__top">High-performance schema-less templating layer for browser-based product development.</p>
+
+          <div class="documentation marg__bottom">
+            <pre><code>$ npm install @dadi/web</code></pre>
+          </div>
+
+          <div class="card">
+            {{> index_web }}
+          </div>
+        </div>
+        <div class="col w-1-3">
+          <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-cdn-full.png" height="43">
+          <p style="min-height: 195px;" class="normal no-marg-i pad__top">Real-time asset manipulation and delivery application, providing a complete content distribution solution.</p>
+
+          <div class="documentation marg__bottom">
+            <pre><code>$ npm install @dadi/cdn</code></pre>
+          </div>
+
+          <div class="card">
+            {{> index_cdn }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{> footer }}
+
+    {{toc}}
+  {{else}}
+    {{#if contents}}
     <div class="container normal">
       <div class="grid">
         <div class="col w-3-4 pad__bottom--x2">
@@ -98,7 +161,7 @@
         </div>
          <div class="col w-1-4">
           <div class="pad__top--half stick" stick-spacer="false" stick-parent=".container">
-            <ul class="list--line small bg--light-grey" style="padding:5px 15px">
+            <ul class="hide list--line small bg--light-grey" style="padding:5px 15px">
               {{#if this.previous}}
                 <li>
                   <strong class="txt--grey block">Prev</strong>
@@ -121,8 +184,9 @@
         </div>
       </div>
     </div>
-  </main>
-{{/ifCond}}
+    {{/if}}
+  {{/ifCond}}
+</main>
 
 <div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
   <footer class="small container">
