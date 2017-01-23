@@ -1,5 +1,4 @@
 ---
-lunr: true
 title: Collections
 excerpt: Configure Collections, the storage containers for your data within API
 order: 9

@@ -5,6 +5,12 @@
 <url> <loc>http://docs.dadi.tech/license/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/prerequisites/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/index.html</loc> </url>
+<url> <loc>http://docs.dadi.tech/api/everyday/creating/index.html</loc> </url>
+<url> <loc>http://docs.dadi.tech/api/everyday/deleting/index.html</loc> </url>
+<url> <loc>http://docs.dadi.tech/api/everyday/editing/index.html</loc> </url>
+<url> <loc>http://docs.dadi.tech/api/everyday/index.html</loc> </url>
+<url> <loc>http://docs.dadi.tech/api/everyday/new-collection/index.html</loc> </url>
+<url> <loc>http://docs.dadi.tech/api/everyday/retrieving/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/concepts/authentication/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/concepts/collections/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/concepts/custom/index.html</loc> </url>
@@ -14,12 +20,6 @@
 <url> <loc>http://docs.dadi.tech/api/concepts/status/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/concepts/upload/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/concepts/validation/index.html</loc> </url>
-<url> <loc>http://docs.dadi.tech/api/everyday/creating/index.html</loc> </url>
-<url> <loc>http://docs.dadi.tech/api/everyday/deleting/index.html</loc> </url>
-<url> <loc>http://docs.dadi.tech/api/everyday/editing/index.html</loc> </url>
-<url> <loc>http://docs.dadi.tech/api/everyday/index.html</loc> </url>
-<url> <loc>http://docs.dadi.tech/api/everyday/new-collection/index.html</loc> </url>
-<url> <loc>http://docs.dadi.tech/api/everyday/retrieving/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/examples/curl/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/examples/go/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/examples/index.html</loc> </url>
@@ -29,8 +29,8 @@
 <url> <loc>http://docs.dadi.tech/api/examples/php/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/examples/python/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/examples/react/index.html</loc> </url>
-<url> <loc>http://docs.dadi.tech/api/examples/ruby/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/examples/swift/index.html</loc> </url>
+<url> <loc>http://docs.dadi.tech/api/examples/ruby/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/getting-started/configuration/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/getting-started/installing-ubuntu/index.html</loc> </url>
 <url> <loc>http://docs.dadi.tech/api/getting-started/installing/index.html</loc> </url>
