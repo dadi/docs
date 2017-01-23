@@ -1,4 +1,5 @@
 ---
+lunr: true
 title: Uploading Media
 excerpt: Accept file uploads, and store your file-based content with your text-based content
 order: 9

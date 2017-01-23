@@ -43,6 +43,23 @@
    
 <main>
   <div class="container container--pad">
+    <form class="alignc search" action="/">
+      <input class="text" type="text" value="" placeholder="Search the documentation…"><input class="btn btn--fill btn--blue" type="submit" value="Search">
+    </form>
+
+    <ul id="results" class="hide list--line marg__top bg--light-grey pad__left pad__right pad__top--half pad__bottom--half">
+      <li>
+        <span class="txt--grey">Searching…</span>
+      </li>
+    </ul>
+  </div>
+  <style type="text/css">
+    @media handheld, only screen and (min-width: 50em) {
+      .search { display: flex; }
+      .search .text { flex: 1; }
+    }
+  </style>
+  <div class="container container--divider">
     <div class="grid">
       <div class="col w-1-3 pad__bottom--x2">
         <h1 class="no-marg-i txt--blue">About</h1>
@@ -51,21 +68,11 @@
         <p class="no-marg-i"><a class="btn btn--blue btn--fill txt--white" href="https://dadi.tech/platform/">Learn more</a></p>
       </div>
       <div class="col w-2-3">
-        <!-- <div class="card">
-          <h2 class="medium no-marg-i">Competitor analysis</h2>
-          <p class="normal no-marg-i pad__top--half">A handy table for comparing DADI with similar technology you might consider using.</p>
-          <!-- <p class="no-marg-i pad__top"><a class="btn small" href="#">Compare solutions</a></p> 
-        </div> -->
         <div class="card">
           <h2 class="medium no-marg-i">Platform concepts</h2>
           <p class="normal no-marg-i pad__top--half">Learn about the philosophy behind the platform and the concepts it is founded upon.</p>
-          <p class="no-marg-i pad__top"><a class="btn small" href="https://dadi.tech/platform/concepts/">Learn more</a></p> 
+          <p class="no-marg-i pad__top"><a class="btn small" href="https://dadi.tech/platform/concepts/">Learn more</a></p>
         </div>
-        <!-- <div class="card">
-          <h2 class="medium no-marg-i">Typical stacks</h2>
-          <p class="normal no-marg-i pad__top--half">Examples of the type of sites which would benefit from using the DADI stack.</p>
-          <p class="no-marg-i pad__top"><a class="btn small" href="#">See examples</a></p> 
-        </div> -->
         <div class="card">
           <h2 class="medium no-marg-i">License</h2>
           <p class="normal no-marg-i pad__top--half">DADI is a full open-source Node.js and MongoDB powered stack covered the <a href="http://www.gnu.org/licenses/agpl-3.0.en.html">AGPL version 3</a>.</p>
@@ -79,12 +86,7 @@
 
   <div class="container container--divider">
     <div class="grid">
-      <!-- <div class="col w-1-3">
-        <h1 class="no-marg-i txt--blue">The platform</h1>
-        <p class="normal read inline-block">This is the current line-up of our microservices app. There are more in the pipeline and we are open to suggestions for the direction of all products.</p>
-        <p class="no-marg-i"><a class="btn btn--blue btn--fill txt--white" href="https://dadi.tech/platform/roadmap/">Our roadmap</a></p>
-      </div> -->
-      <div class="col w-1-3"> 
+      <div class="col w-1-3">
         <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-api-full.png" height="42">
         <p style="min-height: 195px;" class="normal no-marg-i pad__top">High-performance RESTful API layer designed in support of API-first development and the principle of COPE (Create Once Publish Everywhere).</p>
 
@@ -92,7 +94,7 @@
           <pre><code class="lang-coffeescript">$ <span class="hljs-built_in">npm</span> install <span class="hljs-property">@dadi</span>/api</code></pre>
         </div>
 
-        <div class="card">        
+        <div class="card">
           <h3 class="no-marg-i pad__bottom--half" style="color:#0BA6DD">Getting started</h3>
           <ul class="list--line marg__bottom">
             <li><a href="/api/getting-started/installing/">Installing</a></li>
@@ -138,16 +140,16 @@
         </div>
       </div>
 
-      <div class="col w-1-3">         
-        <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-web-full.png" height="40">
-        
+      <div class="col w-1-3">
+        <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-web-full.png" height="43">
+
         <p style="min-height: 195px;" class="normal no-marg-i pad__top">High-performance schema-less templating layer for browser-based product development.</p>
 
         <div class="documentation marg__bottom">
           <pre><code class="lang-coffeescript">$ <span class="hljs-built_in">npm</span> install <span class="hljs-property">@dadi</span>/web</code></pre>
         </div>
 
-        <div class="card">      
+        <div class="card">
           <h3 class="no-marg-i pad__bottom--half" style="color:#e42918">Getting started</h3>
           <ul class="list--line marg__bottom">
             <li><a href="/web/getting-started/installing/">Installing</a></li>
@@ -155,7 +157,7 @@
             <li><a href="/web/getting-started/connecting-api/">Connecting to DADI API</a></li>
             <li><a href="/web/getting-started/hello-world/">The “Hello World” app</a></li>
           </ul>
-        
+
           <h3 style="color:#e42918">Concepts in detail</h3>
           <ul class="list--line marg__bottom">
             <li><a href="/web/concepts/pages/">Pages</a></li>
@@ -169,7 +171,7 @@
             <li><a href="/web/concepts/sessions/">Sessions</a></li>
             <li><a href="/web/concepts/caching/">Caching</a></li>
           </ul>
-         
+
           <h3 style="color:#e42918">Every-day usage</h3>
           <ul class="list--line marg__bottom">
             <li><a href="/web/everyday/debugging/">Debugging</a></li>
@@ -187,7 +189,7 @@
             <li><a href="/web/everyday/caching/">Cache control</a></li>
             <li><a href="/web/everyday/virtual-directories/">Virtual directories for static content</a></li>
           </ul>
-      
+
           <h3 style="color:#e42918">Code examples</h3>
           <ul class="list--line marg__bottom">
             <li><a href="/web/examples/external-data/">Loading external data</a></li>
@@ -199,13 +201,13 @@
         </div>
       </div>
 
-      <div class="col w-1-3">        
-        <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-cdn-full.png" height="40">
+      <div class="col w-1-3">
+        <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-cdn-full.png" height="43">
         <p style="min-height: 195px;" class="normal no-marg-i pad__top">Real-time asset manipulation and delivery application, providing a complete content distribution solution.</p>
 
         <div class="documentation marg__bottom">
           <pre><code class="lang-coffeescript">$ <span class="hljs-built_in">npm</span> install <span class="hljs-property">@dadi</span>/cdn</code></pre>
-        </div> 
+        </div>
 
         <div class="card">
           <h3 class="no-marg-i pad__bottom--half" style="color:#e02975">Getting started</h3>
@@ -242,8 +244,8 @@
           </ul>
 
           <h3 style="color:#e02975">Code examples</h3>
-          <ul class="list--line marg__bottom"> 
-            <li><a href="/examples/cdn/variables/">Live variable sandbox</a></li>        
+          <ul class="list--line marg__bottom">
+            <li><a href="/examples/cdn/variables/">Live variable sandbox</a></li>
             <li><a href="/cdn/examples/responsive/">Responsive images</a></li>
             <li><a href="/cdn/examples/dadi-web/">Using with DADI Web</a></li>
           </ul>
@@ -363,6 +365,69 @@
 
 <script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
 <script src="http://stage.dadi.tech/assets/js/main.js?v=2"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/assets/lunr.js"></script>
+
+<script>
+var allPageData
+var idx
+
+var debounce = function (fn) {
+  var timeout
+  return function () {
+    var args = Array.prototype.slice.call(arguments),
+        ctx = this
+
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      fn.apply(ctx, args)
+    }, 100)
+  }
+}
+
+$(document).ready(function() {
+  $.getJSON('data.json', function (allData) {
+    allPageData = allData
+
+    $.getJSON('searchIndex.json', function (data) {
+      idx = lunr.Index.load(data)
+
+      $('input').bind('keyup', debounce(function () {
+        if ($(this).val()) {
+          $("#results").removeClass('hide')
+          if ($(this).val() < 2) return
+          var query = $(this).val()
+          var results = idx.search(query)
+
+          results = results.map(function (result) {
+            return allPageData.filter(function (page) { return page.path === result.ref })[0]
+          })
+
+          renderResults(results)
+        } else {
+          $("#results").addClass('hide')
+        }
+      }))
+    })
+  })
+})
+
+var renderResults = function (results) {
+  $("#results").empty()
+
+  if (results.length) {
+    console.log(results);
+
+    results.forEach(function(result) {
+      $("#results").append('<li><a href="' + result.path + '"><h2 class="txt--blue block medium hdr no-marg-i pad__bottom--half">' + result.title + '</h2><p class="no-marg">' + result.excerpt + '</p><p class="txt--grey smaller no-marg pad__top--half">' + result.path + '</p></a></li>')
+    })
+  } else {
+    $("#results").append('<li>No results found.</li>');
+  }
+}
+
+</script>
+
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

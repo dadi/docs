@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Authentication",
+    "excerpt": "Using client credentials to obtain access tokens for accessing your API",
+    "path": "api/concepts/authentication"
+  },
+  {
+    "title": "Collections",
+    "excerpt": "Configure Collections, the storage containers for your data within API",
+    "path": "api/concepts/collections"
+  },
+  {
+    "title": "Custom Endpoints",
+    "excerpt": "Combine datasources and modify or enrich data using custom endpoints",
+    "path": "api/concepts/custom"
+  },
+  {
+    "title": "Hooks",
+    "excerpt": "Perform operations on data before/after GET, UPDATE and DELETE requests",
+    "path": "api/concepts/hooks"
+  },
+  {
+    "title": "Querying Collections",
+    "excerpt": "Query collections using predefined or runtime filters, returning only the data you need",
+    "path": "api/concepts/querying"
+  },
+  {
+    "title": "Server Status",
+    "excerpt": "Obtain realtime information regarding the health of your API instance",
+    "path": "api/concepts/status"
+  },
+  {
+    "title": "Uploading Media",
+    "excerpt": "Accept file uploads, and store your file-based content with your text-based content",
+    "path": "api/concepts/upload"
+  },
+  {
+    "title": "Data Validation",
+    "excerpt": "Configure API collections to validate incoming data",
+    "path": "api/concepts/validation"
+  }
+]

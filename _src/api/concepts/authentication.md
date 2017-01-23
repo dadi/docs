@@ -1,6 +1,7 @@
 ---
+lunr: true
 title: Authentication
-excerpt: Using client credentials to obtain access tokens for accessing your API 
+excerpt: Using client credentials to obtain access tokens for accessing your API
 order: 9
 ---
 

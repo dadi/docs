@@ -5,6 +5,23 @@ layout: default.html
 
 <main>
   <div class="container container--pad">
+    <form class="alignc search" action="/">
+      <input class="text" type="text" value="" placeholder="Search the documentation…"><input class="btn btn--fill btn--blue" type="submit" value="Search">
+    </form>
+
+    <ul id="results" class="hide list--line marg__top bg--light-grey pad__left pad__right pad__top--half pad__bottom--half">
+      <li>
+        <span class="txt--grey">Searching…</span>
+      </li>
+    </ul>
+  </div>
+  <style type="text/css">
+    @media handheld, only screen and (min-width: 50em) {
+      .search { display: flex; }
+      .search .text { flex: 1; }
+    }
+  </style>
+  <div class="container container--divider">
     <div class="grid">
       <div class="col w-1-3 pad__bottom--x2">
         <h1 class="no-marg-i txt--blue">About</h1>
@@ -13,21 +30,11 @@ layout: default.html
         <p class="no-marg-i"><a class="btn btn--blue btn--fill txt--white" href="https://dadi.tech/platform/">Learn more</a></p>
       </div>
       <div class="col w-2-3">
-        <!-- <div class="card">
-          <h2 class="medium no-marg-i">Competitor analysis</h2>
-          <p class="normal no-marg-i pad__top--half">A handy table for comparing DADI with similar technology you might consider using.</p>
-          <!-- <p class="no-marg-i pad__top"><a class="btn small" href="#">Compare solutions</a></p> 
-        </div> -->
         <div class="card">
           <h2 class="medium no-marg-i">Platform concepts</h2>
           <p class="normal no-marg-i pad__top--half">Learn about the philosophy behind the platform and the concepts it is founded upon.</p>
-          <p class="no-marg-i pad__top"><a class="btn small" href="https://dadi.tech/platform/concepts/">Learn more</a></p> 
+          <p class="no-marg-i pad__top"><a class="btn small" href="https://dadi.tech/platform/concepts/">Learn more</a></p>
         </div>
-        <!-- <div class="card">
-          <h2 class="medium no-marg-i">Typical stacks</h2>
-          <p class="normal no-marg-i pad__top--half">Examples of the type of sites which would benefit from using the DADI stack.</p>
-          <p class="no-marg-i pad__top"><a class="btn small" href="#">See examples</a></p> 
-        </div> -->
         <div class="card">
           <h2 class="medium no-marg-i">License</h2>
           <p class="normal no-marg-i pad__top--half">DADI is a full open-source Node.js and MongoDB powered stack covered the <a href="http://www.gnu.org/licenses/agpl-3.0.en.html">AGPL version 3</a>.</p>
@@ -41,12 +48,7 @@ layout: default.html
 
   <div class="container container--divider">
     <div class="grid">
-      <!-- <div class="col w-1-3">
-        <h1 class="no-marg-i txt--blue">The platform</h1>
-        <p class="normal read inline-block">This is the current line-up of our microservices app. There are more in the pipeline and we are open to suggestions for the direction of all products.</p>
-        <p class="no-marg-i"><a class="btn btn--blue btn--fill txt--white" href="https://dadi.tech/platform/roadmap/">Our roadmap</a></p>
-      </div> -->
-      <div class="col w-1-3"> 
+      <div class="col w-1-3">
         <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-api-full.png" height="42">
         <p style="min-height: 195px;" class="normal no-marg-i pad__top">High-performance RESTful API layer designed in support of API-first development and the principle of COPE (Create Once Publish Everywhere).</p>
 
@@ -54,7 +56,7 @@ layout: default.html
           <pre><code>$ npm install @dadi/api</code></pre>
         </div>
 
-        <div class="card">        
+        <div class="card">
           <h3 class="no-marg-i pad__bottom--half" style="color:#0BA6DD">Getting started</h3>
           <ul class="list--line marg__bottom">
             <li><a href="/api/getting-started/installing/">Installing</a></li>
@@ -100,16 +102,16 @@ layout: default.html
         </div>
       </div>
 
-      <div class="col w-1-3">         
-        <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-web-full.png" height="40">
-        
+      <div class="col w-1-3">
+        <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-web-full.png" height="43">
+
         <p style="min-height: 195px;" class="normal no-marg-i pad__top">High-performance schema-less templating layer for browser-based product development.</p>
 
         <div class="documentation marg__bottom">
           <pre><code>$ npm install @dadi/web</code></pre>
         </div>
 
-        <div class="card">      
+        <div class="card">
           <h3 class="no-marg-i pad__bottom--half" style="color:#e42918">Getting started</h3>
           <ul class="list--line marg__bottom">
             <li><a href="/web/getting-started/installing/">Installing</a></li>
@@ -117,7 +119,7 @@ layout: default.html
             <li><a href="/web/getting-started/connecting-api/">Connecting to DADI API</a></li>
             <li><a href="/web/getting-started/hello-world/">The “Hello World” app</a></li>
           </ul>
-        
+
           <h3 style="color:#e42918">Concepts in detail</h3>
           <ul class="list--line marg__bottom">
             <li><a href="/web/concepts/pages/">Pages</a></li>
@@ -131,7 +133,7 @@ layout: default.html
             <li><a href="/web/concepts/sessions/">Sessions</a></li>
             <li><a href="/web/concepts/caching/">Caching</a></li>
           </ul>
-         
+
           <h3 style="color:#e42918">Every-day usage</h3>
           <ul class="list--line marg__bottom">
             <li><a href="/web/everyday/debugging/">Debugging</a></li>
@@ -149,7 +151,7 @@ layout: default.html
             <li><a href="/web/everyday/caching/">Cache control</a></li>
             <li><a href="/web/everyday/virtual-directories/">Virtual directories for static content</a></li>
           </ul>
-      
+
           <h3 style="color:#e42918">Code examples</h3>
           <ul class="list--line marg__bottom">
             <li><a href="/web/examples/external-data/">Loading external data</a></li>
@@ -161,13 +163,13 @@ layout: default.html
         </div>
       </div>
 
-      <div class="col w-1-3">        
-        <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-cdn-full.png" height="40">
+      <div class="col w-1-3">
+        <img class="inline-block alignv" src="http://beta.dadi.tech/assets/products/dadi-cdn-full.png" height="43">
         <p style="min-height: 195px;" class="normal no-marg-i pad__top">Real-time asset manipulation and delivery application, providing a complete content distribution solution.</p>
 
         <div class="documentation marg__bottom">
           <pre><code>$ npm install @dadi/cdn</code></pre>
-        </div> 
+        </div>
 
         <div class="card">
           <h3 class="no-marg-i pad__bottom--half" style="color:#e02975">Getting started</h3>
@@ -204,8 +206,8 @@ layout: default.html
           </ul>
 
           <h3 style="color:#e02975">Code examples</h3>
-          <ul class="list--line marg__bottom"> 
-            <li><a href="/examples/cdn/variables/">Live variable sandbox</a></li>        
+          <ul class="list--line marg__bottom">
+            <li><a href="/examples/cdn/variables/">Live variable sandbox</a></li>
             <li><a href="/cdn/examples/responsive/">Responsive images</a></li>
             <li><a href="/cdn/examples/dadi-web/">Using with DADI Web</a></li>
           </ul>

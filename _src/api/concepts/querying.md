@@ -1,4 +1,5 @@
 ---
+lunr: true
 title: Querying Collections
 excerpt: Query collections using predefined or runtime filters, returning only the data you need
 order: 9
