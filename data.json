@@ -10,14 +10,14 @@
     "path": "api/concepts/collections"
   },
   {
-    "title": "Hooks",
-    "excerpt": "Perform operations on data before/after GET, UPDATE and DELETE requests",
-    "path": "api/concepts/hooks"
-  },
-  {
     "title": "Custom Endpoints",
     "excerpt": "Combine datasources and modify or enrich data using custom endpoints",
     "path": "api/concepts/custom"
+  },
+  {
+    "title": "Hooks",
+    "excerpt": "Perform operations on data before/after GET, UPDATE and DELETE requests",
+    "path": "api/concepts/hooks"
   },
   {
     "title": "Querying Collections",
