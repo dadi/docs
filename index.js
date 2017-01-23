@@ -207,11 +207,11 @@ Metalsmith(__dirname)
   .use(layouts({
     engine: 'handlebars'
   }))
-  .use(redirect({
-    '/api': '/api/getting-started/installing/',
-    '/web': '/web/getting-started/installing/',
-    '/cdn': '/cdn/getting-started/installing/'
-  }))
+  // .use(redirect({
+  //   '/api': '/api/getting-started/installing/',
+  //   '/web': '/web/getting-started/installing/',
+  //   '/cdn': '/cdn/getting-started/installing/'
+  // }))
   //.use(linkcheck())
   //.use(spellcheck())
   .use(sitemap('http://docs.dadi.tech'))
