@@ -40,7 +40,7 @@ Help us to maximise the effort we can spend fixing issues and adding new
 features, by not reporting duplicate issues.  Providing the following information will increase the chances of your issue being dealt with quickly:
 
 * **Overview of the issue** - if an error is being thrown a non-minified stack trace helps
-* **DADI API version**
+* **DADI product version**
 * **Operating system**
 * **Steps to reproduce** - provide a set of steps to follow to reproduce the error.
 * **Related issues** - has a similar issue been reported before?
@@ -144,6 +144,35 @@ The footer should contain any information about **Breaking Changes** and is also
 
 #### Line Length
 Any line of the commit message cannot be longer 100 characters. This allows the message to be easier to read on GitHub as well as in various git tools.
+
+#### Examples
+
+##### A bug fix
+
+Commit messages like this will generate a new patch version:
+
+```
+fix: package.json & .snyk to reduce vulnerabilities
+```
+
+##### A new feature
+
+Commit messages like this will generate a new minor version:
+
+```
+feat: add remove method to DiskStorage
+```
+
+##### A breaking change
+
+Commit messages like this will generate a new major version:
+
+```
+feat: remove existing delete() method from DiskStorage
+
+BREAKING CHANGE: removing the delete method affects all client appliations that
+use the delete method directly
+```
 
 #### Reverting
 If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
