@@ -2,65 +2,91 @@
 title: Installing DADI API
 ---
 
-## NPM
+## Create a new API project
 
-All our platform microservices are available from [NPM](https://www.npmjs.com/). To install *Api*.
-
-```
-$ npm install @dadi/api
-```
-
-## Manual install
-
-If you do not want to use NPM, you can grab the latest [release](https://github.com/dadi/api/releases). Then you can install:
-
-```
-$ cd ./release-download-location/
-$ npm install
+```bash
+$ mkdir my-api-app
+$ cd my-api-app
 ```
 
-## Using [DADI Generator](https://github.com/dadi/generator)
+### Initialise the project
 
-We have our own tool to handy tool to generate new applications easily.
+Running `npm init` adds a file called `package.json` to your project, allowing you to easily add dependencies to it:
 
-```
-$ npm install -g @dadi/generator
-$ dadi-generator api /path/to/your_new_app
-$ cd /path/to/your_new_app
-$ npm install
-$ npm start
+```bash
+$ npm init
 ```
 
-## Dependencies
+### Install @dadi/api from NPM
 
-You can see our full list of dependencies in the [package.json](https://github.com/dadi/api/blob/master/package.json).
+All DADI platform microservices are available from [NPM](https://www.npmjs.com/). To add *API* to your project as a dependency:
 
-## Tests
-
-If you have installed manually, you can run tests by:
-
-```
-$ npm run test
+```bash
+$ npm install --save @dadi/api
 ```
 
-## Forever (optional)
+### Add an entry point
 
-As with most Node.js applications, to run the app in the background you will need to install install [Forever](https://github.com/nodejitsu/forever) and [Forever-service](https://github.com/zapty/forever-service):
+You'll need an entry point for your project. We'll create a file called `index.js` and later we will start the application with `node index.js`.
 
-```
-$ [sudo] npm install forever -g
-$ [sudo] npm install -g forever-service
-```
-
-Install DADI API as a service and ensure it loads on boot:
-
-```
-$ [sudo] forever-service install -s main.js -e NODE_ENV=production api --start
+```bash
+$ touch index.js
 ```
 
-**Note** the environment variable `NODE_ENV=production` must be set to target the required config version.
+Add the following to the new file:
 
-You can then interact with the service using the following command:
+```js
+/**
+ *  index.js
+ */
+var app = require('@dadi/api')
+
+app.start(function() {
+  console.log('API Started')
+})
+```
+
+### Create the first user
+
+User accounts are required to provide an authentication layer for API. Each user has a "clientId" and a "secret". These are used to obtain access tokens for interacting with the API. See the [Authentication](concepts/authentication) section for full details.
+
+```bash
+$ npm explore @dadi/api -- npm run create-client
+```
+
+This will start the Client Record Generator, accessing you a series of questions and finally inserting the client record into the database you have configured.
+
+To ensure the correct database is used for your environment, add an environment variable to the command:
+
+```bash
+$ NODE_ENV=production npm explore @dadi/api -- npm run create-client
+```
+
+### Start the API server
+
+The moment of truth!
+
+```bash
+$ node index.js
+```
+
+## Running API in the background
+
+To run API in the background, install [forever](https://github.com/nodejitsu/forever) and [forever-service](https://github.com/zapty/forever-service) globally:
+
+```
+$ npm install -g forever forever-service
+```
+
+Install your new API as a service and ensure it loads on boot:
+
+```
+$ forever-service install -s index.js -e NODE_ENV=production api --start
+```
+
+**Note** the environment variable `NODE_ENV` must be set to target the required configuration settings. [Read more about API configuration](/api/getting-started/configuration/).
+
+You can now interact with the service using the following commands:
 
 ```
 $ [sudo] start api
@@ -69,4 +95,4 @@ $ [sudo] status api
 $ [sudo] restart api
 ```
 
-**And you're done, now move on to [configuration](/api/getting-started/configuration/).**
+**And you're done, now move on to [API configuration](/api/getting-started/configuration/).**
