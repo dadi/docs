@@ -56,10 +56,10 @@
                   <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
                 </a>
                 <a class="block fwb">James Lambie</a>
-                <span class="block txt--grey" title="Last updated: 2017-01-20T03:54:20Z">20th January 2017</span>
+                <span class="block txt--grey" title="Last updated: 2017-02-15T05:33:29Z">2017-02-15T05:33:29Z</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">1227 words</div>
+              <div class="block fwb">1303 words</div>
               <div class="txt--grey">5 min read</div>
             </div>
           </div>
@@ -94,7 +94,7 @@
 <p>If your issue appears to be a bug, and hasn’t been reported, open a new issue. Help us to maximise the effort we can spend fixing issues and adding new features, by not reporting duplicate issues. Providing the following information will increase the chances of your issue being dealt with quickly:</p>
 <ul>
 <li><strong>Overview of the issue</strong> - if an error is being thrown a non-minified stack trace helps</li>
-<li><strong>DADI API version</strong></li>
+<li><strong>DADI product version</strong></li>
 <li><strong>Operating system</strong></li>
 <li><strong>Steps to reproduce</strong> - provide a set of steps to follow to reproduce the error.</li>
 <li><strong>Related issues</strong> - has a similar issue been reported before?</li>
@@ -173,7 +173,20 @@ Ref <span class="hljs-id">#zzz</span>
 </ul>
 <h4 id="line-length">Line Length</h4>
 <p>Any line of the commit message cannot be longer 100 characters. This allows the message to be easier to read on GitHub as well as in various git tools.</p>
-<h4 id="reverting">Reverting</h4>
+<h4 id="examples">Examples</h4>
+<h5 id="a-bug-fix">A bug fix</h5>
+<p>Commit messages like this will generate a new patch version:</p>
+<pre><code class="lang-stylus">fix: package<span class="hljs-class">.json</span> &amp; <span class="hljs-class">.snyk</span> to reduce vulnerabilities
+</code></pre><h5 id="a-new-feature">A new feature</h5>
+<p>Commit messages like this will generate a new minor version:</p>
+<pre><code class="lang-oxygene">feat: <span class="hljs-keyword">add</span> <span class="hljs-keyword">remove</span> <span class="hljs-function"><span class="hljs-keyword">method</span> <span class="hljs-title">to</span> <span class="hljs-title">DiskStorage</span>
+</span></code></pre><h5 id="a-breaking-change">A breaking change</h5>
+<p>Commit messages like this will generate a new major version:</p>
+<pre><code class="lang-nimrod">feat: remove existing delete() <span class="hljs-keyword">method</span> <span class="hljs-keyword">from</span> <span class="hljs-type">DiskStorage</span>
+
+<span class="hljs-type">BREAKING</span> <span class="hljs-type">CHANGE</span>: removing the delete <span class="hljs-keyword">method</span> affects all client appliations that
+use the delete <span class="hljs-keyword">method</span> directly
+</code></pre><h4 id="reverting">Reverting</h4>
 <p>If the commit reverts a previous commit, it should begin with <code class="lang-avrasm"><span class="hljs-label">revert:</span></code>, followed by the header of the reverted commit. In the body it should say: <code class="lang-sql">This reverts <span class="hljs-operator"><span class="hljs-keyword">commit</span> &lt;<span class="hljs-keyword">hash</span>&gt;.</span></code>, where the hash is the SHA of the commit being reverted.</p>
 
 
