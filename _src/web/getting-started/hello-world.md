@@ -125,9 +125,11 @@ Notice we are referencing the datasource we created by its assigned `key`.
   "datasources": [
     "greeting"
   ],
-  "route": {
+  "route": [
+    {
     "path": "/"
-  }
+    }
+  ]
 }
 ```
 
