@@ -60,7 +60,7 @@
                 <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">2016-11-25T14:41:55Z</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">349 words</div>
+              <div class="block fwb">468 words</div>
               <div class="txt--grey">2 min read</div>
             </div>
           </div>
@@ -113,7 +113,27 @@
 <pre><code class="lang-javascript"><span class="hljs-built_in">require</span>(<span class="hljs-string">'@dadi/web'</span>)
 </code></pre>
 <p><code class="lang-stylus">/config/config<span class="hljs-class">.development</span><span class="hljs-class">.json</span></code></p>
-<p>See <a href="/web/configuration/">configuration</a> for full information.</p>
+<p>For this example we will use this basic configuration.</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">app</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Hello World"</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">server</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">host</span>": <span class="hljs-value"><span class="hljs-string">"127.0.0.1"</span></span>,
+    "<span class="hljs-attribute">port</span>": <span class="hljs-value"><span class="hljs-number">3000</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">api</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">paths</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">datasources</span>": <span class="hljs-value"><span class="hljs-string">"workspace/datasources"</span></span>,
+    "<span class="hljs-attribute">pages</span>": <span class="hljs-value"><span class="hljs-string">"workspace/pages"</span></span>,
+    "<span class="hljs-attribute">partials</span>": <span class="hljs-value"><span class="hljs-string">"workspace/partials"</span></span>,
+    "<span class="hljs-attribute">public</span>": <span class="hljs-value"><span class="hljs-string">"workspace/public"</span>
+  </span>}
+</span>}
+</code></pre>
+<p>See <a href="/web/getting-started/configuration/">configuration</a> for full information.</p>
 <h2 id="-workspace-">/workspace/</h2>
 <p>This is the heart of the project lives. We can organise this how we like in time - the <code class="lang-css"><span class="hljs-tag">config</span><span class="hljs-class">.json</span></code> can be updated to let it know where to find the core files it needs to run. We can also store our front-end assets in here.</p>
 <h3 id="-workspace-datasources-greeting-json">/workspace/datasources/greeting.json</h3>
@@ -124,9 +144,9 @@
     "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"A statically loaded greeting."</span></span>,
     "<span class="hljs-attribute">source</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"static"</span></span>,
-      "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
-        <span class="hljs-string">"message"</span>: <span class="hljs-string">"hello world!"</span>
-      ]
+      "<span class="hljs-attribute">data</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"hello world!"</span>
+      </span>}
     </span>}
   </span>}
 </span>}
@@ -136,27 +156,29 @@
 <p>Notice we are referencing the datasource we created by its assigned <code class="lang-processing"><span class="hljs-variable">key</span></code>.</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">page</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">key</span>": <span class="hljs-value"><span class="hljs-string">"Homepage"</span>
+    "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Homepage"</span>
   </span>}</span>,
-  "<span class="hljs-attribute">datasources</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">greeting"
-  },
-  "routes</span>": <span class="hljs-value">[
+  "<span class="hljs-attribute">datasources</span>": <span class="hljs-value">[
+    <span class="hljs-string">"greeting"</span>
+  ]</span>,
+  "<span class="hljs-attribute">routes</span>": <span class="hljs-value">[
     {
-      "<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"/"</span>
+    "<span class="hljs-attribute">path</span>": <span class="hljs-value"><span class="hljs-string">"/"</span>
     </span>}
   ]
 </span>}
-</span></code></pre>
+</code></pre>
 <h3 id="-workspace-pages-index-dust">/workspace/pages/index.dust</h3>
-<p><em>Web</em> uses <a href="http://www.dustjs.com/">Dust.js</a> as it’s templating language</p>
-<pre><code class="lang-javascript">{<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">"partials</span>/<span class="hljs-attribute">header</span>" /}
+<p><em>Web</em> uses <a href="http://www.dustjs.com/">Dust.js</a> as it’s templating language.</p>
+<p>As a datasource acts as a collection, to get our greeting, we have to select the first result.</p>
+<pre><code class="lang-javascript">{&gt;<span class="hljs-string">"partials/header"</span> /}
 
-&lt;<span class="hljs-attribute">h1</span>&gt;</span>All being well we should see "Hello world!" below:<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">em</span>&gt;</span>{greeting.message}<span class="hljs-tag">&lt;/<span class="hljs-title">em</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+&lt;h1&gt;All being well we should see <span class="hljs-string">"Hello world!"</span> below:<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">em</span>&gt;</span>{greeting.results[0].message}<span class="hljs-tag">&lt;/<span class="hljs-title">em</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
 
-{<span class="hljs-tag">&lt;<span class="hljs-title">"partials</span>/<span class="hljs-attribute">footer</span>" /}
-</span></span></code></pre>
+{&gt;"partials/footer" /}
+</span></code></pre>
+<p>If you need to check what your datasource is returning, you can use the Dust.js helper <code class="lang-less">{<span class="hljs-variable">@contextDump</span>/}</code>.</p>
 <h3 id="-workspace-partials-header-dust">/workspace/partials/header.dust</h3>
 <p>This is a typical Dust.js partial.</p>
 <pre><code class="lang-html"><span class="hljs-doctype">&lt;!DOCTYPE html&gt;</span>
@@ -182,6 +204,23 @@
   <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value"> red</span></span>;
 }</span>
 </code></pre>
+<h2 id="start-the-app">Start the app</h2>
+<p>Now let’s start the app.</p>
+<pre><code class="lang-asciidoc">$ npm install
+$ npm start
+
+<span class="hljs-code">----------------------------
+Hello World
+Started 'DADI Web'
+----------------------------</span>
+Server:      127.0.0.1:3000
+Version:     1.7.3
+Node.JS:     4.4
+Environment: development
+<span class="hljs-header">API:         Not found
+----------------------------</span>
+</code></pre><p>Now open up your browser and navigate to <a href="http://127.0.0.1:3000">127.0.0.1:3000</a>.</p>
+<p>Hello world!</p>
 
 
 
@@ -206,6 +245,7 @@
             <ul class="list--line pad__top--half">
                 <li><a class="" href="#package-json">package.json</a></li>
                 <li><a class="" href="#-workspace-">/workspace/</a></li>
+                <li><a class="" href="#start-the-app">Start the app</a></li>
             </ul>
         </div>
       </div>
