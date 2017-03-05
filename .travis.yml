@@ -1,0 +1,22 @@
+language: node_js
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+node_js:
+  - '5'
+before_script:
+  - npm prune
+after_success:
+  - npm run build
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+before_install: if [[ `npm -v` != 3* ]]; then npm i -g npm@latest; fi
