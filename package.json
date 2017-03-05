@@ -1,5 +1,8 @@
 {
   "name": "dadi-docs",
+  "scripts": {
+    "build": "make build && git add . && git commit -m 'chore: build' && git push https://${GITHUB_TOKEN}@github.com/dadi/docs.git master"
+  },
   "dependencies": {
     "handlebars": "^4.0.5",
     "handlebars-helpers": "^0.7.5",
