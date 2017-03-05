@@ -121,7 +121,7 @@ Each commit message consists of a **header**, a **body** and a **footer**.  The 
 The subject contains a succinct description of the change:
 
 * use the imperative, present tense: "fix" not "fixed" nor "fixes"
-* don't capitalize first letter
+* don't capitalize first letter of *type* or *description* e.g. "fix: foo Bar"
 * no period (.) at the end
 
 ##### Body

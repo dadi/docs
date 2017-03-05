@@ -63,7 +63,30 @@ require('@dadi/web')
 
 `/config/config.development.json`
 
-See [configuration](/web/configuration/) for full information.
+For this example we will use this basic configuration.
+
+```json
+{
+  "app": {
+    "name": "Hello World"
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 3000
+  },
+  "api": {
+    "enabled": false
+  },
+  "paths": {
+    "datasources": "workspace/datasources",
+    "pages": "workspace/pages",
+    "partials": "workspace/partials",
+    "public": "workspace/public"
+  }
+}
+```
+
+See [configuration](/web/getting-started/configuration/) for full information.
 
 ## /workspace/
 
@@ -80,9 +103,9 @@ You can read more about datasources later, but for now we are using a static dat
     "name": "A statically loaded greeting.",
     "source": {
       "type": "static",
-      "data": [
+      "data": {
         "message": "hello world!"
-      ]
+      }
     }
   }
 }
@@ -97,14 +120,14 @@ Notice we are referencing the datasource we created by its assigned `key`.
 ```json
 {
   "page": {
-    "key": "Homepage"
+    "name": "Homepage"
   },
-  "datasources": {
+  "datasources": [
     "greeting"
-  },
+  ],
   "routes": [
     {
-      "path": "/"
+    "path": "/"
     }
   ]
 }
@@ -112,16 +135,20 @@ Notice we are referencing the datasource we created by its assigned `key`.
 
 ### /workspace/pages/index.dust
 
-_Web_ uses [Dust.js](http://www.dustjs.com/) as it's templating language
+_Web_ uses [Dust.js](http://www.dustjs.com/) as it's templating language.
+
+As a datasource acts as a collection, to get our greeting, we have to select the first result.
 
 ```js
-{<"partials/header" /}
+{>"partials/header" /}
 
 <h1>All being well we should see "Hello world!" below:</h1>
-<p><em>{greeting.message}</em></p>
+<p><em>{greeting.results[0].message}</em></p>
 
-{<"partials/footer" /}
+{>"partials/footer" /}
 ```
+
+If you need to check what your datasource is returning, you can use the Dust.js helper `{@contextDump/}`.
 
 ### /workspace/partials/header.dust
 
@@ -159,3 +186,27 @@ h1 {
   color: red;
 }
 ```
+
+## Start the app
+
+Now let's start the app.
+
+```
+$ npm install
+$ npm start
+
+----------------------------
+Hello World
+Started 'DADI Web'
+----------------------------
+Server:      127.0.0.1:3000
+Version:     1.7.3
+Node.JS:     4.4
+Environment: development
+API:         Not found
+----------------------------
+```
+
+Now open up your browser and navigate to [127.0.0.1:3000](http://127.0.0.1:3000).
+
+Hello world!

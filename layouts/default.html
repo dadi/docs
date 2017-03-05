@@ -138,7 +138,7 @@
                   <img class="float--right pad__left--half" src="{{githubMeta.author.avatar_url}}" width="40" height="40">
                 </a>
                 <a class="block fwb">{{{githubMeta.commit.author.name}}}</a>
-                <span class="block txt--grey" title="Last updated: {{{githubMeta.commit.author.date}}}">{{ moment githubMeta.commit.author.date format="Do MMMM YYYY"}}</span>
+                <span class="block txt--grey" title="Last updated: {{{githubMeta.commit.author.date}}}">{{{githubMeta.commit.author.date}}}</span>
               </div>
             {{/if}}
             <div class="inline-block">
