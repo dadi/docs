@@ -1,7 +1,6 @@
 ---
 title: NPM packages
-permalink: /npm/
-layout: default
+url: /npm/
 ---
 
 <img src="https://docs.npmjs.com/images/npm.svg" width="100">
