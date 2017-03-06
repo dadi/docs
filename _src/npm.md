@@ -3,9 +3,7 @@ title: NPM packages
 url: /npm/
 ---
 
-<img src="https://docs.npmjs.com/images/npm.svg" width="100">
-
-All our NPM packages can be found here:
+All our [NPM](https://www.npmjs.com/) packages can be found here:
 
 ## 13 packages
 
