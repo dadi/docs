@@ -9,6 +9,11 @@
     "path": "license"
   },
   {
+    "title": "NPM packages",
+    "excerpt": "<p><img src=\"https://docs.npmjs.com/images/npm.svg\" alt=\"\"></p>",
+    "path": "npm"
+  },
+  {
     "title": "Platform prerequisites",
     "excerpt": "<p>The DADI platform is built on <a href=\"https://nodejs.org/\">Node.js</a>, a JavaScript runtime built on <a href=\"https://www.google.com/chrome/\">Google Chrome</a>‘s ‘V8’ JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.</p>",
     "path": "prerequisites"
@@ -17,6 +22,26 @@
     "title": "API",
     "excerpt": "",
     "path": "api"
+  },
+  {
+    "title": "Configuration",
+    "excerpt": "<p>Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.</p>",
+    "path": "api/getting-started/configuration"
+  },
+  {
+    "title": "Installing API on Ubuntu",
+    "excerpt": "<p>This document provides a simple step by step guide to installation on Ubuntu <a href=\"http://releases.ubuntu.com/14.04.1/\">14.04.1 LTS</a>.</p>",
+    "path": "api/getting-started/installing-ubuntu"
+  },
+  {
+    "title": "Installing DADI API",
+    "excerpt": "<p>Running <code class=\"lang-coffeescript\"><span class=\"hljs-built_in\">npm</span> init</code> adds a file called <code class=\"lang-actionscript\"><span class=\"hljs-package\"><span class=\"hljs-keyword\">package</span>.<span class=\"hljs-title\">json</span></span></code> to your project, allowing you to easily add dependencies to it:</p>",
+    "path": "api/getting-started/installing"
+  },
+  {
+    "title": "Getting Started",
+    "excerpt": "<p>Traditional product design is channel and device centric. But users inhabit a multi-channel, multi-device world.</p>",
+    "path": "api/getting-started/why"
   },
   {
     "title": "Authentication",
@@ -149,29 +174,89 @@
     "path": "api/examples/swift"
   },
   {
-    "title": "Configuration",
-    "excerpt": "<p>Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.</p>",
-    "path": "api/getting-started/configuration"
+    "title": "Error Codes",
+    "excerpt": "<p>Errors, love em or hate em, they’re part of life.</p>",
+    "path": "errors"
   },
   {
-    "title": "Installing API on Ubuntu",
-    "excerpt": "<p>This document provides a simple step by step guide to installation on Ubuntu <a href=\"http://releases.ubuntu.com/14.04.1/\">14.04.1 LTS</a>.</p>",
-    "path": "api/getting-started/installing-ubuntu"
+    "title": "Missing Index Key",
+    "excerpt": "<p>You received an error similar to this:</p>",
+    "path": "errors/api/API-0001"
   },
   {
-    "title": "Installing DADI API",
-    "excerpt": "<p>Running <code class=\"lang-coffeescript\"><span class=\"hljs-built_in\">npm</span> init</code> adds a file called <code class=\"lang-actionscript\"><span class=\"hljs-package\"><span class=\"hljs-keyword\">package</span>.<span class=\"hljs-title\">json</span></span></code> to your project, allowing you to easily add dependencies to it:</p>",
-    "path": "api/getting-started/installing"
+    "title": "Hook Error",
+    "excerpt": "<p>You received an error similar to this:</p>",
+    "path": "errors/api/API-0002"
   },
   {
-    "title": "Getting Started",
-    "excerpt": "<p>Traditional product design is channel and device centric. But users inhabit a multi-channel, multi-device world.</p>",
-    "path": "api/getting-started/why"
+    "title": "Cache Path Missing",
+    "excerpt": "<p>To flush the cache, a path that matches a collection resource must be specified in the request body:</p>",
+    "path": "errors/api/API-0003"
+  },
+  {
+    "title": "API Error Codes",
+    "excerpt": "<p>Sometimes errors happen. Here’s a list of known error types you might encounter.</p>",
+    "path": "errors/api"
   },
   {
     "title": "CDN",
     "excerpt": "",
     "path": "cdn"
+  },
+  {
+    "title": "Using with DADI Web",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "cdn/examples/dadi-web"
+  },
+  {
+    "title": "Responsive images",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "cdn/examples/responsive"
+  },
+  {
+    "title": "Retrieving a colour palette",
+    "excerpt": "<p>Each image stored in <em>CDN</em> can be returned as a json object with information on how the image was generated. Within that object there is the <code>primaryColor</code> and <code class=\"lang-stata\"><span class=\"hljs-keyword\">palette</span></code> nodes which contains information about the colour of the image.</p>",
+    "path": "cdn/everyday/colour-palette"
+  },
+  {
+    "title": "Everyday Usage",
+    "excerpt": "",
+    "path": "cdn/everyday"
+  },
+  {
+    "title": "Minifying CSS & JS",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "cdn/everyday/min-assets"
+  },
+  {
+    "title": "Dealing with pixel ratios",
+    "excerpt": "<p>When dealing with mulitiple device pixel ratios, you can ‘multiply’ the outputted size of the image by adding the variable name <code class=\"lang-cpp\">?devicePixelRatio=[<span class=\"hljs-number\">0</span>-<span class=\"hljs-number\">9</span>]</code>.</p>",
+    "path": "cdn/everyday/pixel-ratios"
+  },
+  {
+    "title": "Automatic smart cropping",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "cdn/everyday/smart-crop"
+  },
+  {
+    "title": "Serving Images and Assets",
+    "excerpt": "<p>With your <a href=\"/cdn/getting-started/defining-sources/\">sources</a> configured so that CDN knows where to find them, you can start sending requests for your assets and images.</p>",
+    "path": "cdn/everyday/url-variables"
+  },
+  {
+    "title": "Configuration",
+    "excerpt": "<p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class=\"lang-vim\"><span class=\"hljs-built_in\">hostname</span></code> i.e., it will also look for <code class=\"lang-css\"><span class=\"hljs-tag\">config</span>.\" + <span class=\"hljs-tag\">req</span><span class=\"hljs-class\">.headers</span><span class=\"hljs-class\">.host</span> + \"<span class=\"hljs-class\">.json</span></code></p>",
+    "path": "cdn/getting-started/configuration"
+  },
+  {
+    "title": "Defining sources",
+    "excerpt": "<p>Before you can serve assets or images you need to tell CDN where your files are located. Currently, CDN can serve your files from three types of source:</p>",
+    "path": "cdn/getting-started/defining-sources"
+  },
+  {
+    "title": "Installing DADI CDN",
+    "excerpt": "<p>All our platform microservices are available from <a href=\"https://www.npmjs.com/\">NPM</a>. To install <em>CDN</em>:</p>",
+    "path": "cdn/getting-started/installing"
   },
   {
     "title": "Blur",
@@ -254,86 +339,6 @@
     "path": "cdn/concepts/upload"
   },
   {
-    "title": "Retrieving a colour palette",
-    "excerpt": "<p>Each image stored in <em>CDN</em> can be returned as a json object with information on how the image was generated. Within that object there is the <code>primaryColor</code> and <code class=\"lang-stata\"><span class=\"hljs-keyword\">palette</span></code> nodes which contains information about the colour of the image.</p>",
-    "path": "cdn/everyday/colour-palette"
-  },
-  {
-    "title": "Everyday Usage",
-    "excerpt": "",
-    "path": "cdn/everyday"
-  },
-  {
-    "title": "Minifying CSS & JS",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "cdn/everyday/min-assets"
-  },
-  {
-    "title": "Dealing with pixel ratios",
-    "excerpt": "<p>When dealing with mulitiple device pixel ratios, you can ‘multiply’ the outputted size of the image by adding the variable name <code class=\"lang-cpp\">?devicePixelRatio=[<span class=\"hljs-number\">0</span>-<span class=\"hljs-number\">9</span>]</code>.</p>",
-    "path": "cdn/everyday/pixel-ratios"
-  },
-  {
-    "title": "Automatic smart cropping",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "cdn/everyday/smart-crop"
-  },
-  {
-    "title": "Serving Images and Assets",
-    "excerpt": "<p>With your <a href=\"/cdn/getting-started/defining-sources/\">sources</a> configured so that CDN knows where to find them, you can start sending requests for your assets and images.</p>",
-    "path": "cdn/everyday/url-variables"
-  },
-  {
-    "title": "Configuration",
-    "excerpt": "<p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class=\"lang-vim\"><span class=\"hljs-built_in\">hostname</span></code> i.e., it will also look for <code class=\"lang-css\"><span class=\"hljs-tag\">config</span>.\" + <span class=\"hljs-tag\">req</span><span class=\"hljs-class\">.headers</span><span class=\"hljs-class\">.host</span> + \"<span class=\"hljs-class\">.json</span></code></p>",
-    "path": "cdn/getting-started/configuration"
-  },
-  {
-    "title": "Defining sources",
-    "excerpt": "<p>Before you can serve assets or images you need to tell CDN where your files are located. Currently, CDN can serve your files from three types of source:</p>",
-    "path": "cdn/getting-started/defining-sources"
-  },
-  {
-    "title": "Installing DADI CDN",
-    "excerpt": "<p>All our platform microservices are available from <a href=\"https://www.npmjs.com/\">NPM</a>. To install <em>CDN</em>:</p>",
-    "path": "cdn/getting-started/installing"
-  },
-  {
-    "title": "Using with DADI Web",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "cdn/examples/dadi-web"
-  },
-  {
-    "title": "Responsive images",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "cdn/examples/responsive"
-  },
-  {
-    "title": "Error Codes",
-    "excerpt": "<p>Errors, love em or hate em, they’re part of life.</p>",
-    "path": "errors"
-  },
-  {
-    "title": "Missing Index Key",
-    "excerpt": "<p>You received an error similar to this:</p>",
-    "path": "errors/api/API-0001"
-  },
-  {
-    "title": "Hook Error",
-    "excerpt": "<p>You received an error similar to this:</p>",
-    "path": "errors/api/API-0002"
-  },
-  {
-    "title": "Cache Path Missing",
-    "excerpt": "<p>To flush the cache, a path that matches a collection resource must be specified in the request body:</p>",
-    "path": "errors/api/API-0003"
-  },
-  {
-    "title": "API Error Codes",
-    "excerpt": "<p>Sometimes errors happen. Here’s a list of known error types you might encounter.</p>",
-    "path": "errors/api"
-  },
-  {
     "title": "Web",
     "excerpt": "",
     "path": "web"
@@ -389,71 +394,6 @@
     "path": "web/concepts/views"
   },
   {
-    "title": "MIME content types",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/everyday/content-types"
-  },
-  {
-    "title": "Debugging",
-    "excerpt": "<p>If enabled in the config <code class=\"lang-actionscript\"><span class=\"hljs-string\">\"allowJsonView\"</span>: <span class=\"hljs-literal\">true</span></code> you can append <code class=\"lang-actionscript\">?json=<span class=\"hljs-literal\">true</span></code> to any page in the browser get back the JSON data structure of the given page.</p>",
-    "path": "web/everyday/debugging"
-  },
-  {
-    "title": "Dust.js helpers",
-    "excerpt": "<p><em>Web</em> includes the <a href=\"https://www.npmjs.com/package/common-dustjs-helpers\">common-dustjs-helpers</a> library and provides a set of built-in helpers for use in your page and partial templates.</p>",
-    "path": "web/everyday/dustjs"
-  },
-  {
-    "title": "Error handling",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/everyday/errors"
-  },
-  {
-    "title": "Forms",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/everyday/forms"
-  },
-  {
-    "title": "Front-end assets",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/everyday/frontend"
-  },
-  {
-    "title": "Everyday Usage",
-    "excerpt": "",
-    "path": "web/everyday"
-  },
-  {
-    "title": "Using NPM modules",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/everyday/npm"
-  },
-  {
-    "title": "Preload",
-    "excerpt": "<p>Configure Web to preload some data. Add a block to the <a href=\"configuration.md\">main configuration</a> file like the example below, using your datasource names in place of “channels”:</p>",
-    "path": "web/everyday/preload"
-  },
-  {
-    "title": "The public folder",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/everyday/public"
-  },
-  {
-    "title": "Routing & rewrites",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/everyday/routing"
-  },
-  {
-    "title": "Server status",
-    "excerpt": "<p>An endpoint is provided at <code class=\"lang-fortran\">/api/<span class=\"hljs-keyword\">status</span></code> which returns server/application data in JSON format.</p>",
-    "path": "web/everyday/status"
-  },
-  {
-    "title": "Virtual directories",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/everyday/virtual-directories"
-  },
-  {
     "title": "Using APIs with events",
     "excerpt": "<p>Coming soon…</p>",
     "path": "web/examples/api-event"
@@ -497,6 +437,71 @@
     "title": "Installing DADI Web",
     "excerpt": "<p>All our platform microservices are available from <a href=\"https://www.npmjs.com/\">NPM</a>. To install <em>Web</em>.</p>",
     "path": "web/getting-started/installing"
+  },
+  {
+    "title": "MIME content types",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/everyday/content-types"
+  },
+  {
+    "title": "Debugging",
+    "excerpt": "<p>If enabled in the config <code class=\"lang-actionscript\"><span class=\"hljs-string\">\"allowJsonView\"</span>: <span class=\"hljs-literal\">true</span></code> you can append <code class=\"lang-actionscript\">?json=<span class=\"hljs-literal\">true</span></code> to any page in the browser get back the JSON data structure of the given page.</p>",
+    "path": "web/everyday/debugging"
+  },
+  {
+    "title": "Dust.js helpers",
+    "excerpt": "<p><em>Web</em> includes the <a href=\"https://www.npmjs.com/package/common-dustjs-helpers\">common-dustjs-helpers</a> library and provides a set of built-in helpers for use in your page and partial templates.</p>",
+    "path": "web/everyday/dustjs"
+  },
+  {
+    "title": "Error handling",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/everyday/errors"
+  },
+  {
+    "title": "Forms",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/everyday/forms"
+  },
+  {
+    "title": "Front-end assets",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/everyday/frontend"
+  },
+  {
+    "title": "Everyday Usage",
+    "excerpt": "",
+    "path": "web/everyday"
+  },
+  {
+    "title": "Using NPM modules",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/everyday/npm"
+  },
+  {
+    "title": "The public folder",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/everyday/public"
+  },
+  {
+    "title": "Routing & rewrites",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/everyday/routing"
+  },
+  {
+    "title": "Server status",
+    "excerpt": "<p>An endpoint is provided at <code class=\"lang-fortran\">/api/<span class=\"hljs-keyword\">status</span></code> which returns server/application data in JSON format.</p>",
+    "path": "web/everyday/status"
+  },
+  {
+    "title": "Virtual directories",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/everyday/virtual-directories"
+  },
+  {
+    "title": "Preload",
+    "excerpt": "<p>Configure Web to preload some data. Add a block to the <a href=\"configuration.md\">main configuration</a> file like the example below, using your datasource names in place of “channels”:</p>",
+    "path": "web/everyday/preload"
   },
   {}
 ]

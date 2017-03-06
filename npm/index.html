@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Sessions | DADI Documentation</title>
+  <title>NPM packages | DADI Documentation</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="http://stage.dadi.tech/assets/css/main.min.css?v=3">
@@ -38,11 +38,9 @@
     <div class="small">
       <ul class="list--breadcrumb titlecase">
         <li><a href="/">Documentation</a></li>
-                <li class=""><a href="/web">Web</a></li>
-                <li class="fwb"><a href="/web/concepts">Concepts</a></li>
       </ul>
 
-      <div class="larger hdr">Sessions</div>
+      <div class="larger hdr">NPM packages</div>
     </div>
   </div>
 </div>
@@ -54,141 +52,52 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/jimlambie" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars2.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
+                <a href="https://github.com/abovebored" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars3.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
                 </a>
-                <a class="block fwb">James Lambie</a>
-                <span class="block txt--grey" title="Last updated: 2016-12-22T05:50:53Z">2016-12-22T05:50:53Z</span>
+                <a class="block fwb">David Longworth</a>
+                <span class="block txt--grey" title="Last updated: 2017-03-06T12:57:33Z">2017-03-06T12:57:33Z</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">428 words</div>
-              <div class="txt--grey">2 min read</div>
+              <div class="block fwb">23 words</div>
+              <div class="txt--grey">1 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <p>DADI Web uses the <a href="https://github.com/expressjs/session">express-session</a> library to handle sessions. Visit that project’s homepage for more detailed information regarding session configuration.</p>
+            <p><img src="https://docs.npmjs.com/images/npm.svg" alt=""></p>
+<p>All our NPM packages can be found here:</p>
+<h2 id="13-packages">13 packages</h2>
 <ul>
-<li><a href="#configuration">Configuration</a></li>
-<li><a href="#configuration-properties">Configuration Properties</a></li>
-<li><a href="#using-the-session">Using the session</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/api">@dadi/api</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/apidoc">@dadi/apidoc</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/api-wrapper">@dadi/api-wrapper</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/autodata">@dadi/autodata</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/cache">@dadi/cache</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/cdn">@dadi/cdn</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/dustjs-helpers">@dadi/dustjs-helpers</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/format-error">@dadi/format-error</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/generator">@dadi/generator</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/logger">@dadi/logger</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/passport">@dadi/passport</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/toolbelt">@dadi/toolbelt</a></li>
+<li><a href="https://www.npmjs.com/package/@dadi/web">@dadi/web</a></li>
 </ul>
-<h2 id="configuration">Configuration</h2>
-<p><strong>Note:</strong> Sessions are disabled by default. To enable them in your application, add the following to your configuration file:</p>
-<pre><code class="lang-javascript"><span class="hljs-string">"sessions"</span>: {
-  <span class="hljs-string">"enabled"</span>: <span class="hljs-literal">true</span>
-}
-</code></pre>
-<p>A full configuration block for sessions contains the following properties:</p>
-<pre><code class="lang-javascript"><span class="hljs-string">"sessions"</span>: {
-  <span class="hljs-string">"enabled"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-string">"name"</span>: <span class="hljs-string">"dadiweb.sid"</span>,
-  <span class="hljs-string">"secret"</span>: <span class="hljs-string">"dadiwebsecretsquirrel"</span>,
-  <span class="hljs-string">"resave"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-string">"saveUninitialized"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-string">"store"</span>: <span class="hljs-string">""</span>,
-  <span class="hljs-string">"cookie"</span>: {
-    <span class="hljs-string">"maxAge"</span>: <span class="hljs-number">60000</span>,
-    <span class="hljs-string">"secure"</span>: <span class="hljs-literal">false</span>
-  }
-}
-</code></pre>
-<h3 id="configuration-properties">Configuration Properties</h3>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>enabled</td>
-<td>If <code class="lang-actionscript"><span class="hljs-literal">true</span></code>, sessions are enabled.</td>
-<td>false</td>
-</tr>
-<tr>
-<td>name</td>
-<td>The session cookie name.</td>
-<td>“dadiweb.sid”</td>
-</tr>
-<tr>
-<td>secret</td>
-<td>The secret used to sign the session ID cookie. This can be either a string for a single secret, or an array of multiple secrets. If an array of secrets is provided, only the first element will be used to sign the session ID cookie, while all the elements will be considered when verifying the signature in requests.</td>
-<td>“dadiwebsecretsquirrel”</td>
-</tr>
-<tr>
-<td>resave</td>
-<td>Forces the session to be saved back to the session store, even if the session was never modified during the request.</td>
-<td>false</td>
-</tr>
-<tr>
-<td>saveUninitialized</td>
-<td>Forces a session that is “uninitialized” to be saved to the store. A session is uninitialized when it is new but not modified. Choosing false is useful for implementing login sessions, reducing server storage usage, or complying with laws that require permission before setting a cookie. Choosing false will also help with race conditions where a client makes multiple parallel requests without a session.</td>
-<td>false</td>
-</tr>
-<tr>
-<td>store</td>
-<td>The session store instance, defaults to a new MemoryStore instance.</td>
-<td>The default is an empty string, which uses a new MemoryStore instance. To use MongoDB as the session store, specify a MongoDB connection string such as <code class="lang-1c"><span class="hljs-string">"mongodb://host:port/databaseName"</span></code> or <code class="lang-perl"><span class="hljs-string">"mongodb://username:password<span class="hljs-variable">@host</span>:port/databaseName"</span></code> if your database requires authentication. To use Redis, specify a Redis server’s address and port number: <code class="lang-1c"><span class="hljs-string">"redis://127.0.0.1:6379"</span></code>.</td>
-</tr>
-<tr>
-<td>cookie</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>cookie.maxAge</td>
-<td>Set the cookie’s expiration as an interval of seconds in the future, relative to the time the browser received the cookie. <code class="lang-actionscript"><span class="hljs-literal">null</span></code> means no ‘expires’ parameter is set so the cookie becomes a browser-session cookie. When the user closes the browser the cookie (and session) will be removed.</td>
-<td>60000</td>
-</tr>
-<tr>
-<td>cookie.secure</td>
-<td>HTTPS is necessary for secure cookies. If <code>secure</code> is <code class="lang-actionscript"><span class="hljs-literal">true</span></code> and you access your site over HTTP, the cookie will not be set.</td>
-<td>false</td>
-</tr>
-</tbody>
-</table>
-<h2 id="using-the-session">Using the session</h2>
-<p>Session data can easily be accessed from an <a href="https://github.com/dadi/web/blob/docs/docs/events.md">event</a> or custom <a href="https://github.com/dadi/web/blob/docs/docs/middleware.md">middleware</a>.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Event = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, data, callback</span>) </span>{
-  <span class="hljs-keyword">if</span> (req.session) {
-    req.session.someProperty = <span class="hljs-string">"some value"</span>
-    req.session.save(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
-      <span class="hljs-comment">// session saved</span>
-    })
-
-    data.session_id = req.session.id
-  }
-
-  callback(<span class="hljs-literal">null</span>, data)
-}
-</code></pre>
 
 
 
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
-              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/web/concepts/sessions.md">Edit in Github</a>.
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/npm.md">Edit in Github</a>.
             </p>
           </div>
         </div>
          <div class="col w-1-4">
           <div class="pad__top--half stick" stick-spacer="false" stick-parent=".container">
             <ul class="hide list--line small bg--light-grey" style="padding:5px 15px">
-                <li>
-                  <strong class="txt--grey block">Prev</strong>
-                  <a href="/web/concepts/views">Views</a>
-                </li>
-                <li>
-                  <strong class="txt--grey block">Next</strong>
-                  <a href="/web/concepts/caching">Caching</a>
-                </li>
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#configuration">Configuration</a></li>
-                <li><a class="" href="#using-the-session">Using the session</a></li>
+                <li><a class="" href="#13-packages">13 packages</a></li>
             </ul>
         </div>
       </div>
