@@ -7,6 +7,8 @@ This is an example of an event which uses [SendGrid](https://sendgrid.com/) to s
 ## `workspace/pages/contact.dust`
 
 ```HTML
+{?mailResult}<p>{mailResult}</p>{/mailResult}
+
 <form action="/contact/" method="post">
   <p>
     <label class="hdr" for="name">Name</label>
