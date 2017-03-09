@@ -117,15 +117,16 @@ app.use((err, req, res, next) => {
 
 DADI Web already includes some built-in middleware functions, which, in some cases, can be turned on or off using the main configuration file. See details in the [configuration section](/web/getting-started/configuration/).
 
-Built-in middleare:
-
-* Body parser - parses the body of an incoming request and makes the data available as the property `req.body`
-* Caching - determines if the current request can be handled by a previously cached response
-* GZip Compression - compresses the response before sending
-* Request logging - logs every request to a file
-* Sessions - handles sessions
-* Static files - serves static assets from the public folder, such as JavaScript, CSS, HTML files, images, etc
-* Virtual directories - serves content from configured directories not handled by the existing page/route specifications
+### Built-in middleware
+| Type | Description
+|: --- | :---
+| Body parser | parses the body of an incoming request and makes the data available as the property `req.body`
+| Caching | determines if the current request can be handled by a previously cached response
+| GZip Compression | compresses the response before sending
+| Request logging | logs every request to a file
+| Sessions | handles sessions
+| Static files | serves static assets from the public folder, such as JavaScript, CSS, HTML files, images, etc
+| Virtual directories | serves content from configured directories not handled by the existing page/route specifications
 
 > Note: the body parser middleware can handle JSON, raw, plain text and URL-encoded request bodies. It does not handle multipart bodies due to their complex and typically large nature. For multipart bodies, try one of the following modules: [busboy](https://www.npmjs.org/package/busboy), [multiparty](https://www.npmjs.org/package/multiparty), [formidable](https://www.npmjs.org/package/formidable) or [multer](https://www.npmjs.org/package/multer)
 
