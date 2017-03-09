@@ -57,16 +57,110 @@
                   <img class="float--right pad__left--half" src="https://avatars3.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
                 </a>
                 <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">2016-11-25T14:41:55Z</span>
+                <span class="block txt--grey" title="Last updated: 2017-03-08T11:57:12Z">2017-03-08T11:57:12Z</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">2 words</div>
-              <div class="txt--grey">1 min read</div>
+              <div class="block fwb">314 words</div>
+              <div class="txt--grey">2 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <p>Coming soon…</p>
+            <p>This is an example of an event which uses <a href="https://sendgrid.com/">SendGrid</a> to send a message from an HTML form.</p>
+<h2 id="-workspace-pages-contact-dust-"><code class="lang-gradle">workspace<span class="hljs-regexp">/pages/</span>contact.dust</code></h2>
+<pre><code class="lang-html">{?mailResult}<span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>{mailResult}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>{/mailResult}
+
+<span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">action</span>=<span class="hljs-value">"/contact/"</span> <span class="hljs-attribute">method</span>=<span class="hljs-value">"post"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"hdr"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"name"</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">autofocus</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"name"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"name"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"Your full name"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"normal"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"hdr"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"email"</span>&gt;</span>Email<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"email"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"email"</span> <span class="hljs-attribute">required</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"Your email address"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"normal"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"email"</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"hdr"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"phone"</span>&gt;</span>Phone<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"phone"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"phone"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"Contact telephone number"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"normal"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"hdr"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"message"</span>&gt;</span>Message<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">textarea</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"min-height:166px"</span> <span class="hljs-attribute">rows</span>=<span class="hljs-value">"5"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"message"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"message"</span> <span class="hljs-attribute">required</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"What do you want to talk about?"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"normal"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"email"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">textarea</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"submit"</span>&gt;</span>Send message<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+</code></pre>
+<h2 id="-workspace-events-contact-js-"><code class="lang-gradle">workspace<span class="hljs-regexp">/events/</span>contact.js</code></h2>
+<p>You need a Sendgrid.com API key for this script to work DADI Web should be started with an ENV variable for the SendGrid API key. The IP address of the box it is hosted on also needs to be whitelisted within SendGrid’s dashboard.</p>
+<p>Optionally you could hardcode your API key, but be careful not to commit the code to a publically acessible GitHub repo.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> sg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'sendgrid'</span>)(process.env[<span class="hljs-string">'SENDGRID_API'</span>])
+
+<span class="hljs-keyword">var</span> Event = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, data, callback</span>) </span>{
+
+  <span class="hljs-comment">// On form post</span>
+  <span class="hljs-keyword">switch</span> (req.method.toLowerCase()) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'post'</span>:
+
+      <span class="hljs-comment">// Validate out inputs</span>
+      <span class="hljs-keyword">if</span> (req.body.email &amp;&amp; isEmail(req.body.email) &amp;&amp; req.body.message) {
+
+        <span class="hljs-keyword">var</span> message = <span class="hljs-string">"Name: "</span>+req.body.name+<span class="hljs-string">"\n\nEmail: "</span>+req.body.email+<span class="hljs-string">"\n\nPhone: "</span>+req.body.phone+<span class="hljs-string">"\n\nMessage:\n\n"</span>+req.body.message
+
+        <span class="hljs-keyword">var</span> request = sg.emptyRequest({
+          method: <span class="hljs-string">'POST'</span>,
+          path: <span class="hljs-string">'/v3/mail/send'</span>,
+          body: {
+            personalizations: [{
+              to: [{
+                email: <span class="hljs-string">'hello@dadi.tech'</span>,
+              }],
+              subject: <span class="hljs-string">'[dadi.tech] Contact form message'</span>,
+            }],
+            from: {
+              email: <span class="hljs-string">'hello@dadi.tech'</span>,
+            },
+            content: [{
+              type: <span class="hljs-string">'text/plain'</span>,
+              value: message,
+            }],
+          }
+        })
+
+        sg.API(request, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, response</span>) </span>{
+          <span class="hljs-keyword">if</span> (error) {
+            data.mailResult = <span class="hljs-string">'There was a problem sending the email.'</span>
+          } <span class="hljs-keyword">else</span> {
+            data.mailResult = <span class="hljs-string">'Thank you for your message, you will hear back from us soon.'</span>
+          }
+
+          callback()
+        })
+
+      } <span class="hljs-keyword">else</span> {
+        data.mailResult = <span class="hljs-string">'All fields are required.'</span>
+        callback()
+      }
+
+    <span class="hljs-keyword">break</span>
+  <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">return</span> callback()
+  }
+
+}
+
+<span class="hljs-comment">// Taken from: http://stackoverflow.com/a/46181/306059</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isEmail</span>(<span class="hljs-params">email</span>) </span>{
+  <span class="hljs-keyword">var</span> re = <span class="hljs-regexp">/^(([^&lt;&gt;()[\]\\.,;:\s@\"]+(\.[^&lt;&gt;()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/</span>
+
+  <span class="hljs-keyword">return</span> re.test(email)
+}
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, data, callback</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Event(req, res, data, callback)
+};
+</code></pre>
 
 
 
@@ -89,6 +183,8 @@
             </ul>
 
             <ul class="list--line pad__top--half">
+                <li><a class="" href="#-workspace-pages-contact-dust-">workspace/pages/contact.dust</a></li>
+                <li><a class="" href="#-workspace-events-contact-js-">workspace/events/contact.js</a></li>
             </ul>
         </div>
       </div>

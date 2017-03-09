@@ -1,5 +1,17 @@
 [
   {
+    "path": "api/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "web/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
     "excerpt": "<p>We’d love for you to contribute to our source code and to make DADI products even better.</p>",
     "path": "contributing"
   },
@@ -19,154 +31,9 @@
     "path": "prerequisites"
   },
   {
-    "title": "CDN",
-    "excerpt": "",
-    "path": "cdn"
-  },
-  {
-    "title": "Blur",
-    "excerpt": "Add blur to an image",
-    "path": "cdn/concepts/blurring"
-  },
-  {
-    "title": "Caching",
-    "excerpt": "See how to improve performance by caching images processed with CDN",
-    "path": "cdn/concepts/cache"
-  },
-  {
-    "title": "Cropping an image",
-    "excerpt": "Crop and resize images",
-    "path": "cdn/concepts/cropping"
-  },
-  {
-    "title": "Image format conversion",
-    "excerpt": "<p><strong>URL parameter:</strong> <code class=\"lang-dos\"><span class=\"hljs-built_in\">format</span></code>, <code class=\"lang-fortran\"><span class=\"hljs-keyword\">fmt</span></code></p>",
-    "path": "cdn/concepts/formats"
-  },
-  {
-    "title": "Flipping an image",
-    "excerpt": "Flip images horizontally, vertically or both",
-    "path": "cdn/concepts/flipping"
-  },
-  {
-    "title": "Concepts",
-    "excerpt": "<p>Learn the basic concepts involved in using DADI CDN to deliver images, JavaScript and CSS to your application. Topics include resizing and cropping images, boosting saturation, converting between image formats and file compression.</p>",
-    "path": "cdn/concepts"
-  },
-  {
-    "title": "Interpolation filter",
-    "excerpt": "Choose the interpolation method when resizing images",
-    "path": "cdn/concepts/interpolation"
-  },
-  {
-    "title": "Layout Processor",
-    "excerpt": "<p>The layout processor provides a way to generate a new image by combining existing images accessible by CDN.</p>",
-    "path": "cdn/concepts/layout"
-  },
-  {
-    "title": "Image compression quality",
-    "excerpt": "Reduce file size by applying compression to images",
-    "path": "cdn/concepts/quality"
-  },
-  {
-    "title": "Delivery Recipes",
-    "excerpt": "Create a \"recipe\" of image manipulation parameters to apply to images at runtime",
-    "path": "cdn/concepts/recipes"
-  },
-  {
-    "title": "Resizing an image",
-    "excerpt": "<p>The width (<code class=\"lang-stata\"><span class=\"hljs-literal\">w</span></code>) of the required output image, in pixels.</p>",
-    "path": "cdn/concepts/resizing"
-  },
-  {
-    "title": "Rotating an image",
-    "excerpt": "<p>Rotates the image according to the value specified in degrees. Valid values are in the range 0 - 359. The default value is 0 which leaves the image unchanged. The image will be zoomed so that it covers the entire area after rotation.</p>",
-    "path": "cdn/concepts/rotating"
-  },
-  {
-    "title": "Delivery Routes",
-    "excerpt": "Let CDN choose the recipe based on device, network, location or language",
-    "path": "cdn/concepts/routes"
-  },
-  {
-    "title": "Saturation",
-    "excerpt": "Increase or reduce colour saturation, or convert to black and white",
-    "path": "cdn/concepts/saturation"
-  },
-  {
-    "title": "Sharpen",
-    "excerpt": "Sharpen images",
-    "path": "cdn/concepts/sharpen"
-  },
-  {
-    "title": "Uploading Images",
-    "excerpt": "<p>If the filename of an image being uploaded is the same as an existing file on the CDN, the new file will have it’s name changed by adding the current timestamp:</p>",
-    "path": "cdn/concepts/upload"
-  },
-  {
-    "title": "Retrieving a colour palette",
-    "excerpt": "<p>Each image stored in <em>CDN</em> can be returned as a json object with information on how the image was generated. Within that object there is the <code>primaryColor</code> and <code class=\"lang-stata\"><span class=\"hljs-keyword\">palette</span></code> nodes which contains information about the colour of the image.</p>",
-    "path": "cdn/everyday/colour-palette"
-  },
-  {
-    "title": "Minifying CSS & JS",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "cdn/everyday/min-assets"
-  },
-  {
-    "title": "Everyday Usage",
-    "excerpt": "",
-    "path": "cdn/everyday"
-  },
-  {
-    "title": "Dealing with pixel ratios",
-    "excerpt": "<p>When dealing with mulitiple device pixel ratios, you can ‘multiply’ the outputted size of the image by adding the variable name <code class=\"lang-cpp\">?devicePixelRatio=[<span class=\"hljs-number\">0</span>-<span class=\"hljs-number\">9</span>]</code>.</p>",
-    "path": "cdn/everyday/pixel-ratios"
-  },
-  {
-    "title": "Automatic smart cropping",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "cdn/everyday/smart-crop"
-  },
-  {
-    "title": "Serving Images and Assets",
-    "excerpt": "<p>With your <a href=\"/cdn/getting-started/defining-sources/\">sources</a> configured so that CDN knows where to find them, you can start sending requests for your assets and images.</p>",
-    "path": "cdn/everyday/url-variables"
-  },
-  {
-    "title": "Using with DADI Web",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "cdn/examples/dadi-web"
-  },
-  {
-    "title": "Responsive images",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "cdn/examples/responsive"
-  },
-  {
-    "title": "Configuration",
-    "excerpt": "<p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class=\"lang-vim\"><span class=\"hljs-built_in\">hostname</span></code> i.e., it will also look for <code class=\"lang-css\"><span class=\"hljs-tag\">config</span>.\" + <span class=\"hljs-tag\">req</span><span class=\"hljs-class\">.headers</span><span class=\"hljs-class\">.host</span> + \"<span class=\"hljs-class\">.json</span></code></p>",
-    "path": "cdn/getting-started/configuration"
-  },
-  {
-    "title": "Defining sources",
-    "excerpt": "<p>Before you can serve assets or images you need to tell CDN where your files are located. Currently, CDN can serve your files from three types of source:</p>",
-    "path": "cdn/getting-started/defining-sources"
-  },
-  {
-    "title": "Installing DADI CDN",
-    "excerpt": "<p>All our platform microservices are available from <a href=\"https://www.npmjs.com/\">NPM</a>. To install <em>CDN</em>:</p>",
-    "path": "cdn/getting-started/installing"
-  },
-  {
     "title": "API",
     "excerpt": "",
     "path": "api"
-  },
-  {
-    "title": "Collections",
-    "excerpt": "Configure Collections, the storage containers for your data within API",
-    "path": "api/concepts/collections"
   },
   {
     "title": "Authentication",
@@ -174,14 +41,14 @@
     "path": "api/concepts/authentication"
   },
   {
+    "title": "Collections",
+    "excerpt": "Configure Collections, the storage containers for your data within API",
+    "path": "api/concepts/collections"
+  },
+  {
     "title": "Custom Endpoints",
     "excerpt": "Combine datasources and modify or enrich data using custom endpoints",
     "path": "api/concepts/custom"
-  },
-  {
-    "title": "Hooks",
-    "excerpt": "Perform operations on data before/after GET, UPDATE and DELETE requests",
-    "path": "api/concepts/hooks"
   },
   {
     "title": "Concepts",
@@ -189,19 +56,24 @@
     "path": "api/concepts"
   },
   {
+    "title": "Hooks",
+    "excerpt": "Perform operations on data before/after GET, UPDATE and DELETE requests",
+    "path": "api/concepts/hooks"
+  },
+  {
     "title": "Querying Collections",
     "excerpt": "Query collections using predefined or runtime filters, returning only the data you need",
     "path": "api/concepts/querying"
   },
   {
-    "title": "Uploading Media",
-    "excerpt": "Accept file uploads, and store your file-based content with your text-based content",
-    "path": "api/concepts/upload"
-  },
-  {
     "title": "Server Status",
     "excerpt": "Obtain realtime information regarding the health of your API instance",
     "path": "api/concepts/status"
+  },
+  {
+    "title": "Uploading Media",
+    "excerpt": "Accept file uploads, and store your file-based content with your text-based content",
+    "path": "api/concepts/upload"
   },
   {
     "title": "Data Validation",
@@ -269,14 +141,14 @@
     "path": "api/examples/perl"
   },
   {
-    "title": "Python",
-    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
-    "path": "api/examples/python"
-  },
-  {
     "title": "PHP",
     "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
     "path": "api/examples/php"
+  },
+  {
+    "title": "Python",
+    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
+    "path": "api/examples/python"
   },
   {
     "title": "Facebook React",
@@ -312,6 +184,146 @@
     "title": "Getting Started",
     "excerpt": "<p>Traditional product design is channel and device centric. But users inhabit a multi-channel, multi-device world.</p>",
     "path": "api/getting-started/why"
+  },
+  {
+    "title": "CDN",
+    "excerpt": "",
+    "path": "cdn"
+  },
+  {
+    "title": "Blur",
+    "excerpt": "Add blur to an image",
+    "path": "cdn/concepts/blurring"
+  },
+  {
+    "title": "Caching",
+    "excerpt": "See how to improve performance by caching images processed with CDN",
+    "path": "cdn/concepts/cache"
+  },
+  {
+    "title": "Cropping an image",
+    "excerpt": "Crop and resize images",
+    "path": "cdn/concepts/cropping"
+  },
+  {
+    "title": "Flipping an image",
+    "excerpt": "Flip images horizontally, vertically or both",
+    "path": "cdn/concepts/flipping"
+  },
+  {
+    "title": "Image format conversion",
+    "excerpt": "<p><strong>URL parameter:</strong> <code class=\"lang-dos\"><span class=\"hljs-built_in\">format</span></code>, <code class=\"lang-fortran\"><span class=\"hljs-keyword\">fmt</span></code></p>",
+    "path": "cdn/concepts/formats"
+  },
+  {
+    "title": "Concepts",
+    "excerpt": "<p>Learn the basic concepts involved in using DADI CDN to deliver images, JavaScript and CSS to your application. Topics include resizing and cropping images, boosting saturation, converting between image formats and file compression.</p>",
+    "path": "cdn/concepts"
+  },
+  {
+    "title": "Interpolation filter",
+    "excerpt": "Choose the interpolation method when resizing images",
+    "path": "cdn/concepts/interpolation"
+  },
+  {
+    "title": "Layout Processor",
+    "excerpt": "<p>The layout processor provides a way to generate a new image by combining existing images accessible by CDN.</p>",
+    "path": "cdn/concepts/layout"
+  },
+  {
+    "title": "Image compression quality",
+    "excerpt": "Reduce file size by applying compression to images",
+    "path": "cdn/concepts/quality"
+  },
+  {
+    "title": "Delivery Recipes",
+    "excerpt": "Create a \"recipe\" of image manipulation parameters to apply to images at runtime",
+    "path": "cdn/concepts/recipes"
+  },
+  {
+    "title": "Resizing an image",
+    "excerpt": "<p>The width (<code class=\"lang-stata\"><span class=\"hljs-literal\">w</span></code>) of the required output image, in pixels.</p>",
+    "path": "cdn/concepts/resizing"
+  },
+  {
+    "title": "Rotating an image",
+    "excerpt": "<p>Rotates the image according to the value specified in degrees. Valid values are in the range 0 - 359. The default value is 0 which leaves the image unchanged. The image will be zoomed so that it covers the entire area after rotation.</p>",
+    "path": "cdn/concepts/rotating"
+  },
+  {
+    "title": "Delivery Routes",
+    "excerpt": "Let CDN choose the recipe based on device, network, location or language",
+    "path": "cdn/concepts/routes"
+  },
+  {
+    "title": "Saturation",
+    "excerpt": "Increase or reduce colour saturation, or convert to black and white",
+    "path": "cdn/concepts/saturation"
+  },
+  {
+    "title": "Sharpen",
+    "excerpt": "Sharpen images",
+    "path": "cdn/concepts/sharpen"
+  },
+  {
+    "title": "Uploading Images",
+    "excerpt": "<p>If the filename of an image being uploaded is the same as an existing file on the CDN, the new file will have it’s name changed by adding the current timestamp:</p>",
+    "path": "cdn/concepts/upload"
+  },
+  {
+    "title": "Retrieving a colour palette",
+    "excerpt": "<p>Each image stored in <em>CDN</em> can be returned as a json object with information on how the image was generated. Within that object there is the <code>primaryColor</code> and <code class=\"lang-stata\"><span class=\"hljs-keyword\">palette</span></code> nodes which contains information about the colour of the image.</p>",
+    "path": "cdn/everyday/colour-palette"
+  },
+  {
+    "title": "Everyday Usage",
+    "excerpt": "",
+    "path": "cdn/everyday"
+  },
+  {
+    "title": "Minifying CSS & JS",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "cdn/everyday/min-assets"
+  },
+  {
+    "title": "Dealing with pixel ratios",
+    "excerpt": "<p>When dealing with mulitiple device pixel ratios, you can ‘multiply’ the outputted size of the image by adding the variable name <code class=\"lang-cpp\">?devicePixelRatio=[<span class=\"hljs-number\">0</span>-<span class=\"hljs-number\">9</span>]</code>.</p>",
+    "path": "cdn/everyday/pixel-ratios"
+  },
+  {
+    "title": "Automatic smart cropping",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "cdn/everyday/smart-crop"
+  },
+  {
+    "title": "Serving Images and Assets",
+    "excerpt": "<p>With your <a href=\"/cdn/getting-started/defining-sources/\">sources</a> configured so that CDN knows where to find them, you can start sending requests for your assets and images.</p>",
+    "path": "cdn/everyday/url-variables"
+  },
+  {
+    "title": "Using with DADI Web",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "cdn/examples/dadi-web"
+  },
+  {
+    "title": "Responsive images",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "cdn/examples/responsive"
+  },
+  {
+    "title": "Configuration",
+    "excerpt": "<p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class=\"lang-vim\"><span class=\"hljs-built_in\">hostname</span></code> i.e., it will also look for <code class=\"lang-css\"><span class=\"hljs-tag\">config</span>.\" + <span class=\"hljs-tag\">req</span><span class=\"hljs-class\">.headers</span><span class=\"hljs-class\">.host</span> + \"<span class=\"hljs-class\">.json</span></code></p>",
+    "path": "cdn/getting-started/configuration"
+  },
+  {
+    "title": "Defining sources",
+    "excerpt": "<p>Before you can serve assets or images you need to tell CDN where your files are located. Currently, CDN can serve your files from three types of source:</p>",
+    "path": "cdn/getting-started/defining-sources"
+  },
+  {
+    "title": "Installing DADI CDN",
+    "excerpt": "<p>All our platform microservices are available from <a href=\"https://www.npmjs.com/\">NPM</a>. To install <em>CDN</em>:</p>",
+    "path": "cdn/getting-started/installing"
   },
   {
     "title": "Error Codes",
@@ -369,6 +381,11 @@
     "path": "web/concepts/logging"
   },
   {
+    "title": "Middleware",
+    "excerpt": "Add functionality to the request-response cycle",
+    "path": "web/concepts/middleware"
+  },
+  {
     "title": "Pages",
     "excerpt": "Add pages to your application and configure routing",
     "path": "web/concepts/pages"
@@ -392,31 +409,6 @@
     "title": "Views",
     "excerpt": "Learn how to use page templates and partials to render your data",
     "path": "web/concepts/views"
-  },
-  {
-    "title": "Using APIs with events",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/examples/api-event"
-  },
-  {
-    "title": "Loading external data",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/examples/external-data"
-  },
-  {
-    "title": "Geolocate your visitors",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/examples/geolocate"
-  },
-  {
-    "title": "A contact form using SendGrid",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/examples/sendgrid"
-  },
-  {
-    "title": "Taking payments with Stripe",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/examples/stripe"
   },
   {
     "title": "MIME content types",
@@ -484,6 +476,31 @@
     "path": "web/everyday/virtual-directories"
   },
   {
+    "title": "Using APIs with events",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/examples/api-event"
+  },
+  {
+    "title": "Loading external data",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/examples/external-data"
+  },
+  {
+    "title": "Geolocate your visitors",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/examples/geolocate"
+  },
+  {
+    "title": "A contact form using SendGrid",
+    "excerpt": "<p>This is an example of an event which uses <a href=\"https://sendgrid.com/\">SendGrid</a> to send a message from an HTML form.</p>",
+    "path": "web/examples/sendgrid"
+  },
+  {
+    "title": "Taking payments with Stripe",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/examples/stripe"
+  },
+  {
     "title": "Configuration",
     "excerpt": "<p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class=\"lang-vim\"><span class=\"hljs-built_in\">hostname</span></code> i.e., it will also look for <code class=\"lang-css\"><span class=\"hljs-tag\">config</span>.\" + <span class=\"hljs-tag\">req</span><span class=\"hljs-class\">.headers</span><span class=\"hljs-class\">.host</span> + \"<span class=\"hljs-class\">.json</span></code></p>",
     "path": "web/getting-started/configuration"
@@ -502,6 +519,108 @@
     "title": "Installing DADI Web",
     "excerpt": "<p>All our platform microservices are available from <a href=\"https://www.npmjs.com/\">NPM</a>. To install <em>Web</em>.</p>",
     "path": "web/getting-started/installing"
+  },
+  {
+    "path": "api/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "web/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "api/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "web/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "api/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "web/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "api/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "web/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "api/concepts/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
+  },
+  {
+    "path": "web/concepts/.DS_Store"
   },
   {}
 ]

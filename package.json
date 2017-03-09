@@ -21,7 +21,7 @@
     "metalsmith-lunr": "github:cmclay/metalsmith-lunr#pull/11/head",
     "metalsmith-mapsite": "^1.0.4",
     "metalsmith-markdown": "^0.2.1",
-    "metalsmith-markdown-tidy": "1.0.0",
+    "metalsmith-markdown-tidy": "1.1.0",
     "metalsmith-navigation": "^0.2.9",
     "metalsmith-page-titles": "^1.0.2",
     "metalsmith-paths": "^2.1.2",

@@ -54,11 +54,11 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
                 </a>
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2017-01-23T10:51:26Z">2017-01-23T10:51:26Z</span>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2016-12-22T06:11:09Z">2016-12-22T06:11:09Z</span>
               </div>
             <div class="inline-block">
               <div class="block fwb">567 words</div>
@@ -160,7 +160,7 @@
 </code></pre><h4 id="filter">filter</h4>
 <p>Extends the collection’s <code class="lang-pf"><span class="hljs-keyword">default</span>Filters</code> setting. There are two ways to use the <code class="lang-golo"><span class="hljs-keyword">filter</span></code> parameter: passing a JSON query object for performing a standard query, and passing an array containing MongoDB Aggregation Pipeline stages.</p>
 <h5 id="json-query-object">JSON Query Object</h5>
-<pre><code class="lang-css"><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">fieldName</span>:<span class="hljs-value"> {<span class="hljs-string">"$in"</span>: [<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>]</span></span></span>} }
+<pre><code class="lang-css"> <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">fieldName</span>:<span class="hljs-value"> {<span class="hljs-string">"$in"</span>: [<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>]</span></span></span>} }
 </code></pre><h5 id="aggregation-pipeline-array">Aggregation Pipeline array</h5>
 <h6 id="examples-with-the-following-data-set-">Examples with the following data set:</h6>
 <pre><code class="lang-css"><span class="hljs-rules">{
@@ -206,7 +206,7 @@
  }</span>
 ]</span>
 </code></pre><h6 id="2-return-the-average-onroadcost-for-ford-vehicles-">2. Return the average <code class="lang-pf"><span class="hljs-keyword">on</span>RoadCost</code> for <code>Ford</code> vehicles:</h6>
-<pre><code class="lang-xquery">[
+<pre><code class="lang-xquery"> [
    {
      <span class="hljs-variable">$match</span> : { make: <span class="hljs-string">"Ford"</span> }
    },
@@ -285,7 +285,7 @@ client.get(<span class="hljs-string">'/versionName/databaseName/cars?filter='</s
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
-                  <a href="/api/concepts/upload">Uploading Media</a>
+                  <a href="/api/concepts/status">Server Status</a>
                 </li>
             </ul>
 
