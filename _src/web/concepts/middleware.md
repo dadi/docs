@@ -1,6 +1,6 @@
 ---
 title: Middleware
-excerpt: Add pages to your application and configure routing
+excerpt: Add functionality to the request-response cycle
 order: 2
 ---
 
