@@ -18,5 +18,5 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - g++-4.9
-before_install: if [[ `npm -v` != 3* ]]; then npm i -g npm@latest; fi
+      - g++-5.1
+before_install: if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
