@@ -99,6 +99,26 @@
     "path": "api/everyday/retrieving"
   },
   {
+    "title": "Configuration",
+    "excerpt": "<p>Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.</p>",
+    "path": "api/getting-started/configuration"
+  },
+  {
+    "title": "Installing API on Ubuntu",
+    "excerpt": "<p>This document provides a simple step by step guide to installation on Ubuntu <a href=\"http://releases.ubuntu.com/14.04.1/\">14.04.1 LTS</a>.</p>",
+    "path": "api/getting-started/installing-ubuntu"
+  },
+  {
+    "title": "Installing DADI API",
+    "excerpt": "<p>Running <code class=\"lang-coffeescript\"><span class=\"hljs-built_in\">npm</span> init</code> adds a file called <code class=\"lang-actionscript\"><span class=\"hljs-package\"><span class=\"hljs-keyword\">package</span>.<span class=\"hljs-title\">json</span></span></code> to your project, allowing you to easily add dependencies to it:</p>",
+    "path": "api/getting-started/installing"
+  },
+  {
+    "title": "Getting Started",
+    "excerpt": "<p>Traditional product design is channel and device centric. But users inhabit a multi-channel, multi-device world.</p>",
+    "path": "api/getting-started/why"
+  },
+  {
     "title": "cURL",
     "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
     "path": "api/examples/curl"
@@ -152,26 +172,6 @@
     "title": "Swift",
     "excerpt": "<p>Coming soon…</p>",
     "path": "api/examples/swift"
-  },
-  {
-    "title": "Configuration",
-    "excerpt": "<p>Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.</p>",
-    "path": "api/getting-started/configuration"
-  },
-  {
-    "title": "Installing API on Ubuntu",
-    "excerpt": "<p>This document provides a simple step by step guide to installation on Ubuntu <a href=\"http://releases.ubuntu.com/14.04.1/\">14.04.1 LTS</a>.</p>",
-    "path": "api/getting-started/installing-ubuntu"
-  },
-  {
-    "title": "Installing DADI API",
-    "excerpt": "<p>Running <code class=\"lang-coffeescript\"><span class=\"hljs-built_in\">npm</span> init</code> adds a file called <code class=\"lang-actionscript\"><span class=\"hljs-package\"><span class=\"hljs-keyword\">package</span>.<span class=\"hljs-title\">json</span></span></code> to your project, allowing you to easily add dependencies to it:</p>",
-    "path": "api/getting-started/installing"
-  },
-  {
-    "title": "Getting Started",
-    "excerpt": "<p>Traditional product design is channel and device centric. But users inhabit a multi-channel, multi-device world.</p>",
-    "path": "api/getting-started/why"
   },
   {
     "title": "CDN",
@@ -399,6 +399,31 @@
     "path": "web/concepts/views"
   },
   {
+    "title": "Using APIs with events",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/examples/api-event"
+  },
+  {
+    "title": "Loading external data",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/examples/external-data"
+  },
+  {
+    "title": "Geolocate your visitors",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/examples/geolocate"
+  },
+  {
+    "title": "A contact form using SendGrid",
+    "excerpt": "<p>This is an example of an event which uses <a href=\"https://sendgrid.com/\">SendGrid</a> to send a message from an HTML form.</p>",
+    "path": "web/examples/sendgrid"
+  },
+  {
+    "title": "Taking payments with Stripe",
+    "excerpt": "<p>Coming soon…</p>",
+    "path": "web/examples/stripe"
+  },
+  {
     "title": "MIME content types",
     "excerpt": "<p>Coming soon…</p>",
     "path": "web/everyday/content-types"
@@ -462,31 +487,6 @@
     "title": "Virtual directories",
     "excerpt": "<p>Coming soon…</p>",
     "path": "web/everyday/virtual-directories"
-  },
-  {
-    "title": "Using APIs with events",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/examples/api-event"
-  },
-  {
-    "title": "Loading external data",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/examples/external-data"
-  },
-  {
-    "title": "Geolocate your visitors",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/examples/geolocate"
-  },
-  {
-    "title": "A contact form using SendGrid",
-    "excerpt": "<p>This is an example of an event which uses <a href=\"https://sendgrid.com/\">SendGrid</a> to send a message from an HTML form.</p>",
-    "path": "web/examples/sendgrid"
-  },
-  {
-    "title": "Taking payments with Stripe",
-    "excerpt": "<p>Coming soon…</p>",
-    "path": "web/examples/stripe"
   },
   {
     "title": "Configuration",
