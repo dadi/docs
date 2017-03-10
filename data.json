@@ -1,17 +1,5 @@
 [
   {
-    "path": "api/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "web/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
     "excerpt": "<p>We’d love for you to contribute to our source code and to make DADI products even better.</p>",
     "path": "contributing"
   },
@@ -51,14 +39,14 @@
     "path": "api/concepts/custom"
   },
   {
-    "title": "Concepts",
-    "excerpt": "<p>Learn the basic concepts involved in setting up a DADI API, including data collections, endpoints, data validation and querying data.</p>",
-    "path": "api/concepts"
-  },
-  {
     "title": "Hooks",
     "excerpt": "Perform operations on data before/after GET, UPDATE and DELETE requests",
     "path": "api/concepts/hooks"
+  },
+  {
+    "title": "Concepts",
+    "excerpt": "<p>Learn the basic concepts involved in setting up a DADI API, including data collections, endpoints, data validation and querying data.</p>",
+    "path": "api/concepts"
   },
   {
     "title": "Querying Collections",
@@ -519,108 +507,6 @@
     "title": "Installing DADI Web",
     "excerpt": "<p>All our platform microservices are available from <a href=\"https://www.npmjs.com/\">NPM</a>. To install <em>Web</em>.</p>",
     "path": "web/getting-started/installing"
-  },
-  {
-    "path": "api/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "web/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "api/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "web/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "api/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "web/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "api/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "web/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "api/concepts/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
-  },
-  {
-    "path": "web/concepts/.DS_Store"
   },
   {}
 ]

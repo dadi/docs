@@ -53,15 +53,8 @@
       <div class="grid">
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
-              <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/jimlambie" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars2.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
-                </a>
-                <a class="block fwb">James Lambie</a>
-                <span class="block txt--grey" title="Last updated: 2017-03-09T04:06:09Z">2017-03-09T04:06:09Z</span>
-              </div>
             <div class="inline-block">
-              <div class="block fwb">894 words</div>
+              <div class="block fwb">889 words</div>
               <div class="txt--grey">3 min read</div>
             </div>
           </div>
@@ -151,16 +144,45 @@
 </code></pre>
 <h2 id="built-in-middleware">Built-in middleware</h2>
 <p>DADI Web already includes some built-in middleware functions, which, in some cases, can be turned on or off using the main configuration file. See details in the <a href="/web/getting-started/configuration/">configuration section</a>.</p>
-<p>Built-in middleare:</p>
-<ul>
-<li>Body parser - parses the body of an incoming request and makes the data available as the property <code class="lang-css"><span class="hljs-tag">req</span><span class="hljs-class">.body</span></code></li>
-<li>Caching - determines if the current request can be handled by a previously cached response</li>
-<li>GZip Compression - compresses the response before sending</li>
-<li>Request logging - logs every request to a file</li>
-<li>Sessions - handles sessions</li>
-<li>Static files - serves static assets from the public folder, such as JavaScript, CSS, HTML files, images, etc</li>
-<li>Virtual directories - serves content from configured directories not handled by the existing page/route specifications</li>
-</ul>
+<h3 id="built-in-middleware">Built-in middleware</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Body parser</td>
+<td style="text-align:left">parses the body of an incoming request and makes the data available as the property <code class="lang-css"><span class="hljs-tag">req</span><span class="hljs-class">.body</span></code></td>
+</tr>
+<tr>
+<td>Caching</td>
+<td style="text-align:left">determines if the current request can be handled by a previously cached response</td>
+</tr>
+<tr>
+<td>GZip Compression</td>
+<td style="text-align:left">compresses the response before sending</td>
+</tr>
+<tr>
+<td>Request logging</td>
+<td style="text-align:left">logs every request to a file</td>
+</tr>
+<tr>
+<td>Sessions</td>
+<td style="text-align:left">handles sessions</td>
+</tr>
+<tr>
+<td>Static files</td>
+<td style="text-align:left">serves static assets from the public folder, such as JavaScript, CSS, HTML files, images, etc</td>
+</tr>
+<tr>
+<td>Virtual directories</td>
+<td style="text-align:left">serves content from configured directories not handled by the existing page/route specifications</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>Note: the body parser middleware can handle JSON, raw, plain text and URL-encoded request bodies. It does not handle multipart bodies due to their complex and typically large nature. For multipart bodies, try one of the following modules: <a href="https://www.npmjs.org/package/busboy">busboy</a>, <a href="https://www.npmjs.org/package/multiparty">multiparty</a>, <a href="https://www.npmjs.org/package/formidable">formidable</a> or <a href="https://www.npmjs.org/package/multer">multer</a></p>
 </blockquote>
@@ -257,11 +279,11 @@
             <ul class="hide list--line small bg--light-grey" style="padding:5px 15px">
                 <li>
                   <strong class="txt--grey block">Prev</strong>
-                  <a href="/web/concepts/pages">Pages</a>
+                  <a href="/web/concepts/datasources">Datasources</a>
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
-                  <a href="/web/concepts/routing">Routing</a>
+                  <a href="/web/concepts/events">Events</a>
                 </li>
             </ul>
 
