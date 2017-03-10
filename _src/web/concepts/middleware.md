@@ -1,7 +1,7 @@
 ---
 title: Middleware
 excerpt: Add functionality to the request-response cycle
-order: 2
+order: 3
 ---
 
 Middleware functions are functions that can be added to your Web application and
