@@ -8,6 +8,8 @@ node_js:
   - '4'
 before_script:
   - npm prune
+after_sucess:
+  - npm run build
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
