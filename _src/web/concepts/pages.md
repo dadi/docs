@@ -81,7 +81,7 @@ Property    |   Description        |  Type        | Default
  settings.cache         || Boolean | `false`
  settings.beautify      || Boolean | `false`
  settings.keepWhitespace    || Boolean | If the global config has a setting for `dust.whitespace` that is used as the default, otherwise `true`
- settings.passFilters    || Boolean | `false`
+ settings.passFilters    | When true, parameters will be passed from the request to the datasource. N.B. This will happen by default when the datasource has the same name as the page  | Boolean | `false`
 **route**   |  | |
  paths  | An array of routes that this page will respond to | Array | `[/pageName]`
  constraint | An optional function to execute to determine if the current URL matches this page | String |  
