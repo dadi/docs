@@ -73,6 +73,6 @@ http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filena
 
 If a pre-signed URL has already expired at the time of the request, a HTTP 403 Forbidden error will be returned:
 
-```
+```json
 {"statusCode":"403","message":"Forbidden: http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D"}
-
+```
