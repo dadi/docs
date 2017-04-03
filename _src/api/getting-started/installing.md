@@ -89,10 +89,10 @@ $ forever-service install -s index.js -e NODE_ENV=production api --start
 You can now interact with the service using the following commands:
 
 ```
-$ [sudo] start api
-$ [sudo] stop api
-$ [sudo] status api
-$ [sudo] restart api
+$ [sudo] service api start
+$ [sudo] service api stop
+$ [sudo] service api status
+$ [sudo] service api restart
 ```
 
 **And you're done, now move on to [API configuration](/api/getting-started/configuration/).**
