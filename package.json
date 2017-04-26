@@ -1,7 +1,7 @@
 {
   "name": "dadi-docs",
   "scripts": {
-    "build": "make build && git config user.email 'jameslambie@gmail.com' && git config user.name 'James Lambie' && git checkout -B temp && git add . && git commit -m 'chore: build' && git checkout -B gh-pages temp && echo `date` >> ./build.log && git add -f ./build.log && git commit -m 'chore: update build time' && git pull gh-pages && git add . && git commit -m 'chore: pull & merge' && git push https://${GITHUB_TOKEN}@github.com/dadi/docs.git gh-pages"
+    "build": "make build"
   },
   "dependencies": {
     "handlebars": "^4.0.5",
