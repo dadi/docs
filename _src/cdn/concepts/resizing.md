@@ -1,5 +1,6 @@
 ---
-title: Resizing an image
+title: Resize
+excerpt: Specify new image dimensions
 order: 100
 ---
 

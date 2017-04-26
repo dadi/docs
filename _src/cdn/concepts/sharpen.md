@@ -1,5 +1,5 @@
 ---
-title: Sharpen
+title: Sharpen images
 excerpt: Sharpen images
 order: 100
 ---

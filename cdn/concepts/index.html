@@ -55,7 +55,7 @@
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
                 <a href="https://github.com/jimlambie" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
+                  <img class="float--right pad__left--half" src="https://avatars2.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
                 </a>
                 <a class="block fwb">James Lambie</a>
                 <span class="block txt--grey" title="Last updated: 2016-12-22T06:11:09Z">2016-12-22T06:11:09Z</span>
@@ -76,15 +76,7 @@
                             <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/layout">Layout Processor</a></h2>
                           </div>
                           <div class="col w-1-2 txt--grey">
-                            <p>The layout processor provides a way to generate a new image by combining existing images accessible by CDN.</p>
-                          </div>
-                        </div>
-                        <div class="grid">
-                          <div class="col w-1-2">
-                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/upload">Uploading Images</a></h2>
-                          </div>
-                          <div class="col w-1-2 txt--grey">
-                            <p>If the filename of an image being uploaded is the same as an existing file on the CDN, the new file will have it’s name changed by adding the current timestamp:</p>
+                            Combining images with the layout processor
                           </div>
                         </div>
                         <div class="grid">
@@ -93,6 +85,14 @@
                           </div>
                           <div class="col w-1-2 txt--grey">
                             Create a "recipe" of image manipulation parameters to apply to images at runtime
+                          </div>
+                        </div>
+                        <div class="grid">
+                          <div class="col w-1-2">
+                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/presigned">Pre-signed URLs</a></h2>
+                          </div>
+                          <div class="col w-1-2 txt--grey">
+                            Allow access to private S3 objects
                           </div>
                         </div>
                         <div class="grid">
@@ -129,6 +129,22 @@
                         </div>
                         <div class="grid">
                           <div class="col w-1-2">
+                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/cropping">Cropping an image</a></h2>
+                          </div>
+                          <div class="col w-1-2 txt--grey">
+                            Crop and resize images using fill, fit &amp; stretch
+                          </div>
+                        </div>
+                        <div class="grid">
+                          <div class="col w-1-2">
+                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/quality">Image compression & quality</a></h2>
+                          </div>
+                          <div class="col w-1-2 txt--grey">
+                            Reduce file size by applying compression to images
+                          </div>
+                        </div>
+                        <div class="grid">
+                          <div class="col w-1-2">
                             <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/flipping">Flipping an image</a></h2>
                           </div>
                           <div class="col w-1-2 txt--grey">
@@ -137,39 +153,31 @@
                         </div>
                         <div class="grid">
                           <div class="col w-1-2">
-                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/cropping">Cropping an image</a></h2>
+                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/resizing">Resize</a></h2>
                           </div>
                           <div class="col w-1-2 txt--grey">
-                            Crop and resize images
+                            Specify new image dimensions
                           </div>
                         </div>
                         <div class="grid">
                           <div class="col w-1-2">
-                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/resizing">Resizing an image</a></h2>
+                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/rotating">Rotation</a></h2>
                           </div>
                           <div class="col w-1-2 txt--grey">
-                            <p>The width (<code class="lang-stata"><span class="hljs-literal">w</span></code>) of the required output image, in pixels.</p>
+                            Rotating an image
                           </div>
                         </div>
                         <div class="grid">
                           <div class="col w-1-2">
-                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/rotating">Rotating an image</a></h2>
+                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/formats">Image formats</a></h2>
                           </div>
                           <div class="col w-1-2 txt--grey">
-                            <p>Rotates the image according to the value specified in degrees. Valid values are in the range 0 - 359. The default value is 0 which leaves the image unchanged. The image will be zoomed so that it covers the entire area after rotation.</p>
+                            Converting between formats
                           </div>
                         </div>
                         <div class="grid">
                           <div class="col w-1-2">
-                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/formats">Image format conversion</a></h2>
-                          </div>
-                          <div class="col w-1-2 txt--grey">
-                            <p><strong>URL parameter:</strong> <code class="lang-dos"><span class="hljs-built_in">format</span></code>, <code class="lang-fortran"><span class="hljs-keyword">fmt</span></code></p>
-                          </div>
-                        </div>
-                        <div class="grid">
-                          <div class="col w-1-2">
-                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/saturation">Saturation</a></h2>
+                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/saturation">Adjusting saturation</a></h2>
                           </div>
                           <div class="col w-1-2 txt--grey">
                             Increase or reduce colour saturation, or convert to black and white
@@ -177,18 +185,10 @@
                         </div>
                         <div class="grid">
                           <div class="col w-1-2">
-                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/sharpen">Sharpen</a></h2>
+                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/sharpen">Sharpen images</a></h2>
                           </div>
                           <div class="col w-1-2 txt--grey">
                             Sharpen images
-                          </div>
-                        </div>
-                        <div class="grid">
-                          <div class="col w-1-2">
-                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/cdn/concepts/quality">Image compression quality</a></h2>
-                          </div>
-                          <div class="col w-1-2 txt--grey">
-                            Reduce file size by applying compression to images
                           </div>
                         </div>
                   </div>

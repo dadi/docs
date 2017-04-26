@@ -8,16 +8,20 @@
 
 <h3 style="color:#e42918">Concepts in detail</h3>
 <ul class="list--line marg__bottom">
-  <li><a href="/web/concepts/pages/">Pages</a></li>
-  <li><a href="/web/concepts/views/">Views</a></li>
-  <li><a href="/web/concepts/routing/">Routing</a></li>
-  <li><a href="/web/concepts/datasources/">Datasources</a></li>
-  <li><a href="/web/concepts/events/">Events</a></li>
-  <li><a href="/web/concepts/logging/">Logging</a></li>
-  <li><a href="/web/concepts/middleware/">Middleware</a></li>
-  <li><a href="/web/concepts/security/">Security</a></li>
-  <li><a href="/web/concepts/sessions/">Sessions</a></li>
-  <li><a href="/web/concepts/caching/">Caching</a></li>
+  {{#each collections}}
+    {{#ifCond @key '==' 'web/concepts' }}
+      {{#each this}}
+        {{#ifCond title '!=' 'Concepts'}}
+          <li>
+            <a href="/{{path}}">{{{title}}}</a>
+            {{#ifCond ../../path '==' 'web'}}
+              <p class="no-marg-i txt--grey small">{{{excerpt}}}</p>
+            {{/ifCond}}
+          </li>
+        {{/ifCond}}
+      {{/each}}
+    {{/ifCond}}
+  {{/each}}
 </ul>
 
 <h3 style="color:#e42918">Every-day usage</h3>

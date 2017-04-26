@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Image formats | DADI Documentation</title>
+  <title>Pre-signed URLs | DADI Documentation</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" type="text/css" href="http://stage.dadi.tech/assets/css/main.min.css?v=3">
@@ -42,7 +42,7 @@
                 <li class="fwb"><a href="/cdn/concepts">Concepts</a></li>
       </ul>
 
-      <div class="larger hdr">Image formats</div>
+      <div class="larger hdr">Pre-signed URLs</div>
     </div>
   </div>
 </div>
@@ -58,50 +58,66 @@
                   <img class="float--right pad__left--half" src="https://avatars2.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
                 </a>
                 <a class="block fwb">James Lambie</a>
-                <span class="block txt--grey" title="Last updated: 2016-12-22T05:50:53Z">2016-12-22T05:50:53Z</span>
+                <span class="block txt--grey" title="Last updated: 2017-03-31T03:53:50Z">2017-03-31T03:53:50Z</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">43 words</div>
+              <div class="block fwb">275 words</div>
               <div class="txt--grey">1 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <blockquote>
-<p><strong>URL parameter:</strong> <code class="lang-dos"><span class="hljs-built_in">format</span></code>, <code class="lang-fortran"><span class="hljs-keyword">fmt</span></code></p>
+            <p>A pre-signed URL allows you to give one-off access to users who may not have direct access to the file. Pre-signing generates a valid URL signed with your credentials that any user can access.</p>
+<h2 id="generating-a-pre-signed-url">Generating a pre-signed URL</h2>
+<p>To generate a simple pre-signed URL that allows any user to view the contents of a private object in a bucket you own, you can use the following call to <code>getSignedUrl</code>:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> AWS = <span class="hljs-built_in">require</span>(<span class="hljs-string">'aws-sdk'</span>)
+
+AWS.config.update({
+  accessKeyId: <span class="hljs-string">'&lt;your-access-key-id&gt;'</span>,
+  secretAccessKey: <span class="hljs-string">'&lt;your-secret-access-key&gt;'</span>
+})
+
+<span class="hljs-keyword">var</span> params = {
+  Bucket: <span class="hljs-string">'&lt;your-bucket-name&gt;'</span>,
+  Key: <span class="hljs-string">'&lt;your-filename&gt;'</span>
+}
+
+<span class="hljs-keyword">var</span> s3 = <span class="hljs-keyword">new</span> AWS.S3()
+
+s3.getSignedUrl(<span class="hljs-string">'getObject'</span>, params, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, url</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"The URL is"</span>, url)
+})
+</code></pre>
+<p>The above should result in a response similar to this:</p>
+<pre><code class="lang-bash">The URL is https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&amp;Expires=<span class="hljs-number">1490052681</span>&amp;Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%<span class="hljs-number">3</span>D
+</code></pre>
+<h2 id="controlling-expires-time">Controlling <code>Expires</code> time</h2>
+<p>The default <code>Expires</code> time is 15 minutes. This can be modified by passing a value in the params that are passed to the <code>getSignedUrl</code> method. The following example will cause the signed URL to expire after 60 seconds.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> params = {
+  Bucket: <span class="hljs-string">'myBucket'</span>,
+  Key: <span class="hljs-string">'myKey'</span>,
+  Expires: <span class="hljs-number">60</span> <span class="hljs-comment">// expire time, in seconds</span>
+}
+</code></pre>
+<h2 id="accessing-via-cdn">Accessing via CDN</h2>
+<p><a href="http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&amp;Expires=1490052681&amp;Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D">http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&amp;Expires=1490052681&amp;Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D</a></p>
+<h2 id="adding-image-manipulation-parameters">Adding image manipulation parameters</h2>
+<p>When requesting images from external URLs it is possible they have an existing querystring. To add CDN image manipulation parameters to an external URL, they must be added to the existing querystring.</p>
+<p>The following example uses the above URL, adding <code class="lang-processing"><span class="hljs-variable">width</span></code> and <code class="lang-processing"><span class="hljs-variable">height</span></code> parameters.</p>
+<blockquote>
+<p>Notice that we’ve added the parameters as part of the existing querystring by including an ampersand before the CDN querystring begins:</p>
+<p>…W6blQuGQ%3D<strong>&amp;?</strong>width=300&amp;height=300</p>
 </blockquote>
-<h1 id="from-jpg">From JPG</h1>
-<h2 id="original-jpg-image">Original JPG Image</h2>
-<p><img src="/assets/cdn/dog-w600.jpeg" alt="Original JPG"></p>
-<h2 id="jpg-to-png">JPG to PNG</h2>
-<p><code class="lang-groovy"><span class="hljs-string">https:</span><span class="hljs-comment">//cdn.example.com/images/dog.jpg?format=png</span></code></p>
-<p><img src="/assets/cdn/dog-w600.png" alt="PNG" title="Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)"></p>
-<h2 id="jpg-to-gif">JPG to GIF</h2>
-<p><code class="lang-groovy"><span class="hljs-string">https:</span><span class="hljs-comment">//cdn.example.com/images/dog.jpg?format=gif</span></code></p>
-<p><img src="/assets/cdn/dog-w600.gif" alt="GIF" title="Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)"></p>
-<h1 id="from-gif">From GIF</h1>
-<h2 id="original-gif-image">Original GIF Image</h2>
-<p><img src="/assets/cdn/giphy.gif" alt="Original GIF"></p>
-<h2 id="gif-to-jpg">GIF to JPG</h2>
-<p><code class="lang-groovy"><span class="hljs-string">https:</span><span class="hljs-comment">//cdn.example.com/images/giphy.gif?format=jpg</span></code></p>
-<p><img src="/assets/cdn/giphy.jpeg" alt="JPG"></p>
-<h2 id="gif-to-png">GIF to PNG</h2>
-<p><code class="lang-groovy"><span class="hljs-string">https:</span><span class="hljs-comment">//cdn.example.com/images/giphy.gif?format=png</span></code></p>
-<p><img src="/assets/cdn/giphy.png" alt="PNG"></p>
-<h1 id="from-png">From PNG</h1>
-<h2 id="original-png-image">Original PNG Image</h2>
-<p><img src="/assets/cdn/landscape.png" alt="Original PNG"></p>
-<h2 id="png-to-jpg">PNG to JPG</h2>
-<p><code class="lang-groovy"><span class="hljs-string">https:</span><span class="hljs-comment">//cdn.example.com/images/landscape.png?format=jpg</span></code></p>
-<p><img src="/assets/cdn/landscape.jpeg" alt="JPG"></p>
-<h2 id="png-to-gif">PNG to GIF</h2>
-<p><code class="lang-groovy"><span class="hljs-string">https:</span><span class="hljs-comment">//cdn.example.com/images/landscape.png?format=gif</span></code></p>
-<p><img src="/assets/cdn/landscape.gif" alt="GIF"></p>
+<p><a href="http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&amp;Expires=1490052681&amp;Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D&amp;?width=300&amp;height=300">http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&amp;Expires=1490052681&amp;Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D&amp;?width=300&amp;height=300</a></p>
+<h2 id="expired-urls">Expired URLs</h2>
+<p>If a pre-signed URL has already expired at the time of the request, a HTTP 403 Forbidden error will be returned:</p>
+<pre><code class="lang-json">{"<span class="hljs-attribute">statusCode</span>":<span class="hljs-value"><span class="hljs-string">"403"</span></span>,"<span class="hljs-attribute">message</span>":<span class="hljs-value"><span class="hljs-string">"Forbidden: http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&amp;Expires=1490052681&amp;Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D"</span></span>}
+</code></pre>
 
 
 
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
-              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/cdn/concepts/formats.md">Edit in Github</a>.
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/cdn/concepts/presigned.md">Edit in Github</a>.
             </p>
           </div>
         </div>
@@ -110,24 +126,20 @@
             <ul class="hide list--line small bg--light-grey" style="padding:5px 15px">
                 <li>
                   <strong class="txt--grey block">Prev</strong>
-                  <a href="/cdn/concepts/rotating">Rotation</a>
+                  <a href="/cdn/concepts/recipes">Delivery Recipes</a>
                 </li>
                 <li>
                   <strong class="txt--grey block">Next</strong>
-                  <a href="/cdn/concepts/saturation">Adjusting saturation</a>
+                  <a href="/cdn/concepts/routes">Delivery Routes</a>
                 </li>
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#original-jpg-image">Original JPG Image</a></li>
-                <li><a class="" href="#jpg-to-png">JPG to PNG</a></li>
-                <li><a class="" href="#jpg-to-gif">JPG to GIF</a></li>
-                <li><a class="" href="#original-gif-image">Original GIF Image</a></li>
-                <li><a class="" href="#gif-to-jpg">GIF to JPG</a></li>
-                <li><a class="" href="#gif-to-png">GIF to PNG</a></li>
-                <li><a class="" href="#original-png-image">Original PNG Image</a></li>
-                <li><a class="" href="#png-to-jpg">PNG to JPG</a></li>
-                <li><a class="" href="#png-to-gif">PNG to GIF</a></li>
+                <li><a class="" href="#generating-a-pre-signed-url">Generating a pre-signed URL</a></li>
+                <li><a class="" href="#controlling-expires-time">Controlling Expires time</a></li>
+                <li><a class="" href="#accessing-via-cdn">Accessing via CDN</a></li>
+                <li><a class="" href="#adding-image-manipulation-parameters">Adding image manipulation parameters</a></li>
+                <li><a class="" href="#expired-urls">Expired URLs</a></li>
             </ul>
         </div>
       </div>

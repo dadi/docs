@@ -54,31 +54,40 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars2.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
                 </a>
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2017-01-23T10:51:26Z">2017-01-23T10:51:26Z</span>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2017-04-26T03:02:03Z">2017-04-26T03:02:03Z</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">930 words</div>
+              <div class="block fwb">1179 words</div>
               <div class="txt--grey">4 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <p>API can be configured to accept file uploads, allowing you to store your file-based content along with your text-based content. After a successful upload, API stores the file’s associated metadata in an internal collection and returns an identifier that can be used to reference the file from another collection.</p>
-<h2 id="authentication">Authentication</h2>
-<p>Media upload requests must be authenticated with a Bearer token supplied in an <code>Authorization</code> header along with the POST request. See the <a href="authentication">Authentication</a> section for details on obtaining a token.</p>
-<h2 id="file-storage">File Storage</h2>
-<p>API ships with two file storage handlers, one for storing files on the local filesystem and the other for storing files in an Amazon S3 bucket. If you need access to the files from another application, for example DADI CDN, we recommend using the S3 option.</p>
+            <p>Your API can easily be configured to accept file uploads, allowing you to store file-based content along with your text-based content. All it takes is adding a <a href="../collections">collection specification</a> with an additional <code class="lang-elm"><span class="hljs-typedef"><span class="hljs-keyword">type</span></span></code> property to indicate that it is a <code>media</code> collection.</p>
+<p>A media collection is similar to a standard collection but includes additional endpoints to allow uploading binary data. Along with the querying functionality available to standard collections, media collections respond to endpoints for generating signed URLs and uploading files.</p>
+<h2 id="media-collection-specification">Media Collection Specification</h2>
+<p>To indicate that a collection is a media collection, add a <code class="lang-elm"><span class="hljs-typedef"><span class="hljs-keyword">type</span></span></code> property to the specification file’s <code>settings</code> block:</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">settings</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"media"</span>
+  </span>}
+</span>}
+</code></pre>
+<p>For details regarding recommended fields to store in a media collection, see <a href="./collections">collections</a>.</p>
 <h2 id="configuration">Configuration</h2>
-<p>Media uploads are disabled by default. To enable uploads, add a <code>media</code> block to the <a href="getting-started/configuration">main configuration file</a>:</p>
+<p>There are two types of configuration for media collections in API - collection-level and global.</p>
+<p>The only configuration option handled at collection-level is <code>signUploads</code>. Setting this to <code class="lang-actionscript"><span class="hljs-literal">true</span></code> will require the use of a signed token when uploading. See the <a href="#signed-urls">Signed URLs</a> section below.</p>
+<p>There is a default global configuration for media uploads. To override the global configuration, add a <code>media</code> block to the <a href="getting-started/configuration">main configuration file</a>:</p>
 <pre><code class="lang-json"><span class="hljs-string">"media"</span>: {
-  "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
-  "<span class="hljs-attribute">storage</span>": <span class="hljs-value"><span class="hljs-string">"disk"</span></span>,
+  "<span class="hljs-attribute">tokenSecret</span>": <span class="hljs-value"><span class="hljs-string">"difficult-wonderland-sunshine"</span></span>,
+  "<span class="hljs-attribute">tokenExpiresIn</span>": <span class="hljs-value"><span class="hljs-string">"1h"</span></span>,
   "<span class="hljs-attribute">basePath</span>": <span class="hljs-value"><span class="hljs-string">"workspace/media"</span></span>,
-  "<span class="hljs-attribute">pathFormat</span>": <span class="hljs-value"><span class="hljs-string">"date"</span>
+  "<span class="hljs-attribute">pathFormat</span>": <span class="hljs-value"><span class="hljs-string">"date"</span></span>,
+  "<span class="hljs-attribute">storage</span>": <span class="hljs-value"><span class="hljs-string">"disk"</span>
 </span>}
 </code></pre>
 <table>
@@ -91,19 +100,14 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">enabled</td>
-<td style="text-align:left"></td>
-<td style="text-align:left">false</td>
+<td style="text-align:left">tokenSecret</td>
+<td style="text-align:left">The secret key used to sign and verify tokens when uploading media</td>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"catboat-beatific-drizzle"</span></code></td>
 </tr>
 <tr>
-<td style="text-align:left">collection</td>
-<td style="text-align:left"></td>
-<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"mediaStore"</span></code></td>
-</tr>
-<tr>
-<td style="text-align:left">storage</td>
-<td style="text-align:left">The storage handler to use. Determines where file uploads are stored. Possible values: <code class="lang-1c"><span class="hljs-string">"disk"</span></code>, <code class="lang-1c"><span class="hljs-string">"s3"</span></code></td>
-<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"disk"</span></code></td>
+<td style="text-align:left">tokenExpiresIn</td>
+<td style="text-align:left">The duration a signed token is valid for. Expressed in seconds or a string describing a time span (<a href="https://github.com/zeit/ms">https://github.com/zeit/ms</a>). Eg: <code class="lang-cpp"><span class="hljs-number">60</span></code>, <code class="lang-1c"><span class="hljs-string">"2 days"</span></code>, <code class="lang-1c"><span class="hljs-string">"10h"</span></code>, <code class="lang-1c"><span class="hljs-string">"7d"</span></code></td>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"1h"</span></code></td>
 </tr>
 <tr>
 <td style="text-align:left">basePath</td>
@@ -112,8 +116,13 @@
 </tr>
 <tr>
 <td style="text-align:left">pathFormat</td>
-<td style="text-align:left">xxx. Possible values: <code class="lang-1c"><span class="hljs-string">"none"</span></code>, <code class="lang-1c"><span class="hljs-string">"date"</span></code>, <code class="lang-1c"><span class="hljs-string">"datetime"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/4"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/5"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/8"</span></code></td>
+<td style="text-align:left">Determines the format for the generation of subdirectories to store uploads. Possible values: <code class="lang-1c"><span class="hljs-string">"none"</span></code>, <code class="lang-1c"><span class="hljs-string">"date"</span></code>, <code class="lang-1c"><span class="hljs-string">"datetime"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/4"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/5"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/8"</span></code></td>
 <td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"date"</span></code></td>
+</tr>
+<tr>
+<td style="text-align:left">storage</td>
+<td style="text-align:left">The storage handler to use. Determines where file uploads are stored. Possible values: <code class="lang-1c"><span class="hljs-string">"disk"</span></code>, <code class="lang-1c"><span class="hljs-string">"s3"</span></code></td>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"disk"</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -130,16 +139,16 @@
 <tbody>
 <tr>
 <td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"none"</span></code></td>
-<td style="text-align:left">Doesn’t create a directory structure, storing all uploads directly in the <code>basePath</code> location</td>
+<td style="text-align:left">Doesn’t create a directory structure, storing all uploads for a collection in a subdirectory of the <code>basePath</code> location</td>
 </tr>
 <tr>
 <td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"date"</span></code></td>
-<td style="text-align:left">Creates a directory structure using parts derived from the current datetime</td>
+<td style="text-align:left">Creates a directory structure using parts derived from the current date</td>
 <td style="text-align:left"><code class="lang-cpp"><span class="hljs-number">2016</span>/<span class="hljs-number">12</span>/<span class="hljs-number">19</span>/test.jpg</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"datetime"</span></code></td>
-<td style="text-align:left">Creates a directory structure using parts derived from the current datetime</td>
+<td style="text-align:left">Creates a directory structure using parts derived from the current date and time</td>
 <td style="text-align:left"><code class="lang-cpp"><span class="hljs-number">2016</span>/<span class="hljs-number">12</span>/<span class="hljs-number">19</span>/<span class="hljs-number">13</span>/<span class="hljs-number">07</span>/<span class="hljs-number">22</span>/test.jpg</code></td>
 </tr>
 <tr>
@@ -159,17 +168,21 @@
 </tr>
 </tbody>
 </table>
-<h3 id="configuring-amazon-s3">Configuring Amazon S3</h3>
+<h2 id="authentication">Authentication</h2>
+<p>Media upload requests must be authenticated with a Bearer token supplied in an <code>Authorization</code> header along with the POST request. See the <a href="authentication">Authentication</a> section for details on obtaining a token.</p>
+<h2 id="file-storage">File Storage</h2>
+<p>API ships with two file storage handlers, one for storing files on the local filesystem and the other for storing files in an Amazon S3 bucket. If you need access to the files from another application, for example DADI CDN, we recommend using the S3 option.</p>
+<h2 id="configuring-amazon-s3">Configuring Amazon S3</h2>
 <p>If the S3 storage handler is used, an additional set of configuration properties are required as seen in the <code>s3</code> block below:</p>
 <pre><code class="lang-json"><span class="hljs-string">"media"</span>: {
-  "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
   "<span class="hljs-attribute">storage</span>": <span class="hljs-value"><span class="hljs-string">"s3"</span></span>,
   "<span class="hljs-attribute">basePath</span>": <span class="hljs-value"><span class="hljs-string">"uploads"</span></span>,
   "<span class="hljs-attribute">pathFormat</span>": <span class="hljs-value"><span class="hljs-string">"date"</span></span>,
   "<span class="hljs-attribute">s3</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">accessKey</span>": <span class="hljs-value"><span class="hljs-string">"asdf4hdhh422ss"</span></span>,
     "<span class="hljs-attribute">secretKey</span>": <span class="hljs-value"><span class="hljs-string">"agDo40XIoK7jPxOx3HU9Pl"</span></span>,
-    "<span class="hljs-attribute">bucketName</span>": <span class="hljs-value"><span class="hljs-string">"media"</span>
+    "<span class="hljs-attribute">bucketName</span>": <span class="hljs-value"><span class="hljs-string">"media"</span></span>,
+    "<span class="hljs-attribute">region</span>": <span class="hljs-value"><span class="hljs-string">"eu-west-1"</span>
   </span>}
 </span>}
 </code></pre>
@@ -183,12 +196,12 @@
 <li>New filename: <code class="lang-bash"><span class="hljs-built_in">test</span>-<span class="hljs-number">1480482847099</span>.jpg</code></li>
 </ul>
 <h2 id="uploading-a-file">Uploading a file</h2>
-<p>To upload a file send a <code class="lang-fortran">multipart/<span class="hljs-keyword">form</span>-<span class="hljs-type">data</span></code> POST to the media endpoint <code class="lang-gradle"><span class="hljs-regexp">/api/m</span>edia</code>. On successful upload the file’s metadata is returned as JSON, and includes an identifier that can be used to create a reference to the file from another collection.</p>
+<p>To upload a file send a <code class="lang-fortran">multipart/<span class="hljs-keyword">form</span>-<span class="hljs-type">data</span></code> POST to the media collection’s endpoint. On successful upload the file’s metadata is returned as JSON, and includes an identifier that can be used to create a reference to the file from another collection.</p>
 <h3 id="uploading-a-file-with-curl">Uploading a file with cURL</h3>
 <pre><code class="lang-bash">curl -X POST
   -H <span class="hljs-string">"Content-Type: multipart/form-data"</span>
   -H <span class="hljs-string">"Authorization: Bearer 8df4a823-1e1e-4bc4-800c-97bb480ccbbe"</span>
-  -F <span class="hljs-string">"data=@test.jpg"</span> <span class="hljs-string">"http://api.somedomain.tech/api/media"</span>
+  -F <span class="hljs-string">"data=@test.jpg"</span> <span class="hljs-string">"http://api.somedomain.tech/1.0/library/images"</span>
 </code></pre>
 <h3 id="uploading-a-file-with-node-js">Uploading a file with Node.js</h3>
 <pre><code class="lang-javascript"><span class="hljs-keyword">var</span> FormData = <span class="hljs-built_in">require</span>(<span class="hljs-string">'form-data'</span>)
@@ -196,7 +209,7 @@
 <span class="hljs-keyword">var</span> options = {
   host: <span class="hljs-string">'api.somedomain.tech'</span>,
   port: <span class="hljs-number">80</span>,
-  path: <span class="hljs-string">'/api/media'</span>,
+  path: <span class="hljs-string">'/1.0/library/images'</span>,
   headers: {
     <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'Bearer 8df4a823-1e1e-4bc4-800c-97bb480ccbbe'</span>,
     <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json'</span>
@@ -243,7 +256,7 @@ form.submit(options, (err, response, body) =&gt; {
       "<span class="hljs-attribute">path</span>":<span class="hljs-value"><span class="hljs-string">"/Users/userName/api/workspace/media/2016/12/19/test.jpg"</span></span>,
       "<span class="hljs-attribute">contentLength</span>":<span class="hljs-value"><span class="hljs-number">173685</span></span>,
       "<span class="hljs-attribute">createdAt</span>":<span class="hljs-value"><span class="hljs-number">1482124829485</span></span>,
-      "<span class="hljs-attribute">createdBy</span>":<span class="hljs-value"><span class="hljs-string">"testClient"</span></span>,
+      "<span class="hljs-attribute">createdBy</span>":<span class="hljs-value"><span class="hljs-string">"your-client-key"</span></span>,
       "<span class="hljs-attribute">v</span>":<span class="hljs-value"><span class="hljs-number">1</span></span>,
       "<span class="hljs-attribute">_id</span>":<span class="hljs-value"><span class="hljs-string">"58576e1d5dd9975624b0d92c"</span>
     </span>}
@@ -269,7 +282,7 @@ form.submit(options, (err, response, body) =&gt; {
       "<span class="hljs-attribute">contentLength</span>":<span class="hljs-value"><span class="hljs-number">173685</span></span>,
       "<span class="hljs-attribute">awsUrl</span>":<span class="hljs-value"><span class="hljs-string">"https://bucketName.s3.amazonaws.com/workspace/media/2016/12/19/test.jpg"</span></span>,
       "<span class="hljs-attribute">createdAt</span>":<span class="hljs-value"><span class="hljs-number">1482124902978</span></span>,
-      "<span class="hljs-attribute">createdBy</span>":<span class="hljs-value"><span class="hljs-string">"testClient"</span></span>,
+      "<span class="hljs-attribute">createdBy</span>":<span class="hljs-value"><span class="hljs-string">"your-client-key"</span></span>,
       "<span class="hljs-attribute">v</span>":<span class="hljs-value"><span class="hljs-number">1</span></span>,
       "<span class="hljs-attribute">_id</span>":<span class="hljs-value"><span class="hljs-string">"58576e72bafa53b625aebd4f"</span>
     </span>}
@@ -291,7 +304,7 @@ form.submit(options, (err, response, body) =&gt; {
     "<span class="hljs-attribute">image</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Reference"</span></span>,
       "<span class="hljs-attribute">settings</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">collection</span>": <span class="hljs-value"><span class="hljs-string">"mediaStore"</span>
+        "<span class="hljs-attribute">collection</span>": <span class="hljs-value"><span class="hljs-string">"images"</span>
       </span>}
     </span>}
   </span>}</span>,
@@ -304,7 +317,7 @@ form.submit(options, (err, response, body) =&gt; {
   </span>}
 </span>}
 </code></pre>
-<p>The <code class="lang-mel"><span class="hljs-keyword">image</span></code> field is a Reference field which will lookup the <code>mediaStore</code> collection to resolve the reference. Having uploaded an image file and received it’s metadata, we can now send a POST to the <code>books</code> collection with the image identifier.</p>
+<p>The <code class="lang-mel"><span class="hljs-keyword">image</span></code> field is a Reference field which will lookup the <code>images</code> collection to resolve the reference. Having uploaded an image file and received it’s metadata, we can now send a POST to the <code>books</code> collection with the image identifier.</p>
 <pre><code class="lang-http"><span class="hljs-request">POST <span class="hljs-string">/1.0/library/books</span> HTTP/1.1</span>
 <span class="hljs-attribute">Host</span>: <span class="hljs-string">api.somedomain.tech</span>
 <span class="hljs-attribute">content-type</span>: <span class="hljs-string">application/json</span>
@@ -329,12 +342,51 @@ form.submit(options, (err, response, body) =&gt; {
     "<span class="hljs-attribute">contentLength</span>":<span class="hljs-value"><span class="hljs-number">173685</span></span>,
     "<span class="hljs-attribute">awsUrl</span>":<span class="hljs-value"><span class="hljs-string">"https://bucketName.s3.amazonaws.com/workspace/media/2016/12/19/test.jpg"</span></span>,
     "<span class="hljs-attribute">createdAt</span>":<span class="hljs-value"><span class="hljs-number">1482124902978</span></span>,
-    "<span class="hljs-attribute">createdBy</span>":<span class="hljs-value"><span class="hljs-string">"testClient"</span></span>,
+    "<span class="hljs-attribute">createdBy</span>":<span class="hljs-value"><span class="hljs-string">"your-client-key"</span></span>,
     "<span class="hljs-attribute">v</span>":<span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">_id</span>":<span class="hljs-value"><span class="hljs-string">"58576e72bafa53b625aebd4f"</span>
   </span>}
 </span>}
 </code></pre>
+<h2 id="signed-urls">Signed URLs</h2>
+<p>A signed URL gives</p>
+<h3 id="configuration">Configuration</h3>
+<pre><code class="lang-json"><span class="hljs-string">"media"</span>: {
+  "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">tokenSecret</span>": <span class="hljs-value"><span class="hljs-string">"catboat-beatific-drizzle"</span></span>,
+  "<span class="hljs-attribute">tokenExpiresIn</span>": <span class="hljs-value"><span class="hljs-string">"10h"</span>
+</span>}
+</code></pre>
+<h3 id="request-a-signed-url">Request a signed URL</h3>
+<pre><code class="lang-less"><span class="hljs-tag">POST</span> /<span class="hljs-tag">api</span>/<span class="hljs-tag">media</span>/<span class="hljs-tag">sign</span>
+
+{
+  <span class="hljs-attribute">fileName</span>: <span class="hljs-string">'test.jpg'</span>,
+  <span class="hljs-attribute">mimetype</span>: <span class="hljs-string">'image/jpeg'</span>
+}
+</code></pre><h4 id="response">Response</h4>
+<pre><code class="lang-css"><span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">url</span>:<span class="hljs-value"> <span class="hljs-string">"/api/media/{token}"</span>
+</span></span></span>}
+</code></pre><h3 id="post-the-file">POST the file</h3>
+<pre><code class="lang-stata"><span class="hljs-keyword">POST</span> /api/media/{<span class="hljs-keyword">token</span>}
+
+<span class="hljs-keyword">test</span>.jpg
+</code></pre><h3 id="override-the-expiry-when-requesting-a-signed-url">Override the expiry when requesting a signed URL</h3>
+<pre><code class="lang-less"><span class="hljs-tag">POST</span> /<span class="hljs-tag">api</span>/<span class="hljs-tag">media</span>/<span class="hljs-tag">sign</span>
+
+{
+  <span class="hljs-attribute">fileName</span>: <span class="hljs-string">'test.jpg'</span>,
+  <span class="hljs-attribute">mimetype</span>: <span class="hljs-string">'image/jpeg'</span>,
+  <span class="hljs-attribute">expiresIn</span>: <span class="hljs-string">'15000'</span> <span class="hljs-comment">// value in seconds</span>
+}
+</code></pre><p>Close #229</p>
+<pre><code class="lang-json"><span class="hljs-string">"settings"</span>: {
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"media"</span></span>,
+  "<span class="hljs-attribute">signUploads</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+</span>}
+</code></pre>
+
 
 
             <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
@@ -356,12 +408,15 @@ form.submit(options, (err, response, body) =&gt; {
             </ul>
 
             <ul class="list--line pad__top--half">
+                <li><a class="" href="#media-collection-specification">Media Collection Specification</a></li>
+                <li><a class="" href="#configuration">Configuration</a></li>
                 <li><a class="" href="#authentication">Authentication</a></li>
                 <li><a class="" href="#file-storage">File Storage</a></li>
-                <li><a class="" href="#configuration">Configuration</a></li>
+                <li><a class="" href="#configuring-amazon-s3">Configuring Amazon S3</a></li>
                 <li><a class="" href="#filename-clashes">Filename clashes</a></li>
                 <li><a class="" href="#uploading-a-file">Uploading a file</a></li>
                 <li><a class="" href="#referencing-files-from-another-collection">Referencing files from another collection</a></li>
+                <li><a class="" href="#signed-urls">Signed URLs</a></li>
             </ul>
         </div>
       </div>
