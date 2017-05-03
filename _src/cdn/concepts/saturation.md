@@ -1,5 +1,5 @@
 ---
-title: Saturation
+title: Adjusting saturation
 excerpt: Increase or reduce colour saturation, or convert to black and white
 order: 100
 ---

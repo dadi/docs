@@ -8,6 +8,14 @@ node_js:
   - '4'
 before_script:
   - npm prune
+after_success:
+  - npm run build
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/

@@ -1,7 +1,7 @@
 {
   "name": "dadi-docs",
   "scripts": {
-    "build": "make build && git config user.email 'jameslambie@gmail.com' && git config user.name 'James Lambie' && git checkout -b temp && git checkout -B master temp && git add . && git commit -m 'chore: build' && git push https://${GITHUB_TOKEN}@github.com/dadi/docs.git master"
+    "build": "make build"
   },
   "dependencies": {
     "handlebars": "^4.0.5",

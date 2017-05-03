@@ -1,5 +1,6 @@
 ---
-title: Rotating an image
+title: Rotation
+excerpt: Rotating an image
 order: 100
 ---
 ## rotate

@@ -1,5 +1,6 @@
 ---
 title: Layout Processor
+excerpt: Combining images with the layout processor
 ---
 
 The layout processor provides a way to generate a new image by combining existing images accessible by CDN.
@@ -20,9 +21,9 @@ The following request contains the following:
 
 ```
 http://cdn.example.com/layout/i:test.jpg,
-  h_300,w_200,x_0,y_0 | 
-  c:01ee88,h_300,w_200,x_200,y_0 | 
-  i:original.jpeg,h_300,w_200,x_400,y_0 | 
+  h_300,w_200,x_0,y_0 |
+  c:01ee88,h_300,w_200,x_200,y_0 |
+  i:original.jpeg,h_300,w_200,x_400,y_0 |
   o:output.jpg,h_300,w_600
 ```
 

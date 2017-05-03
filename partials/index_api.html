@@ -7,15 +7,20 @@
 
 <h3 style="color:#0BA6DD">Concepts in detail</h3>
 <ul class="list--line marg__bottom">
-  <li><a href="/api/concepts/authentication/">Authentication</a></li>
-  <li><a href="/api/concepts/caching/">Caching</a></li>
-  <li><a href="/api/concepts/filtering/">Filtering</a></li>
-  <li><a href="/api/concepts/data-types/">Data types</a></li>
-  <li><a href="/api/concepts/hooks/">Hooks</a></li>
-  <li><a href="/api/concepts/http-codes/">HTTP codes</a></li>
-  <li><a href="/api/concepts/status/">Checking online status</a></li>
-  <li><a href="/api/concepts/endpoints/">Custom endpoints</a></li>
-  <li><a href="/api/concepts/indexing/">Indexing for performance</a></li>
+  {{#each collections}}
+    {{#ifCond @key '==' 'api/concepts' }}
+      {{#each this}}
+        {{#ifCond title '!=' 'Concepts'}}
+          <li>
+            <a href="/{{path}}">{{{title}}}</a>
+            {{#ifCond ../../path '==' 'api'}}
+              <p class="no-marg-i txt--grey small">{{{excerpt}}}</p>
+            {{/ifCond}}
+          </li>
+        {{/ifCond}}
+      {{/each}}
+    {{/ifCond}}
+  {{/each}}
 </ul>
 
 <h3 style="color:#0BA6DD">Every-day usage</h3>

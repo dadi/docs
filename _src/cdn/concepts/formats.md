@@ -1,5 +1,6 @@
 ---
-title: Image format conversion
+title: Image formats
+excerpt: Converting between formats
 order: 100
 ---
 

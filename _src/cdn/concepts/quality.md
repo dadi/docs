@@ -1,5 +1,5 @@
 ---
-title: Image compression quality
+title: Image compression & quality
 excerpt: Reduce file size by applying compression to images
 order: 100
 ---

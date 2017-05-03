@@ -1,6 +1,6 @@
 ---
 title: Cropping an image
-excerpt: Crop and resize images
+excerpt: Crop and resize images using fill, fit &amp; stretch
 order: 100
 ---
 

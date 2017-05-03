@@ -7,19 +7,20 @@
 
 <h3 style="color:#e02975">Concepts in detail</h3>
 <ul class="list--line marg__bottom">
-  <li><a href="/cdn/concepts/layout/">Combining images with layout</a></li>
-  <li><a href="/cdn/concepts/recipes/">Recipes</a></li>
-  <li><a href="/cdn/concepts/routes/">Routes</a></li>
-  <li><a href="/cdn/concepts/resizing/">Resizing</a></li>
-  <li><a href="/cdn/concepts/flipping/">Flipping</a></li>
-  <li><a href="/cdn/concepts/blurring/">Bluring</a></li>
-  <li><a href="/cdn/concepts/cropping/">Cropping - fill, fit &amp; stretch</a></li>
-  <li><a href="/cdn/concepts/interpolation/">Interpolation</a></li>
-  <li><a href="/cdn/concepts/formats/">Converting between formats</a></li>
-  <li><a href="/cdn/concepts/quality/">Compression and quality</a></li>
-  <li><a href="/cdn/concepts/saturation/">Adjusting saturation</a></li>
-  <li><a href="/cdn/concepts/sharpen/">Sharpen images</a></li>
-  <li><a href="/cdn/concepts/rotating/">Rotating</a></li>
+  {{#each collections}}
+    {{#ifCond @key '==' 'cdn/concepts' }}
+      {{#each this}}
+        {{#ifCond title '!=' 'Concepts'}}
+          <li>
+            <a href="/{{path}}">{{{title}}}</a>
+            {{#ifCond ../../path '==' 'cdn'}}
+              <p class="no-marg-i txt--grey small">{{{excerpt}}}</p>
+            {{/ifCond}}
+          </li>
+        {{/ifCond}}
+      {{/each}}
+    {{/ifCond}}
+  {{/each}}
 </ul>
 
 <h3 style="color:#e02975">Every-day usage</h3>
