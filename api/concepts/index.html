@@ -73,18 +73,18 @@
                   <div class="marg__top">
                         <div class="grid">
                           <div class="col w-1-2">
-                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/api/concepts/authentication">Authentication</a></h2>
-                          </div>
-                          <div class="col w-1-2 txt--grey">
-                            Using client credentials to obtain access tokens for accessing your API
-                          </div>
-                        </div>
-                        <div class="grid">
-                          <div class="col w-1-2">
                             <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/api/concepts/collections">Collections</a></h2>
                           </div>
                           <div class="col w-1-2 txt--grey">
                             Configure Collections, the storage containers for your data within API
+                          </div>
+                        </div>
+                        <div class="grid">
+                          <div class="col w-1-2">
+                            <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/api/concepts/authentication">Authentication</a></h2>
+                          </div>
+                          <div class="col w-1-2 txt--grey">
+                            Using client credentials to obtain access tokens for accessing your API
                           </div>
                         </div>
                         <div class="grid">
@@ -317,10 +317,12 @@ var renderResults = function (results) {
 </script>
 
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-42395806-3', 'auto');
+  ga('send', 'pageview');
 </script>
 
 </body>
