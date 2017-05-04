@@ -4,6 +4,7 @@ cache:
     - node_modules
 notifications:
   email: false
+  slack: dadi:YoigFepR0ulc0lziAXuIEhNx
 node_js:
   - '4'
 before_script:
