@@ -5,9 +5,9 @@
   <title>Installing API on Ubuntu | DADI Documentation</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="http://stage.dadi.tech/assets/css/main.min.css?v=3">
+  <link rel="stylesheet" type="text/css" href="http://dadi.tech/assets/css/main.min.css?v=3">
   <link rel="stylesheet" type="text/css" href="/type.css">
-  <link rel="icon" type="image/png" href="http://stage.dadi.tech/assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="http://dadi.tech/assets/img/favicon.png">
 </head>
 <body class="docs">
 <div class="top" style="padding-bottom:70px">
@@ -16,7 +16,7 @@
   <div class="container">
     <header class="grid bs-grid">
       <div class="col w-1-4 bs-w-1-2">
-        <h1><a href="https://dadi.tech/" class="inline-block"><img src="http://stage.dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
+        <h1><a href="https://dadi.tech/" class="inline-block"><img src="http://dadi.tech/assets/img/dadi-light.svg" width="150" alt="DADI"></a></h1>
       </div>
       <div class="col w-1-4 bs-w-1-2">
         <ul class="normal nav marg__right--x2">
@@ -53,14 +53,14 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                <a href="https://github.com/fra967" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars1.githubusercontent.com/u/8112628?v&#x3D;3" width="40" height="40">
                 </a>
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2016-11-25T14:41:55Z">2016-11-25T14:41:55Z</span>
+                <a class="block fwb">Francesco Iannuzzelli</a>
+                <span class="block txt--grey" title="Last updated: 2017-05-08T14:42:04Z">2017-05-08T14:42:04Z</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">138 words</div>
+              <div class="block fwb">140 words</div>
               <div class="txt--grey">1 min read</div>
             </div>
           </div>
@@ -69,13 +69,12 @@
             <h1 id="introduction">Introduction</h1>
 <p>This document provides a simple step by step guide to installation on Ubuntu <a href="http://releases.ubuntu.com/14.04.1/">14.04.1 LTS</a>.</p>
 <p>This guide assumes a single server holding both the database and the API.</p>
-<h2 id="node-js-latest">Node.js latest</h2>
+<h2 id="node-js-6-x">Node.js 6.x</h2>
 <pre><code class="lang-vim">$ sudo apt-<span class="hljs-built_in">get</span> -<span class="hljs-keyword">y</span> <span class="hljs-keyword">update</span>
 $ sudo apt-<span class="hljs-built_in">get</span> -<span class="hljs-keyword">y</span> upgrade
-$ sudo apt-<span class="hljs-built_in">get</span> -<span class="hljs-keyword">y</span> install <span class="hljs-keyword">python</span>-software-properties
-$ sudo <span class="hljs-built_in">add</span>-apt-repository <span class="hljs-keyword">pp</span><span class="hljs-variable">a:chris</span>-lea/node.js
-$ sudo apt-<span class="hljs-built_in">get</span> -<span class="hljs-keyword">y</span> <span class="hljs-keyword">update</span>
-$ sudo apt-<span class="hljs-built_in">get</span> -<span class="hljs-keyword">y</span> install nodejs
+$ sudo apt-<span class="hljs-built_in">get</span> install gcc <span class="hljs-keyword">make</span> build-essential <span class="hljs-keyword">python</span>-software-properties
+$ sudo curl -sL http<span class="hljs-variable">s:</span>//<span class="hljs-keyword">deb</span>.nodesource.<span class="hljs-keyword">com</span>/setup_6.<span class="hljs-keyword">x</span> | sudo -E bash -
+$ sudo apt-<span class="hljs-built_in">get</span> install nodejs
 </code></pre><h2 id="mongodb">MongoDB</h2>
 <pre><code class="lang-actionscript">$ sudo apt-<span class="hljs-keyword">get</span> -y install mongodb
 </code></pre><p>For the tests to run you will need stand alone <code>mongod</code>s running at localhost:27017 and localhost:27018. To do this you need to define a new mongod on 27108:</p>
@@ -106,7 +105,7 @@ $ sudo mongod --dbpath ~/<span class="hljs-type">data</span>/db1 --logpath ~/<sp
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#node-js-latest">Node.js latest</a></li>
+                <li><a class="" href="#node-js-6-x">Node.js 6.x</a></li>
                 <li><a class="" href="#mongodb">MongoDB</a></li>
                 <li><a class="" href="#dadi-api">DADI API</a></li>
             </ul>
@@ -205,8 +204,8 @@ $ sudo mongod --dbpath ~/<span class="hljs-type">data</span>/db1 --logpath ~/<sp
   </footer>
 </div>
 
-<script src="http://stage.dadi.tech/assets/js/pattern.min.js"></script>
-<script src="http://stage.dadi.tech/assets/js/main.js?v=2"></script>
+<script src="http://dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://dadi.tech/assets/js/main.js?v=2"></script>
 <script src="/assets/lunr.js"></script>
 
 <script>
