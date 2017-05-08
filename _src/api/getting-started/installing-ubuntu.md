@@ -8,15 +8,14 @@ This document provides a simple step by step guide to installation on Ubuntu [14
 
 This guide assumes a single server holding both the database and the API.
 
-## Node.js latest
+## Node.js 6.x
 
 ```
 $ sudo apt-get -y update
 $ sudo apt-get -y upgrade
-$ sudo apt-get -y install python-software-properties
-$ sudo add-apt-repository ppa:chris-lea/node.js
-$ sudo apt-get -y update
-$ sudo apt-get -y install nodejs
+$ sudo apt-get install gcc make build-essential python-software-properties
+$ sudo curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+$ sudo apt-get install nodejs
 ```
 
 ## MongoDB
