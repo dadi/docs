@@ -4,17 +4,6 @@ excerpt: Configure Collections, the storage containers for your data within API
 order: 9
 ---
 
- * [Collection specification](#collection-specification)
- * [Field specification](#field-specification)
- * [Field types](#field-types)
- * [Collection settings](#collection-settings)
- * [Database Indexes](#database-indexes)
- * [Document Revision History](#document-revision-history)
- * [Validation](#validation)
- * [Document Composition (reference fields)](#document-composition)
- * [Collection statistics](#collection-statistics)
- * [Available collections](#available-collections)
-
 ## Collection Specification
 
 DADI API handles creation and modification of database collections in MongoDB directly. All that is required in order to create a new database collection and it's associated collection endpoint is the creation of the collection specification file.
@@ -100,7 +89,7 @@ Collection specification files take the following format:
 ```
 
 
-#### Field Specification
+## Field Specification
 
 
 Each field is defined in the following way:
@@ -152,7 +141,7 @@ matchType | Specify the type of query that is performed when using this field. I
 validationRule | Replaced by `validation`  | removed 1.8.2 |  |
 limit | Replaced by `validation` | removed 1.8.2 |  |
 
-#### Field Types
+## Field Types
 
 ##### String
 
@@ -171,7 +160,7 @@ limit | Replaced by `validation` | removed 1.8.2 |  |
 See [Document Composition (reference fields)](#document-composition) for further information.
 
 
-#### Collection Settings
+## Collection Settings
 
 Default values for the collection endpoint are set the following way:
 
@@ -256,11 +245,11 @@ fieldLimiters: {"name":0, "email": 0}
 ```
 
 
-#### Validation
+## Validation
 
 Documents sent to the API with POST and PUT requests are validated at field level based on the rules defined in the collection schema. Find more information in the [Validation](../validation) section.
 
-#### Database Indexes
+## Database Indexes
 
 Indexes provide high performance read operations for frequently used queries and are fundamental in ensuring performance under load and at scale.
 
@@ -284,7 +273,7 @@ The index will be created in the background to avoid blocking other database ope
 }
 ```
 
-#### Document Revision History
+## Document Revision History
 
 ##### settings.storeRevisions
 
@@ -339,7 +328,7 @@ update operation to change the value of `title`:
 
 > **Note:** DADI API does not add or update any date/time fields to indicate the order in which revision documents were created, nor does it perform any sort operations when returning a document's revision history. It is up to the API consumer to include appropriate date/time fields and perform sort operations on the returned revision collection.
 
-#### Document Composition
+## Document Composition
 
 To reduce data duplication through document embedding, DADI API allows the use of "Reference" fields which can best be described as pointers to other documents. The referenced document could be in the same collection, another collection in the same database or a collection in a different database.
 
@@ -545,7 +534,7 @@ Reference fields to resolve which are nested further within the document, add a 
 ```
 
 
-#### Collection Statistics
+## Collection Statistics
 
 Collection statistics from MongoDB can be retrieved by sending a GET request to a collection's `/stats` endpoint.
 
@@ -572,7 +561,7 @@ An example response:
 }
 ```
 
-#### Available Collections
+## Available Collections
 
 A document containing information about the available collections can be retrieved by sending a GET request to the API's `/api/collections` endpoint.
 

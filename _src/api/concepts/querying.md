@@ -4,8 +4,6 @@ excerpt: Query collections using predefined or runtime filters, returning only t
 order: 9
 ---
 
-## Introduction
-
 * Querystring parameters
 * Using a JSON query object
 * Using an Aggregation Pipeline array
@@ -23,7 +21,7 @@ filter           | object        | MongoDB query object or Aggregation Pipeline 
 fields           | object        | Specify the fields to return in the resultset.  |          | Include fields: {"field1":1,"field2":1} Exclude fields: {field2":0}
 callback         | string      | Callback function to wrap the return result set in.  |               | thisIsMyCallback
 
-### Parameters
+## Querystring Parameters
 
 #### count
 
