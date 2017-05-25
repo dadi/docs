@@ -26,11 +26,11 @@ branches:
   except:
     - /^v\d+\.\d+\.\d+$/
 env:
-  - CXX=g++-4.9
   global:
-  - GIT_NAME: "'Markdown autodeploy'"
-  - GIT_EMAIL: jameslambie@gmail.com
-  - GH_REF: git@github.com:dadi/docs.git
+    - CXX=g++-4.9
+    - GIT_NAME="'Markdown autodeploy'"
+    - GIT_EMAIL=jameslambie@gmail.com
+    - GH_REF=git@github.com:dadi/docs.git
 addons:
   apt:
     sources:
