@@ -54,11 +54,11 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars2.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
                 </a>
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2017-01-23T10:51:26Z">2017-01-23T10:51:26Z</span>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2017-05-25T04:22:27Z">2017-05-25T04:22:27Z</span>
               </div>
             <div class="inline-block">
               <div class="block fwb">567 words</div>
@@ -67,8 +67,7 @@
           </div>
 
           <div class="documentation">
-            <h2 id="introduction">Introduction</h2>
-<ul>
+            <ul>
 <li>Querystring parameters</li>
 <li>Using a JSON query object</li>
 <li>Using an Aggregation Pipeline array</li>
@@ -143,26 +142,26 @@
 </tr>
 </tbody>
 </table>
-<h3 id="parameters">Parameters</h3>
-<h4 id="count">count</h4>
+<h2 id="querystring-parameters">Querystring Parameters</h2>
+<h3 id="count">count</h3>
 <p>Overrides the collection’s <code class="lang-applescript"><span class="hljs-command">count</span></code> setting, specifying the maximum number of results to be returned.</p>
-<h4 id="page">page</h4>
+<h3 id="page">page</h3>
 <p>Enables paging within the collection. Specifying a value for <code>page</code> along with <code class="lang-applescript"><span class="hljs-command">count</span></code> (or relying on the collection’s default <code class="lang-applescript"><span class="hljs-command">count</span></code> setting) will utilise MongoDB’s <code class="lang-stylus"><span class="hljs-function"><span class="hljs-title">skip</span><span class="hljs-params">()</span></span></code> method to skip the first (<code class="lang-applescript">page * <span class="hljs-command">count</span></code>) records in the collection.</p>
-<h4 id="skip">skip</h4>
+<h3 id="skip">skip</h3>
 <p>The <code class="lang-lasso"><span class="hljs-keyword">skip</span></code> value is normally calculated using the <code class="lang-applescript"><span class="hljs-command">count</span></code> and <code>page</code> values, so if <code class="lang-applescript"><span class="hljs-command">count</span> = <span class="hljs-number">10</span></code> and <code class="lang-cpp">page = <span class="hljs-number">2</span></code> then <code class="lang-lasso"><span class="hljs-keyword">skip</span></code> becomes <code class="lang-cpp"><span class="hljs-number">10</span></code> (i.e. <code class="lang-lisp"><span class="hljs-list">(<span class="hljs-keyword">page-1</span>)</span> * count</code>). If <code class="lang-lasso"><span class="hljs-keyword">skip</span></code> is specified in the querystring, this value is added to the calculated value to avoid overlapping records on subsequent pages.</p>
-<h4 id="sort">sort</h4>
+<h3 id="sort">sort</h3>
 <p>Specifies the field to be used when sorting the collection. The default field is the collection’s <code class="lang-objectivec">_<span class="hljs-keyword">id</span></code> field.</p>
-<h4 id="sortorder">sortOrder</h4>
+<h3 id="sortorder">sortOrder</h3>
 <p>Overrides the collection’s <code>sortOrder</code> setting. Permitted values are <code class="lang-autoit"><span class="hljs-built_in">asc</span></code> for an ascending sort order and <code class="lang-axapta"><span class="hljs-keyword">desc</span></code> for a descending sort order.</p>
-<h4 id="fields">fields</h4>
+<h3 id="fields">fields</h3>
 <p>Specifies the fields to return. Extends the collection’s <code>fieldLimiters</code> setting.</p>
 <pre><code class="lang-cpp">fields={<span class="hljs-string">"name"</span>:<span class="hljs-number">1</span>,<span class="hljs-string">"email"</span>:<span class="hljs-number">1</span>}
-</code></pre><h4 id="filter">filter</h4>
+</code></pre><h3 id="filter">filter</h3>
 <p>Extends the collection’s <code class="lang-pf"><span class="hljs-keyword">default</span>Filters</code> setting. There are two ways to use the <code class="lang-golo"><span class="hljs-keyword">filter</span></code> parameter: passing a JSON query object for performing a standard query, and passing an array containing MongoDB Aggregation Pipeline stages.</p>
-<h5 id="json-query-object">JSON Query Object</h5>
+<h4 id="json-query-object">JSON Query Object</h4>
 <pre><code class="lang-css"> <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">fieldName</span>:<span class="hljs-value"> {<span class="hljs-string">"$in"</span>: [<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>]</span></span></span>} }
-</code></pre><h5 id="aggregation-pipeline-array">Aggregation Pipeline array</h5>
-<h6 id="examples-with-the-following-data-set-">Examples with the following data set:</h6>
+</code></pre><h4 id="aggregation-pipeline-array">Aggregation Pipeline array</h4>
+<h5 id="examples-with-the-following-data-set-">Examples with the following data set:</h5>
 <pre><code class="lang-css"><span class="hljs-rules">{
  <span class="hljs-rule"><span class="hljs-attribute">make</span>:<span class="hljs-value"> <span class="hljs-string">"Ford"</span>,
  model: <span class="hljs-string">"Explorer"</span>,
@@ -183,7 +182,7 @@
  model: <span class="hljs-string">"Ranger"</span>,
  onRoadCost: <span class="hljs-number">27000</span>
 </span></span></span>}
-</code></pre><h6 id="1-return-only-documents-for-ford-vehicles-">1. Return only documents for <code>Ford</code> vehicles:</h6>
+</code></pre><h5 id="1-return-only-documents-for-ford-vehicles-">1. Return only documents for <code>Ford</code> vehicles:</h5>
 <pre><code class="lang-xquery">[
  { <span class="hljs-variable">$match</span>: { make: <span class="hljs-string">"Ford"</span> } }
 ]
@@ -205,7 +204,7 @@
    onRoadCost: <span class="hljs-number">27000</span>
  }</span>
 ]</span>
-</code></pre><h6 id="2-return-the-average-onroadcost-for-ford-vehicles-">2. Return the average <code class="lang-pf"><span class="hljs-keyword">on</span>RoadCost</code> for <code>Ford</code> vehicles:</h6>
+</code></pre><h5 id="2-return-the-average-onroadcost-for-ford-vehicles-">2. Return the average <code class="lang-pf"><span class="hljs-keyword">on</span>RoadCost</code> for <code>Ford</code> vehicles:</h5>
 <pre><code class="lang-xquery"> [
    {
      <span class="hljs-variable">$match</span> : { make: <span class="hljs-string">"Ford"</span> }
@@ -226,7 +225,7 @@
  </span>}
 ]
 </code></pre><p>See the MongoDB reference documentation for information about the <a href="http://docs.mongodb.org/manual/reference/operator/aggregation/#aggregation-pipeline-operator-reference">Aggregation Pipeline</a>.</p>
-<h6 id="example-usage">Example usage</h6>
+<h5 id="example-usage">Example usage</h5>
 <pre><code class="lang-xquery">var query = [
    {
      <span class="hljs-variable">$match</span> : { make: <span class="hljs-string">"Ford"</span> }
@@ -242,7 +241,7 @@
 
 query = encodeURIComponent(JSON.stringify(query));
 client.get(<span class="hljs-string">'/versionName/databaseName/cars?filter='</span> + query);
-</code></pre><h4 id="callback">callback</h4>
+</code></pre><h3 id="callback">callback</h3>
 <p>Overrides the collection’s <code class="lang-haxe"><span class="hljs-keyword">callback</span></code> setting.</p>
 <p>callback must be made up of letters only.</p>
 <h3 id="regex">Regex</h3>
@@ -290,7 +289,7 @@ client.get(<span class="hljs-string">'/versionName/databaseName/cars?filter='</s
             </ul>
 
             <ul class="list--line pad__top--half">
-                <li><a class="" href="#introduction">Introduction</a></li>
+                <li><a class="" href="#querystring-parameters">Querystring Parameters</a></li>
             </ul>
         </div>
       </div>

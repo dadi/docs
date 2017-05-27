@@ -54,32 +54,20 @@
         <div class="col w-3-4 pad__bottom--x2">
           <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
               <div class="small fwb float--right w-1-2 alignr">
-                <a href="https://github.com/abovebored" target="_blank">
-                  <img class="float--right pad__left--half" src="https://avatars.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars2.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
                 </a>
-                <a class="block fwb">David Longworth</a>
-                <span class="block txt--grey" title="Last updated: 2017-01-23T10:51:26Z">2017-01-23T10:51:26Z</span>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2017-05-25T04:22:27Z">2017-05-25T04:22:27Z</span>
               </div>
             <div class="inline-block">
-              <div class="block fwb">2145 words</div>
+              <div class="block fwb">2123 words</div>
               <div class="txt--grey">8 min read</div>
             </div>
           </div>
 
           <div class="documentation">
-            <ul>
-<li><a href="#collection-specification">Collection specification</a></li>
-<li><a href="#field-specification">Field specification</a></li>
-<li><a href="#field-types">Field types</a></li>
-<li><a href="#collection-settings">Collection settings</a></li>
-<li><a href="#database-indexes">Database Indexes</a></li>
-<li><a href="#document-revision-history">Document Revision History</a></li>
-<li><a href="#validation">Validation</a></li>
-<li><a href="#document-composition">Document Composition (reference fields)</a></li>
-<li><a href="#collection-statistics">Collection statistics</a></li>
-<li><a href="#available-collections">Available collections</a></li>
-</ul>
-<h2 id="collection-specification">Collection Specification</h2>
+            <h2 id="collection-specification">Collection Specification</h2>
 <p>DADI API handles creation and modification of database collections in MongoDB directly. All that is required in order to create a new database collection and it’s associated collection endpoint is the creation of the collection specification file.</p>
 <p>Collection specifications are simply JSON files stored in your application’s <code class="lang-gradle"><span class="hljs-regexp">/workspace/</span>collections</code> folder. It is important to understand how the folder hierarchy in the collections folder affects the behaviour of your API.</p>
 <pre><code class="lang-bash">my-api/
@@ -129,7 +117,7 @@
   }
 </span>}
 </code></pre>
-<h4 id="field-specification">Field Specification</h4>
+<h2 id="field-specification">Field Specification</h2>
 <p>Each field is defined in the following way:</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">fieldName</span>": <span class="hljs-value">{
@@ -288,16 +276,16 @@
 </tr>
 </tbody>
 </table>
-<h4 id="field-types">Field Types</h4>
-<h5 id="string">String</h5>
-<h5 id="number">Number</h5>
-<h5 id="boolean">Boolean</h5>
-<h5 id="mixed">Mixed</h5>
-<h5 id="object">Object</h5>
-<h5 id="objectid">ObjectID</h5>
-<h5 id="reference">Reference</h5>
+<h2 id="field-types">Field Types</h2>
+<h3 id="string">String</h3>
+<h3 id="number">Number</h3>
+<h3 id="boolean">Boolean</h3>
+<h3 id="mixed">Mixed</h3>
+<h3 id="object">Object</h3>
+<h3 id="objectid">ObjectID</h3>
+<h3 id="reference">Reference</h3>
 <p>See <a href="#document-composition">Document Composition (reference fields)</a> for further information.</p>
-<h4 id="collection-settings">Collection Settings</h4>
+<h2 id="collection-settings">Collection Settings</h2>
 <p>Default values for the collection endpoint are set the following way:</p>
 <pre><code class="lang-json">{
   "<span class="hljs-attribute">settings</span>": <span class="hljs-value">{
@@ -375,14 +363,14 @@
 <blockquote>
 <p>It is possible to override some of these values when requesting data from the endpoint, by using querystring parameters. See <a href="./querying">Querying a collection</a> for detailed documentation.</p>
 </blockquote>
-<h5 id="defaultfilters">defaultFilters</h5>
+<h3 id="defaultfilters">defaultFilters</h3>
 <p>Specifies a default query for the collection.</p>
 <pre><code class="lang-avrasm"><span class="hljs-label">defaultFilters:</span> { <span class="hljs-string">"publishState"</span>: <span class="hljs-string">"published"</span> }
 </code></pre><p>A <code class="lang-golo"><span class="hljs-keyword">filter</span></code> parameter passed in a query will extend the default filters. For example the following request would extend the default filters and the database query would reflect both the defaults and the filters passed in the querystring:</p>
 <pre><code class="lang-livecodeserver"><span class="hljs-keyword">http</span>://api.example.com/<span class="hljs-number">1.0</span>/magazine/articles?<span class="hljs-built_in">filter</span>={<span class="hljs-string">"magazineTitle"</span>:<span class="hljs-string">"Vogue"</span>}
 
 { <span class="hljs-string">"publishState"</span>: <span class="hljs-string">"published"</span>, <span class="hljs-string">"magazineTitle"</span>: <span class="hljs-string">"Vogue"</span> }
-</code></pre><h5 id="fieldlimiters">fieldLimiters</h5>
+</code></pre><h3 id="fieldlimiters">fieldLimiters</h3>
 <p>Specifies a default list of fields for inclusion/exclusion. Fields can be included or excluded, but not both.</p>
 <h4 id="selecting-fields-for-inclusion">Selecting fields for inclusion</h4>
 <p>For example to include only <code class="lang-applescript"><span class="hljs-property">name</span></code> and <code>email</code>:</p>
@@ -394,13 +382,13 @@
 </code></pre><h4 id="selecting-fields-for-exclusion">Selecting fields for exclusion</h4>
 <p>To exclude fields, list only the fields for exclusion:</p>
 <pre><code class="lang-cpp">fieldLimiters: {<span class="hljs-string">"name"</span>:<span class="hljs-number">0</span>, <span class="hljs-string">"email"</span>: <span class="hljs-number">0</span>}
-</code></pre><h4 id="validation">Validation</h4>
+</code></pre><h2 id="validation">Validation</h2>
 <p>Documents sent to the API with POST and PUT requests are validated at field level based on the rules defined in the collection schema. Find more information in the <a href="../validation">Validation</a> section.</p>
-<h4 id="database-indexes">Database Indexes</h4>
+<h2 id="database-indexes">Database Indexes</h2>
 <p>Indexes provide high performance read operations for frequently used queries and are fundamental in ensuring performance under load and at scale.</p>
 <p>Database indexes can be automatically created for a collection by specifying the fields to be indexed in the <code>settings</code> object. An index will be created on the collection using the fields specified in the <code class="lang-perl"><span class="hljs-keyword">index</span>.<span class="hljs-keyword">keys</span></code> setting. A value of <code class="lang-css"><span class="hljs-tag">keys</span>: <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">fieldName</span>:<span class="hljs-value"> <span class="hljs-number">1</span> </span></span></span>}</code> will create an index for field <code>fieldName</code> using an ascending order. <code class="lang-css"><span class="hljs-tag">keys</span>: <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">fieldName</span>:<span class="hljs-value"> -<span class="hljs-number">1</span> </span></span></span>}</code> will create an index for field <code>fieldName</code> using a descending order. Specifying multiple fields will create a compound index.</p>
 <p>The index will be created in the background to avoid blocking other database operations.</p>
-<h5 id="settings-index">settings.index</h5>
+<h3 id="settings-index">settings.index</h3>
 <pre><code class="lang-json"><span class="hljs-string">"settings"</span>: {
   "<span class="hljs-attribute">cache</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
   "<span class="hljs-attribute">index</span>": <span class="hljs-value">{
@@ -412,8 +400,8 @@
   </span>}
 </span>}
 </code></pre>
-<h4 id="document-revision-history">Document Revision History</h4>
-<h5 id="settings-storerevisions">settings.storeRevisions</h5>
+<h2 id="document-revision-history">Document Revision History</h2>
+<h3 id="settings-storerevisions">settings.storeRevisions</h3>
 <p>If <code class="lang-css"><span class="hljs-tag">settings</span><span class="hljs-class">.storeRevisions</span></code> is <strong>true</strong>:</p>
 <ul>
 <li>a <code class="lang-armasm"><span class="hljs-keyword">revision </span>collection</code> will automatically be generated in the database when the first document for the collection is created</li>
@@ -421,7 +409,7 @@
 <li>a <code class="lang-armasm"><span class="hljs-keyword">revision </span>document</code> will be stored for each subsequent update to an existing document</li>
 <li>each time a <code class="lang-armasm"><span class="hljs-keyword">revision </span>document</code> is created, the <code class="lang-objectivec">_<span class="hljs-keyword">id</span></code> of the <code class="lang-armasm"><span class="hljs-keyword">revision </span>document</code> is pushed onto a <code class="lang-bash"><span class="hljs-built_in">history</span></code> array of the original document</li>
 </ul>
-<h5 id="settings-revisioncollection">settings.revisionCollection</h5>
+<h3 id="settings-revisioncollection">settings.revisionCollection</h3>
 <p>If <code class="lang-css"><span class="hljs-tag">settings</span><span class="hljs-class">.revisionCollection</span></code> is specified, the collection’s <code class="lang-armasm"><span class="hljs-keyword">revision </span>collection</code> will be named according to the specified value, otherwise the collection’s <code class="lang-armasm"><span class="hljs-keyword">revision </span>collection</code> will take the form <code class="lang-applescript">{collection <span class="hljs-property">name</span>}History</code>.</p>
 <p>For example:</p>
 <p><code class="lang-stylus">db<span class="hljs-class">.books</span><span class="hljs-class">.find</span>()</code></p>
@@ -453,9 +441,9 @@
 <blockquote>
 <p><strong>Note:</strong> DADI API does not add or update any date/time fields to indicate the order in which revision documents were created, nor does it perform any sort operations when returning a document’s revision history. It is up to the API consumer to include appropriate date/time fields and perform sort operations on the returned revision collection.</p>
 </blockquote>
-<h4 id="document-composition">Document Composition</h4>
+<h2 id="document-composition">Document Composition</h2>
 <p>To reduce data duplication through document embedding, DADI API allows the use of “Reference” fields which can best be described as pointers to other documents. The referenced document could be in the same collection, another collection in the same database or a collection in a different database.</p>
-<h5 id="reference-field-settings">Reference Field Settings</h5>
+<h3 id="reference-field-settings">Reference Field Settings</h3>
 <table>
 <thead>
 <tr>
@@ -482,7 +470,7 @@
 </tr>
 </tbody>
 </table>
-<h5 id="example">Example</h5>
+<h3 id="example">Example</h3>
 <p>Consider the following two collections, <code>books</code> and <code>people</code>. <code>books</code> contains a Reference field <code>author</code> which is capable of loading documents from the <code>people</code> collection. By creating a <code class="lang-inform7"><span class="hljs-title">book</span></code> document and setting the <code>author</code> field to the <code class="lang-objectivec">_<span class="hljs-keyword">id</span></code> value of a document from the <code>people</code> collection, the application is able to resolve this reference and return the <code>author</code> document within a result set for a <code>books</code> query.</p>
 <h4 id="books-collection-books-json-">Books <code class="lang-stylus">(collection<span class="hljs-class">.books</span><span class="hljs-class">.json</span>)</code></h4>
 <pre><code class="lang-json">{
@@ -643,7 +631,7 @@ books.find({ title: <span class="hljs-string">"Harry Potter 2"</span> }, { <span
   </span>}
 </span>}
 </code></pre>
-<h4 id="collection-statistics">Collection Statistics</h4>
+<h2 id="collection-statistics">Collection Statistics</h2>
 <p>Collection statistics from MongoDB can be retrieved by sending a GET request to a collection’s <code>/stats</code> endpoint.</p>
 <p>An example request:</p>
 <pre><code class="lang-http"><span class="hljs-request">GET <span class="hljs-string">/1.0/library/books/stats</span> HTTP/1.1</span>
@@ -662,7 +650,7 @@ books.find({ title: <span class="hljs-string">"Harry Potter 2"</span> }, { <span
   "<span class="hljs-attribute">indexSizes</span>": <span class="hljs-value">{ "<span class="hljs-attribute">_id_</span>": <span class="hljs-value"><span class="hljs-number">8176</span> </span>}
 </span>}
 </code></pre>
-<h4 id="available-collections">Available Collections</h4>
+<h2 id="available-collections">Available Collections</h2>
 <p>A document containing information about the available collections can be retrieved by sending a GET request to the API’s <code class="lang-gradle"><span class="hljs-regexp">/api/</span>collections</code> endpoint.</p>
 <p><strong>Example request</strong></p>
 <pre><code class="lang-http"><span class="hljs-request">GET <span class="hljs-string">/api/collections</span> HTTP/1.1</span>
@@ -720,6 +708,15 @@ books.find({ title: <span class="hljs-string">"Harry Potter 2"</span> }, { <span
 
             <ul class="list--line pad__top--half">
                 <li><a class="" href="#collection-specification">Collection Specification</a></li>
+                <li><a class="" href="#field-specification">Field Specification</a></li>
+                <li><a class="" href="#field-types">Field Types</a></li>
+                <li><a class="" href="#collection-settings">Collection Settings</a></li>
+                <li><a class="" href="#validation">Validation</a></li>
+                <li><a class="" href="#database-indexes">Database Indexes</a></li>
+                <li><a class="" href="#document-revision-history">Document Revision History</a></li>
+                <li><a class="" href="#document-composition">Document Composition</a></li>
+                <li><a class="" href="#collection-statistics">Collection Statistics</a></li>
+                <li><a class="" href="#available-collections">Available Collections</a></li>
             </ul>
         </div>
       </div>
