@@ -79,14 +79,14 @@
     "path": "api/concepts"
   },
   {
-    "title": "Querying Collections",
-    "excerpt": "Query collections using predefined or runtime filters, returning only the data you need",
-    "path": "api/concepts/querying"
-  },
-  {
     "title": "Server Status",
     "excerpt": "Obtain realtime information regarding the health of your API instance",
     "path": "api/concepts/status"
+  },
+  {
+    "title": "Querying Collections",
+    "excerpt": "Query collections using predefined or runtime filters, returning only the data you need",
+    "path": "api/concepts/querying"
   },
   {
     "title": "Uploading Media",
@@ -119,14 +119,14 @@
     "path": "api/everyday"
   },
   {
-    "title": "Retrieving",
-    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-mathematica\">http(s)://<span class=\"hljs-list\">{url}</span>/<span class=\"hljs-list\">{version}</span>/<span class=\"hljs-list\">{database}</span>/<span class=\"hljs-list\">{collection}</span></code></p>",
-    "path": "api/everyday/retrieving"
-  },
-  {
     "title": "Creating a Collection of content",
     "excerpt": "<p>DADI API allows creating and updating collection and custom endpoints by sending a POST request to the API.</p>",
     "path": "api/everyday/new-collection"
+  },
+  {
+    "title": "Retrieving",
+    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-mathematica\">http(s)://<span class=\"hljs-list\">{url}</span>/<span class=\"hljs-list\">{version}</span>/<span class=\"hljs-list\">{database}</span>/<span class=\"hljs-list\">{collection}</span></code></p>",
+    "path": "api/everyday/retrieving"
   },
   {
     "title": "cURL",
@@ -299,31 +299,6 @@
     "path": "cdn/getting-started/installing"
   },
   {
-    "title": "Error Codes",
-    "excerpt": "<p>Errors, love em or hate em, they’re part of life.</p>",
-    "path": "errors"
-  },
-  {
-    "title": "Missing Index Key",
-    "excerpt": "<p>You received an error similar to this:</p>",
-    "path": "errors/api/API-0001"
-  },
-  {
-    "title": "Hook Error",
-    "excerpt": "<p>You received an error similar to this:</p>",
-    "path": "errors/api/API-0002"
-  },
-  {
-    "title": "Cache Path Missing",
-    "excerpt": "<p>To flush the cache, a path that matches a collection resource must be specified in the request body:</p>",
-    "path": "errors/api/API-0003"
-  },
-  {
-    "title": "API Error Codes",
-    "excerpt": "<p>Sometimes errors happen. Here’s a list of known error types you might encounter.</p>",
-    "path": "errors/api"
-  },
-  {
     "title": "Web",
     "excerpt": "",
     "path": "web"
@@ -399,14 +374,14 @@
     "path": "web/everyday/preload"
   },
   {
-    "title": "Routing & rewrites",
-    "excerpt": "Defining URL endpoints for your application",
-    "path": "web/everyday/routing"
-  },
-  {
     "title": "Server status",
     "excerpt": "<p>An endpoint is provided at <code class=\"lang-fortran\">/api/<span class=\"hljs-keyword\">status</span></code> which returns server/application data in JSON format.</p>",
     "path": "web/everyday/status"
+  },
+  {
+    "title": "Routing & rewrites",
+    "excerpt": "Defining URL endpoints for your application",
+    "path": "web/everyday/routing"
   },
   {
     "title": "A contact form using SendGrid",
@@ -414,14 +389,14 @@
     "path": "web/examples/sendgrid"
   },
   {
-    "title": "Configuration",
-    "excerpt": "<p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class=\"lang-vim\"><span class=\"hljs-built_in\">hostname</span></code> i.e., it will also look for <code class=\"lang-css\"><span class=\"hljs-tag\">config</span>.\" + <span class=\"hljs-tag\">req</span><span class=\"hljs-class\">.headers</span><span class=\"hljs-class\">.host</span> + \"<span class=\"hljs-class\">.json</span></code></p>",
-    "path": "web/getting-started/configuration"
-  },
-  {
     "title": "Connecting to DADI API",
     "excerpt": "<p>If you are using <em>Web</em> in conjunction with <a href=\"https://dadi.tech/platform/api\">DADI API</a> you can connect it so you make use of it with datasources.</p>",
     "path": "web/getting-started/connecting-api"
+  },
+  {
+    "title": "Configuration",
+    "excerpt": "<p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class=\"lang-vim\"><span class=\"hljs-built_in\">hostname</span></code> i.e., it will also look for <code class=\"lang-css\"><span class=\"hljs-tag\">config</span>.\" + <span class=\"hljs-tag\">req</span><span class=\"hljs-class\">.headers</span><span class=\"hljs-class\">.host</span> + \"<span class=\"hljs-class\">.json</span></code></p>",
+    "path": "web/getting-started/configuration"
   },
   {
     "title": "The \"Hello World\" App",
@@ -432,6 +407,31 @@
     "title": "Installing DADI Web",
     "excerpt": "<p>All our platform microservices are available from <a href=\"https://www.npmjs.com/\">NPM</a>. To install <em>Web</em>.</p>",
     "path": "web/getting-started/installing"
+  },
+  {
+    "title": "Error Codes",
+    "excerpt": "<p>Errors, love em or hate em, they’re part of life.</p>",
+    "path": "errors"
+  },
+  {
+    "title": "Missing Index Key",
+    "excerpt": "<p>You received an error similar to this:</p>",
+    "path": "errors/api/API-0001"
+  },
+  {
+    "title": "Hook Error",
+    "excerpt": "<p>You received an error similar to this:</p>",
+    "path": "errors/api/API-0002"
+  },
+  {
+    "title": "Cache Path Missing",
+    "excerpt": "<p>To flush the cache, a path that matches a collection resource must be specified in the request body:</p>",
+    "path": "errors/api/API-0003"
+  },
+  {
+    "title": "API Error Codes",
+    "excerpt": "<p>Sometimes errors happen. Here’s a list of known error types you might encounter.</p>",
+    "path": "errors/api"
   },
   {
     "path": ".DS_Store"

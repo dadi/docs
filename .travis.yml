@@ -10,6 +10,9 @@ node_js:
 before_script:
   - npm prune
 after_success:
+  - rm -rf api
+  - rm -rf cdn
+  - rm -rf web
   - npm run build
 deploy:
   provider: pages
