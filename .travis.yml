@@ -7,33 +7,25 @@ notifications:
   slack: dadi:YoigFepR0ulc0lziAXuIEhNx
 node_js:
   - '4'
-before_install:
-  - if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
-  - openssl aes-256-cbc -K $encrypted_29984f92e26d_key -iv $encrypted_29984f92e26d_iv -in deploy-key.enc -out deploy-key -d
-  - chmod 600 deploy-key
-  - eval `ssh-agent -s`
-  - ssh-add deploy-key
-  - git config user.name "Automatic Publish"
-  - git config user.email "jameslambie@gmail.com"
 before_script:
   - npm prune
 after_success:
   - npm run build
-  - git remote add gh-token "${GH_REF}";
-  - git fetch gh-token && git fetch gh-token gh-pages:gh-pages;
-  - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then echo "Pushing to github"; git push gh-token gh-pages; fi;
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
 env:
-  global:
-    - CXX=g++-4.9
-    - GIT_NAME="'Markdown autodeploy'"
-    - GIT_EMAIL=jameslambie@gmail.com
-    - GH_REF=git@github.com:dadi/docs.git
+  - CXX=g++-4.9
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.9
+before_install: if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
