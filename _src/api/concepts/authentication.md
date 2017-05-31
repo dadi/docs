@@ -8,7 +8,7 @@ order: 9
 
 Every request to the API requires a Bearer token which should be passed as a header.
 
-Obtain a token by sending a POST request to the `/token` endpoint and passing your client credentials in the body of the request:
+Obtain a token by sending a POST request to the `/token` endpoint and passing your client credentials in the body of the request.
 
 ### Example Request using curl
 
@@ -19,9 +19,9 @@ curl -X POST -H "Content-Type: application/json" --data "{\"clientId\":\"testCli
 ### Example request using Node.JS
 
 ```js
-var http = require('http')
+const http = require('http')
 
-var options = {
+const options = {
   hostname: 'api.example.com',
   port: 80,
   method: 'POST',
@@ -31,20 +31,18 @@ var options = {
   }
 }
 
-var credentials = JSON.stringify({
+const credentials = JSON.stringify({
   clientId: 'your-client-id',
   secret: 'your-secret'
 })
 
-var req = http.request(options, function (res) {
-  var chunks = []
+const req = http.request(options, res => {
+  let chunks = []
 
-  res.on('data', function (chunk) {
-    chunks.push(chunk)
-  })
+  res.on('data', chunk => chunks.push(chunk))
 
-  res.on('end', function () {
-    var body = Buffer.concat(chunks)
+  res.on('end', () => {
+    const body = Buffer.concat(chunks)
     console.log(body.toString())
   })
 })
@@ -74,9 +72,9 @@ curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer 4172bb
 ### Example request using Node.JS
 
 ```js
-var http = require('http')
+const http = require('http')
 
-var options = {
+const options = {
   hostname: 'api.example.com',
   port: 80,
   method: 'GET',
@@ -87,18 +85,43 @@ var options = {
   }
 }
 
-var req = http.request(options, function (res) {
-  var chunks = []
+const req = http.request(options, res => {
+  let chunks = []
 
-  res.on('data', function (chunk) {
-    chunks.push(chunk)
-  })
+  res.on('data', (chunk) chunks.push(chunk))
 
-  res.on('end', function () {
-    var body = Buffer.concat(chunks)
+  res.on('end', () => {
+    const body = Buffer.concat(chunks)
     console.log(body.toString())
   })
 })
 
 req.end()
 ```
+
+## Anatomy of a client
+
+Client credentials are stored the database and contain three key components, **clientId**, **secret** and **accessType**.
+
+| Key        | Options        | Example       |
+| ---------- |:--------------:| -------------:|
+| clientId   |                | "testClient"  |
+| secret     |                | "superSecret" |
+| accessType | "admin","user" | "admin"       |
+
+## Access privileges
+
+Depending on the **accessType**, a client can be restricted by operation.
+
+| Operation       | User               | Admin              |
+| --------------- |:-----------------: | ------------------:|
+| GET document    | :white_check_mark: | :white_check_mark: |
+| PUT document    | :white_check_mark: | :white_check_mark: |
+| POST document   | :white_check_mark: | :white_check_mark: |
+| DELETE document | :white_check_mark: | :white_check_mark: |
+| PUT config      | :x:                | :white_check_mark: |
+| POST config     | :x:                | :white_check_mark: |
+| PUT endpoint    | :x:                | :white_check_mark: |
+| POST endpoint   | :x:                | :white_check_mark: |
+| GET status      | :x:                | :white_check_mark: |
+
