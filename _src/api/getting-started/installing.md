@@ -39,12 +39,14 @@ Add the following to the new file:
 /**
  *  index.js
  */
-var app = require('@dadi/api')
+const app = require('@dadi/api')
 
-app.start(function() {
-  console.log('API Started')
-})
+app.start(() => console.log('API Started'))
 ```
+
+### Setting up application directories
+
+The Application directories are automatically created when you install the app. See the [Application Anatomy](api/getting-started/configuration/#application-anatomy) section for full details.
 
 ### Create the first user
 
