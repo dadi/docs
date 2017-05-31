@@ -50,7 +50,7 @@ The Application directories are automatically created when you install the app. 
 
 ### Create the first user
 
-User accounts are required to provide an authentication layer for API. Each user has a "clientId" and a "secret". These are used to obtain access tokens for interacting with the API. See the [Authentication](concepts/authentication) section for full details.
+User accounts are required to provide an authentication layer for API. Each user has a "clientId" and a "secret". These are used to obtain access tokens for interacting with the API. See the [Authentication](/concepts/authentication) section for full details.
 
 ```bash
 $ npm explore @dadi/api -- npm run create-client
