@@ -21,7 +21,7 @@ $ npm install
 
 ## Using [DADI Generator](https://github.com/dadi/generator)
 
-We have our own tool to handy tool to generate new applications easily.
+We have our own handy tool to generate new applications easily.
 
 ```
 $ npm install -g @dadi/generator
@@ -45,7 +45,7 @@ $ npm run test
 
 ## Forever (optional)
 
-As with most Node.js applications, to run the app in the background you will need to install install [Forever](https://github.com/nodejitsu/forever) and [Forever-service](https://github.com/zapty/forever-service):
+As with most Node.js applications, to run the app in the background you will need to install [Forever](https://github.com/nodejitsu/forever) and [Forever-service](https://github.com/zapty/forever-service):
 
 ```
 $ [sudo] npm install forever -g
