@@ -79,13 +79,9 @@ A very basic `config.development.json` file looks like this:
       "level": "info",
       "path": "./log",
       "filename": "dadi-web",
-      "extension": "log",
-      "fileRotationPeriod": "1d",
-      "fileRetentionCount": 7
+      "extension": "log"
       "accessLog": {
         "enabled": true,
-        "fileRotationPeriod": "1d",
-        "fileRetentionCount": 14,
         "kinesisStream": "dadi_web_test_stream"
       }
     },
@@ -223,17 +219,13 @@ enabled            | If true, logging is enabled using the following settings.  
 level              | The level at which log messages will be written to the log file.                                                                                                                                                                                                           | "info"        | "warn"
 path               | The absolute or relative path to the directory for log files.                                                                                                                                                                                                              | "./log"       | "/data/app/log"
 filename           | The filename to use for the log files. The name you choose will be given a suffix indicating the current application environment.                                                                                                                                          | "dadi-web"    | "your_application_name"
-extension          | The extension to use for the log files.                                                                                                                                                                                                                                    | "log"         | "txt"
-fileRotationPeriod | The period at which to rotate the log file. This is a string of the format '$number$scope' where '$scope' is one of 'ms', 'h', 'd', 'w', 'm', 'y'. The following names can be used 'hourly' (= '1h'), 'daily (= '1d'), 'weekly' ('1w'), 'monthly' ('1m'), 'yearly' ('1y'). | "1d"          | "daily"
-fileRetentionCount | The number of rotated log files to keep.                                                                                                                                                                                                                                   | 7             | 14
+extension          | The extension to use for the log files.                                                                                                                                                                                                                                    | "log"         | "txt"                                                                     
 
 ### Section: `logging.accessLog`
 
 Property           | Description                                                                                                                                                                                                                                                                       | Default value | Example
 :----------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------ | :----------------
 enabled            | If true, HTTP access logging is enabled. The log file name is similar to the setting used for normal logging, with the addition of 'access'. For example `dadi-web.access.log`.                                                                                                   | true          | true
-fileRotationPeriod | The period at which to rotate the access log file. This is a string of the format '$number$scope' where '$scope' is one of 'ms', 'h', 'd', 'w', 'm', 'y'. The following names can be used 'hourly' (= '1h'), 'daily (= '1d'), 'weekly' ('1w'), 'monthly' ('1m'), 'yearly' ('1y'). | "1d"          | "daily"
-fileRetentionCount | The number of rotated log files to keep.                                                                                                                                                                                                                                          | 7             | 14
 kinesisStream      | An [AWS Kinesis](https://aws.amazon.com/kinesis/streams/) stream to write to log records to.                                                                                                                                                                                                                                 | ""            | "web_aws_kinesis"
 
 ### Section: `aws`
