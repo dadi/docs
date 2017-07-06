@@ -2,6 +2,13 @@
 
 We'd love for you to contribute to our source code and to make DADI products even better.
 
+ - [Question or Problem?](#question)
+ - [Issues and Bugs](#issue)
+ - [Feature Requests](#feature)
+ - [Submission Guidelines](#submit)
+ - [Coding Rules](#rules)
+ - [Git Commit Guidelines](#commit)
+
 ## <a name="question"></a> Got a Question or Problem?
 
 Documentation can be found at [docs.dadi.tech](https://docs.dadi.tech).
