@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Installing DADI CDN | DADI Documentation</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="http://dadi.tech/assets/css/main.min.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css" />
+  <link rel="icon" type="image/png" href="http://dadi.tech/assets/img/favicon.png">
+</head>
+<body class="docs">
+  <header class="alignc pad__top--x2 small cf"><nav><a href="https://dadi.tech/en/" class="inline-block marg__bottom"><img src="https://dadi.tech/assets/img/dadi-light.svg" width="150" height="35" alt="DADI" class="logo"></a><ol><li><a href="https://dadi.tech/en/">Technology</a></li><li><a href="https://dadi.tech/en/on-demand" onclick="ga('send','event','On demand','Click','Docsheader');">On demand</a></li><li><a href="https://dadi.tech/en/support" onclick="ga('send','event','Support','Click','Docsheader');">Support</a></li></ol><ul><li><a href="https://github.com/dadi/" onclick="ga('send','event','Github','Click','Docsheader');">Find us on Github</a></li><li><a href="http://docs.dadi.tech" class="on bg--blue" onclick="ga('send','event','Documentation','Click','Docsheader');">Documentation</a></li></ul></nav><div class="top__bg pattern" style="background-color: #21262d;" data-colors="#21262d,#1d2128,#191d23,#16191e,#121519,#0e1014,#0b0c0f,#07080a,#030405,#000000"></div></header>
+    <div class="small">
+      <div class="list--breadcrumb titlecase">
+        <ul class="container">
+        <li><a href="/">Documentation</a></li>
+                <li class=""><a href="/cdn">CDN</a></li>
+        </ul>
+      </div>
+
+      <div class="container">
+        <div class="larger hdr">Installing DADI CDN</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+    <div class="container normal">
+      <div class="grid">
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
+              <div class="small fwb float--right w-1-2 alignr">
+                <a href="https://github.com/josephdenne" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars3.githubusercontent.com/u/150408?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">Joseph Denne</a>
+                <span class="block txt--grey" title="Last updated: 2016-12-14T14:28:59Z">2016-12-14T14:28:59Z</span>
+              </div>
+            <div class="inline-block">
+              <div class="block fwb">269 words</div>
+              <div class="txt--grey">1 min read</div>
+            </div>
+          </div>
+
+          <div class="documentation">
+            <h2 id="image-libraries">Image libraries</h2>
+<pre><code class="lang-bash">$ sudo apt-get install libcairo2-dev libjpeg-dev libgif-dev
+</code></pre>
+<h2 id="sqwish-css-compressor">Sqwish CSS Compressor</h2>
+<pre><code class="lang-bash">$ sudo npm install -g sqwish
+</code></pre>
+<h2 id="upgrade-gcc-compiler">Upgrade GCC++ Compiler</h2>
+<pre><code class="lang-bash">$ sudo add-apt-repository ppa:ubuntu-toolchain-r/<span class="hljs-built_in">test</span>
+$ sudo apt-get update -y
+$ sudo apt-get install gcc-<span class="hljs-number">4.9</span> g++-<span class="hljs-number">4.9</span>
+$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-<span class="hljs-number">4.9</span> <span class="hljs-number">60</span> --slave /usr/bin/g++ g++ /usr/bin/g++-<span class="hljs-number">4.9</span>
+</code></pre>
+<h2 id="npm">NPM</h2>
+<p>All our platform microservices are available from <a href="https://www.npmjs.com/">NPM</a>. To install <em>CDN</em>:</p>
+<pre><code class="lang-coffeescript">$ <span class="hljs-built_in">npm</span> install <span class="hljs-property">@dadi</span>/cdn
+</code></pre><h2 id="manual-install">Manual install</h2>
+<p>If you do not want to use NPM, you can grab the latest <a href="https://github.com/dadi/cdn/releases">release</a>. Then you can install:</p>
+<pre><code class="lang-coffeescript">$ cd .<span class="hljs-regexp">/release-download-location/</span>
+$ <span class="hljs-built_in">npm</span> install
+</code></pre><h2 id="using-dadi-generator-https-github-com-dadi-generator-">Using <a href="https://github.com/dadi/generator">DADI Generator</a></h2>
+<p>We have a handy tool to generate new applications easily.</p>
+<pre><code class="lang-sql">$ npm <span class="hljs-operator"><span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> @dadi/generator
+$ dadi-generator cdn /<span class="hljs-keyword">path</span>/<span class="hljs-keyword">to</span>/your_new_app
+$ cd /<span class="hljs-keyword">path</span>/<span class="hljs-keyword">to</span>/your_new_app
+$ npm <span class="hljs-keyword">install</span>
+$ npm <span class="hljs-keyword">start</span>
+</span></code></pre><h2 id="dependencies">Dependencies</h2>
+<p><em>API</em> requires <a href="https://www.mongodb.com/">MongoDB</a>. There is a complete guide to installing this and <em>API</em> together <a href="">here</a>.</p>
+<p>You can see our full list of dependencies in the <a href="https://github.com/dadi/cdn/blob/master/package.json">package.json</a>.</p>
+<h2 id="tests">Tests</h2>
+<p>If you have installed manually, you can run tests by:</p>
+<pre><code class="lang-stata">$ npm <span class="hljs-keyword">run</span> <span class="hljs-keyword">test</span>
+</code></pre><h2 id="forever-optional-">Forever (optional)</h2>
+<p>As with most Node.js applications, to run the app in the background you will need to install install <a href="https://github.com/nodejitsu/forever">Forever</a> and <a href="https://github.com/zapty/forever-service">Forever-service</a>:</p>
+<pre><code class="lang-sql">$ [sudo] npm <span class="hljs-operator"><span class="hljs-keyword">install</span> forever -<span class="hljs-keyword">g</span>
+$ [sudo] npm <span class="hljs-keyword">install</span> -<span class="hljs-keyword">g</span> forever-service
+</span></code></pre><p>Install DADI CDN as a service and ensure it loads on boot:</p>
+<pre><code class="lang-sql">$ [sudo] forever-service <span class="hljs-operator"><span class="hljs-keyword">install</span> -s <span class="hljs-keyword">main</span>.js -<span class="hljs-keyword">e</span> NODE_ENV=production cdn <span class="hljs-comment">--start</span>
+</span></code></pre><p><strong>Note</strong> the environment variable <code class="lang-fix"><span class="hljs-attribute">NODE_ENV</span>=<span class="hljs-string">production</span></code> must be set to target the required config version.</p>
+<p>You can then interact with the service using the following command:</p>
+<pre><code class="lang-accesslog">$ <span class="hljs-string">[sudo]</span> start cdn
+$ <span class="hljs-string">[sudo]</span> stop cdn
+$ <span class="hljs-string">[sudo]</span> status cdn
+$ <span class="hljs-string">[sudo]</span> restart cdn
+</code></pre><p><strong>And you’re done, now move on to <a href="/cdn/getting-started/configuration/">configuration</a>.</strong></p>
+
+
+
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/cdn/getting-started/installing.md">Edit in Github</a>.
+            </p>
+          </div>
+        </div>
+         <div class="col w-1-4">
+          <div class="pad__top--half stick" stick-spacer="false" stick-parent=".container">
+            <ul class="hide list--line small bg--light-grey" style="padding:5px 15px">
+                <li>
+                  <strong class="txt--grey block">Prev</strong>
+                  <a href="/cdn/concepts/formats">Image formats</a>
+                </li>
+                <li>
+                  <strong class="txt--grey block">Next</strong>
+                  <a href="/cdn/concepts/interpolation">Interpolation filter</a>
+                </li>
+            </ul>
+
+            <ul class="list--line pad__top--half">
+                <li><a class="" href="#image-libraries">Image libraries</a></li>
+                <li><a class="" href="#sqwish-css-compressor">Sqwish CSS Compressor</a></li>
+                <li><a class="" href="#upgrade-gcc-compiler">Upgrade GCC++ Compiler</a></li>
+                <li><a class="" href="#npm">NPM</a></li>
+                <li><a class="" href="#manual-install">Manual install</a></li>
+                <li><a class="" href="#using-dadi-generator-https-github-com-dadi-generator-">Using DADI Generator</a></li>
+                <li><a class="" href="#dependencies">Dependencies</a></li>
+                <li><a class="" href="#tests">Tests</a></li>
+                <li><a class="" href="#forever-optional-">Forever (optional)</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+</main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/docs">View the repo for this site</a></li>
+      </ul>
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script src="http://dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://dadi.tech/assets/js/main.js?v=2"></script>
+<script src="/assets/lunr.js"></script>
+
+<script>
+var allPageData
+var idx
+
+var debounce = function (fn) {
+  var timeout
+  return function () {
+    var args = Array.prototype.slice.call(arguments),
+        ctx = this
+
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      fn.apply(ctx, args)
+    }, 100)
+  }
+}
+
+$(document).ready(function() {
+  $.getJSON('data.json', function (allData) {
+    allPageData = allData
+
+    $.getJSON('searchIndex.json', function (data) {
+      idx = lunr.Index.load(data)
+
+      $('input').bind('keyup', debounce(function () {
+        if ($(this).val()) {
+          $("#results").removeClass('hide')
+          if ($(this).val() < 2) return
+          var query = $(this).val()
+          var results = idx.search(query)
+
+          results = results.map(function (result) {
+            return allPageData.filter(function (page) { return page.path === result.ref })[0]
+          })
+
+          renderResults(results)
+        } else {
+          $("#results").addClass('hide')
+        }
+      }))
+    })
+  })
+})
+
+var renderResults = function (results) {
+  $("#results").empty()
+
+  if (results.length) {
+    console.log(results);
+
+    results.forEach(function(result) {
+      $("#results").append('<li><a href="' + result.path + '"><h2 class="txt--blue block medium hdr no-marg-i pad__bottom--half">' + result.title + '</h2><div class="no-marg small">' + $(result.excerpt).text() + '</div><div class="txt--grey small no-marg pad__top--half">' + result.path + '</div></a></li>')
+    })
+  } else {
+    $("#results").append('<li>No results found.</li>');
+  }
+}
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-42395806-3', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

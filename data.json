@@ -1,0 +1,412 @@
+[
+  {
+    "excerpt": "<p>We’d love for you to contribute to our source code and to make DADI products even better.</p>",
+    "path": "contributing"
+  },
+  {
+    "title": "NPM packages",
+    "excerpt": "<p>All our <a href=\"https://www.npmjs.com/\">NPM</a> packages can be found here:</p>",
+    "path": "npm"
+  },
+  {
+    "title": "License",
+    "excerpt": "<p>DADI is a data centric development and delivery stack, built specifically in support of the principles of API first and COPE.</p>",
+    "path": "license"
+  },
+  {
+    "title": "Platform prerequisites",
+    "excerpt": "<p>The DADI platform is built on <a href=\"https://nodejs.org/\">Node.js</a>, a JavaScript runtime built on <a href=\"https://www.google.com/chrome/\">Google Chrome</a>‘s ‘V8’ JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.</p>",
+    "path": "prerequisites"
+  },
+  {
+    "title": "API",
+    "excerpt": "",
+    "path": "api"
+  },
+  {
+    "title": "Authentication",
+    "excerpt": "Using client credentials to obtain access tokens for accessing your API",
+    "path": "api/concepts/authentication"
+  },
+  {
+    "title": "Collections",
+    "excerpt": "Configure Collections, the storage containers for your data within API",
+    "path": "api/concepts/collections"
+  },
+  {
+    "title": "Custom Endpoints",
+    "excerpt": "Combine datasources and modify or enrich data using custom endpoints",
+    "path": "api/concepts/custom"
+  },
+  {
+    "title": "Hooks",
+    "excerpt": "Perform operations on data before/after GET, UPDATE and DELETE requests",
+    "path": "api/concepts/hooks"
+  },
+  {
+    "title": "Concepts",
+    "excerpt": "<p>Learn the basic concepts involved in setting up a DADI API, including data collections, endpoints, data validation and querying data.</p>",
+    "path": "api/concepts"
+  },
+  {
+    "title": "Querying Collections",
+    "excerpt": "Query collections using predefined or runtime filters, returning only the data you need",
+    "path": "api/concepts/querying"
+  },
+  {
+    "title": "Server Status",
+    "excerpt": "Obtain realtime information regarding the health of your API instance",
+    "path": "api/concepts/status"
+  },
+  {
+    "title": "Uploading Media",
+    "excerpt": "Accept file uploads, and store your file-based content with your text-based content",
+    "path": "api/concepts/upload"
+  },
+  {
+    "title": "Data Validation",
+    "excerpt": "Configure API collections to validate incoming data",
+    "path": "api/concepts/validation"
+  },
+  {
+    "title": "Creating",
+    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-mathematica\">http(s)://<span class=\"hljs-list\">{url}</span>/<span class=\"hljs-list\">{version}</span>/<span class=\"hljs-list\">{database}</span>/<span class=\"hljs-list\">{collection}</span></code></p>",
+    "path": "api/everyday/creating"
+  },
+  {
+    "title": "Deleting",
+    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-xquery\">http(s)://{url}/{version}/{database}/{collection}/{:id}</code></p>",
+    "path": "api/everyday/deleting"
+  },
+  {
+    "title": "Editing",
+    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-xquery\">http(s)://{url}/{version}/{database}/{collection}/{:id}</code></p>",
+    "path": "api/everyday/editing"
+  },
+  {
+    "title": "Everyday Usage",
+    "excerpt": "<p>DADI API accepts GET, POST, PUT, PATCH and DELETE requests.</p>",
+    "path": "api/everyday"
+  },
+  {
+    "title": "Creating a Collection of content",
+    "excerpt": "<p>DADI API allows creating and updating collection and custom endpoints by sending a POST request to the API.</p>",
+    "path": "api/everyday/new-collection"
+  },
+  {
+    "title": "Retrieving",
+    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-mathematica\">http(s)://<span class=\"hljs-list\">{url}</span>/<span class=\"hljs-list\">{version}</span>/<span class=\"hljs-list\">{database}</span>/<span class=\"hljs-list\">{collection}</span></code></p>",
+    "path": "api/everyday/retrieving"
+  },
+  {
+    "title": "cURL",
+    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
+    "path": "api/examples/curl"
+  },
+  {
+    "title": "Code Examples",
+    "excerpt": "",
+    "path": "api/examples"
+  },
+  {
+    "title": "Node.js",
+    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
+    "path": "api/examples/nodejs"
+  },
+  {
+    "title": "PHP",
+    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
+    "path": "api/examples/php"
+  },
+  {
+    "title": "Python",
+    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
+    "path": "api/examples/python"
+  },
+  {
+    "title": "Ruby",
+    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request.</p>",
+    "path": "api/examples/ruby"
+  },
+  {
+    "title": "Configuration",
+    "excerpt": "<p>Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.</p>",
+    "path": "api/getting-started/configuration"
+  },
+  {
+    "title": "Installing API on Ubuntu",
+    "excerpt": "<p>This document provides a simple step by step guide to installation on Ubuntu <a href=\"http://releases.ubuntu.com/14.04.1/\">14.04.1 LTS</a>.</p>",
+    "path": "api/getting-started/installing-ubuntu"
+  },
+  {
+    "title": "Installing DADI API",
+    "excerpt": "<p>Running <code class=\"lang-coffeescript\"><span class=\"hljs-built_in\">npm</span> init</code> adds a file called <code class=\"lang-actionscript\"><span class=\"hljs-package\"><span class=\"hljs-keyword\">package</span>.<span class=\"hljs-title\">json</span></span></code> to your project, allowing you to easily add dependencies to it:</p>",
+    "path": "api/getting-started/installing"
+  },
+  {
+    "title": "Getting Started",
+    "excerpt": "<p>Traditional product design is channel and device centric. But users inhabit a multi-channel, multi-device world.</p>",
+    "path": "api/getting-started/why"
+  },
+  {
+    "title": "CDN",
+    "excerpt": "",
+    "path": "cdn"
+  },
+  {
+    "title": "Blur",
+    "excerpt": "Add blur to an image",
+    "path": "cdn/concepts/blurring"
+  },
+  {
+    "title": "Caching",
+    "excerpt": "See how to improve performance by caching images processed with CDN",
+    "path": "cdn/concepts/cache"
+  },
+  {
+    "title": "Cropping an image",
+    "excerpt": "Crop and resize images using fill, fit &amp; stretch",
+    "path": "cdn/concepts/cropping"
+  },
+  {
+    "title": "Flipping an image",
+    "excerpt": "Flip images horizontally, vertically or both",
+    "path": "cdn/concepts/flipping"
+  },
+  {
+    "title": "Image formats",
+    "excerpt": "Converting between formats",
+    "path": "cdn/concepts/formats"
+  },
+  {
+    "title": "Concepts",
+    "excerpt": "<p>Learn the basic concepts involved in using DADI CDN to deliver images, JavaScript and CSS to your application. Topics include resizing and cropping images, boosting saturation, converting between image formats and file compression.</p>",
+    "path": "cdn/concepts"
+  },
+  {
+    "title": "Interpolation filter",
+    "excerpt": "Choose the interpolation method when resizing images",
+    "path": "cdn/concepts/interpolation"
+  },
+  {
+    "title": "Layout Processor",
+    "excerpt": "Combining images with the layout processor",
+    "path": "cdn/concepts/layout"
+  },
+  {
+    "title": "Pre-signed URLs",
+    "excerpt": "Allow access to private S3 objects",
+    "path": "cdn/concepts/presigned"
+  },
+  {
+    "title": "Image compression & quality",
+    "excerpt": "Reduce file size by applying compression to images",
+    "path": "cdn/concepts/quality"
+  },
+  {
+    "title": "Delivery Recipes",
+    "excerpt": "Create a \"recipe\" of image manipulation parameters to apply to images at runtime",
+    "path": "cdn/concepts/recipes"
+  },
+  {
+    "title": "Resize",
+    "excerpt": "Specify new image dimensions",
+    "path": "cdn/concepts/resizing"
+  },
+  {
+    "title": "Rotation",
+    "excerpt": "Rotating an image",
+    "path": "cdn/concepts/rotating"
+  },
+  {
+    "title": "Delivery Routes",
+    "excerpt": "Let CDN choose the recipe based on device, network, location or language",
+    "path": "cdn/concepts/routes"
+  },
+  {
+    "title": "Adjusting saturation",
+    "excerpt": "Increase or reduce colour saturation, or convert to black and white",
+    "path": "cdn/concepts/saturation"
+  },
+  {
+    "title": "Sharpen images",
+    "excerpt": "Sharpen images",
+    "path": "cdn/concepts/sharpen"
+  },
+  {
+    "title": "Retrieving a colour palette",
+    "excerpt": "<p>Each image stored in <em>CDN</em> can be returned as a json object with information on how the image was generated. Within that object there is the <code>primaryColor</code> and <code class=\"lang-stata\"><span class=\"hljs-keyword\">palette</span></code> nodes which contains information about the colour of the image.</p>",
+    "path": "cdn/everyday/colour-palette"
+  },
+  {
+    "title": "Everyday Usage",
+    "excerpt": "",
+    "path": "cdn/everyday"
+  },
+  {
+    "title": "Dealing with pixel ratios",
+    "excerpt": "<p>When dealing with mulitiple device pixel ratios, you can ‘multiply’ the outputted size of the image by adding the variable name <code class=\"lang-cpp\">?devicePixelRatio=[<span class=\"hljs-number\">0</span>-<span class=\"hljs-number\">9</span>]</code>.</p>",
+    "path": "cdn/everyday/pixel-ratios"
+  },
+  {
+    "title": "Serving Images and Assets",
+    "excerpt": "<p>With your <a href=\"/cdn/getting-started/defining-sources/\">sources</a> configured so that CDN knows where to find them, you can start sending requests for your assets and images.</p>",
+    "path": "cdn/everyday/url-variables"
+  },
+  {
+    "title": "Configuration",
+    "excerpt": "<p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class=\"lang-vim\"><span class=\"hljs-built_in\">hostname</span></code> i.e., it will also look for <code class=\"lang-css\"><span class=\"hljs-tag\">config</span>.\" + <span class=\"hljs-tag\">req</span><span class=\"hljs-class\">.headers</span><span class=\"hljs-class\">.host</span> + \"<span class=\"hljs-class\">.json</span></code></p>",
+    "path": "cdn/getting-started/configuration"
+  },
+  {
+    "title": "Defining sources",
+    "excerpt": "<p>Before you can serve assets or images you need to tell CDN where your files are located. Currently, CDN can serve your files from three types of source:</p>",
+    "path": "cdn/getting-started/defining-sources"
+  },
+  {
+    "title": "Installing DADI CDN",
+    "excerpt": "<p>All our platform microservices are available from <a href=\"https://www.npmjs.com/\">NPM</a>. To install <em>CDN</em>:</p>",
+    "path": "cdn/getting-started/installing"
+  },
+  {
+    "title": "Error Codes",
+    "excerpt": "<p>Errors, love em or hate em, they’re part of life.</p>",
+    "path": "errors"
+  },
+  {
+    "title": "Missing Index Key",
+    "excerpt": "<p>You received an error similar to this:</p>",
+    "path": "errors/api/API-0001"
+  },
+  {
+    "title": "Hook Error",
+    "excerpt": "<p>You received an error similar to this:</p>",
+    "path": "errors/api/API-0002"
+  },
+  {
+    "title": "Cache Path Missing",
+    "excerpt": "<p>To flush the cache, a path that matches a collection resource must be specified in the request body:</p>",
+    "path": "errors/api/API-0003"
+  },
+  {
+    "title": "API Error Codes",
+    "excerpt": "<p>Sometimes errors happen. Here’s a list of known error types you might encounter.</p>",
+    "path": "errors/api"
+  },
+  {
+    "title": "Web",
+    "excerpt": "",
+    "path": "web"
+  },
+  {
+    "title": "Caching",
+    "excerpt": "Improve performance with page and datasource caching",
+    "path": "web/concepts/caching"
+  },
+  {
+    "title": "Datasources",
+    "excerpt": "Configure datasources to load data for rendering pages",
+    "path": "web/concepts/datasources"
+  },
+  {
+    "title": "Events",
+    "excerpt": "Add functionality to a page using Event functions",
+    "path": "web/concepts/events"
+  },
+  {
+    "title": "Concepts",
+    "excerpt": "<p>Learn the basic concepts involved in setting up a DADI Web application, including adding pages and page templates, configuring routing, requesting data, logging events and caching for improved performance.</p>",
+    "path": "web/concepts"
+  },
+  {
+    "title": "Logging",
+    "excerpt": "How to log errors and events",
+    "path": "web/concepts/logging"
+  },
+  {
+    "title": "Middleware",
+    "excerpt": "Add functionality to the request-response cycle",
+    "path": "web/concepts/middleware"
+  },
+  {
+    "title": "Pages",
+    "excerpt": "Add pages to your application and configure routing",
+    "path": "web/concepts/pages"
+  },
+  {
+    "title": "Security",
+    "excerpt": "Add SSL to secure your application",
+    "path": "web/concepts/security"
+  },
+  {
+    "title": "Sessions",
+    "excerpt": "Add the handling of session data to your application",
+    "path": "web/concepts/sessions"
+  },
+  {
+    "title": "Views",
+    "excerpt": "Learn how to use page templates and partials to render your data",
+    "path": "web/concepts/views"
+  },
+  {
+    "title": "Debugging",
+    "excerpt": "<p>If enabled in the config <code class=\"lang-actionscript\"><span class=\"hljs-string\">\"allowJsonView\"</span>: <span class=\"hljs-literal\">true</span></code> you can append <code class=\"lang-actionscript\">?json=<span class=\"hljs-literal\">true</span></code> to any page in the browser get back the JSON data structure of the given page.</p>",
+    "path": "web/everyday/debugging"
+  },
+  {
+    "title": "Dust.js helpers",
+    "excerpt": "<p><em>Web</em> includes the <a href=\"https://www.npmjs.com/package/common-dustjs-helpers\">common-dustjs-helpers</a> library and provides a set of built-in helpers for use in your page and partial templates.</p>",
+    "path": "web/everyday/dustjs"
+  },
+  {
+    "title": "Everyday Usage",
+    "excerpt": "",
+    "path": "web/everyday"
+  },
+  {
+    "title": "Preload",
+    "excerpt": "<p>Configure Web to preload some data. Add a block to the <a href=\"configuration.md\">main configuration</a> file like the example below, using your datasource names in place of “channels”:</p>",
+    "path": "web/everyday/preload"
+  },
+  {
+    "title": "Routing & rewrites",
+    "excerpt": "Defining URL endpoints for your application",
+    "path": "web/everyday/routing"
+  },
+  {
+    "title": "Server status",
+    "excerpt": "<p>An endpoint is provided at <code class=\"lang-fortran\">/api/<span class=\"hljs-keyword\">status</span></code> which returns server/application data in JSON format.</p>",
+    "path": "web/everyday/status"
+  },
+  {
+    "title": "A contact form using SendGrid",
+    "excerpt": "<p>This is an example of an event which uses <a href=\"https://sendgrid.com/\">SendGrid</a> to send a message from an HTML form.</p>",
+    "path": "web/examples/sendgrid"
+  },
+  {
+    "title": "Configuration",
+    "excerpt": "<p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class=\"lang-vim\"><span class=\"hljs-built_in\">hostname</span></code> i.e., it will also look for <code class=\"lang-css\"><span class=\"hljs-tag\">config</span>.\" + <span class=\"hljs-tag\">req</span><span class=\"hljs-class\">.headers</span><span class=\"hljs-class\">.host</span> + \"<span class=\"hljs-class\">.json</span></code></p>",
+    "path": "web/getting-started/configuration"
+  },
+  {
+    "title": "Connecting to DADI API",
+    "excerpt": "<p>If you are using <em>Web</em> in conjunction with <a href=\"https://dadi.tech/platform/api\">DADI API</a> you can connect it so you make use of it with datasources.</p>",
+    "path": "web/getting-started/connecting-api"
+  },
+  {
+    "title": "The \"Hello World\" App",
+    "excerpt": "<p>This is a brief outline of the minimum files you might need to an app to say “hello world”. The folder structure looks like:</p>",
+    "path": "web/getting-started/hello-world"
+  },
+  {
+    "title": "Installing DADI Web",
+    "excerpt": "<p>All our platform microservices are available from <a href=\"https://www.npmjs.com/\">NPM</a>. To install <em>Web</em>.</p>",
+    "path": "web/getting-started/installing"
+  },
+  {
+    "title": "Migrating from v2 to v3",
+    "excerpt": "<p>Web 3.0 supports multiple template engines. As a consequence, Dust.js is now decoupled from core and needs to be included as a dependency on projects that want to use it.</p>",
+    "path": "web/getting-started/v3-migration"
+  },
+  {}
+]

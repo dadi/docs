@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="http://dadi.tech/assets/css/main.min.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css" />
+  <link rel="icon" type="image/png" href="http://dadi.tech/assets/img/favicon.png">
+</head>
+<body class="docs">
+  <header class="alignc pad__top--x2 small cf"><nav><a href="https://dadi.tech/en/" class="inline-block marg__bottom"><img src="https://dadi.tech/assets/img/dadi-light.svg" width="150" height="35" alt="DADI" class="logo"></a><ol><li><a href="https://dadi.tech/en/">Technology</a></li><li><a href="https://dadi.tech/en/on-demand" onclick="ga('send','event','On demand','Click','Docsheader');">On demand</a></li><li><a href="https://dadi.tech/en/support" onclick="ga('send','event','Support','Click','Docsheader');">Support</a></li></ol><ul><li><a href="https://github.com/dadi/" onclick="ga('send','event','Github','Click','Docsheader');">Find us on Github</a></li><li><a href="http://docs.dadi.tech" class="on bg--blue" onclick="ga('send','event','Documentation','Click','Docsheader');">Documentation</a></li></ul></nav><div class="top__bg pattern" style="background-color: #21262d;" data-colors="#21262d,#1d2128,#191d23,#16191e,#121519,#0e1014,#0b0c0f,#07080a,#030405,#000000"></div></header>
+    <div class="small">
+      <div class="list--breadcrumb titlecase">
+        <ul class="container">
+        <li><a href="/">Documentation</a></li>
+        </ul>
+      </div>
+
+      <div class="container">
+        <div class="larger hdr"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+    <div class="container normal">
+      <div class="grid">
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
+              <div class="small fwb float--right w-1-2 alignr">
+                <a href="https://github.com/mingard" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars2.githubusercontent.com/u/1352469?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">Arthur Mingard</a>
+                <span class="block txt--grey" title="Last updated: 2017-07-06T14:39:02Z">2017-07-06T14:39:02Z</span>
+              </div>
+            <div class="inline-block">
+              <div class="block fwb">1311 words</div>
+              <div class="txt--grey">5 min read</div>
+            </div>
+          </div>
+
+          <div class="documentation">
+            <h2 id="contributing">Contributing</h2>
+<p>We’d love for you to contribute to our source code and to make DADI products even better.</p>
+<p>Here are the guidelines we’d like you to follow:</p>
+<ul>
+<li><a href="#question">Question or Problem?</a></li>
+<li><a href="#issue">Issues and Bugs</a></li>
+<li><a href="#feature">Feature Requests</a></li>
+<li><a href="#submit">Submission Guidelines</a></li>
+<li><a href="#rules">Coding Rules</a></li>
+<li><a href="#commit">Git Commit Guidelines</a></li>
+</ul>
+<h2 id="-got-a-question-or-problem-"><a href=""></a> Got a Question or Problem?</h2>
+<p>Documentation can be found at <a href="https://docs.dadi.tech">docs.dadi.tech</a>.</p>
+<p>If the documentation doesn’t answer your problem please feel free to email the DADI team directly on team@dadi.tech</p>
+<h2 id="-found-an-issue-"><a href=""></a> Found an Issue?</h2>
+<p>If you find a bug in the source code or a mistake in the documentation, you can help us by submitting an issue to the product’s <a href="https://github.com/dadi">GitHub repository</a>. But we’d love it if you submitted a Pull Request with a fix instead!</p>
+<p><strong>Please see the Submission Guidelines below</strong>.</p>
+<h2 id="-want-a-feature-"><a href=""></a> Want a Feature?</h2>
+<p>You can request a new feature by submitting an issue to our <a href="https://github.com/dadi">GitHub</a> issue tracker. If you would like to implement a new feature then consider what kind of change it is:</p>
+<ul>
+<li><strong>Major Changes</strong> that you wish to contribute to the project should be added as a <code class="lang-gherkin"><span class="hljs-keyword">Feature</span> Request</code> in the <a href="https://github.com/dadi">GitHub</a> issue tracker. This will get the conversation started.</li>
+<li><strong>Small Changes</strong> can be crafted and submitted to the <a href="https://github.com/dadi">GitHub repository</a> as a Pull Request.</li>
+</ul>
+<h2 id="-submission-guidelines"><a href=""></a> Submission Guidelines</h2>
+<h3 id="submitting-an-issue">Submitting an Issue</h3>
+<p>Before you submit your issue search one of the issue archives, maybe your question was already answered. Issue trackers for major products: <a href="https://github.com/dadi/api/issues">API</a>, <a href="https://github.com/dadi/cdn/issues">CDN</a>, <a href="https://github.com/dadi/web/issues">Web</a>.</p>
+<p>If your issue appears to be a bug, and hasn’t been reported, open a new issue. Help us to maximise the effort we can spend fixing issues and adding new features, by not reporting duplicate issues. Providing the following information will increase the chances of your issue being dealt with quickly:</p>
+<ul>
+<li><strong>Overview of the issue</strong> - if an error is being thrown a non-minified stack trace helps</li>
+<li><strong>DADI product version</strong></li>
+<li><strong>Operating system</strong></li>
+<li><strong>Steps to reproduce</strong> - provide a set of steps to follow to reproduce the error.</li>
+<li><strong>Related issues</strong> - has a similar issue been reported before?</li>
+<li><strong>Suggest a fix</strong> - if you can’t fix the bug yourself, perhaps you can point to what might be causing the problem (e.g. a line of code or a commit)</li>
+</ul>
+<h3 id="submitting-a-pull-request">Submitting a Pull Request</h3>
+<p>Before you submit your pull request consider the following guidelines:</p>
+<p>1) Search GitHub for an open or closed Pull Request that relates to your submission. You don’t want to duplicate effort. Pull requests for major products: <a href="https://github.com/dadi/api/pulls">API</a>, <a href="https://github.com/dadi/cdn/pulls">CDN</a>, <a href="https://github.com/dadi/web/pulls">Web</a>.</p>
+<p>2) Create your patch, <strong>including appropriate test cases</strong>.</p>
+<p>3) Follow our <a href="#rules">Coding Rules</a>.</p>
+<p>4) Run the full test suite using <code class="lang-bash">npm <span class="hljs-built_in">test</span></code> and ensure that all tests pass.</p>
+<p>5) Commit your changes using a descriptive commit message that follows our <a href="#commit-message-format">commit message conventions</a> and passes our commit message presubmit hook. Adherence to the <a href="#commit-message-format">commit message conventions</a> is required because release notes are automatically generated from these messages.</p>
+<p>6) Send a pull request to the <code class="lang-crmsh"><span class="hljs-literal">master</span></code> branch.</p>
+<p>7) Documentation! Please add relevant documentation to the pull request. If this is a new feature then please document it fully within the pull request. If you’re making changes to an existing feature, please give us a link to the existing <a href="https://docs.dadi.tech">documentation</a> along with your documentation changes.</p>
+<blockquote>
+<p>If you need an example of excellent pull request documentation, have a look at the <a href="https://github.com/dadi/api/pull/27">effort put in here</a>.</p>
+</blockquote>
+<p><strong>That’s it! Thank you for your contribution!</strong></p>
+<h2 id="-coding-rules"><a href=""></a> Coding Rules</h2>
+<p>To ensure consistency throughout the source code we follow the style rules defined by <a href="https://github.com/feross/standard">StandardJS</a>. Please keep <a href="https://github.com/feross/standard#the-rules">these rules</a> in mind as you are working.</p>
+<p>In addition, we require that:</p>
+<ul>
+<li>All features or bug fixes <strong>must be tested</strong> by one or more tests. Browse one of the test suites for examples: <a href="https://github.com/dadi/api/tree/master/test">API</a>, <a href="https://github.com/dadi/cdn/tree/master/test">CDN</a>, <a href="https://github.com/dadi/web/tree/master/test">Web</a>.</li>
+<li>All public API methods <strong>must be documented</strong> with <a href="http://usejsdoc.org/">JSDoc</a>.</li>
+</ul>
+<h2 id="-git-commit-guidelines"><a href=""></a> Git Commit Guidelines</h2>
+<h3 id="one-change-per-commit">One Change Per Commit</h3>
+<p>A commit should contain exactly one logical change. A logical change includes adding a new feature, fixing a specific bug, etc. If it’s not possible to describe the high level change in a few words, it is most likely too complex for a single commit. The diff itself should be as concise as reasonably possibly and it’s almost always better to err on the side of too many patches than too few. As a rule of thumb, given only the commit message, another developer should be able to implement the same patch in a reasonable amount of time.</p>
+<p>Please don’t include more than one change in each patch. If your commit message requires an “and” in the middle, it’s likely you need separate commits.</p>
+<h3 id="commit-message-format">Commit Message Format</h3>
+<p>We use <a href="https://github.com/semantic-release/semantic-release">Semantic Release</a> to publish new versions of our products, and as such we have very precise rules over how our git commit messages can be formatted. This leads to <strong>more readable messages</strong> that are easy to follow when looking through the <strong>project history</strong>. We also use the git commit messages to <strong>generate the change log</strong>.</p>
+<p>The commit message format validation can be initialised by running <code class="lang-applescript">npm <span class="hljs-command">run</span> init</code> from the root of the repository. This will add a symlink at <code class="lang-asciidoc"><span class="hljs-title">.git/hooks/commit-msg</span></code> which will be run every time you commit.</p>
+<h4 id="message-format">Message Format</h4>
+<pre><code class="lang-http"><span class="hljs-attribute">type</span>: <span class="hljs-string">subject</span>
+
+<span class="stylus">Optional long description
+
+BREAKING CHANGE: Optional
+
+Fix <span class="hljs-id">#xxx</span>
+Close <span class="hljs-id">#yyy</span>
+Ref <span class="hljs-id">#zzz</span>
+</span></code></pre><p>Each commit message consists of a <strong>header</strong>, a <strong>body</strong> and a <strong>footer</strong>. The header has a special format that includes a <strong>type</strong> and a <strong>subject</strong>:</p>
+<h5 id="type-must-be-one-of-the-following-">Type: must be one of the following:</h5>
+<ul>
+<li><strong>feat</strong>: A new feature</li>
+<li><strong>fix</strong>: A bug fix</li>
+<li><strong>docs</strong>: Documentation only changes</li>
+<li><strong>style</strong>: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)</li>
+<li><strong>refactor</strong>: A code change that neither fixes a bug nor adds a feature</li>
+<li><strong>perf</strong>: A code change that improves performance</li>
+<li><strong>test</strong>: Adding missing tests</li>
+<li><strong>chore</strong>: Changes to the build process or auxiliary tools and libraries such as documentation generation</li>
+</ul>
+<h5 id="subject">Subject</h5>
+<p>The subject contains a succinct description of the change:</p>
+<ul>
+<li>use the imperative, present tense: “fix” not “fixed” nor “fixes”</li>
+<li>don’t capitalize first letter of <em>type</em> or <em>description</em> e.g. “fix: foo Bar”</li>
+<li>no period (.) at the end</li>
+</ul>
+<h5 id="body">Body</h5>
+<p>Just as in the <strong>subject</strong>, write your commit message in the imperative: “Fix bug” and not “Fixed bug” or “Fixes bug”. This convention matches up with commit messages generated by commands like <code class="lang-fortran">git <span class="hljs-built_in">merge</span></code> and <code class="lang-nginx"><span class="hljs-title">git</span> revert</code>.</p>
+<p>The body should include the motivation for the change and contrast this with previous behavior.</p>
+<h5 id="footer">Footer</h5>
+<p>The footer should contain any information about <strong>Breaking Changes</strong> and is also the place to reference GitHub issues that this commit might <strong>Fix</strong> or <strong>Close</strong>.</p>
+<p><strong>Breaking Changes</strong> should start with the words <code class="lang-armasm"><span class="hljs-keyword">BREAKING </span>CHANGE:</code> followed by a space or two newlines. The rest of the commit message is then used for this.</p>
+<p><strong>Autoclose issues and pull requests</strong></p>
+<ul>
+<li>Use <code class="lang-nginx"><span class="hljs-title">Fix</span> <span class="hljs-comment">#xxx</span></code> when the commit fixes an open issue.</li>
+<li>Use <code class="lang-nginx"><span class="hljs-title">Close</span> <span class="hljs-comment">#xxx</span></code> when the commit closes an open pull request.</li>
+</ul>
+<p><strong>Reference another issue or pull request</strong></p>
+<ul>
+<li>Use <code class="lang-crmsh"><span class="hljs-operator">Ref</span> <span class="hljs-comment">#xxx</span></code> when referencing an issue or pull request that is already closed or should remain open. Examples include partial fixes and commits that add a test but not a fix.</li>
+</ul>
+<h4 id="line-length">Line Length</h4>
+<p>Any line of the commit message cannot be longer 100 characters. This allows the message to be easier to read on GitHub as well as in various git tools.</p>
+<h4 id="examples">Examples</h4>
+<h5 id="a-bug-fix">A bug fix</h5>
+<p>Commit messages like this will generate a new patch version:</p>
+<pre><code class="lang-stylus">fix: package<span class="hljs-class">.json</span> &amp; <span class="hljs-class">.snyk</span> to reduce vulnerabilities
+</code></pre><h5 id="a-new-feature">A new feature</h5>
+<p>Commit messages like this will generate a new minor version:</p>
+<pre><code class="lang-oxygene">feat: <span class="hljs-keyword">add</span> <span class="hljs-keyword">remove</span> <span class="hljs-function"><span class="hljs-keyword">method</span> <span class="hljs-title">to</span> <span class="hljs-title">DiskStorage</span>
+</span></code></pre><h5 id="a-breaking-change">A breaking change</h5>
+<p>Commit messages like this will generate a new major version:</p>
+<pre><code class="lang-nimrod">feat: remove existing delete() <span class="hljs-keyword">method</span> <span class="hljs-keyword">from</span> <span class="hljs-type">DiskStorage</span>
+
+<span class="hljs-type">BREAKING</span> <span class="hljs-type">CHANGE</span>: removing the delete <span class="hljs-keyword">method</span> affects all client appliations that
+use the delete <span class="hljs-keyword">method</span> directly
+</code></pre><h4 id="reverting">Reverting</h4>
+<p>If the commit reverts a previous commit, it should begin with <code class="lang-avrasm"><span class="hljs-label">revert:</span></code>, followed by the header of the reverted commit. In the body it should say: <code class="lang-sql">This reverts <span class="hljs-operator"><span class="hljs-keyword">commit</span> &lt;<span class="hljs-keyword">hash</span>&gt;.</span></code>, where the hash is the SHA of the commit being reverted.</p>
+
+
+
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/contributing.md">Edit in Github</a>.
+            </p>
+          </div>
+        </div>
+         <div class="col w-1-4">
+          <div class="pad__top--half stick" stick-spacer="false" stick-parent=".container">
+            <ul class="hide list--line small bg--light-grey" style="padding:5px 15px">
+            </ul>
+
+            <ul class="list--line pad__top--half">
+                <li><a class="" href="#contributing">Contributing</a></li>
+                <li><a class="" href="#-got-a-question-or-problem-"> Got a Question or Problem?</a></li>
+                <li><a class="" href="#-found-an-issue-"> Found an Issue?</a></li>
+                <li><a class="" href="#-want-a-feature-"> Want a Feature?</a></li>
+                <li><a class="" href="#-submission-guidelines"> Submission Guidelines</a></li>
+                <li><a class="" href="#-coding-rules"> Coding Rules</a></li>
+                <li><a class="" href="#-git-commit-guidelines"> Git Commit Guidelines</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+</main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/docs">View the repo for this site</a></li>
+      </ul>
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script src="http://dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://dadi.tech/assets/js/main.js?v=2"></script>
+<script src="/assets/lunr.js"></script>
+
+<script>
+var allPageData
+var idx
+
+var debounce = function (fn) {
+  var timeout
+  return function () {
+    var args = Array.prototype.slice.call(arguments),
+        ctx = this
+
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      fn.apply(ctx, args)
+    }, 100)
+  }
+}
+
+$(document).ready(function() {
+  $.getJSON('data.json', function (allData) {
+    allPageData = allData
+
+    $.getJSON('searchIndex.json', function (data) {
+      idx = lunr.Index.load(data)
+
+      $('input').bind('keyup', debounce(function () {
+        if ($(this).val()) {
+          $("#results").removeClass('hide')
+          if ($(this).val() < 2) return
+          var query = $(this).val()
+          var results = idx.search(query)
+
+          results = results.map(function (result) {
+            return allPageData.filter(function (page) { return page.path === result.ref })[0]
+          })
+
+          renderResults(results)
+        } else {
+          $("#results").addClass('hide')
+        }
+      }))
+    })
+  })
+})
+
+var renderResults = function (results) {
+  $("#results").empty()
+
+  if (results.length) {
+    console.log(results);
+
+    results.forEach(function(result) {
+      $("#results").append('<li><a href="' + result.path + '"><h2 class="txt--blue block medium hdr no-marg-i pad__bottom--half">' + result.title + '</h2><div class="no-marg small">' + $(result.excerpt).text() + '</div><div class="txt--grey small no-marg pad__top--half">' + result.path + '</div></a></li>')
+    })
+  } else {
+    $("#results").append('<li>No results found.</li>');
+  }
+}
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-42395806-3', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

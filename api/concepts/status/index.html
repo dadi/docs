@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Server Status | DADI Documentation</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="http://dadi.tech/assets/css/main.min.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css" />
+  <link rel="icon" type="image/png" href="http://dadi.tech/assets/img/favicon.png">
+</head>
+<body class="docs">
+  <header class="alignc pad__top--x2 small cf"><nav><a href="https://dadi.tech/en/" class="inline-block marg__bottom"><img src="https://dadi.tech/assets/img/dadi-light.svg" width="150" height="35" alt="DADI" class="logo"></a><ol><li><a href="https://dadi.tech/en/">Technology</a></li><li><a href="https://dadi.tech/en/on-demand" onclick="ga('send','event','On demand','Click','Docsheader');">On demand</a></li><li><a href="https://dadi.tech/en/support" onclick="ga('send','event','Support','Click','Docsheader');">Support</a></li></ol><ul><li><a href="https://github.com/dadi/" onclick="ga('send','event','Github','Click','Docsheader');">Find us on Github</a></li><li><a href="http://docs.dadi.tech" class="on bg--blue" onclick="ga('send','event','Documentation','Click','Docsheader');">Documentation</a></li></ul></nav><div class="top__bg pattern" style="background-color: #21262d;" data-colors="#21262d,#1d2128,#191d23,#16191e,#121519,#0e1014,#0b0c0f,#07080a,#030405,#000000"></div></header>
+    <div class="small">
+      <div class="list--breadcrumb titlecase">
+        <ul class="container">
+        <li><a href="/">Documentation</a></li>
+                <li class=""><a href="/api">API</a></li>
+                <li class="fwb"><a href="/api/concepts">Concepts</a></li>
+        </ul>
+      </div>
+
+      <div class="container">
+        <div class="larger hdr">Server Status</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+    <div class="container normal">
+      <div class="grid">
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
+              <div class="small fwb float--right w-1-2 alignr">
+                <a href="https://github.com/abovebored" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars3.githubusercontent.com/u/649231?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">David Longworth</a>
+                <span class="block txt--grey" title="Last updated: 2017-01-23T10:51:26Z">2017-01-23T10:51:26Z</span>
+              </div>
+            <div class="inline-block">
+              <div class="block fwb">248 words</div>
+              <div class="txt--grey">1 min read</div>
+            </div>
+          </div>
+
+          <div class="documentation">
+            <h2 id="introduction">Introduction</h2>
+<p>An endpoint is provided at <code class="lang-fortran">/api/<span class="hljs-keyword">status</span></code> which returns server/application data in JSON format.</p>
+<p>The request must be a POST and a valid Bearer token must be supplied in the Authorization header. See <a href="../authorisation">Authorisation</a> for information regarding obtaining a Bearer token.</p>
+<h2 id="configuration">Configuration</h2>
+<pre><code class="lang-javascript"><span class="hljs-string">"status"</span>: {
+  <span class="hljs-string">"enabled"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-string">"routes"</span>: [
+    {
+      <span class="hljs-string">"route"</span>: <span class="hljs-string">"/1.0/library/book"</span>,
+      <span class="hljs-string">"expectedResponseTime"</span>: <span class="hljs-number">10</span>
+    }
+  ]
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">enabled</td>
+<td style="text-align:left">If true, the status endpoint is enabled</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">true</td>
+</tr>
+<tr>
+<td style="text-align:left">routes</td>
+<td style="text-align:left">An array of routes to test. Each route object must contain properties <code>route</code> and <code>expectedResponseTime</code></td>
+<td style="text-align:left"><code class="lang-json">[]</code></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="health-check-routes">Health Check Routes</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">route</td>
+<td style="text-align:left">The route to check</td>
+<td style="text-align:left">“/1.0/library/book”</td>
+</tr>
+<tr>
+<td style="text-align:left">expectedResponseTime</td>
+<td style="text-align:left">The expected reponse time, in seconds, of the route</td>
+<td style="text-align:left">10</td>
+</tr>
+</tbody>
+</table>
+<h2 id="request">Request</h2>
+<pre><code class="lang-http"><span class="hljs-request">POST <span class="hljs-string">/api/status</span> HTTP/1.1</span>
+<span class="hljs-attribute">Host</span>: <span class="hljs-string">api.example.com</span>
+<span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer 4172bbf1-0890-41c7-b0db-477095a288b6</span>
+<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span>
+</code></pre><h3 id="sample-request-using-curl">Sample request using curl</h3>
+<pre><code class="lang-stata">curl -X <span class="hljs-keyword">POST</span> -<span class="hljs-keyword">H</span> <span class="hljs-string">"Content-Type: application/json"</span> -<span class="hljs-keyword">H</span> <span class="hljs-string">"Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6"</span> <span class="hljs-string">"http://api.example.com/api/status"</span>
+</code></pre><h2 id="response">Response</h2>
+<pre><code class="lang-xquery">{
+  service: {
+    site: <span class="hljs-string">'library-v1.2.3'</span>,
+    package: <span class="hljs-string">'@dadi/api'</span>,
+    versions: {
+      current: <span class="hljs-string">'1.4.2'</span>,
+      latest: <span class="hljs-string">'1.5.0'</span>
+    }
+  },
+  process: {
+    pid: <span class="hljs-number">34979</span>,
+    uptime: <span class="hljs-number">3.62</span>,
+    uptimeFormatted: <span class="hljs-string">'0 days 0 hours 0 minutes 3 seconds'</span>,
+    versions: {
+      http_parser: <span class="hljs-string">'2.3'</span>,
+      node: <span class="hljs-string">'0.12.4'</span>,
+      v8: <span class="hljs-string">'3.28.71.19'</span>,
+      uv: <span class="hljs-string">'1.5.0'</span>,
+      zlib: <span class="hljs-string">'1.2.8'</span>,
+      modules: <span class="hljs-string">'14'</span>,
+      openssl: <span class="hljs-string">'1.0.1m'</span>
+    }
+  },
+  memory: {
+    rss: <span class="hljs-string">'79.848 MB'</span>,
+    heapTotal: <span class="hljs-string">'59.878 MB'</span>,
+    heapUsed: <span class="hljs-string">'27.653 MB'</span>
+  },
+  system: {
+    platform: <span class="hljs-string">'darwin'</span>,
+    release: <span class="hljs-string">'14.5.0'</span>,
+    hostname: <span class="hljs-string">'hudson'</span>,
+    memory: {
+      free: <span class="hljs-string">'48.320 MB'</span>,
+      total: <span class="hljs-string">'8.000 GB'</span>
+    },
+    load: [ <span class="hljs-number">2.92333984375</span>, <span class="hljs-number">3.08154296875</span>, <span class="hljs-number">3.3330078125</span> ],
+    uptime: <span class="hljs-number">30475</span>,
+    uptimeFormatted: <span class="hljs-string">'0 days 8 hours 27 minutes 55 seconds'</span>
+  },
+  routes: [
+    {
+      route: <span class="hljs-string">'/1.0/library/book'</span>,
+      status: <span class="hljs-number">200</span>,
+      expectedResponseTime: <span class="hljs-number">10</span>,
+      responseTime: <span class="hljs-number">0</span>.<span class="hljs-number">013</span>,
+      healthStatus: <span class="hljs-string">'Green'</span>
+    }
+  ]
+}
+</code></pre>
+
+
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/api/concepts/status.md">Edit in Github</a>.
+            </p>
+          </div>
+        </div>
+         <div class="col w-1-4">
+          <div class="pad__top--half stick" stick-spacer="false" stick-parent=".container">
+            <ul class="hide list--line small bg--light-grey" style="padding:5px 15px">
+                <li>
+                  <strong class="txt--grey block">Prev</strong>
+                  <a href="/api/concepts/querying">Querying Collections</a>
+                </li>
+                <li>
+                  <strong class="txt--grey block">Next</strong>
+                  <a href="/api/concepts/upload">Uploading Media</a>
+                </li>
+            </ul>
+
+            <ul class="list--line pad__top--half">
+                <li><a class="" href="#introduction">Introduction</a></li>
+                <li><a class="" href="#configuration">Configuration</a></li>
+                <li><a class="" href="#request">Request</a></li>
+                <li><a class="" href="#response">Response</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+</main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/docs">View the repo for this site</a></li>
+      </ul>
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script src="http://dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://dadi.tech/assets/js/main.js?v=2"></script>
+<script src="/assets/lunr.js"></script>
+
+<script>
+var allPageData
+var idx
+
+var debounce = function (fn) {
+  var timeout
+  return function () {
+    var args = Array.prototype.slice.call(arguments),
+        ctx = this
+
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      fn.apply(ctx, args)
+    }, 100)
+  }
+}
+
+$(document).ready(function() {
+  $.getJSON('data.json', function (allData) {
+    allPageData = allData
+
+    $.getJSON('searchIndex.json', function (data) {
+      idx = lunr.Index.load(data)
+
+      $('input').bind('keyup', debounce(function () {
+        if ($(this).val()) {
+          $("#results").removeClass('hide')
+          if ($(this).val() < 2) return
+          var query = $(this).val()
+          var results = idx.search(query)
+
+          results = results.map(function (result) {
+            return allPageData.filter(function (page) { return page.path === result.ref })[0]
+          })
+
+          renderResults(results)
+        } else {
+          $("#results").addClass('hide')
+        }
+      }))
+    })
+  })
+})
+
+var renderResults = function (results) {
+  $("#results").empty()
+
+  if (results.length) {
+    console.log(results);
+
+    results.forEach(function(result) {
+      $("#results").append('<li><a href="' + result.path + '"><h2 class="txt--blue block medium hdr no-marg-i pad__bottom--half">' + result.title + '</h2><div class="no-marg small">' + $(result.excerpt).text() + '</div><div class="txt--grey small no-marg pad__top--half">' + result.path + '</div></a></li>')
+    })
+  } else {
+    $("#results").append('<li>No results found.</li>');
+  }
+}
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-42395806-3', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Uploading Media | DADI Documentation</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="http://dadi.tech/assets/css/main.min.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css" />
+  <link rel="icon" type="image/png" href="http://dadi.tech/assets/img/favicon.png">
+</head>
+<body class="docs">
+  <header class="alignc pad__top--x2 small cf"><nav><a href="https://dadi.tech/en/" class="inline-block marg__bottom"><img src="https://dadi.tech/assets/img/dadi-light.svg" width="150" height="35" alt="DADI" class="logo"></a><ol><li><a href="https://dadi.tech/en/">Technology</a></li><li><a href="https://dadi.tech/en/on-demand" onclick="ga('send','event','On demand','Click','Docsheader');">On demand</a></li><li><a href="https://dadi.tech/en/support" onclick="ga('send','event','Support','Click','Docsheader');">Support</a></li></ol><ul><li><a href="https://github.com/dadi/" onclick="ga('send','event','Github','Click','Docsheader');">Find us on Github</a></li><li><a href="http://docs.dadi.tech" class="on bg--blue" onclick="ga('send','event','Documentation','Click','Docsheader');">Documentation</a></li></ul></nav><div class="top__bg pattern" style="background-color: #21262d;" data-colors="#21262d,#1d2128,#191d23,#16191e,#121519,#0e1014,#0b0c0f,#07080a,#030405,#000000"></div></header>
+    <div class="small">
+      <div class="list--breadcrumb titlecase">
+        <ul class="container">
+        <li><a href="/">Documentation</a></li>
+                <li class=""><a href="/api">API</a></li>
+                <li class="fwb"><a href="/api/concepts">Concepts</a></li>
+        </ul>
+      </div>
+
+      <div class="container">
+        <div class="larger hdr">Uploading Media</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+    <div class="container normal">
+      <div class="grid">
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
+              <div class="small fwb float--right w-1-2 alignr">
+                <a href="https://github.com/jimlambie" target="_blank">
+                  <img class="float--right pad__left--half" src="https://avatars2.githubusercontent.com/u/116263?v&#x3D;3" width="40" height="40">
+                </a>
+                <a class="block fwb">James Lambie</a>
+                <span class="block txt--grey" title="Last updated: 2017-04-26T03:02:03Z">2017-04-26T03:02:03Z</span>
+              </div>
+            <div class="inline-block">
+              <div class="block fwb">1179 words</div>
+              <div class="txt--grey">4 min read</div>
+            </div>
+          </div>
+
+          <div class="documentation">
+            <p>Your API can easily be configured to accept file uploads, allowing you to store file-based content along with your text-based content. All it takes is adding a <a href="../collections">collection specification</a> with an additional <code class="lang-elm"><span class="hljs-typedef"><span class="hljs-keyword">type</span></span></code> property to indicate that it is a <code>media</code> collection.</p>
+<p>A media collection is similar to a standard collection but includes additional endpoints to allow uploading binary data. Along with the querying functionality available to standard collections, media collections respond to endpoints for generating signed URLs and uploading files.</p>
+<h2 id="media-collection-specification">Media Collection Specification</h2>
+<p>To indicate that a collection is a media collection, add a <code class="lang-elm"><span class="hljs-typedef"><span class="hljs-keyword">type</span></span></code> property to the specification file’s <code>settings</code> block:</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">settings</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"media"</span>
+  </span>}
+</span>}
+</code></pre>
+<p>For details regarding recommended fields to store in a media collection, see <a href="./collections">collections</a>.</p>
+<h2 id="configuration">Configuration</h2>
+<p>There are two types of configuration for media collections in API - collection-level and global.</p>
+<p>The only configuration option handled at collection-level is <code>signUploads</code>. Setting this to <code class="lang-actionscript"><span class="hljs-literal">true</span></code> will require the use of a signed token when uploading. See the <a href="#signed-urls">Signed URLs</a> section below.</p>
+<p>There is a default global configuration for media uploads. To override the global configuration, add a <code>media</code> block to the <a href="getting-started/configuration">main configuration file</a>:</p>
+<pre><code class="lang-json"><span class="hljs-string">"media"</span>: {
+  "<span class="hljs-attribute">tokenSecret</span>": <span class="hljs-value"><span class="hljs-string">"difficult-wonderland-sunshine"</span></span>,
+  "<span class="hljs-attribute">tokenExpiresIn</span>": <span class="hljs-value"><span class="hljs-string">"1h"</span></span>,
+  "<span class="hljs-attribute">basePath</span>": <span class="hljs-value"><span class="hljs-string">"workspace/media"</span></span>,
+  "<span class="hljs-attribute">pathFormat</span>": <span class="hljs-value"><span class="hljs-string">"date"</span></span>,
+  "<span class="hljs-attribute">storage</span>": <span class="hljs-value"><span class="hljs-string">"disk"</span>
+</span>}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">tokenSecret</td>
+<td style="text-align:left">The secret key used to sign and verify tokens when uploading media</td>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"catboat-beatific-drizzle"</span></code></td>
+</tr>
+<tr>
+<td style="text-align:left">tokenExpiresIn</td>
+<td style="text-align:left">The duration a signed token is valid for. Expressed in seconds or a string describing a time span (<a href="https://github.com/zeit/ms">https://github.com/zeit/ms</a>). Eg: <code class="lang-cpp"><span class="hljs-number">60</span></code>, <code class="lang-1c"><span class="hljs-string">"2 days"</span></code>, <code class="lang-1c"><span class="hljs-string">"10h"</span></code>, <code class="lang-1c"><span class="hljs-string">"7d"</span></code></td>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"1h"</span></code></td>
+</tr>
+<tr>
+<td style="text-align:left">basePath</td>
+<td style="text-align:left">When <code class="lang-1c"><span class="hljs-string">"disk"</span></code> storage is used, <code>basePath</code> is either an absolute path or a path relative to the directory where the application is run. When <code class="lang-1c"><span class="hljs-string">"s3"</span></code> storage is used, <code>basePath</code> is a directory relative to the S3 bucket root.</td>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"workspace/media"</span></code></td>
+</tr>
+<tr>
+<td style="text-align:left">pathFormat</td>
+<td style="text-align:left">Determines the format for the generation of subdirectories to store uploads. Possible values: <code class="lang-1c"><span class="hljs-string">"none"</span></code>, <code class="lang-1c"><span class="hljs-string">"date"</span></code>, <code class="lang-1c"><span class="hljs-string">"datetime"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/4"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/5"</span></code>, <code class="lang-1c"><span class="hljs-string">"sha1/8"</span></code></td>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"date"</span></code></td>
+</tr>
+<tr>
+<td style="text-align:left">storage</td>
+<td style="text-align:left">The storage handler to use. Determines where file uploads are stored. Possible values: <code class="lang-1c"><span class="hljs-string">"disk"</span></code>, <code class="lang-1c"><span class="hljs-string">"s3"</span></code></td>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"disk"</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="available-path-formats">Available path formats</h3>
+<p>The <code>pathFormat</code> property determines the directory structure that API will use when storing files. This allows splitting files across many directories rather than storing them all in one directory. While this <a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html">isn’t a problem when using S3</a>, when using the local filesystem storing a large number of files in one directory could negatively affect performance.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Format</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"none"</span></code></td>
+<td style="text-align:left">Doesn’t create a directory structure, storing all uploads for a collection in a subdirectory of the <code>basePath</code> location</td>
+</tr>
+<tr>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"date"</span></code></td>
+<td style="text-align:left">Creates a directory structure using parts derived from the current date</td>
+<td style="text-align:left"><code class="lang-cpp"><span class="hljs-number">2016</span>/<span class="hljs-number">12</span>/<span class="hljs-number">19</span>/test.jpg</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"datetime"</span></code></td>
+<td style="text-align:left">Creates a directory structure using parts derived from the current date and time</td>
+<td style="text-align:left"><code class="lang-cpp"><span class="hljs-number">2016</span>/<span class="hljs-number">12</span>/<span class="hljs-number">19</span>/<span class="hljs-number">13</span>/<span class="hljs-number">07</span>/<span class="hljs-number">22</span>/test.jpg</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"sha1/4"</span></code></td>
+<td style="text-align:left">Splits SHA1 hash of the image’s filename into 4 character chunks</td>
+<td style="text-align:left"><code class="lang-cpp">cb56/<span class="hljs-number">7524</span>/<span class="hljs-number">77</span>ca/e640/<span class="hljs-number">5f</span>85/b131/<span class="hljs-number">872</span>c/<span class="hljs-number">60</span>d2/<span class="hljs-number">1</span>b96/<span class="hljs-number">7</span>c6a/test.jpg</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"sha1/5"</span></code></td>
+<td style="text-align:left">Splits SHA1 hash of the image’s filename into 5 character chunks</td>
+<td style="text-align:left"><code class="lang-cpp">cb567/<span class="hljs-number">52477</span>/cae64/<span class="hljs-number">05f</span>85/b1318/<span class="hljs-number">72</span>c60/d21b9/<span class="hljs-number">67</span>c6a/test.jpg</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code class="lang-1c"><span class="hljs-string">"sha1/8"</span></code></td>
+<td style="text-align:left">Splits SHA1 hash of the image’s filename into 8 character chunks</td>
+<td style="text-align:left"><code class="lang-cpp">cb567524/<span class="hljs-number">77</span>cae640/<span class="hljs-number">5f</span>85b131/<span class="hljs-number">872</span>c60d2/<span class="hljs-number">1</span>b967c6a/test.jpg</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="authentication">Authentication</h2>
+<p>Media upload requests must be authenticated with a Bearer token supplied in an <code>Authorization</code> header along with the POST request. See the <a href="authentication">Authentication</a> section for details on obtaining a token.</p>
+<h2 id="file-storage">File Storage</h2>
+<p>API ships with two file storage handlers, one for storing files on the local filesystem and the other for storing files in an Amazon S3 bucket. If you need access to the files from another application, for example DADI CDN, we recommend using the S3 option.</p>
+<h2 id="configuring-amazon-s3">Configuring Amazon S3</h2>
+<p>If the S3 storage handler is used, an additional set of configuration properties are required as seen in the <code>s3</code> block below:</p>
+<pre><code class="lang-json"><span class="hljs-string">"media"</span>: {
+  "<span class="hljs-attribute">storage</span>": <span class="hljs-value"><span class="hljs-string">"s3"</span></span>,
+  "<span class="hljs-attribute">basePath</span>": <span class="hljs-value"><span class="hljs-string">"uploads"</span></span>,
+  "<span class="hljs-attribute">pathFormat</span>": <span class="hljs-value"><span class="hljs-string">"date"</span></span>,
+  "<span class="hljs-attribute">s3</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">accessKey</span>": <span class="hljs-value"><span class="hljs-string">"asdf4hdhh422ss"</span></span>,
+    "<span class="hljs-attribute">secretKey</span>": <span class="hljs-value"><span class="hljs-string">"agDo40XIoK7jPxOx3HU9Pl"</span></span>,
+    "<span class="hljs-attribute">bucketName</span>": <span class="hljs-value"><span class="hljs-string">"media"</span></span>,
+    "<span class="hljs-attribute">region</span>": <span class="hljs-value"><span class="hljs-string">"eu-west-1"</span>
+  </span>}
+</span>}
+</code></pre>
+<blockquote>
+<p><strong>Security Note:</strong> We don’t recommend storing your AWS credentials in the configuration file. The <code>accessKey</code> and <code>secretKey</code> properties should instead be set as the environment variables <code>AWS_S3_ACCESS_KEY</code> and <code>AWS_S3_SECRET_KEY</code>.</p>
+</blockquote>
+<h2 id="filename-clashes">Filename clashes</h2>
+<p>If the filename of an file being uploaded is the same as an existing file, the new file will have it’s name changed by adding the current timestamp:</p>
+<ul>
+<li>Existing filename: <code class="lang-css"><span class="hljs-tag">test</span><span class="hljs-class">.jpg</span></code></li>
+<li>New filename: <code class="lang-bash"><span class="hljs-built_in">test</span>-<span class="hljs-number">1480482847099</span>.jpg</code></li>
+</ul>
+<h2 id="uploading-a-file">Uploading a file</h2>
+<p>To upload a file send a <code class="lang-fortran">multipart/<span class="hljs-keyword">form</span>-<span class="hljs-type">data</span></code> POST to the media collection’s endpoint. On successful upload the file’s metadata is returned as JSON, and includes an identifier that can be used to create a reference to the file from another collection.</p>
+<h3 id="uploading-a-file-with-curl">Uploading a file with cURL</h3>
+<pre><code class="lang-bash">curl -X POST
+  -H <span class="hljs-string">"Content-Type: multipart/form-data"</span>
+  -H <span class="hljs-string">"Authorization: Bearer 8df4a823-1e1e-4bc4-800c-97bb480ccbbe"</span>
+  -F <span class="hljs-string">"data=@test.jpg"</span> <span class="hljs-string">"http://api.somedomain.tech/1.0/library/images"</span>
+</code></pre>
+<h3 id="uploading-a-file-with-node-js">Uploading a file with Node.js</h3>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> FormData = <span class="hljs-built_in">require</span>(<span class="hljs-string">'form-data'</span>)
+
+<span class="hljs-keyword">var</span> options = {
+  host: <span class="hljs-string">'api.somedomain.tech'</span>,
+  port: <span class="hljs-number">80</span>,
+  path: <span class="hljs-string">'/1.0/library/images'</span>,
+  headers: {
+    <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'Bearer 8df4a823-1e1e-4bc4-800c-97bb480ccbbe'</span>,
+    <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json'</span>
+  }
+}
+
+<span class="hljs-keyword">var</span> uploadResult
+
+<span class="hljs-keyword">var</span> form = <span class="hljs-keyword">new</span> FormData()
+form.append(<span class="hljs-string">'file'</span>, fs.createReadStream(filePath))
+
+form.submit(options, (err, response, body) =&gt; {
+  <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">return</span> reject(err)
+
+  response.on(<span class="hljs-string">'data'</span>, (chunk) =&gt; {
+    <span class="hljs-keyword">if</span> (chunk) {
+      uploadResult += chunk
+    }
+  })
+
+  response.on(<span class="hljs-string">'end'</span>, () =&gt; {
+    <span class="hljs-comment">// finished</span>
+    <span class="hljs-built_in">console</span>.log(uploadResult)
+  })
+})
+</code></pre>
+<h3 id="response">Response</h3>
+<p>If successful, expect a response similar to the below examples.</p>
+<h4 id="disk-storage">Disk storage</h4>
+<pre><code class="lang-http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">201</span> Created</span>
+<span class="hljs-attribute">Server</span>: <span class="hljs-string">DADI (API)</span>
+<span class="hljs-attribute">content-type</span>: <span class="hljs-string">application/json</span>
+<span class="hljs-attribute">content-length</span>: <span class="hljs-string">305</span>
+<span class="hljs-attribute">Date</span>: <span class="hljs-string">Mon, 19 Dec 2016 05:20:29 GMT</span>
+<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+
+<span class="json">{
+  "<span class="hljs-attribute">results</span>":<span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">fileName</span>":<span class="hljs-value"><span class="hljs-string">"test.jpg"</span></span>,
+      "<span class="hljs-attribute">mimetype</span>":<span class="hljs-value"><span class="hljs-string">"image/jpeg"</span></span>,
+      "<span class="hljs-attribute">width</span>":<span class="hljs-value"><span class="hljs-number">1920</span></span>,
+      "<span class="hljs-attribute">height</span>":<span class="hljs-value"><span class="hljs-number">1080</span></span>,
+      "<span class="hljs-attribute">path</span>":<span class="hljs-value"><span class="hljs-string">"/Users/userName/api/workspace/media/2016/12/19/test.jpg"</span></span>,
+      "<span class="hljs-attribute">contentLength</span>":<span class="hljs-value"><span class="hljs-number">173685</span></span>,
+      "<span class="hljs-attribute">createdAt</span>":<span class="hljs-value"><span class="hljs-number">1482124829485</span></span>,
+      "<span class="hljs-attribute">createdBy</span>":<span class="hljs-value"><span class="hljs-string">"your-client-key"</span></span>,
+      "<span class="hljs-attribute">v</span>":<span class="hljs-value"><span class="hljs-number">1</span></span>,
+      "<span class="hljs-attribute">_id</span>":<span class="hljs-value"><span class="hljs-string">"58576e1d5dd9975624b0d92c"</span>
+    </span>}
+  ]
+</span>}
+</span></code></pre>
+<h4 id="amazon-s3-storage">Amazon S3 storage</h4>
+<pre><code class="lang-http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">201</span> Created</span>
+<span class="hljs-attribute">Server</span>: <span class="hljs-string">DADI (API)</span>
+<span class="hljs-attribute">content-type</span>: <span class="hljs-string">application/json</span>
+<span class="hljs-attribute">content-length</span>: <span class="hljs-string">305</span>
+<span class="hljs-attribute">Date</span>: <span class="hljs-string">Mon, 19 Dec 2016 05:20:29 GMT</span>
+<span class="hljs-attribute">Connection</span>: <span class="hljs-string">keep-alive</span>
+
+<span class="json">{
+  "<span class="hljs-attribute">results</span>":<span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">fileName</span>":<span class="hljs-value"><span class="hljs-string">"test.jpg"</span></span>,
+      "<span class="hljs-attribute">mimetype</span>":<span class="hljs-value"><span class="hljs-string">"image/jpeg"</span></span>,
+      "<span class="hljs-attribute">width</span>":<span class="hljs-value"><span class="hljs-number">1920</span></span>,
+      "<span class="hljs-attribute">height</span>":<span class="hljs-value"><span class="hljs-number">1080</span></span>,
+      "<span class="hljs-attribute">path</span>":<span class="hljs-value"><span class="hljs-string">"workspace/media/2016/12/19/test.jpg"</span></span>,
+      "<span class="hljs-attribute">contentLength</span>":<span class="hljs-value"><span class="hljs-number">173685</span></span>,
+      "<span class="hljs-attribute">awsUrl</span>":<span class="hljs-value"><span class="hljs-string">"https://bucketName.s3.amazonaws.com/workspace/media/2016/12/19/test.jpg"</span></span>,
+      "<span class="hljs-attribute">createdAt</span>":<span class="hljs-value"><span class="hljs-number">1482124902978</span></span>,
+      "<span class="hljs-attribute">createdBy</span>":<span class="hljs-value"><span class="hljs-string">"your-client-key"</span></span>,
+      "<span class="hljs-attribute">v</span>":<span class="hljs-value"><span class="hljs-number">1</span></span>,
+      "<span class="hljs-attribute">_id</span>":<span class="hljs-value"><span class="hljs-string">"58576e72bafa53b625aebd4f"</span>
+    </span>}
+  ]
+</span>}
+</span></code></pre>
+<h2 id="referencing-files-from-another-collection">Referencing files from another collection</h2>
+<p>Once a file is uploaded, it’s identifier can be used to create a reference from another collection. For this example we have a collection called <code>books</code> with the following schema:</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">fields</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"String"</span></span>,
+      "<span class="hljs-attribute">required</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">content</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"String"</span></span>,
+      "<span class="hljs-attribute">required</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">image</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Reference"</span></span>,
+      "<span class="hljs-attribute">settings</span>": <span class="hljs-value">{
+        "<span class="hljs-attribute">collection</span>": <span class="hljs-value"><span class="hljs-string">"images"</span>
+      </span>}
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">settings</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">cache</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">count</span>": <span class="hljs-value"><span class="hljs-number">40</span></span>,
+    "<span class="hljs-attribute">compose</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">sort</span>": <span class="hljs-value"><span class="hljs-string">"title"</span></span>,
+    "<span class="hljs-attribute">sortOrder</span>": <span class="hljs-value"><span class="hljs-number">1</span>
+  </span>}
+</span>}
+</code></pre>
+<p>The <code class="lang-mel"><span class="hljs-keyword">image</span></code> field is a Reference field which will lookup the <code>images</code> collection to resolve the reference. Having uploaded an image file and received it’s metadata, we can now send a POST to the <code>books</code> collection with the image identifier.</p>
+<pre><code class="lang-http"><span class="hljs-request">POST <span class="hljs-string">/1.0/library/books</span> HTTP/1.1</span>
+<span class="hljs-attribute">Host</span>: <span class="hljs-string">api.somedomain.tech</span>
+<span class="hljs-attribute">content-type</span>: <span class="hljs-string">application/json</span>
+<span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Bearer 8df4a823-1e1e-4bc4-800c-97bb480ccbbe</span>
+
+<span class="json">{
+  "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Harry Potter and the Philosopher's Stone"</span></span>,
+  "<span class="hljs-attribute">content</span>": <span class="hljs-value"><span class="hljs-string">"Harry Potter and the Philosopher's Stone is the first novel in the Harry Potter series and J. K. Rowling's debut novel, first published in 1997 by Bloomsbury."</span></span>,
+  "<span class="hljs-attribute">image</span>": <span class="hljs-value"><span class="hljs-string">"58576e72bafa53b625aebd4f"</span>
+</span>}
+</span></code></pre>
+<p>A subsequent GET request for this book would return a response such as:</p>
+<pre><code class="lang-json">{
+  "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Harry Potter and the Philosopher's Stone"</span></span>,
+  "<span class="hljs-attribute">content</span>": <span class="hljs-value"><span class="hljs-string">"Harry Potter and the Philosopher's Stone is the first novel in the Harry Potter series and J. K. Rowling's debut novel, first published in 1997 by Bloomsbury."</span></span>,
+  "<span class="hljs-attribute">image</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">fileName</span>":<span class="hljs-value"><span class="hljs-string">"test.jpg"</span></span>,
+    "<span class="hljs-attribute">mimetype</span>":<span class="hljs-value"><span class="hljs-string">"image/jpeg"</span></span>,
+    "<span class="hljs-attribute">width</span>":<span class="hljs-value"><span class="hljs-number">1920</span></span>,
+    "<span class="hljs-attribute">height</span>":<span class="hljs-value"><span class="hljs-number">1080</span></span>,
+    "<span class="hljs-attribute">path</span>":<span class="hljs-value"><span class="hljs-string">"workspace/media/2016/12/19/test.jpg"</span></span>,
+    "<span class="hljs-attribute">contentLength</span>":<span class="hljs-value"><span class="hljs-number">173685</span></span>,
+    "<span class="hljs-attribute">awsUrl</span>":<span class="hljs-value"><span class="hljs-string">"https://bucketName.s3.amazonaws.com/workspace/media/2016/12/19/test.jpg"</span></span>,
+    "<span class="hljs-attribute">createdAt</span>":<span class="hljs-value"><span class="hljs-number">1482124902978</span></span>,
+    "<span class="hljs-attribute">createdBy</span>":<span class="hljs-value"><span class="hljs-string">"your-client-key"</span></span>,
+    "<span class="hljs-attribute">v</span>":<span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">_id</span>":<span class="hljs-value"><span class="hljs-string">"58576e72bafa53b625aebd4f"</span>
+  </span>}
+</span>}
+</code></pre>
+<h2 id="signed-urls">Signed URLs</h2>
+<p>A signed URL gives</p>
+<h3 id="configuration">Configuration</h3>
+<pre><code class="lang-json"><span class="hljs-string">"media"</span>: {
+  "<span class="hljs-attribute">enabled</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">tokenSecret</span>": <span class="hljs-value"><span class="hljs-string">"catboat-beatific-drizzle"</span></span>,
+  "<span class="hljs-attribute">tokenExpiresIn</span>": <span class="hljs-value"><span class="hljs-string">"10h"</span>
+</span>}
+</code></pre>
+<h3 id="request-a-signed-url">Request a signed URL</h3>
+<pre><code class="lang-less"><span class="hljs-tag">POST</span> /<span class="hljs-tag">api</span>/<span class="hljs-tag">media</span>/<span class="hljs-tag">sign</span>
+
+{
+  <span class="hljs-attribute">fileName</span>: <span class="hljs-string">'test.jpg'</span>,
+  <span class="hljs-attribute">mimetype</span>: <span class="hljs-string">'image/jpeg'</span>
+}
+</code></pre><h4 id="response">Response</h4>
+<pre><code class="lang-css"><span class="hljs-rules">{
+  <span class="hljs-rule"><span class="hljs-attribute">url</span>:<span class="hljs-value"> <span class="hljs-string">"/api/media/{token}"</span>
+</span></span></span>}
+</code></pre><h3 id="post-the-file">POST the file</h3>
+<pre><code class="lang-stata"><span class="hljs-keyword">POST</span> /api/media/{<span class="hljs-keyword">token</span>}
+
+<span class="hljs-keyword">test</span>.jpg
+</code></pre><h3 id="override-the-expiry-when-requesting-a-signed-url">Override the expiry when requesting a signed URL</h3>
+<pre><code class="lang-less"><span class="hljs-tag">POST</span> /<span class="hljs-tag">api</span>/<span class="hljs-tag">media</span>/<span class="hljs-tag">sign</span>
+
+{
+  <span class="hljs-attribute">fileName</span>: <span class="hljs-string">'test.jpg'</span>,
+  <span class="hljs-attribute">mimetype</span>: <span class="hljs-string">'image/jpeg'</span>,
+  <span class="hljs-attribute">expiresIn</span>: <span class="hljs-string">'15000'</span> <span class="hljs-comment">// value in seconds</span>
+}
+</code></pre><p>Close #229</p>
+<pre><code class="lang-json"><span class="hljs-string">"settings"</span>: {
+  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"media"</span></span>,
+  "<span class="hljs-attribute">signUploads</span>": <span class="hljs-value"><span class="hljs-literal">false</span>
+</span>}
+</code></pre>
+
+
+
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/api/concepts/upload.md">Edit in Github</a>.
+            </p>
+          </div>
+        </div>
+         <div class="col w-1-4">
+          <div class="pad__top--half stick" stick-spacer="false" stick-parent=".container">
+            <ul class="hide list--line small bg--light-grey" style="padding:5px 15px">
+                <li>
+                  <strong class="txt--grey block">Prev</strong>
+                  <a href="/api/concepts/status">Server Status</a>
+                </li>
+                <li>
+                  <strong class="txt--grey block">Next</strong>
+                  <a href="/api/concepts/validation">Data Validation</a>
+                </li>
+            </ul>
+
+            <ul class="list--line pad__top--half">
+                <li><a class="" href="#media-collection-specification">Media Collection Specification</a></li>
+                <li><a class="" href="#configuration">Configuration</a></li>
+                <li><a class="" href="#authentication">Authentication</a></li>
+                <li><a class="" href="#file-storage">File Storage</a></li>
+                <li><a class="" href="#configuring-amazon-s3">Configuring Amazon S3</a></li>
+                <li><a class="" href="#filename-clashes">Filename clashes</a></li>
+                <li><a class="" href="#uploading-a-file">Uploading a file</a></li>
+                <li><a class="" href="#referencing-files-from-another-collection">Referencing files from another collection</a></li>
+                <li><a class="" href="#signed-urls">Signed URLs</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+</main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/docs">View the repo for this site</a></li>
+      </ul>
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script src="http://dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://dadi.tech/assets/js/main.js?v=2"></script>
+<script src="/assets/lunr.js"></script>
+
+<script>
+var allPageData
+var idx
+
+var debounce = function (fn) {
+  var timeout
+  return function () {
+    var args = Array.prototype.slice.call(arguments),
+        ctx = this
+
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      fn.apply(ctx, args)
+    }, 100)
+  }
+}
+
+$(document).ready(function() {
+  $.getJSON('data.json', function (allData) {
+    allPageData = allData
+
+    $.getJSON('searchIndex.json', function (data) {
+      idx = lunr.Index.load(data)
+
+      $('input').bind('keyup', debounce(function () {
+        if ($(this).val()) {
+          $("#results").removeClass('hide')
+          if ($(this).val() < 2) return
+          var query = $(this).val()
+          var results = idx.search(query)
+
+          results = results.map(function (result) {
+            return allPageData.filter(function (page) { return page.path === result.ref })[0]
+          })
+
+          renderResults(results)
+        } else {
+          $("#results").addClass('hide')
+        }
+      }))
+    })
+  })
+})
+
+var renderResults = function (results) {
+  $("#results").empty()
+
+  if (results.length) {
+    console.log(results);
+
+    results.forEach(function(result) {
+      $("#results").append('<li><a href="' + result.path + '"><h2 class="txt--blue block medium hdr no-marg-i pad__bottom--half">' + result.title + '</h2><div class="no-marg small">' + $(result.excerpt).text() + '</div><div class="txt--grey small no-marg pad__top--half">' + result.path + '</div></a></li>')
+    })
+  } else {
+    $("#results").append('<li>No results found.</li>');
+  }
+}
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-42395806-3', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>A contact form using SendGrid | DADI Documentation</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="http://dadi.tech/assets/css/main.min.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css" />
+  <link rel="icon" type="image/png" href="http://dadi.tech/assets/img/favicon.png">
+</head>
+<body class="docs">
+  <header class="alignc pad__top--x2 small cf"><nav><a href="https://dadi.tech/en/" class="inline-block marg__bottom"><img src="https://dadi.tech/assets/img/dadi-light.svg" width="150" height="35" alt="DADI" class="logo"></a><ol><li><a href="https://dadi.tech/en/">Technology</a></li><li><a href="https://dadi.tech/en/on-demand" onclick="ga('send','event','On demand','Click','Docsheader');">On demand</a></li><li><a href="https://dadi.tech/en/support" onclick="ga('send','event','Support','Click','Docsheader');">Support</a></li></ol><ul><li><a href="https://github.com/dadi/" onclick="ga('send','event','Github','Click','Docsheader');">Find us on Github</a></li><li><a href="http://docs.dadi.tech" class="on bg--blue" onclick="ga('send','event','Documentation','Click','Docsheader');">Documentation</a></li></ul></nav><div class="top__bg pattern" style="background-color: #21262d;" data-colors="#21262d,#1d2128,#191d23,#16191e,#121519,#0e1014,#0b0c0f,#07080a,#030405,#000000"></div></header>
+    <div class="small">
+      <div class="list--breadcrumb titlecase">
+        <ul class="container">
+        <li><a href="/">Documentation</a></li>
+                <li class=""><a href="/web">Web</a></li>
+        </ul>
+      </div>
+
+      <div class="container">
+        <div class="larger hdr">A contact form using SendGrid</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+    <div class="container normal">
+      <div class="grid">
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
+            <div class="inline-block">
+              <div class="block fwb">314 words</div>
+              <div class="txt--grey">2 min read</div>
+            </div>
+          </div>
+
+          <div class="documentation">
+            <p>This is an example of an event which uses <a href="https://sendgrid.com/">SendGrid</a> to send a message from an HTML form.</p>
+<h2 id="-workspace-pages-contact-dust-"><code class="lang-gradle">workspace<span class="hljs-regexp">/pages/</span>contact.dust</code></h2>
+<pre><code class="lang-html">{?mailResult}<span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>{mailResult}<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>{/mailResult}
+
+<span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">action</span>=<span class="hljs-value">"/contact/"</span> <span class="hljs-attribute">method</span>=<span class="hljs-value">"post"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"hdr"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"name"</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">autofocus</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"name"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"name"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"Your full name"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"normal"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"hdr"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"email"</span>&gt;</span>Email<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"email"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"email"</span> <span class="hljs-attribute">required</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"Your email address"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"normal"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"email"</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"hdr"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"phone"</span>&gt;</span>Phone<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"phone"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"phone"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"Contact telephone number"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"normal"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"hdr"</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"message"</span>&gt;</span>Message<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">textarea</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"min-height:166px"</span> <span class="hljs-attribute">rows</span>=<span class="hljs-value">"5"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"message"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"message"</span> <span class="hljs-attribute">required</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"What do you want to talk about?"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"normal"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"email"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">textarea</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"submit"</span>&gt;</span>Send message<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+</code></pre>
+<h2 id="-workspace-events-contact-js-"><code class="lang-gradle">workspace<span class="hljs-regexp">/events/</span>contact.js</code></h2>
+<p>You need a Sendgrid.com API key for this script to work DADI Web should be started with an ENV variable for the SendGrid API key. The IP address of the box it is hosted on also needs to be whitelisted within SendGrid’s dashboard.</p>
+<p>Optionally you could hardcode your API key, but be careful not to commit the code to a publically acessible GitHub repo.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> sg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'sendgrid'</span>)(process.env[<span class="hljs-string">'SENDGRID_API'</span>])
+
+<span class="hljs-keyword">var</span> Event = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, data, callback</span>) </span>{
+
+  <span class="hljs-comment">// On form post</span>
+  <span class="hljs-keyword">switch</span> (req.method.toLowerCase()) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">'post'</span>:
+
+      <span class="hljs-comment">// Validate out inputs</span>
+      <span class="hljs-keyword">if</span> (req.body.email &amp;&amp; isEmail(req.body.email) &amp;&amp; req.body.message) {
+
+        <span class="hljs-keyword">var</span> message = <span class="hljs-string">"Name: "</span>+req.body.name+<span class="hljs-string">"\n\nEmail: "</span>+req.body.email+<span class="hljs-string">"\n\nPhone: "</span>+req.body.phone+<span class="hljs-string">"\n\nMessage:\n\n"</span>+req.body.message
+
+        <span class="hljs-keyword">var</span> request = sg.emptyRequest({
+          method: <span class="hljs-string">'POST'</span>,
+          path: <span class="hljs-string">'/v3/mail/send'</span>,
+          body: {
+            personalizations: [{
+              to: [{
+                email: <span class="hljs-string">'hello@dadi.tech'</span>,
+              }],
+              subject: <span class="hljs-string">'[dadi.tech] Contact form message'</span>,
+            }],
+            from: {
+              email: <span class="hljs-string">'hello@dadi.tech'</span>,
+            },
+            content: [{
+              type: <span class="hljs-string">'text/plain'</span>,
+              value: message,
+            }],
+          }
+        })
+
+        sg.API(request, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error, response</span>) </span>{
+          <span class="hljs-keyword">if</span> (error) {
+            data.mailResult = <span class="hljs-string">'There was a problem sending the email.'</span>
+          } <span class="hljs-keyword">else</span> {
+            data.mailResult = <span class="hljs-string">'Thank you for your message, you will hear back from us soon.'</span>
+          }
+
+          callback()
+        })
+
+      } <span class="hljs-keyword">else</span> {
+        data.mailResult = <span class="hljs-string">'All fields are required.'</span>
+        callback()
+      }
+
+    <span class="hljs-keyword">break</span>
+  <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">return</span> callback()
+  }
+
+}
+
+<span class="hljs-comment">// Taken from: http://stackoverflow.com/a/46181/306059</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isEmail</span>(<span class="hljs-params">email</span>) </span>{
+  <span class="hljs-keyword">var</span> re = <span class="hljs-regexp">/^(([^&lt;&gt;()[\]\\.,;:\s@\"]+(\.[^&lt;&gt;()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/</span>
+
+  <span class="hljs-keyword">return</span> re.test(email)
+}
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, data, callback</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Event(req, res, data, callback)
+};
+</code></pre>
+
+
+
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/web/examples/sendgrid.md">Edit in Github</a>.
+            </p>
+          </div>
+        </div>
+         <div class="col w-1-4">
+          <div class="pad__top--half stick" stick-spacer="false" stick-parent=".container">
+            <ul class="hide list--line small bg--light-grey" style="padding:5px 15px">
+                <li>
+                  <strong class="txt--grey block">Prev</strong>
+                  <a href="/web/concepts/sessions">Sessions</a>
+                </li>
+                <li>
+                  <strong class="txt--grey block">Next</strong>
+                  <a href="/web/getting-started/configuration">Configuration</a>
+                </li>
+            </ul>
+
+            <ul class="list--line pad__top--half">
+                <li><a class="" href="#-workspace-pages-contact-dust-">workspace/pages/contact.dust</a></li>
+                <li><a class="" href="#-workspace-events-contact-js-">workspace/events/contact.js</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+</main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/docs">View the repo for this site</a></li>
+      </ul>
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script src="http://dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://dadi.tech/assets/js/main.js?v=2"></script>
+<script src="/assets/lunr.js"></script>
+
+<script>
+var allPageData
+var idx
+
+var debounce = function (fn) {
+  var timeout
+  return function () {
+    var args = Array.prototype.slice.call(arguments),
+        ctx = this
+
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      fn.apply(ctx, args)
+    }, 100)
+  }
+}
+
+$(document).ready(function() {
+  $.getJSON('data.json', function (allData) {
+    allPageData = allData
+
+    $.getJSON('searchIndex.json', function (data) {
+      idx = lunr.Index.load(data)
+
+      $('input').bind('keyup', debounce(function () {
+        if ($(this).val()) {
+          $("#results").removeClass('hide')
+          if ($(this).val() < 2) return
+          var query = $(this).val()
+          var results = idx.search(query)
+
+          results = results.map(function (result) {
+            return allPageData.filter(function (page) { return page.path === result.ref })[0]
+          })
+
+          renderResults(results)
+        } else {
+          $("#results").addClass('hide')
+        }
+      }))
+    })
+  })
+})
+
+var renderResults = function (results) {
+  $("#results").empty()
+
+  if (results.length) {
+    console.log(results);
+
+    results.forEach(function(result) {
+      $("#results").append('<li><a href="' + result.path + '"><h2 class="txt--blue block medium hdr no-marg-i pad__bottom--half">' + result.title + '</h2><div class="no-marg small">' + $(result.excerpt).text() + '</div><div class="txt--grey small no-marg pad__top--half">' + result.path + '</div></a></li>')
+    })
+  } else {
+    $("#results").append('<li>No results found.</li>');
+  }
+}
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-42395806-3', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

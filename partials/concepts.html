@@ -1,0 +1,18 @@
+{{#each collections}}
+  {{#ifCond @key '==' ../currentPath }}
+    <div class="marg__top">
+      {{#each this}}
+        {{#ifCond title '!=' 'Concepts'}}
+          <div class="grid">
+            <div class="col w-1-2">
+              <h2 class="txt--blue block medium hdr pad__top--half pad__bottom--half"><a href="/{{path}}">{{{title}}}</a></h2>
+            </div>
+            <div class="col w-1-2 txt--grey">
+              {{{excerpt}}}
+            </div>
+          </div>
+        {{/ifCond}}
+      {{/each}}
+    </div>
+  {{/ifCond}}
+{{/each}}

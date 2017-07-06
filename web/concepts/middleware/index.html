@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Middleware | DADI Documentation</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="http://dadi.tech/assets/css/main.min.css?v=3">
+  <link rel="stylesheet" type="text/css" href="/type.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css" />
+  <link rel="icon" type="image/png" href="http://dadi.tech/assets/img/favicon.png">
+</head>
+<body class="docs">
+  <header class="alignc pad__top--x2 small cf"><nav><a href="https://dadi.tech/en/" class="inline-block marg__bottom"><img src="https://dadi.tech/assets/img/dadi-light.svg" width="150" height="35" alt="DADI" class="logo"></a><ol><li><a href="https://dadi.tech/en/">Technology</a></li><li><a href="https://dadi.tech/en/on-demand" onclick="ga('send','event','On demand','Click','Docsheader');">On demand</a></li><li><a href="https://dadi.tech/en/support" onclick="ga('send','event','Support','Click','Docsheader');">Support</a></li></ol><ul><li><a href="https://github.com/dadi/" onclick="ga('send','event','Github','Click','Docsheader');">Find us on Github</a></li><li><a href="http://docs.dadi.tech" class="on bg--blue" onclick="ga('send','event','Documentation','Click','Docsheader');">Documentation</a></li></ul></nav><div class="top__bg pattern" style="background-color: #21262d;" data-colors="#21262d,#1d2128,#191d23,#16191e,#121519,#0e1014,#0b0c0f,#07080a,#030405,#000000"></div></header>
+    <div class="small">
+      <div class="list--breadcrumb titlecase">
+        <ul class="container">
+        <li><a href="/">Documentation</a></li>
+                <li class=""><a href="/web">Web</a></li>
+                <li class="fwb"><a href="/web/concepts">Concepts</a></li>
+        </ul>
+      </div>
+
+      <div class="container">
+        <div class="larger hdr">Middleware</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+    <div class="container normal">
+      <div class="grid">
+        <div class="col w-3-4 pad__bottom--x2">
+          <div class="cf bdr__bottom bdr--bdr-grey pad__bottom small marg__top">
+            <div class="inline-block">
+              <div class="block fwb">889 words</div>
+              <div class="txt--grey">3 min read</div>
+            </div>
+          </div>
+
+          <div class="documentation">
+            <p>Middleware functions are functions that can be added to your Web application and executed in sequence for each request. Each function has access to the request object (<code>req</code>), the response object (<code class="lang-vim"><span class="hljs-keyword">res</span></code>), and the next middleware function in the stack (by convention, a variable named <code class="lang-autoit"><span class="hljs-keyword">next</span></code>).</p>
+<p>Middleware functions can:</p>
+<ul>
+<li>execute any code</li>
+<li>modify the request and response objects</li>
+<li>end the request-response cycle (by calling <code class="lang-stylus">res.<span class="hljs-function"><span class="hljs-title">end</span><span class="hljs-params">()</span></span></code>)</li>
+<li>call the next middleware function in the stack (by calling <code class="lang-stylus"><span class="hljs-function"><span class="hljs-title">next</span><span class="hljs-params">()</span></span></code>)</li>
+</ul>
+<blockquote>
+<p>Note: if the currently executing middleware function does not end the request-response cycle, it <em>must</em> call <code class="lang-stylus"><span class="hljs-function"><span class="hljs-title">next</span><span class="hljs-params">()</span></span></code> to pass control to the next middleware function. Failure to do so will cause the request to hang.</p>
+</blockquote>
+<p>Middleware functions are stored as JavaScript files in your application’s <code>middleware</code> folder. The location of this folder is <a href="/web/getting-started/configuration/">configurable</a>, but defaults to <code class="lang-mel"><span class="hljs-keyword">workspace</span>/middleware</code>.</p>
+<pre><code class="lang-bash">your-project/
+  config/
+  workspace/
+    datasources/      <span class="hljs-comment"># datasource specifications</span>
+    events/           <span class="hljs-comment"># event files</span>
+    middleware/       <span class="hljs-comment"># middleware files</span>
+      log.js          <span class="hljs-comment"># middleware file</span>
+    pages/            <span class="hljs-comment"># page specifications</span>
+</code></pre>
+<p>A DADI Web application can use the following types of middleware:</p>
+<ul>
+<li>Application-level middleware</li>
+<li>Error-handling middleware</li>
+<li>Built-in middleware</li>
+<li>Third-party middleware</li>
+</ul>
+<h2 id="application-level-middleware">Application-level middleware</h2>
+<p>A single middleware file may contain multiple functions, or they can be split across multiple files.</p>
+<p>You bind application-level middleware functions to the instance of the <code class="lang-stata"><span class="hljs-keyword">app</span></code> object by using the <code class="lang-stylus">app.<span class="hljs-function"><span class="hljs-title">use</span><span class="hljs-params">()</span></span></code> function, optionally specifying a route that determines the requests it applies to. A middleware function with no route will be executed on every request.</p>
+<h3 id="route-less-middleware-functions">Route-less middleware functions</h3>
+<p>The following example shows a middleware function with no route. The function is executed every time the application receives a request:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Middleware = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{
+  <span class="hljs-comment">// output the time for each request</span>
+  app.use((req, res, next) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Request received at:'</span>, <span class="hljs-built_in">Date</span>.now())
+    next()
+  })
+}
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Middleware(app)
+}
+
+<span class="hljs-built_in">module</span>.exports.Middleware = Middleware
+</code></pre>
+<h3 id="route-specific-middleware-functions">Route-specific middleware functions</h3>
+<p>The following example shows a middleware function mounted at the <code>/users</code> route. The function is only executed for requests to the <code>/users</code> route.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Middleware = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{
+  <span class="hljs-comment">// output the time for each request</span>
+  app.use(<span class="hljs-string">'/users'</span>, (req, res, next) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Request received at:'</span>, <span class="hljs-built_in">Date</span>.now())
+    next()
+  })
+}
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Middleware(app)
+}
+
+<span class="hljs-built_in">module</span>.exports.Middleware = Middleware
+</code></pre>
+<h3 id="http-method-restriction">HTTP method restriction</h3>
+<p>To restrict a middleware function to only certain HTTP methods, you can test the current request’s method and call <code class="lang-stylus"><span class="hljs-function"><span class="hljs-title">next</span><span class="hljs-params">()</span></span></code> if it doesn’t match:</p>
+<pre><code class="lang-javascript">app.use(<span class="hljs-string">'/users'</span>, (req, res, next) =&gt; {
+  <span class="hljs-keyword">if</span> (req.method !== <span class="hljs-string">'GET'</span>) {
+    <span class="hljs-keyword">return</span> next()
+  }
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'GET request received at:'</span>, <span class="hljs-built_in">Date</span>.now())
+  next()
+})
+</code></pre>
+<h2 id="error-handling-middleware">Error-handling middleware</h2>
+<p>Error-handling middleware functions must accept four arguments. Without the additional argument the function will be interpreted as regular middleware and won’t handle errors.</p>
+<p>Define error-handling middleware functions in the same way as other middleware functions, except with four arguments instead of three:</p>
+<pre><code class="lang-javascript">app.use((err, req, res, next) =&gt; {
+  <span class="hljs-built_in">console</span>.error(err.stack)
+  res.end(<span class="hljs-number">500</span>, <span class="hljs-string">'Server error!'</span>)
+})
+</code></pre>
+<h2 id="built-in-middleware">Built-in middleware</h2>
+<p>DADI Web already includes some built-in middleware functions, which, in some cases, can be turned on or off using the main configuration file. See details in the <a href="/web/getting-started/configuration/">configuration section</a>.</p>
+<h3 id="built-in-middleware">Built-in middleware</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Body parser</td>
+<td style="text-align:left">parses the body of an incoming request and makes the data available as the property <code class="lang-css"><span class="hljs-tag">req</span><span class="hljs-class">.body</span></code></td>
+</tr>
+<tr>
+<td>Caching</td>
+<td style="text-align:left">determines if the current request can be handled by a previously cached response</td>
+</tr>
+<tr>
+<td>GZip Compression</td>
+<td style="text-align:left">compresses the response before sending</td>
+</tr>
+<tr>
+<td>Request logging</td>
+<td style="text-align:left">logs every request to a file</td>
+</tr>
+<tr>
+<td>Sessions</td>
+<td style="text-align:left">handles sessions</td>
+</tr>
+<tr>
+<td>Static files</td>
+<td style="text-align:left">serves static assets from the public folder, such as JavaScript, CSS, HTML files, images, etc</td>
+</tr>
+<tr>
+<td>Virtual directories</td>
+<td style="text-align:left">serves content from configured directories not handled by the existing page/route specifications</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: the body parser middleware can handle JSON, raw, plain text and URL-encoded request bodies. It does not handle multipart bodies due to their complex and typically large nature. For multipart bodies, try one of the following modules: <a href="https://www.npmjs.org/package/busboy">busboy</a>, <a href="https://www.npmjs.org/package/multiparty">multiparty</a>, <a href="https://www.npmjs.org/package/formidable">formidable</a> or <a href="https://www.npmjs.org/package/multer">multer</a></p>
+</blockquote>
+<h2 id="third-party-middleware">Third-party middleware</h2>
+<p>You can add third-party middleware to your DADI Web application to add new functionality that DADI Web doesn’t include.</p>
+<p>Simply install the Node.js module for the required functionality and load it in an application-level middleware function.</p>
+<p>The following example shows how to use the module <a href="https://www.npmjs.com/package/online">online</a> to track online user activity using Redis:</p>
+<pre><code class="lang-bash">$ npm install online --save
+</code></pre>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> Online = <span class="hljs-built_in">require</span>(<span class="hljs-string">'online'</span>)
+<span class="hljs-keyword">var</span> redis = <span class="hljs-built_in">require</span>(<span class="hljs-string">'redis'</span>)
+<span class="hljs-keyword">var</span> redisClient = redis.createClient()
+
+<span class="hljs-comment">// use the redis client</span>
+<span class="hljs-keyword">var</span> online = Online(redisClient)
+
+<span class="hljs-keyword">var</span> Middleware = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{
+  <span class="hljs-comment">// executes for every request</span>
+  app.use((req, res, next) =&gt; {
+    <span class="hljs-comment">// add a call to track current user's activity,</span>
+    <span class="hljs-comment">// assuming a `user` object</span>
+    online.add(user.id, (err) =&gt; {
+      <span class="hljs-keyword">if</span> (err) {
+        <span class="hljs-keyword">return</span> next(err) <span class="hljs-comment">// call an error-handling middleware function</span>
+      }
+
+      next() <span class="hljs-comment">// calls the next middleware function (defined below)</span>
+    })
+  })
+
+  <span class="hljs-comment">// executes for every request</span>
+  app.use((req, res, next) =&gt; {
+    <span class="hljs-comment">// get users active in the last 10 minutes</span>
+    online.last(<span class="hljs-number">10</span>, (err, ids) =&gt; {
+      <span class="hljs-keyword">if</span> (err) {
+        <span class="hljs-keyword">return</span> next(err) <span class="hljs-comment">// call an error-handling middleware function</span>
+      }
+
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Users online:'</span>, ids)
+
+      <span class="hljs-comment">// call next middleware function</span>
+      next()
+    })
+  })
+}
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Middleware(app)
+}
+
+<span class="hljs-built_in">module</span>.exports.Middleware = Middleware
+</code></pre>
+<h2 id="middleware-template">Middleware template</h2>
+<pre><code class="lang-javascript"><span class="hljs-comment">/**
+ * workspace/middleware/example.js
+ */</span>
+<span class="hljs-keyword">var</span> Middleware = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{
+  <span class="hljs-comment">// execute for every request</span>
+  app.use((req, res, next) =&gt; {
+    <span class="hljs-built_in">console</span>.log(req.url)
+    <span class="hljs-built_in">console</span>.log(req.params)
+    next()
+  })
+
+  <span class="hljs-comment">// route-mounted, execute for requests to /channel</span>
+  app.use(<span class="hljs-string">'/channel'</span>, (req, res, next) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Channel params:'</span>, <span class="hljs-built_in">JSON</span>.stringify(req.params))
+    next()
+  })
+
+  <span class="hljs-comment">// error handler</span>
+  app.use((err, req, res, next) =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error:'</span>, err)
+    next()
+  })
+}
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Middleware(app)
+}
+
+<span class="hljs-built_in">module</span>.exports.Middleware = Middleware
+</code></pre>
+
+
+
+            <p class="cf bdr__top bdr--bdr-grey pad__top pad__bottom small marg__top--x2">
+              See something to improve? <a target="_blank" href="http://github.com/dadi/docs/edit/master/_src/web/concepts/middleware.md">Edit in Github</a>.
+            </p>
+          </div>
+        </div>
+         <div class="col w-1-4">
+          <div class="pad__top--half stick" stick-spacer="false" stick-parent=".container">
+            <ul class="hide list--line small bg--light-grey" style="padding:5px 15px">
+                <li>
+                  <strong class="txt--grey block">Prev</strong>
+                  <a href="/web/concepts/datasources">Datasources</a>
+                </li>
+                <li>
+                  <strong class="txt--grey block">Next</strong>
+                  <a href="/web/concepts/events">Events</a>
+                </li>
+            </ul>
+
+            <ul class="list--line pad__top--half">
+                <li><a class="" href="#application-level-middleware">Application-level middleware</a></li>
+                <li><a class="" href="#error-handling-middleware">Error-handling middleware</a></li>
+                <li><a class="" href="#built-in-middleware">Built-in middleware</a></li>
+                <li><a class="" href="#third-party-middleware">Third-party middleware</a></li>
+                <li><a class="" href="#middleware-template">Middleware template</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+</main>
+
+<div class="footer bg--light-grey bdr__top bdr--bdr-grey pad__top--x2 pad__bottom--x2">
+  <footer class="small container">
+    <div class="bdr__bottom bdr--bdr-grey marg__bottom--x2 pad__bottom">
+      <div class="grid feed">
+        <div class="col w-1-2">
+        <p class="normal"><strong>The Feed</strong> provides the latest news and releases from DADI along with a collection of the best industry news, resources and inspiration from around the web, curated by us.</p>
+        </div>
+        <div class="col w-1-2 normal pad__top">
+          <form action="http://dadi.createsend.com/t/d/s/irhyjh/" method="post">
+            <p class="no-marg-i pad--half txt--grey">Get <strong>The Feed</strong> in your inbox</p>
+            <input type="text" name="cm-irhyjh-irhyjh" class="email text" placeholder="Your email address"><button class="btn btn--blue" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col w-1-3 pad__bottom">
+        <ul class="list--line normal txt--blue">
+          <li><a href="https://dadi.tech/contact/">Contact us</a></li>
+          <li><a href="https://dadi.tech/success-stories/">Success stories</a></li>
+          <li><a href="https://dadi.tech/latest/">Latest</a></li>
+          <li><a href="https://dadi.tech/on-demand/">On demand</a></li>
+          <li><a href="https://dadi.tech/about/">Working with DADI</a>
+          <li><a href="https://dadi.tech/privacy/">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/platform/">Platform</a></p>
+        <ul class="list--line">
+          <li>
+            <a href="https://dadi.tech/platform/api/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-api.png" class="alignv float--right" width="15">
+            API
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/web/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-web.png" class="alignv float--right" width="19">
+            Web
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/publish/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-publish.png" class="alignv float--right" width="15">
+            Publish
+            </a>
+          </li>
+          <li>
+            <a href="https://dadi.tech/platform/cdn/" class="fwb">
+            <img src="https://dadi.tech/assets/products/dadi-cdn.png" class="alignv float--right" width="15">
+            CDN
+            </a>
+          </li>
+          <li><a href="https://dadi.tech/platform/concepts/">Concepts</a></li>
+          <li><a href="https://dadi.tech/platform/security/">Security</a></li>
+          <li><a href="https://dadi.tech/platform/roadmap/">Roadmap</a></li>
+          <li>
+            <a href="http://docs.dadi.tech" target="_blank">
+            <img src="https://dadi.tech/assets/icons/pop-out.svg" class="alignv float--right" width="15">
+            Documentation
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col w-1-3 pad__bottom">
+        <p class="normal hdr"><a href="https://dadi.tech/solutions/">Solutions</a></p>
+        <ul class="list--line">
+          <li><a href="https://dadi.tech/solutions/data-strategy/">Data strategy</a></li>
+          <li><a href="https://dadi.tech/solutions/publishing/">Publishing</a></li>
+          <li><a href="https://dadi.tech/solutions/product-development/">Product development</a></li>
+          <li><a href="https://dadi.tech/solutions/crm/">CRM</a></li>
+          <li><a href="https://dadi.tech/solutions/analytics/">Analytics</a></li>
+          <li><a href="https://dadi.tech/solutions/content-personalisation/">Content personalisation</a></li>
+          <li><a href="https://dadi.tech/solutions/commerce/">Commerce</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="marg__top--x2 pad__top pad__bottom alignc">
+      <ul class="list--inline block marg__bottom--x2">
+        <li class="fwb">© DADI+ Ltd.</li>
+        <li><a href="https://twitter.com/dadi">Follow us on Twitter</a></li>
+        <li><a href="https://github.com/dadi">Find us on Github</a></li>
+        <li><a href="https://github.com/dadi/docs">View the repo for this site</a></li>
+      </ul>
+      <img src="https://dadi.tech/assets/img/d.svg" class="marg__right--x2 alignv" width="45">
+    </div>
+  </footer>
+</div>
+
+<script src="http://dadi.tech/assets/js/pattern.min.js"></script>
+<script src="http://dadi.tech/assets/js/main.js?v=2"></script>
+<script src="/assets/lunr.js"></script>
+
+<script>
+var allPageData
+var idx
+
+var debounce = function (fn) {
+  var timeout
+  return function () {
+    var args = Array.prototype.slice.call(arguments),
+        ctx = this
+
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      fn.apply(ctx, args)
+    }, 100)
+  }
+}
+
+$(document).ready(function() {
+  $.getJSON('data.json', function (allData) {
+    allPageData = allData
+
+    $.getJSON('searchIndex.json', function (data) {
+      idx = lunr.Index.load(data)
+
+      $('input').bind('keyup', debounce(function () {
+        if ($(this).val()) {
+          $("#results").removeClass('hide')
+          if ($(this).val() < 2) return
+          var query = $(this).val()
+          var results = idx.search(query)
+
+          results = results.map(function (result) {
+            return allPageData.filter(function (page) { return page.path === result.ref })[0]
+          })
+
+          renderResults(results)
+        } else {
+          $("#results").addClass('hide')
+        }
+      }))
+    })
+  })
+})
+
+var renderResults = function (results) {
+  $("#results").empty()
+
+  if (results.length) {
+    console.log(results);
+
+    results.forEach(function(result) {
+      $("#results").append('<li><a href="' + result.path + '"><h2 class="txt--blue block medium hdr no-marg-i pad__bottom--half">' + result.title + '</h2><div class="no-marg small">' + $(result.excerpt).text() + '</div><div class="txt--grey small no-marg pad__top--half">' + result.path + '</div></a></li>')
+    })
+  } else {
+    $("#results").append('<li>No results found.</li>');
+  }
+}
+
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-42395806-3', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>
