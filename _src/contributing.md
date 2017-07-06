@@ -2,6 +2,8 @@
 
 We'd love for you to contribute to our source code and to make DADI products even better.
 
+Here are the guidelines we'd like you to follow:
+
  - [Question or Problem?](#question)
  - [Issues and Bugs](#issue)
  - [Feature Requests](#feature)
