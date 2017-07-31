@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{+metaTitle}{global.site}{/metaTitle}</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="copyright" content="{@formatDate unix=global.timestamp format="YYYY" /}">
+    <meta name="description" content="{global.description}">
+
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/atom-one-light.min.css">
+    <link rel="icon" type="image/png" href="/logo.png">
+  </head>
+  <body>

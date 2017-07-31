@@ -1,0 +1,13 @@
+{
+  "datasource": {
+    "key": "docs",
+    "source": {
+      "type": "markdown",
+      "path": "./docs"
+    },
+    "count": 9999,
+    "sort": {
+      "title": "asc"
+    }
+  }
+}

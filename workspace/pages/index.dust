@@ -1,0 +1,65 @@
+{>"partials/header" /}
+
+<nav>
+  <ul>
+    <li><a href="#">Introduction</a></li>
+  </ul>
+  <ul>
+    {#navigation}
+      <li><a href="#app-{id}">{name}</a>
+        {@markdown}{map}{/markdown}
+      </li>
+    {/navigation}
+  </ul>
+</nav>
+
+<main>
+
+<header>
+  <a href="/">
+    <img src="https://dadi.tech/assets/img/dadi-colour.svg" width="150" height="35" alt="DADI" class="logo">
+  </a>
+
+  <div class="search">
+    <input type="search" placeholder="Search the documentation…">
+  </div>
+</header>
+
+<div class="intro">
+  <h2>Documentation</h2>
+
+  <p class="medium">DADI is a modern microservices framework, built specifically in support of the principles of API first and COPE.</p>
+
+  <p class="small"><a href="#" class="btn">More about DADI</a> <a href="#" class="btn">Chat with our devs</a></p>
+
+  <div class="intro__feat">
+    <div>
+      <img src="https://dadi.tech/assets/icons/database.svg">
+      <h3>API-first and COPE</h3>
+      <p>Connects your content to everything: drive multiple products from a single editorial workflow.</p>
+    </div>
+
+    <div>
+      <img src="https://dadi.tech/assets/icons/secure.svg">
+      <h3>Open source</h3>
+      <p>Dive in and use straight away: enterprise muscle without the fat – or the greedy licence fees.</p>
+    </div>
+
+    <div>
+      <img src="https://dadi.tech/assets/icons/colors.svg">
+      <h3>Microservices technology</h3>
+      <p>A platform built as small, independent processes enabling flexibility and high performance.</p>
+    </div>
+  </div>
+</div>
+
+{#docs.results}
+  <div class="docs docs--{attributes._id}">
+    <h1 id="app-{attributes._id}">{attributes.title}</h1>
+    {@markdown}{contentText|s}{/markdown}
+  </div>
+{/docs.results}
+
+</main>
+
+{>"partials/footer" /}

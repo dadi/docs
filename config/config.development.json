@@ -1,0 +1,28 @@
+{
+  "global": {
+    "site": "Your site name",
+    "description": "An exciting beginning."
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 3001
+  },
+  "cluster": false,
+  "paths": {
+    "workspace": "workspace",
+    "datasources": "workspace/datasources",
+    "pages": "workspace/pages",
+    "events": "workspace/events",
+    "middleware": "workspace/middleware",
+    "media": "workspace/media",
+    "public": "workspace/public",
+    "routes": "workspace/routes"
+  },
+  "engines": {
+    "dust": {
+      "whitespace": true
+    }
+  },
+  "allowJsonView": true,
+  "debug": true
+}
