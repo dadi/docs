@@ -9,7 +9,7 @@ var Event = function (req, res, data, callback) {
 
     // Add the app id to the links e.g., #api/...
     var map = toc(doc.contentText, options).content
-    map = map.replace(/]\(\#/gmi, '](#' + doc.attributes._id + '/');
+    map = map.replace(/]\(\#/gmi, '](#' + doc.attributes._id + '\/');
 
     data.navigation.push({
       name: doc.attributes.title,
