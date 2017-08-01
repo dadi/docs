@@ -121,7 +121,7 @@ app.start(function() {
 
 ### CouchDB
 
-### JSON File
+### JSON File
 
 ### Building a connector
 
