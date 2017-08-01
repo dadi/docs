@@ -6,8 +6,8 @@ title: API
 
 ### Requirements
 
-* **[MongoDB](https://docs.mongodb.com/v3.0/)** (supported versions: 2.6 - 3.0)
-* **[Node.js](https://www.nodejs.org/)** (supported versions: 4.7.0, 5.12.0, 6.x.x)
+* **[MongoDB](https://docs.mongodb.com/v3.0/)** (supported versions: 2.6 - 3.2)
+* **[Node.js](https://www.nodejs.org/)** (supported versions: 4.8.4, 5.12.0, 6.11.x)
 
 ### DADI CLI
 
@@ -162,6 +162,77 @@ req.end()
 ## Defining collections
 
 ### Collection schema
+
+Collections are the storage containers for your data within API. DADI API handles creation and modification of database collections within the database. All that is required in order to create a new database collection and it's associated collection endpoint is a collection specification file.
+
+Collection specifications are simply JSON files stored in your application's `/workspace/collections` folder.
+
+##### API Version
+
+Specific versions of your API are represented by "version" folders within the collections folder.
+[MORE]
+
+##### Database
+
+Collection documents may be stored in separate databases, represented by the name of the folder within the "version" folder.
+
+> **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](../../setup/configuration#collection-specific-databases) for more information.
+
+
+##### Collection
+
+Collection specifications exist as JSON files containing any number of field specifications and a configuration block. The naming convention for the collection specifications is `collection.<collection name>.json` where `<collection name>` is used as the name of the collection in MongoDB.
+
+#### Use the Plural Form
+
+We recommend you use the plural form for all collection endpoints to keep consistency across your API. Using the singular form means a GET request for a list of results can easily be confused with a request for a single entity.
+
+For example, a collection named `book (collection.book.json)` will accept GET requests at the following endpoints:
+
+```
+http://api.example.com/1.0/library/book
+http://api.example.com/1.0/library/book/560a44b33a4d7de29f168ce4
+```
+
+Is the first one going to return all books, as intended? It's not obvious. Instead, using the plural form makes it clear what the endpoint's intended behaviour is:
+
+```
+http://api.example.com/1.0/library/books
+http://api.example.com/1.0/library/books/560a44b33a4d7de29f168ce4
+```
+
+
+##### Collection Endpoint
+
+With the above folder and file hierarchy a collection's endpoint within the API uses the following format:
+
+
+`http://api.example.com/{version}/{database}/{collection name}`
+
+In actual use this might look like the following:
+
+`http://api.example.com/1.0/library/books`
+
+##### The JSON File
+
+Collection specification files take the following format:
+
+```json
+{
+  "fields": {
+    "field1": {
+
+    },
+    "field2": {
+
+    }
+  },
+  "settings": {
+
+  }
+}
+```
+
 
 ### Fields
 
