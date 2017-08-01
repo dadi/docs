@@ -56,7 +56,7 @@
 <div class="intro">
   <h2>Documentation</h2>
 
-  <p class="medium">DADI is a modern microservices framework, built specifically in support of the principles of API first and COPE.</p>
+  <p class="medium">DADI is an enterprise-grade, deployment-ready web services stack, built around a microservices architecture.</p>
 
   <p class="small"><a href="https://dadi.tech/" rel="external" class="btn">More about DADI</a> <a href="http://dadi-chat.herokuapp.com/" rel="external" class="btn">Chat with our devs</a></p>
 
