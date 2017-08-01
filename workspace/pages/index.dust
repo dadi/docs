@@ -30,6 +30,11 @@
       </li>
     {/navigation}
   </ul>
+
+  <footer> 
+    Built using <a href="https://dadi.tech/platform/web">DADI Web {version}</a><br> 
+    Edit on <a href="https://github.com/dadi/docs/" rel="external">Github
+  </footer>
 </nav>
 
 <main>
@@ -84,12 +89,6 @@
 {/docs.results}
 
 </main>
-
-<footer>
-  
-  Built using <a href="https://dadi.tech/platform/web">DADI Web {version}</a><br> 
-  Edit on <a href="https://github.com/dadi/docs/" rel="external">Github
-</footer>
 
 </body>
 </html>

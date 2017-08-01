@@ -52,7 +52,7 @@
 
           //window.location.hash = i;
 
-          if ((current.offsetTop < nav.scrollTop) || (current.offsetTop > nav.scrollTop)) nav.scrollTop = current.offsetTop - 50;
+          if ((current.offsetTop <= nav.scrollTop) || (current.offsetTop >= nav.scrollTop)) nav.scrollTop = current.offsetTop - 50;
           current.setAttribute('class', 'active');
           setExpanded(current, 'expanded');
         }
