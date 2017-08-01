@@ -195,7 +195,7 @@ a {
 }
 
 h1 {
-	margin-bottom: 5px;
+	margin: 0;
 	font-size: 22px;
 	color: #000;
 }
@@ -312,27 +312,30 @@ nav > ul > li > ul > li > ul {
 	max-height: 0;
 	opacity: 0;
 	transition: 0.3s opacity, 0.3s max-height;
+	user-select: none;
+	overflow: hidden;
 }
 nav > ul > li.expanded > ul,
 nav > ul > li > ul > li.expanded > ul  {
 	max-height: 999px;
 	opacity: 1;
+	user-select: auto;
 }
 nav .active {
-	color: #2c85e5 !important;
+	color: #2c85e5;
 }
 
 
 
 
 nav a:hover {
-	color: #2c85e5;
+	text-decoration: underline;
 }
 nav ul ul {
 	padding-left: 13px !important;
 }
 nav > ul > li > ul > li {
-	padding: 5px 0 0 0;
+	padding: 8px 0 0 0;
 }
 nav > ul > li > a,
 nav > ul > li > p > a {
@@ -343,6 +346,8 @@ nav > ul > li > ul > li > a {
 	color: #6E6E6E;
 	text-transform: uppercase;
 	font-size: 14px;
+	display: block;
+	line-height: 18px;
 }
 
 
@@ -414,11 +419,14 @@ pre code {
 		padding-right: 5%
 	}
 }
+
+.docs {
+	border-top: 1px solid #e3e3e3;
+	padding-top: 40px;
+	margin-top: 80px;
+}
 .docs h1 {
 	color: #8F8F8F;
-}
-.docs--api h2 {
-	color: #0ba6dd;
 }
 
 .docs ol, .docs ul {
@@ -465,3 +473,20 @@ pre code {
 	box-shadow: 5px 5px 10px #ddd;
 	border: 3px solid #fff;
 }
+
+
+/*
+	App colours
+*/
+
+.docs--api h2,
+#nav--api .active { color: #0ba6dd;}
+
+.docs--cdn h2,
+#nav--cdn .active { color: #e02975;}
+
+.docs--publish h2,
+#nav--publish .active { color: #ffbf0d;}
+
+.docs--web h2,
+#nav--web .active { color: #e42918;}

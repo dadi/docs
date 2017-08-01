@@ -41,7 +41,7 @@
     var nav = document.querySelector('nav');
 
     for (i in sections) {
-      if (sections[i] <= (scrollPosition + 100 )) {
+      if (sections[i] <= (scrollPosition + 50 )) {
         var previous = document.querySelector('nav .active');
         var current = document.querySelector('nav a[href="#' + i + '"]');
         
