@@ -29,6 +29,7 @@ main {
 h1,h2,h3,h4,h5,h6 {
 	font-family: Gilroy, Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	font-weight: normal;
+	word-wrap: break-word;
 }
 
 a {
@@ -60,6 +61,7 @@ h4 {
 }
 p {
 	margin-bottom: 1em;
+	word-wrap: break-word;
 }
 
 .larger { font-size: 32px; line-height: 38px; }
@@ -145,6 +147,10 @@ header ul li a:hover {
 header ul li a.on {
 	background: #e5462c;
 	color: #fff;
+}
+
+@media handheld, only screen and (max-width: 650px) {
+	header ul li a.on { display: none }
 }
 
 /*
@@ -281,6 +287,7 @@ nav > ul > li > ul > li > a {
 	min-height: 80vh;
 	background: url(illo.png) no-repeat 100% 100%;
 	background-size: 250px auto;
+	padding-right: 20px;
 }
 .intro h2 {
 	color: #e5462c;
@@ -302,7 +309,7 @@ nav > ul > li > ul > li > a {
 	left: 0; top: -3px;
 }
 .intro__feat p {
-	color: #9C9C9C;
+	color: #999;
 }
 
 /*

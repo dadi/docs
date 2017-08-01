@@ -60,7 +60,7 @@
 
   <p class="small"><a href="https://dadi.tech/" rel="external" class="btn">More about DADI</a> <a href="http://dadi-chat.herokuapp.com/" rel="external" class="btn">Chat with our devs</a></p>
 
-  <div class="intro__feat">
+  <div class="intro__feat normal">
     <div>
       <img src="https://dadi.tech/assets/icons/database.svg">
       <h3>API-first and COPE</h3>
