@@ -4,21 +4,12 @@
 
 ## Install
 
-`$ npm install -g metalsmith`
-
-## Setup
-
 `$ npm install`
+
+## Start
+
+`$ npm start`
 
 ## Edit
 
-All markdown source files are in `/_src/`
-
-## Rebuild Documentation
-
-`$ make build`
-
-## Open in browser
-
-`$ open build/index.html`
-
+All markdown source files are in `/docs/`
