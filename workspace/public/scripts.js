@@ -7,6 +7,8 @@
   document.addEventListener('DOMContentLoaded', function(event) { 
     var section = document.querySelectorAll('.anchor');
     
+    sections['introduction'] = 0;
+
     [].forEach.call(section, function(e) {
       sections[e.id] = e.offsetTop;
     });
@@ -54,7 +56,7 @@
     var nav = document.querySelector('nav');
 
     for (i in sections) {
-      if (sections[i] <= (scrollPosition + 30)) {
+      if (sections[i] <= (scrollPosition + 80)) {
         var previous = document.querySelector('nav .active');
         var current = document.querySelector('nav a[href="#' + i + '"]');
         

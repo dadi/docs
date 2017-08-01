@@ -54,7 +54,7 @@
 </header>
 
 <div class="intro">
-  <h2><a id="introduction" class="anchor" href="#introduction">Link here</a>Documentation</h2>
+  <h2>Documentation</h2>
 
   <p class="medium">DADI is a modern microservices framework, built specifically in support of the principles of API first and COPE.</p>
 
