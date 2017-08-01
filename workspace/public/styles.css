@@ -418,12 +418,28 @@ pre code {
 	background: url(https://dadi.tech/assets/products/dadi-api.png) no-repeat 90% 20px;
 	background-size: auto 22px;
 }
+.docs--api ::selection {
+	background: #0ba6dd;
+	color: #fff;
+}
+.docs--api ::-moz-selection {
+	background: #0ba6dd;
+	color: #fff;
+}
 
 .docs--cdn h2,
 #nav--cdn .active { color: #e02975;}
 #nav--cdn {
 	background: url(https://dadi.tech/assets/products/dadi-cdn.png) no-repeat 90% 22px;
 	background-size: auto 22px;
+} 
+.docs--cdn ::selection { 
+	background: #e02975;
+	color: #fff;
+}
+.docs--cdn ::-moz-selection {
+	background: #e02975;
+	color: #fff;
 }
 
 .docs--publish h2,
@@ -432,10 +448,26 @@ pre code {
 	background: url(https://dadi.tech/assets/products/dadi-publish.png) no-repeat 90% 22px;
 	background-size: auto 22px;
 }
+.docs--publish ::selection {
+	background: #ffbf0d;
+	color: #000;
+}
+.docs--publish ::-moz-selection {
+	background: #ffbf0d;
+	color: #000;
+}
 
 .docs--web h2,
 #nav--web .active { color: #e42918;}
 #nav--web {
 	background: url(https://dadi.tech/assets/products/dadi-web.png) no-repeat 90% 22px;
 	background-size: auto 22px;
+}
+.docs--web ::selection {
+	background: #e42918;
+	color: #fff;
+}
+.docs--web ::-moz-selection {
+	background: #e42918;
+	color: #fff;
 }
