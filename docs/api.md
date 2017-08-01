@@ -55,7 +55,7 @@ app.start(function() {
 
 ## Managing users
 
-## Authentication, authorisation & permissions
+## Authentication, authorisation and permissions
 
 ### Adding client accounts
 
