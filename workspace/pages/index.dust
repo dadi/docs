@@ -20,7 +20,7 @@
 
 <nav>
   <ul>
-    <li><a class="active" href="#introduction">Introduction</a></li>
+    <li class="expanded"><a class="active" href="#introduction">Introduction</a></li>
   </ul>
   <ul>
     {#navigation}
@@ -39,9 +39,13 @@
     <img src="https://dadi.tech/assets/img/dadi-colour.svg" width="150" height="35" alt="DADI" class="logo">
   </a>
 
-  <div class="search">
+  <ul class="small">
+    <li><a href="https://github.com/dadi/">Find us on Github</a></li><li><a href="http://docs.dadi.tech" class="on">Documentation</a></li>
+  </ul>
+
+  {! <div class="search">
     <input type="search" placeholder="Search the documentation…">
-  </div>
+  </div> !}
 </header>
 
 <div class="intro">
@@ -81,10 +85,11 @@
 
 </main>
 
-{! <footer>
-  &#x26A1; Powered by <a href="https://dadi.tech/platform/web">DADI Web {version}</a><br>© {@formatDate unix=global.timestamp format="YYYY" /}
-</footer> !}
-
+<footer>
+  
+  Built using <a href="https://dadi.tech/platform/web">DADI Web {version}</a><br> 
+  Edit on <a href="https://github.com/dadi/docs/" rel="external">Github
+</footer>
 
 </body>
 </html>
