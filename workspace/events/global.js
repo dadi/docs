@@ -7,7 +7,11 @@ var Event = function (req, res, data, callback) {
   // Sitemap
   data.navigation = []
   data.docs.results.forEach((doc, index) => {
-    data.navigation.push({"name": doc.attributes.title, "id": doc.attributes._id, "map": toc(doc.contentText, {maxdepth: 3}).content})
+    data.navigation.push({
+      name: doc.attributes.title,
+      id: doc.attributes._id,
+      map: toc(doc.contentText, {maxdepth: 6}).content
+    })
   })
 
   callback()

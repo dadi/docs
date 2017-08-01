@@ -7,7 +7,11 @@
     },
     "count": 9999,
     "sort": {
-      "title": "asc"
-    }
+      "title": 1
+    },
+    "fields": [
+      "attributes",
+      "contentText"
+    ]
   }
 }

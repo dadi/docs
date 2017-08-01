@@ -17,7 +17,7 @@ __Coming soon__
 
 All DADI platform microservices are available from [NPM](https://www.npmjs.com/). To add *API* to your project as a dependency:
 
-```bash
+```console
 $ cd my-app
 $ npm install --save @dadi/api
 ```
@@ -37,97 +37,95 @@ app.start(function() {
 })
 ```
 
-### Configuration
+## Creating an API application
 
-API starts with some sensible defaults, so it's not necessary to understand all the configuration options available when first running the application. Full configuration documentation can be found at http://docs.dadi.tech/api/getting-started/configuration/.
+## Application Anatomy
 
-Configuration is handled using JSON files specific to the application environment. For example in the production environment a file named `config.production.json` will be used. Configuration files must be placed in a `config` folder in your application root, for example `config/config.production.json`. The default start up environment is `development`, using the configuration file at `config/config.development.json`.
+## Command line tools
 
-The bare minimum required for running the API is a `server` block. With only a `server` block, default values are used for all other properties.
+## Getting started
 
-**Sample configuration**
+### First use
 
-```json
-{
-  "server": {
-    "host": "127.0.0.1",
-    "port": 3000
-  }
-}
-```
+### Connecting to API
 
-### Start the server
+### Data connectors
 
-API can be started from the command line simply by issuing the following command:
+### Auto generate documentation
 
-```bash
-$ node index.js
-```
+## Managing users
 
-#### Test the connection
+## Authentication, authorisation & permissions
 
-With the default configuration, our API server is available at http://localhost:3000. If you've modified the configuration file's `server` block, your API will be available at the address and port you've chosen. Use cURL to check the server is running, if the connection can be made you will receive the following "Unauthorised" message.
+### Adding client accounts
 
-```bash
-$ curl http://localhost:3000
-```
+### Obtaining a token
 
-```json
-{ "statusCode": 401 }
-```
+### Obtaining an admin token
+
+### Restricting access to collections
+
+## Defining collections
+
+### Collection schema
+
+### Fields
+
+### Creating a collection
+
+### Editing a collection
+
+### Data types
+
+## Working with data
+
+### Inserting data
+
+#### Using REST API
+
+#### Using a Model directly
+
+### Updating data
+
+#### Using REST API
+
+#### Using a Model directly
+
+### Retrieving data
+
+#### Using REST API
+
+#### Using a Model directly
+
+#### Filtering
+
+#### Pagination
+
+### Validation
+
+## Adding application logic
+
+### Endpoints
+
+### Hooks
+
+## Data connectors reference
+
+### MongoDB Connector
+
+#### Installing
+
+#### Configuring
+
+#### Using MongoLab
+
+### CouchDB
+
+### JSON File
+
+### Building a connector
+
+## How-to guides
 
 
-#### Check the response headers
 
-```bash
-$ curl -I http://localhost:3000
-```
-```json
-HTTP/1.1 401 Unauthorized
-content-type: application/json
-content-length: 18
-Date: Thu, 20 Apr 2017 23:42:25 GMT
-Connection: keep-alive
-```
-
-### Authentication
-
-The HTTP 401 response received in the previous step shows that the server is running. To start using the REST endpoints you'll need a user account so you can obtain access tokens for interacting with the API.
-
-User accounts provide an authentication layer for API. Each user account has a *__clientId__* and a *__secret__*. These are used to obtain access tokens for interacting with the API. See the [Authentication](http://docs.dadi.tech/api/concepts/authentication/) section of the API documentation for full details.
-
-#### Creating the first user
-
-The NPM package contains an interactive "Client Record Generator" to help you create user accounts. Run the following command to start the tool:
-
-```bash
-$ npm explore @dadi/api -- npm run create-client
-```
-
-You will be asked you a series of questions and API will insert the new client record into the database. The default database name is `api`, and the default collection for user accounts is `clientStore`.
-
-If you need to create user accounts in other environments (for example following a deployment to a live server), add the environment variable to the command:
-
-```bash
-$ NODE_ENV=production npm explore @dadi/api -- npm run create-client
-```
-
-### Run API as a service
-To run your API application in the background as a service, install Forever and Forever Service:
-
-```bash
-$ npm install forever forever-service -g
-
-$ forever-service install -s index.js -e NODE_ENV=production api --start
-```
-
-You can now interact with the `api` service using the following commands:
-
-```bash
-$ [sudo] service api start
-$ [sudo] service api stop
-$ [sudo] service api status
-$ [sudo] service api restart
-```
-
-> Note: the environment variable `NODE_ENV=production` must be set to the required configuration version matching the configuration files available in the `config` directory.

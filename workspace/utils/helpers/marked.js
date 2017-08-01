@@ -20,13 +20,15 @@ marked.setOptions({
 /*
 * Returns the markdown content formatted as HTML
 */
+
 dust.helpers.markdown = function(chunk, context, bodies, params) {
+  var headings = []
+
   if (bodies.block) {
     return chunk.capture(bodies.block, context, function(string, chunk) {
       //chunk.end(marked(string))
       var renderer = new marked.Renderer()
-      var headings = []
-      
+    
       renderer.heading = function (text, level) {
         var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-')
         var duplicateIndex = headings.map(function (h) { return h.text }).indexOf(escapedText)
@@ -42,6 +44,7 @@ dust.helpers.markdown = function(chunk, context, bodies, params) {
         }
         return '<h' + level + ' id="'+ (duplicateText || escapedText) + '">' + text + '</h' + level + '>\n'
       }
+
       chunk.end(marked(string, { renderer: renderer }))
     });
   }

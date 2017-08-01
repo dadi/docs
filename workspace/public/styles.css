@@ -75,16 +75,86 @@
   font-weight: normal;
   src: local("Menlo Regular"), url("./fonts/Menlo-Regular.woff") format("woff"); }
 
+/**
+ * GitHub Gist Theme
+ * Author : Louis Barranqueiro - https://github.com/LouisBarranqueiro
+ */
 
+.hljs {
+  display: block;
+  background: white;
+  padding: 0.5em;
+  color: #333333;
+  overflow-x: auto;
+}
+
+.hljs-comment,
+.hljs-meta {
+  color: #969896;
+}
+
+.hljs-string,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-strong,
+.hljs-emphasis,
+.hljs-quote {
+  color: #df5000;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+  color: #a71d5d;
+}
+
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-attribute {
+  color: #0086b3;
+}
+
+.hljs-section,
+.hljs-name {
+  color: #63a35c;
+}
+
+.hljs-tag {
+  color: #333333;
+}
+
+.hljs-title,
+.hljs-attr,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #795da3;
+}
+
+.hljs-addition {
+  color: #55a532;
+  background-color: #eaffea;
+}
+
+.hljs-deletion {
+  color: #bd2c00;
+  background-color: #ffecec;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}
 pre, code {
   font-family: 'Menlo';
 }
 
-
+/*
 * {
 	padding: 0;
 	margin: 0;
-}
+}*/
 
 body {
 	background: #f9f9f9;
@@ -115,14 +185,19 @@ h1 {
 h2 {
 	font-size: 36px;
 	line-height: 1.1em;
-
 	margin-bottom: 30px;
     margin-top: 60px;
 }
 h3 {
 	font-size: 26px;
 	margin-bottom: 25px;
-	margin-top: 30px;
+	margin-top: 40px;
+}
+h4 {
+	color: #666;
+	font-size: 22px;
+	margin-bottom: 30px;
+	margin-top: 2em;
 }
 p {
 	margin-bottom: 1em;
@@ -189,19 +264,22 @@ nav {
 	top: 0; left: 0; bottom: 0;
 	width: 20%;
 	background: #141418 url(bg-nav.png) no-repeat 50%;
-	background-size: 100% auto;
+	background-size: 100% 100%;
 	color: #fff;
 
 	box-shadow: 0 2px 9px 0 rgba(0,0,0,0.33);
 
-	overflow: scroll
-	-webkit-overflow-scroll: touch;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 
 @media handheld, only screen and (max-width: 650px) {
 	nav {display: none}
 }
 
+nav > ul {
+	padding: 0;
+}
 nav > ul > li {
 	padding: 20px;
 	border-bottom: 1px solid #303045;
@@ -211,6 +289,9 @@ nav li {
 }
 nav a:hover {
 	color: #2c85e5;
+}
+nav ul ul {
+	padding-left: 13px !important;
 }
 nav > ul > li > ul > li {
 	padding: 5px 0;
@@ -225,6 +306,8 @@ nav > ul > li > ul > li > a {
 	text-transform: uppercase;
 	font-size: 15px;
 }
+
+
 main {
 	margin-left: 20%;
 	padding-left: 60px;
@@ -249,7 +332,7 @@ code {
 	border-radius: 9px;
 	padding: 0 5px;
 	margin-bottom: -1px;
-	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	font-family: Menlo, "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
 }
 pre code {
 	padding: 15px;
@@ -298,4 +381,49 @@ pre code {
 }
 .docs--api h2 {
 	color: #0ba6dd;
+}
+
+.docs ol, .docs ul {
+	margin-left: 20px; 
+}
+.docs code, .docs table {
+	font-size: 14px;
+	line-height: 20px;
+}
+.docs table {
+	display: block;
+	width: 100%;
+	word-break: normal;
+	word-break: keep-all;
+	border-spacing: 0;
+	border-collapse: collapse;	
+}
+
+.docs table th {
+	font-weight: bold;
+}
+.docs table th,
+.docs table td {
+	padding: 6px 13px;
+	border: 1px solid #ddd;
+}
+.docs table tr {
+	background-color: #fff;
+	border-top: 1px solid #ccc;
+}
+.docs table tr:nth-child(2n) {
+	background-color: #f8f8f8; 
+}
+.docs table tr:hover {
+	background-color: red;
+}
+	
+.docs img {
+	position: relative;
+	max-width: 100%;
+	height: auto;
+	display: block;
+	border-radius: 5px;
+	box-shadow: 5px 5px 10px #ddd;
+	border: 3px solid #fff;
 }
