@@ -12,7 +12,7 @@
     }
   ],
   "events": [
-    "global"
+    "navigation"
   ],
   "datasources": [
     "docs"

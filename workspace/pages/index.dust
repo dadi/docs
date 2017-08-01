@@ -70,7 +70,7 @@
 {#docs.results}
   <div class="docs docs--{attributes._id}">
     <h1 id="app-{attributes._id}">{attributes.title}</h1>
-    {@markdown}{contentText|s}{/markdown}
+    {@markdown app=attributes._id}{contentText|s}{/markdown}
   </div>
 {/docs.results}
 
