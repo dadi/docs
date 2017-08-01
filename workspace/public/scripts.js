@@ -12,6 +12,20 @@
     });
 
     updateNav();
+
+    var scrollable = document.querySelector('nav');
+
+    scrollable.addEventListener('wheel', function(event) {
+      var deltaY = event.deltaY;
+      var contentHeight = scrollable.scrollHeight;
+      var visibleHeight = scrollable.offsetHeight;
+      var scrollTop = scrollable.scrollTop;
+
+      if (scrollTop === 0 && deltaY < 0)
+        event.preventDefault();
+      else if (visibleHeight + scrollTop === contentHeight && deltaY > 0)
+        event.preventDefault();
+    });
   });
 
   window.addEventListener('scroll', throttle(updateNav, 200));
@@ -40,7 +54,7 @@
     var nav = document.querySelector('nav');
 
     for (i in sections) {
-      if (sections[i] <= (scrollPosition + 50 )) {
+      if (sections[i] <= (scrollPosition + 30)) {
         var previous = document.querySelector('nav .active');
         var current = document.querySelector('nav a[href="#' + i + '"]');
         
