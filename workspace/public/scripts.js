@@ -4,31 +4,33 @@
   var sections = {};
   var i = 0;
 
-  document.addEventListener('DOMContentLoaded', function(event) { 
-    var section = document.querySelectorAll('.anchor');
-    
-    sections['introduction'] = 0;
+  document.onreadystatechange = function () {
+    if (document.readyState === 'complete') {
+      var section = document.querySelectorAll('.anchor');
+      
+      sections['introduction'] = 0;
 
-    [].forEach.call(section, function(e) {
-      sections[e.id] = e.offsetTop;
-    });
+      [].forEach.call(section, function(e) {
+        sections[e.id] = e.offsetTop;
+      });
 
-    updateNav();
+      updateNav();
 
-    var scrollable = document.querySelector('nav');
+      var scrollable = document.querySelector('nav');
 
-    scrollable.addEventListener('wheel', function(event) {
-      var deltaY = event.deltaY;
-      var contentHeight = scrollable.scrollHeight;
-      var visibleHeight = scrollable.offsetHeight;
-      var scrollTop = scrollable.scrollTop;
+      scrollable.addEventListener('wheel', function(event) {
+        var deltaY = event.deltaY;
+        var contentHeight = scrollable.scrollHeight;
+        var visibleHeight = scrollable.offsetHeight;
+        var scrollTop = scrollable.scrollTop;
 
-      if (scrollTop === 0 && deltaY < 0)
-        event.preventDefault();
-      else if (visibleHeight + scrollTop === contentHeight && deltaY > 0)
-        event.preventDefault();
-    });
-  });
+        if (scrollTop === 0 && deltaY < 0)
+          event.preventDefault();
+        else if (visibleHeight + scrollTop === contentHeight && deltaY > 0)
+          event.preventDefault();
+      });
+    }
+  };
 
   window.addEventListener('scroll', throttle(updateNav, 200));
 
