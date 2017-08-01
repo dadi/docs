@@ -10,9 +10,11 @@
     [].forEach.call(section, function(e) {
       sections[e.id] = e.offsetTop;
     });
+
+    updateNav();
   });
 
-  window.addEventListener('scroll', throttle(callback, 200));
+  window.addEventListener('scroll', throttle(updateNav, 200));
 
   function throttle(fn, wait) {
     var time = Date.now();
@@ -27,16 +29,13 @@
   function setExpanded(el, theClass) {
     while (el.parentNode) {
       el = el.parentNode;
-
-      console.log(el.nodeName)
       if (el.nodeName === 'LI') {
-        console.log(el)
         el.setAttribute('class', theClass);
       }
     }
   };
 
-  function callback() {
+  function updateNav() {
     var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
     var nav = document.querySelector('nav');
 
@@ -49,8 +48,11 @@
           if (previous) {
             previous.setAttribute('class', ' ');
             setExpanded(previous, ' ');
-         }
-          //if ((current.offsetTop < nav.scrollTop) || (current.offsetTop > nav.scrollTop)) nav.scrollTop = current.offsetTop - 50;
+          }
+
+          //window.location.hash = i;
+
+          if ((current.offsetTop < nav.scrollTop) || (current.offsetTop > nav.scrollTop)) nav.scrollTop = current.offsetTop - 50;
           current.setAttribute('class', 'active');
           setExpanded(current, 'expanded');
         }
