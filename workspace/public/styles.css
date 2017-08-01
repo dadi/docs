@@ -30,20 +30,6 @@ h1,h2,h3,h4,h5,h6 {
 	font-family: Gilroy, Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	font-weight: normal;
 }
-.anchor {
-    width: 25px;
-    float: left;
-    margin-left: -27px;
-    margin-top: -3px;
-    outline: none;
-    opacity: 0;
-    border: none !important;
-    background: url(icon-link.svg) no-repeat 50% 70%;
-    font-size: 0;
-}
-h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover .anchor, h6:hover .anchor {
-	opacity: 1;
-}
 
 a {
 	text-decoration: none;
@@ -98,6 +84,28 @@ p {
 	background: #000;
 	color: #fff;
 	border-color: #000;
+}
+
+.anchor {
+    width: 25px;
+    float: left;
+    margin-left: -27px;
+    margin-top: -3px;
+    outline: none;
+    opacity: 0;
+    border: none !important;
+    background: url(icon-link.svg) no-repeat 50% 70%;
+    font-size: 0;
+}
+@media handheld, only screen and (max-width: 650px) {
+	.anchor {
+		float: right;
+		opacity: 1;
+		margin: 0;
+	}
+}
+h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover .anchor, h6:hover .anchor {
+	opacity: 1;
 }
 
 /* 
