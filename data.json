@@ -1,11 +1,5 @@
 [
   {
-    "path": ".DS_Store"
-  },
-  {
-    "path": "cdn/.DS_Store"
-  },
-  {
     "excerpt": "<p>We’d love for you to contribute to our source code and to make DADI products even better.</p>",
     "path": "contributing"
   },
@@ -75,36 +69,6 @@
     "path": "api/concepts/validation"
   },
   {
-    "title": "Creating",
-    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-mathematica\">http(s)://<span class=\"hljs-list\">{url}</span>/<span class=\"hljs-list\">{version}</span>/<span class=\"hljs-list\">{database}</span>/<span class=\"hljs-list\">{collection}</span></code></p>",
-    "path": "api/everyday/creating"
-  },
-  {
-    "title": "Deleting",
-    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-xquery\">http(s)://{url}/{version}/{database}/{collection}/{:id}</code></p>",
-    "path": "api/everyday/deleting"
-  },
-  {
-    "title": "Editing",
-    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-xquery\">http(s)://{url}/{version}/{database}/{collection}/{:id}</code></p>",
-    "path": "api/everyday/editing"
-  },
-  {
-    "title": "Everyday Usage",
-    "excerpt": "<p>DADI API accepts GET, POST, PUT, PATCH and DELETE requests.</p>",
-    "path": "api/everyday"
-  },
-  {
-    "title": "Creating a Collection of content",
-    "excerpt": "<p>DADI API allows creating and updating collection and custom endpoints by sending a POST request to the API.</p>",
-    "path": "api/everyday/new-collection"
-  },
-  {
-    "title": "Retrieving",
-    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-mathematica\">http(s)://<span class=\"hljs-list\">{url}</span>/<span class=\"hljs-list\">{version}</span>/<span class=\"hljs-list\">{database}</span>/<span class=\"hljs-list\">{collection}</span></code></p>",
-    "path": "api/everyday/retrieving"
-  },
-  {
     "title": "cURL",
     "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
     "path": "api/examples/curl"
@@ -135,6 +99,36 @@
     "path": "api/examples/ruby"
   },
   {
+    "title": "Creating",
+    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-mathematica\">http(s)://<span class=\"hljs-list\">{url}</span>/<span class=\"hljs-list\">{version}</span>/<span class=\"hljs-list\">{database}</span>/<span class=\"hljs-list\">{collection}</span></code></p>",
+    "path": "api/everyday/creating"
+  },
+  {
+    "title": "Deleting",
+    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-xquery\">http(s)://{url}/{version}/{database}/{collection}/{:id}</code></p>",
+    "path": "api/everyday/deleting"
+  },
+  {
+    "title": "Editing",
+    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-xquery\">http(s)://{url}/{version}/{database}/{collection}/{:id}</code></p>",
+    "path": "api/everyday/editing"
+  },
+  {
+    "title": "Everyday Usage",
+    "excerpt": "<p>DADI API accepts GET, POST, PUT, PATCH and DELETE requests.</p>",
+    "path": "api/everyday"
+  },
+  {
+    "title": "Creating a Collection of content",
+    "excerpt": "<p>DADI API allows creating and updating collection and custom endpoints by sending a POST request to the API.</p>",
+    "path": "api/everyday/new-collection"
+  },
+  {
+    "title": "Retrieving",
+    "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-mathematica\">http(s)://<span class=\"hljs-list\">{url}</span>/<span class=\"hljs-list\">{version}</span>/<span class=\"hljs-list\">{database}</span>/<span class=\"hljs-list\">{collection}</span></code></p>",
+    "path": "api/everyday/retrieving"
+  },
+  {
     "title": "Configuration",
     "excerpt": "<p>Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.</p>",
     "path": "api/getting-started/configuration"
@@ -155,29 +149,34 @@
     "path": "api/getting-started/why"
   },
   {
+    "title": "Error Codes",
+    "excerpt": "<p>Errors, love em or hate em, they’re part of life.</p>",
+    "path": "errors"
+  },
+  {
+    "title": "Missing Index Key",
+    "excerpt": "<p>You received an error similar to this:</p>",
+    "path": "errors/api/API-0001"
+  },
+  {
+    "title": "Hook Error",
+    "excerpt": "<p>You received an error similar to this:</p>",
+    "path": "errors/api/API-0002"
+  },
+  {
+    "title": "Cache Path Missing",
+    "excerpt": "<p>To flush the cache, a path that matches a collection resource must be specified in the request body:</p>",
+    "path": "errors/api/API-0003"
+  },
+  {
+    "title": "API Error Codes",
+    "excerpt": "<p>Sometimes errors happen. Here’s a list of known error types you might encounter.</p>",
+    "path": "errors/api"
+  },
+  {
     "title": "CDN",
     "excerpt": "",
     "path": "cdn"
-  },
-  {
-    "title": "Retrieving a colour palette",
-    "excerpt": "<p>Each image stored in <em>CDN</em> can be returned as a json object with information on how the image was generated. Within that object there is the <code>primaryColor</code> and <code class=\"lang-stata\"><span class=\"hljs-keyword\">palette</span></code> nodes which contains information about the colour of the image.</p>",
-    "path": "cdn/everyday/colour-palette"
-  },
-  {
-    "title": "Everyday Usage",
-    "excerpt": "",
-    "path": "cdn/everyday"
-  },
-  {
-    "title": "Dealing with pixel ratios",
-    "excerpt": "<p>When dealing with mulitiple device pixel ratios, you can ‘multiply’ the outputted size of the image by adding the variable name <code class=\"lang-cpp\">?devicePixelRatio=[<span class=\"hljs-number\">0</span>-<span class=\"hljs-number\">9</span>]</code>.</p>",
-    "path": "cdn/everyday/pixel-ratios"
-  },
-  {
-    "title": "Serving Images and Assets",
-    "excerpt": "<p>With your <a href=\"/cdn/getting-started/defining-sources/\">sources</a> configured so that CDN knows where to find them, you can start sending requests for your assets and images.</p>",
-    "path": "cdn/everyday/url-variables"
   },
   {
     "title": "Blur",
@@ -260,6 +259,26 @@
     "path": "cdn/concepts/sharpen"
   },
   {
+    "title": "Retrieving a colour palette",
+    "excerpt": "<p>Each image stored in <em>CDN</em> can be returned as a json object with information on how the image was generated. Within that object there is the <code>primaryColor</code> and <code class=\"lang-stata\"><span class=\"hljs-keyword\">palette</span></code> nodes which contains information about the colour of the image.</p>",
+    "path": "cdn/everyday/colour-palette"
+  },
+  {
+    "title": "Everyday Usage",
+    "excerpt": "",
+    "path": "cdn/everyday"
+  },
+  {
+    "title": "Dealing with pixel ratios",
+    "excerpt": "<p>When dealing with mulitiple device pixel ratios, you can ‘multiply’ the outputted size of the image by adding the variable name <code class=\"lang-cpp\">?devicePixelRatio=[<span class=\"hljs-number\">0</span>-<span class=\"hljs-number\">9</span>]</code>.</p>",
+    "path": "cdn/everyday/pixel-ratios"
+  },
+  {
+    "title": "Serving Images and Assets",
+    "excerpt": "<p>With your <a href=\"/cdn/getting-started/defining-sources/\">sources</a> configured so that CDN knows where to find them, you can start sending requests for your assets and images.</p>",
+    "path": "cdn/everyday/url-variables"
+  },
+  {
     "title": "Configuration",
     "excerpt": "<p>All the core platform services are configured using enviroment specific configuration.json files, the default being <code>development</code>. For more advanced users this can also load based on the <code class=\"lang-vim\"><span class=\"hljs-built_in\">hostname</span></code> i.e., it will also look for <code class=\"lang-css\"><span class=\"hljs-tag\">config</span>.\" + <span class=\"hljs-tag\">req</span><span class=\"hljs-class\">.headers</span><span class=\"hljs-class\">.host</span> + \"<span class=\"hljs-class\">.json</span></code></p>",
     "path": "cdn/getting-started/configuration"
@@ -275,34 +294,39 @@
     "path": "cdn/getting-started/installing"
   },
   {
-    "title": "Error Codes",
-    "excerpt": "<p>Errors, love em or hate em, they’re part of life.</p>",
-    "path": "errors"
-  },
-  {
-    "title": "Missing Index Key",
-    "excerpt": "<p>You received an error similar to this:</p>",
-    "path": "errors/api/API-0001"
-  },
-  {
-    "title": "Hook Error",
-    "excerpt": "<p>You received an error similar to this:</p>",
-    "path": "errors/api/API-0002"
-  },
-  {
-    "title": "Cache Path Missing",
-    "excerpt": "<p>To flush the cache, a path that matches a collection resource must be specified in the request body:</p>",
-    "path": "errors/api/API-0003"
-  },
-  {
-    "title": "API Error Codes",
-    "excerpt": "<p>Sometimes errors happen. Here’s a list of known error types you might encounter.</p>",
-    "path": "errors/api"
-  },
-  {
     "title": "Web",
     "excerpt": "",
     "path": "web"
+  },
+  {
+    "title": "Debugging",
+    "excerpt": "<p>If enabled in the config <code class=\"lang-actionscript\"><span class=\"hljs-string\">\"allowJsonView\"</span>: <span class=\"hljs-literal\">true</span></code> you can append <code class=\"lang-actionscript\">?json=<span class=\"hljs-literal\">true</span></code> to any page in the browser get back the JSON data structure of the given page.</p>",
+    "path": "web/everyday/debugging"
+  },
+  {
+    "title": "Dust.js helpers",
+    "excerpt": "<p><em>Web</em> includes the <a href=\"https://www.npmjs.com/package/common-dustjs-helpers\">common-dustjs-helpers</a> library and provides a set of built-in helpers for use in your page and partial templates.</p>",
+    "path": "web/everyday/dustjs"
+  },
+  {
+    "title": "Everyday Usage",
+    "excerpt": "",
+    "path": "web/everyday"
+  },
+  {
+    "title": "Preload",
+    "excerpt": "<p>Configure Web to preload some data. Add a block to the <a href=\"configuration.md\">main configuration</a> file like the example below, using your datasource names in place of “channels”:</p>",
+    "path": "web/everyday/preload"
+  },
+  {
+    "title": "Routing & rewrites",
+    "excerpt": "Defining URL endpoints for your application",
+    "path": "web/everyday/routing"
+  },
+  {
+    "title": "Server status",
+    "excerpt": "<p>An endpoint is provided at <code class=\"lang-fortran\">/api/<span class=\"hljs-keyword\">status</span></code> which returns server/application data in JSON format.</p>",
+    "path": "web/everyday/status"
   },
   {
     "title": "Caching",
@@ -355,36 +379,6 @@
     "path": "web/concepts/views"
   },
   {
-    "title": "Debugging",
-    "excerpt": "<p>If enabled in the config <code class=\"lang-actionscript\"><span class=\"hljs-string\">\"allowJsonView\"</span>: <span class=\"hljs-literal\">true</span></code> you can append <code class=\"lang-actionscript\">?json=<span class=\"hljs-literal\">true</span></code> to any page in the browser get back the JSON data structure of the given page.</p>",
-    "path": "web/everyday/debugging"
-  },
-  {
-    "title": "Dust.js helpers",
-    "excerpt": "<p><em>Web</em> includes the <a href=\"https://www.npmjs.com/package/common-dustjs-helpers\">common-dustjs-helpers</a> library and provides a set of built-in helpers for use in your page and partial templates.</p>",
-    "path": "web/everyday/dustjs"
-  },
-  {
-    "title": "Everyday Usage",
-    "excerpt": "",
-    "path": "web/everyday"
-  },
-  {
-    "title": "Preload",
-    "excerpt": "<p>Configure Web to preload some data. Add a block to the <a href=\"configuration.md\">main configuration</a> file like the example below, using your datasource names in place of “channels”:</p>",
-    "path": "web/everyday/preload"
-  },
-  {
-    "title": "Routing & rewrites",
-    "excerpt": "Defining URL endpoints for your application",
-    "path": "web/everyday/routing"
-  },
-  {
-    "title": "Server status",
-    "excerpt": "<p>An endpoint is provided at <code class=\"lang-fortran\">/api/<span class=\"hljs-keyword\">status</span></code> which returns server/application data in JSON format.</p>",
-    "path": "web/everyday/status"
-  },
-  {
     "title": "A contact form using SendGrid",
     "excerpt": "<p>This is an example of an event which uses <a href=\"https://sendgrid.com/\">SendGrid</a> to send a message from an HTML form.</p>",
     "path": "web/examples/sendgrid"
@@ -410,28 +404,9 @@
     "path": "web/getting-started/installing"
   },
   {
-    "path": ".DS_Store"
-  },
-  {
-    "path": "cdn/.DS_Store"
-  },
-  {
-    "path": ".DS_Store"
-  },
-  {
-    "path": "cdn/.DS_Store"
-  },
-  {
-    "path": ".DS_Store"
-  },
-  {
-    "path": "cdn/.DS_Store"
-  },
-  {
-    "path": ".DS_Store"
-  },
-  {
-    "path": "cdn/.DS_Store"
+    "title": "Migrating from v2 to v3",
+    "excerpt": "<p>Web 3.0 supports multiple template engines. As a consequence, Dust.js is now decoupled from core and needs to be included as a dependency on projects that want to use it.</p>",
+    "path": "web/getting-started/v3-migration"
   },
   {}
 ]
