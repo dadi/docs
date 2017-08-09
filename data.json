@@ -69,36 +69,6 @@
     "path": "api/concepts/validation"
   },
   {
-    "title": "cURL",
-    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
-    "path": "api/examples/curl"
-  },
-  {
-    "title": "Code Examples",
-    "excerpt": "",
-    "path": "api/examples"
-  },
-  {
-    "title": "Node.js",
-    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
-    "path": "api/examples/nodejs"
-  },
-  {
-    "title": "PHP",
-    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
-    "path": "api/examples/php"
-  },
-  {
-    "title": "Python",
-    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
-    "path": "api/examples/python"
-  },
-  {
-    "title": "Ruby",
-    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request.</p>",
-    "path": "api/examples/ruby"
-  },
-  {
     "title": "Creating",
     "excerpt": "<p><strong>URL Format:</strong> <code class=\"lang-mathematica\">http(s)://<span class=\"hljs-list\">{url}</span>/<span class=\"hljs-list\">{version}</span>/<span class=\"hljs-list\">{database}</span>/<span class=\"hljs-list\">{collection}</span></code></p>",
     "path": "api/everyday/creating"
@@ -129,6 +99,36 @@
     "path": "api/everyday/retrieving"
   },
   {
+    "title": "cURL",
+    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
+    "path": "api/examples/curl"
+  },
+  {
+    "title": "Code Examples",
+    "excerpt": "",
+    "path": "api/examples"
+  },
+  {
+    "title": "Node.js",
+    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
+    "path": "api/examples/nodejs"
+  },
+  {
+    "title": "PHP",
+    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
+    "path": "api/examples/php"
+  },
+  {
+    "title": "Python",
+    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request:</p>",
+    "path": "api/examples/python"
+  },
+  {
+    "title": "Ruby",
+    "excerpt": "<p>Every request to DADI API requires a <code>bearer</code> token which should be passed as a header. Obtain a token by sending a POST request to API’s <code class=\"lang-livecodeserver\">/<span class=\"hljs-keyword\">token</span></code> endpoint, passing your client credentials in the body of the request.</p>",
+    "path": "api/examples/ruby"
+  },
+  {
     "title": "Configuration",
     "excerpt": "<p>Configuration files control the behaviour of your API. While DADI API starts with default values for many configuration settings, it is essential that you understand how each setting affects your application.</p>",
     "path": "api/getting-started/configuration"
@@ -147,31 +147,6 @@
     "title": "Getting Started",
     "excerpt": "<p>Traditional product design is channel and device centric. But users inhabit a multi-channel, multi-device world.</p>",
     "path": "api/getting-started/why"
-  },
-  {
-    "title": "Error Codes",
-    "excerpt": "<p>Errors, love em or hate em, they’re part of life.</p>",
-    "path": "errors"
-  },
-  {
-    "title": "Missing Index Key",
-    "excerpt": "<p>You received an error similar to this:</p>",
-    "path": "errors/api/API-0001"
-  },
-  {
-    "title": "Hook Error",
-    "excerpt": "<p>You received an error similar to this:</p>",
-    "path": "errors/api/API-0002"
-  },
-  {
-    "title": "Cache Path Missing",
-    "excerpt": "<p>To flush the cache, a path that matches a collection resource must be specified in the request body:</p>",
-    "path": "errors/api/API-0003"
-  },
-  {
-    "title": "API Error Codes",
-    "excerpt": "<p>Sometimes errors happen. Here’s a list of known error types you might encounter.</p>",
-    "path": "errors/api"
   },
   {
     "title": "CDN",
@@ -294,39 +269,34 @@
     "path": "cdn/getting-started/installing"
   },
   {
+    "title": "Error Codes",
+    "excerpt": "<p>Errors, love em or hate em, they’re part of life.</p>",
+    "path": "errors"
+  },
+  {
+    "title": "Missing Index Key",
+    "excerpt": "<p>You received an error similar to this:</p>",
+    "path": "errors/api/API-0001"
+  },
+  {
+    "title": "Hook Error",
+    "excerpt": "<p>You received an error similar to this:</p>",
+    "path": "errors/api/API-0002"
+  },
+  {
+    "title": "Cache Path Missing",
+    "excerpt": "<p>To flush the cache, a path that matches a collection resource must be specified in the request body:</p>",
+    "path": "errors/api/API-0003"
+  },
+  {
+    "title": "API Error Codes",
+    "excerpt": "<p>Sometimes errors happen. Here’s a list of known error types you might encounter.</p>",
+    "path": "errors/api"
+  },
+  {
     "title": "Web",
     "excerpt": "",
     "path": "web"
-  },
-  {
-    "title": "Debugging",
-    "excerpt": "<p>If enabled in the config <code class=\"lang-actionscript\"><span class=\"hljs-string\">\"allowJsonView\"</span>: <span class=\"hljs-literal\">true</span></code> you can append <code class=\"lang-actionscript\">?json=<span class=\"hljs-literal\">true</span></code> to any page in the browser get back the JSON data structure of the given page.</p>",
-    "path": "web/everyday/debugging"
-  },
-  {
-    "title": "Dust.js helpers",
-    "excerpt": "<p><em>Web</em> includes the <a href=\"https://www.npmjs.com/package/common-dustjs-helpers\">common-dustjs-helpers</a> library and provides a set of built-in helpers for use in your page and partial templates.</p>",
-    "path": "web/everyday/dustjs"
-  },
-  {
-    "title": "Everyday Usage",
-    "excerpt": "",
-    "path": "web/everyday"
-  },
-  {
-    "title": "Preload",
-    "excerpt": "<p>Configure Web to preload some data. Add a block to the <a href=\"configuration.md\">main configuration</a> file like the example below, using your datasource names in place of “channels”:</p>",
-    "path": "web/everyday/preload"
-  },
-  {
-    "title": "Routing & rewrites",
-    "excerpt": "Defining URL endpoints for your application",
-    "path": "web/everyday/routing"
-  },
-  {
-    "title": "Server status",
-    "excerpt": "<p>An endpoint is provided at <code class=\"lang-fortran\">/api/<span class=\"hljs-keyword\">status</span></code> which returns server/application data in JSON format.</p>",
-    "path": "web/everyday/status"
   },
   {
     "title": "Caching",
@@ -377,6 +347,36 @@
     "title": "Views",
     "excerpt": "Learn how to use page templates and partials to render your data",
     "path": "web/concepts/views"
+  },
+  {
+    "title": "Debugging",
+    "excerpt": "<p>If enabled in the config <code class=\"lang-actionscript\"><span class=\"hljs-string\">\"allowJsonView\"</span>: <span class=\"hljs-literal\">true</span></code> you can append <code class=\"lang-actionscript\">?json=<span class=\"hljs-literal\">true</span></code> to any page in the browser get back the JSON data structure of the given page.</p>",
+    "path": "web/everyday/debugging"
+  },
+  {
+    "title": "Dust.js helpers",
+    "excerpt": "<p><em>Web</em> includes the <a href=\"https://www.npmjs.com/package/common-dustjs-helpers\">common-dustjs-helpers</a> library and provides a set of built-in helpers for use in your page and partial templates.</p>",
+    "path": "web/everyday/dustjs"
+  },
+  {
+    "title": "Everyday Usage",
+    "excerpt": "",
+    "path": "web/everyday"
+  },
+  {
+    "title": "Preload",
+    "excerpt": "<p>Configure Web to preload some data. Add a block to the <a href=\"configuration.md\">main configuration</a> file like the example below, using your datasource names in place of “channels”:</p>",
+    "path": "web/everyday/preload"
+  },
+  {
+    "title": "Routing & rewrites",
+    "excerpt": "Defining URL endpoints for your application",
+    "path": "web/everyday/routing"
+  },
+  {
+    "title": "Server status",
+    "excerpt": "<p>An endpoint is provided at <code class=\"lang-fortran\">/api/<span class=\"hljs-keyword\">status</span></code> which returns server/application data in JSON format.</p>",
+    "path": "web/everyday/status"
   },
   {
     "title": "A contact form using SendGrid",
