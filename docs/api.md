@@ -563,7 +563,7 @@ An index will be created on the collection using the fields specified in the `in
 
 The index will be created in the background to avoid blocking other database operations.
 
-##### settings.index
+**settings.index**
 
 ```json
 "settings": {
@@ -580,7 +580,7 @@ The index will be created in the background to avoid blocking other database ope
 
 ## Document Revision History
 
-##### settings.storeRevisions
+**settings.storeRevisions**
 
 If `settings.storeRevisions` is **true**:
 
@@ -589,7 +589,7 @@ If `settings.storeRevisions` is **true**:
 * a `revision document` will be stored for each subsequent update to an existing document  
 * each time a `revision document` is created, the `_id` of the `revision document` is pushed onto a `history` array of the original document
 
-##### settings.revisionCollection
+**settings.revisionCollection**
 
 If `settings.revisionCollection` is specified, the collection's `revision collection` will be named according to the specified value, otherwise the collection's `revision collection` will take the form `{collection name}History`.
 
@@ -637,7 +637,7 @@ update operation to change the value of `title`:
 
 To reduce data duplication through document embedding, DADI API allows the use of "Reference" fields which can best be described as pointers to other documents. The referenced document could be in the same collection, another collection in the same database or a collection in a different database.
 
-##### Reference Field Settings
+**Reference Field Settings**
 
  Property       | Description        |   Example
 :----------------|:-------------------|:-------
@@ -645,11 +645,11 @@ database | The name of the database that holds the reference data. Can be omitte
 collection | The name of the collection that holds the reference data. Can be omitted if the field references data in the same **collection** as the referring document. | `"title"`
 fields    | An array of fields to return for each referenced document.   | `["firstName", "lastName"]`
 
-##### Example
+### Example
 
 Consider the following two collections, `books` and `people`. `books` contains a Reference field `author` which is capable of loading documents from the `people` collection. By creating a `book` document and setting the `author` field to the `_id` value of a document from the `people` collection, the application is able to resolve this reference and return the `author` document within a result set for a `books` query.
 
-#### Books `(collection.books.json)`
+**Books `(collection.books.json)`**
 
 ```json
 {
@@ -678,7 +678,7 @@ Consider the following two collections, `books` and `people`. `books` contains a
 }
 ```
 
-#### People `(collection.people.json)`
+**People `(collection.people.json)`**
 
 ```json
 {
@@ -713,13 +713,13 @@ Consider the following two collections, `books` and `people`. `books` contains a
 ```
 
 
-##### Composed
+### Composed
 
 An additional `composed` property is added to the `book` document when it is returned, indicating which fields have been expanded. The property contains the original `_id` value used for the reference field lookup.  
 
-##### Enabling Composition
+#### Enabling Composition
 
-> Composition is disabled by default.
+> N.B. Composition is disabled by default.
 
 To return a document with resolved Reference fields at the top level, you may send a parameter either in the querystring of your request or provide it as an option to the collection's `find()` method:
 
@@ -735,8 +735,7 @@ books.find({ title: "Harry Potter 2" }, { "compose": true }, function (err, resu
 });
 ```
 
-This setting will allow the first level of Reference fields to be resolved. To allow
-Reference fields to resolve which are nested further within the document, add a `compose` property to the collection specification's settings block:
+This setting will allow the first level of Reference fields to be resolved. To allow Reference fields to resolve which are nested further within the document, add a `compose` property to the collection specification's settings block:
 
 ```json
 {
@@ -749,7 +748,7 @@ Reference fields to resolve which are nested further within the document, add a 
 ```
 
 
-##### a `book` document
+**a `book` document**
 
 ```json
 [
@@ -769,7 +768,7 @@ Reference fields to resolve which are nested further within the document, add a 
 ]
 ```
 
-##### A `people` document
+**A `people` document**
 
 ```json
 [
@@ -789,7 +788,7 @@ Reference fields to resolve which are nested further within the document, add a 
 ```
 
 
-##### Query result: The result of a query for the above `book` document
+**Query result: The result of a query for the above `book` document**
 
 ```json
 {
