@@ -18,8 +18,7 @@
     "notify:js": "notify -t 'JS' -m '🎉 Compiled & minified'"
   },
   "dependencies": {
-    "@dadi/dustjs-helpers": "^1.3.0",
-    "@dadi/web": "^3.0.2",
+    "@dadi/web": "github:dadi/web#feature/performance",
     "accept-language-parser": "^1.4.0",
     "autoprefixer": "^6.5.0",
     "browserify": "^13.1.0",
