@@ -5,7 +5,6 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="copyright" content="{@formatDate unix=global.timestamp format="YYYY" /}">
     <meta name="description" content="{global.description}">
 
     <link rel="icon" type="image/png" href="/logo.png">
