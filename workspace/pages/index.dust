@@ -25,7 +25,7 @@
     {#navigation}
       <li id="nav--{id}">
         <a href="#{id}">{name}</a>
-        {@markdown}{map}{/markdown}
+        {@markdown}{map|s}{/markdown}
       </li>
     {/navigation}
   </ul>
@@ -83,7 +83,7 @@
 {#docs.results}
   <div class="docs docs--{attributes._id}">
     <h1><a id="{attributes._id}" class="anchor" href="#{attributes._id}">Link here</a>{attributes.title}</h1>
-    {@markdown app=attributes._id}{contentText|s}{/markdown}
+    {@markdown highlight="true" app=attributes._id}{contentText|s}{/markdown}
   </div>
 {/docs.results}
 
