@@ -331,6 +331,12 @@ nav > ul > li > ul > li > a {
 	}
 }
 
+.docs blockquote {
+	padding: 0 1em;
+	margin: 0;
+	opacity: 0.5;
+	border-left: 0.25em solid #ddd;
+}
 .docs h1 {
 	color: #8F8F8F;
 }
