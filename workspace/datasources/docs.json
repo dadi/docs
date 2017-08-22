@@ -5,7 +5,8 @@
       "type": "markdown",
       "path": "./docs"
     },
-    "count": 9999,
+    "count": 1,
+    "paginate": true,
     "sort": {
       "title": 1
     },

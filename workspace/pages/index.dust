@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="{global.description}">
+    <meta name="description" content="Documentation for DADI microservices.">
 
     <link rel="icon" type="image/png" href="/logo.png">
 
@@ -13,7 +13,8 @@
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     <link rel="stylesheet" type="text/css" href="/styles.css">
 
-    <script type="text/javascript" src="/scripts.js"></script>
+    <script>var totalPages = {docs.metadata.totalPages}</script>
+    <script src="/scripts.js"></script>
   </head>
 <body>
 
@@ -21,72 +22,20 @@
   <ul>
     <li class="expanded"><a class="active" href="#introduction">Introduction</a></li>
   </ul>
-  <ul>
-    {#navigation}
-      <li id="nav--{id}">
-        <a href="#{id}">{name}</a>
-        {@markdown}{map|s}{/markdown}
-      </li>
-    {/navigation}
+  <ul id="nav">
+    {>"partials/nav"/}
   </ul>
 
   <footer> 
-    Built using <a href="https://dadi.tech/platform/web">DADI Web {version}</a><br> 
+    Built using <a href="https://dadi.tech/web">DADI Web {version}</a><br> 
     Edit on <a href="https://github.com/dadi/docs/" rel="external">Github</a>
   </footer>
 </nav>
 
-<main>
-
-<header id="introduction">
-  <a href="/">
-    <img src="https://dadi.tech/assets/img/dadi-colour.svg" width="150" height="35" alt="DADI" class="logo">
-  </a>
-
-  <ul class="small">
-    <li><a href="https://github.com/dadi/">Find us on Github</a></li><li><a href="http://docs.dadi.tech" class="on">Documentation</a></li>
-  </ul>
-
-  {! <div class="search">
-    <input type="search" placeholder="Search the documentation…">
-  </div> !}
-</header>
-
-<div class="intro">
-  <h2>Documentation</h2>
-
-  <p class="medium">DADI is an enterprise-grade, deployment-ready web services stack, built around a microservices architecture.</p>
-
-  <p class="small"><a href="https://dadi.tech/" rel="external" class="btn">More about DADI</a> <a href="http://dadi-chat.herokuapp.com/" rel="external" class="btn">Chat with our devs</a></p>
-
-  <div class="intro__feat normal">
-    <div>
-      <img src="https://dadi.tech/assets/icons/database.svg">
-      <h3>API-first and COPE</h3>
-      <p>Connects your content to everything: drive multiple products from a single editorial workflow.</p>
-    </div>
-
-    <div>
-      <img src="https://dadi.tech/assets/icons/secure.svg">
-      <h3>Open source</h3>
-      <p>Dive in and use straight away: enterprise muscle without the fat – or the greedy licence fees.</p>
-    </div>
-
-    <div>
-      <img src="https://dadi.tech/assets/icons/colors.svg">
-      <h3>Microservices technology</h3>
-      <p>A platform built as small, independent processes enabling flexibility and high performance.</p>
-    </div>
-  </div>
-</div>
-
-{#docs.results}
-  <div class="docs docs--{attributes._id}">
-    <h1><a id="{attributes._id}" class="anchor" href="#{attributes._id}">Link here</a>{attributes.title}</h1>
-    {@markdown highlight="true" app=attributes._id}{contentText|s}{/markdown}
-  </div>
-{/docs.results}
-
+<main id="main">
+  {>"partials/header"/}
+  {>"partials/intro"/}
+  {>"partials/doc"/}
 </main>
 
 </body>

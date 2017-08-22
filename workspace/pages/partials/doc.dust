@@ -1,0 +1,6 @@
+{#docs.results}
+  <div class="docs docs--{attributes._id}">
+    <h1><a id="{attributes._id}" class="anchor" href="#{attributes._id}">Link here</a>{attributes.title}</h1>
+    {@markdown highlight="true" app=attributes._id}{contentText|s}{/markdown}
+  </div>
+{/docs.results}

@@ -1,13 +1,14 @@
 {
   "page": {
-    "name": "index"
+    "name": "ajax"
   },
   "settings": {
     "passFilters": true
   },
+  "contentType": "application/json",
   "routes": [
     {
-      "path": "/"
+      "path": "/ajax"
     }
   ],
   "events": [

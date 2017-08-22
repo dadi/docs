@@ -3,36 +3,43 @@
 
   var sections = {};
   var i = 0;
+  var pagesLoaded = 1;
 
   document.onreadystatechange = function () {
     if (document.readyState === 'complete') {
-      var section = document.querySelectorAll('.anchor');
-      
-      sections['introduction'] = 0;
-
-      [].forEach.call(section, function(e) {
-        sections[e.id] = e.offsetTop;
-      });
-
-      updateNav();
-
-      var scrollable = document.querySelector('nav');
-
-      scrollable.addEventListener('wheel', function(event) {
-        var deltaY = event.deltaY;
-        var contentHeight = scrollable.scrollHeight;
-        var visibleHeight = scrollable.offsetHeight;
-        var scrollTop = scrollable.scrollTop;
-
-        if (scrollTop === 0 && deltaY < 0)
-          event.preventDefault();
-        else if (visibleHeight + scrollTop === contentHeight && deltaY > 0)
-          event.preventDefault();
-      });
+      getPages();
+      initNav();
     }
   };
 
   window.addEventListener('scroll', throttle(updateNav, 200));
+
+  function initNav() {
+    // Update scroll
+    var section = document.querySelectorAll('.anchor');
+    
+    sections['introduction'] = 0;
+
+    [].forEach.call(section, function(e) {
+      sections[e.id] = e.offsetTop;
+    });
+
+    updateNav();
+
+    var scrollable = document.querySelector('nav');
+
+    scrollable.addEventListener('wheel', function(event) {
+      var deltaY = event.deltaY;
+      var contentHeight = scrollable.scrollHeight;
+      var visibleHeight = scrollable.offsetHeight;
+      var scrollTop = scrollable.scrollTop;
+
+      if (scrollTop === 0 && deltaY < 0)
+        event.preventDefault();
+      else if (visibleHeight + scrollTop === contentHeight && deltaY > 0)
+        event.preventDefault();
+    });
+  };
 
   function throttle(fn, wait) {
     var time = Date.now();
@@ -77,4 +84,44 @@
       }
     }
   };
+
+  function getPages() {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.status == 200) {
+          var results = JSON.parse(xmlhttp.responseText);
+
+          appendHtml(document.getElementById('main'), results.main);
+          appendHtml(document.getElementById('nav'), results.nav);
+          initNav();
+
+          if (window.location.hash.length) window.location.href = window.location.hash;
+
+          pagesLoaded++;
+
+          if (pagesLoaded < totalPages) getPages();
+        }
+        else if (xmlhttp.status == 400) {
+          pagesLoaded++;
+        }
+        else {
+          pagesLoaded++;
+        }
+      }
+    };
+
+    xmlhttp.open('GET', '/ajax?page=' + (pagesLoaded + 1), true);
+    xmlhttp.send();
+  };
+
+  function appendHtml(el, str) {
+    var div = document.createElement('div');
+    div.innerHTML = str;
+    while (div.children.length) {
+      el.appendChild(div.children[0]);
+    }
+  };
+
 })();

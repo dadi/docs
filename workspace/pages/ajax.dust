@@ -1,0 +1,4 @@
+{
+"main": {@jsonEncode}{>"partials/doc"/}{/jsonEncode},
+"nav": {@jsonEncode}{>"partials/nav"/}{/jsonEncode}
+}
