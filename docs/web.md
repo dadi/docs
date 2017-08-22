@@ -230,6 +230,16 @@ Please see Templates later for more information.
 | useCompression | Boolean | `true` | Attempts to compress the response, including assets, using either [Brotli](https://github.com/google/brotli) or [Gzip](https://nodejs.org/api/zlib.html) | `false` |
 | cacheControl | Object | `{ 'image/png': 'public, max-age=86400', 'image/jpeg': 'public, max-age=86400', 'text/css': 'public, max-age=86400', 'text/javascript': 'public, max-age=86400', 'application/javascript': 'public, max-age=86400',        'image/x-icon': 'public, max-age=31536000000' }` | A set of custom cache-control headers (in seconds) for different content types | | |
 
+In addition, a `cacheControl` header can be used for a 301/302 redirect by adding to the configuration block:
+
+```json
+"headers": {
+  "cacheControl": {
+    "301": "no-cache"
+  }
+}
+```
+
 ### logging
 
 | Property | Type | Default | Description | Example |
@@ -520,8 +530,95 @@ If true the output of the page will be cached using cache settings in the main c
 ### Routing
 ### Providers
 #### DADI API
+
+Previous to 2.0 the datasource source type for connecting to a [DADI API](https://github.com/dadi/api) was called `remote`. This was changed to `dadiapi` to ensure clarity with the updated and repurposed [Remote provider](#web/remote).
+
+A typical datasource specification file would now contain the following:
+
+```json
+"source": {
+  "type": "dadiapi",
+  "endpoint": "1.0/articles"
+}
+```
+
+The default is `dadiapi`, so there is no requirement to specify this property when connecting to a DADI API.
+
 #### Remote
+
+Connect to a miscellaneous API via HTTP or HTTPS. See the following file as an example:
+
+```json
+{
+  "datasource": {
+    "key": "instagram",
+    "name": "Grab instagram posts for a specific user",
+    "source": {
+      "type": "remote",
+      "protocol": "http",
+      "host": "instagram.com",
+      "endpoint": "{user}/?__a=1"
+    },
+    "auth": false,
+    "requestParams": [
+      {
+        "param": "user",
+        "field": "user",
+        "target": "endpoint"
+      }
+    ]
+  }
+}
+```
+
 #### Markdown
+
+Serve content from a local folder containing text files. You can specify also specify the extension to grab. Web will process any Markdown formatting (with [Marked](https://github.com/chjj/marked)) it finds automatically as well as any [Jekyll-style front matter](https://jekyllrb.com/docs/frontmatter/) found. Any dates/times found will be processed through JavasScript’s `Date()` function.
+
+```JSON
+{
+  "datasource": {
+    "source": {
+      "type": "markdown",
+      "path": "./workspace/posts",
+      "extension": "md"
+    }
+  }
+}
+```
+
+`workspace/posts/somefolder/myslug.md`
+
+```
+---
+date: 2016-02-17
+title: Your title here
+---
+Some *markdown*
+```
+
+When loaded becomes the following data:
+
+```
+{
+  "attributes": {
+    "date": "2016-02-17T00:00:00.000Z",
+    "title": "Your title here",
+    "_id": "myslug",
+    "_ext": ".md",
+    "_loc": "workspace/posts/somefolder/myslug.md",
+    "_path": [
+      "somefolder"
+    ]
+  },
+  "original": "---\ndate: 2016-02-17\ntitle: Your title here\n---\nSome *markdown*",
+  "contentText": "Some *markdown*",
+  "contentHtml": "<p>Some <em>markdown</em></p>\n"
+}
+```
+
+NB. `_path` will exclude the datasource `source.path`.
+
 #### Twitter
 #### Wordpress
 #### RSS
