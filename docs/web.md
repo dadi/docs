@@ -54,9 +54,13 @@ A very basic `config.development.json` file looks like this:
     },
     "server": {
       "host": "127.0.0.1",
-      "port": 3020,
-      "socketTimeoutSec": 30
-    },
+      "port": 443,
+      "socketTimeoutSec": 30,
+      "protocol": "https",
+      "sslPassphrase": "superSecretPassphrase",
+      "sslPrivateKeyPath": "keys/server.key",    
+      "sslCertificatePath": "keys/server.crt"
+    },      
     "api": {
       "host": "127.0.0.1",
       "port": 3000
@@ -134,38 +138,9 @@ A very basic `config.development.json` file looks like this:
     "global" : {
       "baseUrl": "http://www.example.com"
     },
-    "debug": true,
-    "allowJsonView": true
-}
-```
-
-### Example SSL Configuration
-
-```javascript
-{
-    "app": {
-      "name": "Project Name Here"
-    },
-    "server": {
-      "host": "127.0.0.1",
-      "port": 443,
-      "protocol": "https",
-      "sslPassphrase": "superSecretPassphrase",
-      "sslPrivateKeyPath": "keys/server.key",    
-      "sslCertificatePath": "keys/server.crt",
-    },
-    "api": {
-      "host": "127.0.0.1",
-      "port": 3000
-    },
-    "auth": {
-      "tokenUrl":"/token",
-      "clientId":"webClient",
-      "secret":"secretSquirrel"
-    },
-	  "global" : {
-      "baseUrl": "https://www.example.com"
-    },
+    "globalEvents": [
+	    "timestamp"
+    ],
     "debug": true,
     "allowJsonView": true
 }
@@ -321,6 +296,10 @@ In the above example `baseUrl` would be available to a page template and could b
 </html>
 ```
 
+### globalEvents
+
+[Events](#web/events-1) to be loaded on every request.
+
 ### paths
 
 Paths can be used to configure where any folder of the app assets are located.
@@ -339,6 +318,14 @@ For example:
   "routes": "workspace/routes"
 }
 ```
+
+### twitter
+
+> See [twitter data provider](#web/twitter).
+
+### wordpress
+
+> See [wordpress data provider](#web/wordpress).
 
 ### Environmental variables
 
@@ -368,14 +355,6 @@ Best practice is to avoid keeping sensitive information inside a `config.*.json`
 | TWITTER_ACCESS_TOKEN_KEY|`twitter.accessTokenKey`|
 | TWITTER_ACCESS_TOKEN_SECRET|`twitter.accessTokenSecret`|
 | WORDPRESS_BEARER_TOKEN|`workspress.bearerToken`|
-
-### twitter
-
-> See [twitter data provider](#web/twitter).
-
-### wordpress
-
-> See [wordpress data provider](#web/wordpress).
 
 ## Adding pages
 
