@@ -588,8 +588,6 @@ Cross-Site Request Forgery (CSRF) is an attack that forces an end user to execut
 
 CSRF protection allows developers to use a per-request CSRF token which will be injected into the view model, and ensures that all POST requests supply a correct CSRF token. Without a correct token, with CSRF enabled, users will be greeted with a 403.
 
-# Usage
-
 To enable CSRF, set the `security.csrf` config option in your `config/config.{env}.json` file:
 
 ```
