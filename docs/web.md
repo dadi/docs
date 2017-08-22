@@ -100,7 +100,7 @@ A very basic `config.development.json` file looks like this:
       }
     },
     "headers": {
-      "useGzipCompression": true,
+      "useCompression": true,
       "cacheControl": {
         "text/css": "public, max-age=86400"
       }
