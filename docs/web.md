@@ -148,14 +148,6 @@ A very basic `config.development.json` file looks like this:
 
 You can see all the config options in [`config.js`](https://github.com/dadi/web/blob/master/config.js).
 
-### debug
-
-If set to `true`, _Web_ logs more information about routing, caching etc. Caching is also **disabled**.
-
-### allowJsonView
-
-If set to `true`, allows page data to be viewable by appending the querystring `?json=true` to the end of any URL.
-
 ### app
 
 | Property | Type | Default | Description | Example |
@@ -243,7 +235,7 @@ Please see Templates later for more information.
 | Property | Type | Default | Description | Example |
 |:--|:--|:--|:--|:--|
 | enabled | Boolean | `true` | If true, logging is enabled using the following settings. | `false` |
-| level | [`debug`|`info`|`warn`|`error`|`trace`] | `info` |  The level at which log messages will be written to the log file.                                                                                                                                                                                                           | `warn` |
+| level | `debug`,`info`,`warn`,`error`,`trace` | `info` |  The level at which log messages will be written to the log file.                                                                                                                                                                                                           | `warn` |
 | path | String | `./log` | The absolute or relative path to the directory for log files | `/data/app/log` |
 | filename | String | `web` | The filename to use for the log files. The name you choose will be given a suffix indicating the current application environment | `my_application_name` |
 | extension | String | `log` | The extension to use for the log files | `txt` |                                                                  
@@ -261,9 +253,9 @@ Please see Templates later for more information.
 
 | Property | Type | Default | Description | Example |
 |:--|:--|:--|:--|:--|
-| accessKeyId | String | | | 
-| secretAccessKey | String | | | 
-| region | String | | | 
+| accessKeyId | String | | | |
+| secretAccessKey | String | | | |
+| region | String | | | | |
 
 ### rewrites
 
@@ -326,6 +318,18 @@ For example:
 ### wordpress
 
 > See [wordpress data provider](#web/wordpress).
+
+### debug
+
+> See [debugging](#web/debugging)
+
+If set to `true`, _Web_ logs more information about routing, caching etc. Caching is also **disabled**.
+
+### allowJsonView
+
+> See [JSON view](#web/json-view)
+
+If set to `true`, allows page data to be viewable by appending the querystring `?json=true` to the end of any URL.
 
 ### Environmental variables
 
@@ -413,8 +417,6 @@ Any other properties you add are passed to the page data. Useful for maintaining
 | Property | Type | Default | Description |
 |:--|:--|:--|:--|
 | cache | Boolean | Reflects the `caching` settings in the main config file | Used by the application for identifying the page internally. |
-
-Any other properties you add are passed to the page data. Useful for maintaining HTML `<meta>` tags, languages etc.
 
 ### routes
 
@@ -541,11 +543,154 @@ If true the output of the page will be cached using cache settings in the main c
 ## Debugging
 ### JSON view
 
+When the [config option](#web/allowjsonview) is set to `true` you can append `?json=true` to any DADI Web URL and you will see the JSON data which helps construct that page.
+
+This will look similar to the following:
+
+```JSON
+{
+  "query": {
+    
+  },
+  "params": {
+    
+  },
+  "pathname": "/",
+  "host": "127.0.0.1:3001",
+  "page": {
+    "name": "index",
+    "description": "An introduction to DADI Web."
+  },
+  "title": "index",
+  "global": {
+    "site": "Your site name",
+    "description": "An exciting beginning.",
+    "timestamp": 1503406193245
+  },
+  "debug": true,
+  "json": true,
+  "checkValue": "a0af3ffe22e0961aeaddddc6fff2eb25",
+  "posts": {
+    "results": [
+      ...
+    ]
+  }
+}
+```
+
+From here you can see how to construct you templates to output specific variable or loop over particular objects. It is also useful for seeing the output of any Events you have which may output values into the page.
+
 ## Security
 ### CSRF tokens
 ### SSL
 ### SSL with a load balancer
 
 ## How-to guides
-### Sendgrid example
+### Dealing with form data & Sendgrid
+
+This is an example of an event which uses [SendGrid](https://sendgrid.com/) to send a message from an HTML form.
+
+**`workspace/pages/contact.dust`**
+
+```dust.js
+{?mailResult}<p>{mailResult}</p>{/mailResult}
+
+<form action="/contact/" method="post">
+  <p>
+    <label class="hdr" for="name">Name</label>
+    <input autofocus id="name" name="name" placeholder="Your full name" class="normal" type="text">
+  </p>
+  <p>
+    <label class="hdr" for="email">Email</label>
+    <input id="email" name="email" required placeholder="Your email address" class="normal" type="email">
+  </p>
+  <p>
+    <label class="hdr" for="phone">Phone</label>
+    <input id="phone" name="phone" placeholder="Contact telephone number" class="normal" type="text">
+  </p>
+  <p>
+    <label class="hdr" for="message">Message</label>
+    <textarea style="min-height:166px" rows="5" id="message" name="message" required placeholder="What do you want to talk about?" class="normal" type="email"></textarea>
+  </p>
+  <p>
+    <button type="submit">Send message</button>
+  </p>
+</form>
+```
+
+**`workspace/events/contact.js`**
+
+You need a Sendgrid.com API key for this script to work DADI Web should be started with an ENV variable for the SendGrid API key. The IP address of the box it is hosted on also needs to be whitelisted within SendGrid's dashboard.
+
+Optionally you could hardcode your API key, but be careful not to commit the code to a publically acessible GitHub repo.
+
+```JAVASCRIPT
+var sg = require('sendgrid')(process.env['SENDGRID_API'])
+
+var Event = function (req, res, data, callback) {
+
+  // On form post
+  switch (req.method.toLowerCase()) {
+    case 'post':
+
+      // Validate out inputs
+      if (req.body.email && isEmail(req.body.email) && req.body.message) {
+
+        var message = "Name: "+req.body.name+"\n\nEmail: "+req.body.email+"\n\nPhone: "+req.body.phone+"\n\nMessage:\n\n"+req.body.message
+
+        var request = sg.emptyRequest({
+          method: 'POST',
+          path: '/v3/mail/send',
+          body: {
+            personalizations: [{
+              to: [{
+                email: 'hello@dadi.tech',
+              }],
+              subject: '[dadi.tech] Contact form message',
+            }],
+            from: {
+              email: 'hello@dadi.tech',
+            },
+            content: [{
+              type: 'text/plain',
+              value: message,
+            }],
+          }
+        })
+
+        sg.API(request, function(error, response) {
+          if (error) {
+            data.mailResult = 'There was a problem sending the email.'
+          } else {
+            data.mailResult = 'Thank you for your message, you will hear back from us soon.'
+          }
+
+          callback()
+        })
+
+      } else {
+        data.mailResult = 'All fields are required.'
+        callback()
+      }
+
+    break
+  default:
+      return callback()
+  }
+  
+}
+
+// Taken from: http://stackoverflow.com/a/46181/306059
+function isEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  
+  return re.test(email)
+}
+
+module.exports = function (req, res, data, callback) {
+  return new Event(req, res, data, callback)
+};
+```
+
+
 
