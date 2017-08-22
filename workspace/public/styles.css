@@ -437,6 +437,10 @@ pre code {
 
 .docs--cdn h2,
 #nav--cdn .active { color: #e02975;}
+.docs--cdn a {
+	border-bottom: 1px solid #e02975;
+	font-weight: bold;
+}
 #nav--cdn {
 	background: url(https://dadi.tech/assets/products/dadi-cdn.png) no-repeat 90% 22px;
 	background-size: auto 22px;
@@ -452,6 +456,10 @@ pre code {
 
 .docs--publish h2,
 #nav--publish .active { color: #ffbf0d;}
+.docs--publish a {
+	border-bottom: 1px solid #ffbf0d;
+	font-weight: bold;
+}
 #nav--publish {
 	background: url(https://dadi.tech/assets/products/dadi-publish.png) no-repeat 90% 22px;
 	background-size: auto 22px;
@@ -467,6 +475,10 @@ pre code {
 
 .docs--web h2,
 #nav--web .active { color: #e42918;}
+.docs--web a {
+	border-bottom: 1px solid #e42918;
+	font-weight: bold;
+}
 #nav--web {
 	background: url(https://dadi.tech/assets/products/dadi-web.png) no-repeat 90% 22px;
 	background-size: auto 22px;
