@@ -581,7 +581,37 @@ This will look similar to the following:
 From here you can see how to construct you templates to output specific variable or loop over particular objects. It is also useful for seeing the output of any Events you have which may output values into the page.
 
 ## Security
+
 ### CSRF tokens
+
+Cross-Site Request Forgery (CSRF) is an attack that forces an end user to execute unwanted actions on a web application in which they're currently authenticated. CSRF attacks specifically target state-changing requests, not theft of data, since the attacker has no way to see the response to the forged request. [More about CSRF](https://github.com/pillarjs/understanding-csrf).
+
+CSRF protection allows developers to use a per-request CSRF token which will be injected into the view model, and ensures that all POST requests supply a correct CSRF token. Without a correct token, with CSRF enabled, users will be greeted with a 403.
+
+# Usage
+
+To enable CSRF, set the `security.csrf` config option in your `config/config.{env}.json` file:
+
+```
+"security": {
+  "csrf": true
+}
+```
+
+Once enabled, the variable `csrfToken` will be injected into the viewModel. You will need to add this to any forms which perform a `POST` using the field name `_csrf`, like so:
+
+```
+<form action="/" method="post">
+  <input type="text" name="test_input_safe">
+  <input type="hidden" name="_csrf" value="{csrfToken}">
+  <input type="submit" value="Submit form">
+</form>
+```
+
+If the CSRF token provided is incorrect, or one isn't provided, then a `403 forbidden` error will occur.
+
+A working example can be found here: [dadi-web-csrf-test](https://github.com/adamkdean/dadi-web-csrf-test).
+
 ### SSL
 ### SSL with a load balancer
 
