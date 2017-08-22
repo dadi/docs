@@ -4,64 +4,25 @@ title: Web
 
 ## Installation
 
+### Requirements
+
+* **[Node.js](https://www.nodejs.org/)** (supported versions: 4.8.4, 5.12.0, 6.11.x)
+
+### DADI CLI
+
+__Coming soon__
+
 ### NPM
 
-All our platform microservices are available from [NPM](https://www.npmjs.com/). To install *Web*.
+All DADI platform microservices are available from [NPM](https://www.npmjs.com/). To add *Web* to your project as a dependency:
 
 ```console
-$ npm install @dadi/web
+$ npm install --save @dadi/web
 ```
 
-### Manual install
+This will create `config` & `workspace` folders and `server.js` which will serve as the entry point to your app.
 
-If you do not want to use NPM, you can grab the latest [release](https://github.com/dadi/web/releases). Then you can install:
-
-```console
-$ cd ./release-download-location/
-$ npm install
-```
-
-### Dependencies
-
-You can see our full list of dependencies in the [package.json](https://github.com/dadi/web/blob/master/package.json).
-
-### Tests
-
-If you have installed manually, you can run tests by:
-
-```console
-$ npm run test
-```
-
-### Forever (optional)
-
-As with most Node.js applications, to run the app in the background you will need to install [Forever](https://github.com/nodejitsu/forever) and [Forever-service](https://github.com/zapty/forever-service):
-
-``` console
-$ [sudo] npm install forever -g
-$ [sudo] npm install -g forever-service
-```
-
-Install DADI Web as a service and ensure it loads on boot:
-
-```console
-$ [sudo] forever-service install -s main.js -e NODE_ENV=production web --start
-```
-
-**Note** the environment variable `NODE_ENV=production` must be set to target the required config version.
-
-You can then interact with the service using the following command:
-
-```console
-$ [sudo] start web
-$ [sudo] stop web
-$ [sudo] status web
-$ [sudo] restart web
-```
-
-**And you're done, now move on to [configuration](/web/getting-started/configuration/).**
-
-## Configuration
+## Configration
 
 All the core platform services are configured using enviroment specific configuration.json files, the default being `development`. For more advanced users this can also load based on the `hostname` i.e., it will also look for `config." + req.headers.host + ".json`
 
@@ -82,7 +43,9 @@ A very basic `config.development.json` file looks like this:
 }
 ```
 
-### Advanced configuration
+## Advanced configuration
+
+### Example Configuration File
 
 ```javascript
 {
@@ -121,11 +84,16 @@ A very basic `config.development.json` file looks like this:
         "port": 6379
       }
     },
-    "dust": {
-      "cache": true,
-      "debug": false,
-      "debugLevel": "INFO",
-      "whitespace": false
+    "engines": {
+      "dust": {
+        "cache": true,
+        "debug": true,
+        "debugLevel": "DEBUG",
+        "whitespace": true,
+        "paths": {
+          "helpers": "workspace/utils/helpers"
+        }
+      }
     },
     "headers": {
       "useGzipCompression": true,
@@ -143,6 +111,18 @@ A very basic `config.development.json` file looks like this:
         "enabled": true,
         "kinesisStream": "dadi_web_test_stream"
       }
+    },
+    "paths": {
+      "datasources": "./workspace/datasources",
+      "events": "./workspace/events",
+      "media": "./workspace/media",
+      "middleware": "./workspace/middleware",
+      "pages": "./workspace/pages",
+      "partials": "./workspace/partials",
+      "public": "./workspace/public",
+      "routes": "./workspace/routes",
+      "helpers": "./workspace/utils/helpers",
+      "filters": "./workspace/utils/filters"
     },
     "rewrites": {
       "datasource": "redirects",
@@ -170,9 +150,9 @@ A very basic `config.development.json` file looks like this:
       "host": "127.0.0.1",
       "port": 443,
       "protocol": "https",
-      "sslPassphrase": "<your ssl passphrase here>",
-      "sslPrivateKeyPath": "<your ssl private key path here>",
-      "sslCertificatePath": "<your ssl certificate path here>"
+      "sslPassphrase": "superSecretPassphrase",
+      "sslPrivateKeyPath": "keys/server.key",    
+      "sslCertificatePath": "keys/server.crt",
     },
     "api": {
       "host": "127.0.0.1",
@@ -183,129 +163,144 @@ A very basic `config.development.json` file looks like this:
       "clientId":"webClient",
       "secret":"secretSquirrel"
     },
-    "global" : {
+	  "global" : {
       "baseUrl": "https://www.example.com"
     },
-    "paths": {
-      "datasources": "./workspace/datasources",
-      "events": "./workspace/events",
-      "media": "./workspace/media",
-      "middleware": "./workspace/middleware",
-      "pages": "./workspace/pages",
-      "partials": "./workspace/partials",
-      "public": "./workspace/public",
-      "routes": "./workspace/routes",
-      "helpers": "./workspace/utils/helpers",
-      "filters": "./workspace/utils/filters"
-    }
     "debug": true,
     "allowJsonView": true
 }
 ```
 
-### Property Description
+You can see all the config options in [`config.js`](https://github.com/dadi/web/blob/master/config.js).
 
-Property      | Description                                                                                        | Default value | Example
-:------------ | :------------------------------------------------------------------------------------------------- | :------------ | :------
-debug         | If true, enables a debug panel on every page containing the loaded data and execution stats        | false         | true
-allowJsonView | If true, allows ?json=true in the querystring to return a view of the raw data loaded for the page | false         | true
+### debug
 
-#### server
+If set to `true`, _Web_ logs more information about routing, caching etc. Caching is also **disabled**.
 
-Property                        | Description                                                                                     | Default value | Example
-:------------------------------ | :---------------------------------------------------------------------------------------------- | :------------ | :-----------------------------------------------------
-host                            | The hostname or IP address to use when starting the Web server                                  |               | "www.example.com"
-port                            | The port to bind to when starting the Web server                                                |               | 3000
-socketTimeoutSec                | The number of seconds to wait before closing an idle socket                                     | 30            | 10
-protocol                        | The protocol the web application will use                                                       | http          | https
-sslPassphrase                   | The passphrase of the SSL private key                                                           |               | secretPassword
-sslPrivateKeyPath               | The filename of the SSL private key                                                             |               | /etc/ssl/key.pem
-sslCertificatePath              | The filename of the SSL certificate                                                             |               | /etc/ssl/cert.pem
-sslIntermediateCertificatePath  | The filename of an SSL intermediate certificate, if any                                         |               | /etc/ssl/ca.pem
-sslIntermediateCertificatePaths | The filenames of SSL intermediate certificates, overrides sslIntermediateCertificate (singular) | []            | [ '/etc/ssl/ca/example.pem', '/etc/ssl/ca/other.pem' ]
+### allowJsonView
 
-#### api
+If set to `true`, allows page data to be viewable by appending the querystring `?json=true` to the end of any URL.
 
-Property | Description                                                  | Default value | Example
-:------- | :----------------------------------------------------------- | :------------ | :----------------
-host     | The hostname or IP address of the API instance to connect to |               | "api.example.com"
-port     | The port of the API instance to connect to                   |               | 3001
-enabled  | If false, the web server runs in stand-alone mode            | true          | false
+### app
 
-#### auth
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| name | String | `DADI Web (Repo Default)` | The name of your application, used for the boot message | `My project` |
 
-Property | Description                                                    | Default value | Example
-:------- | :------------------------------------------------------------- | :------------ | :------------
-tokenUrl | The endpoint to use when requesting Bearer tokens from the API |               | "/token"
-clientId |                                                                |               | "test123"
-secret   |                                                                |               | "your-secret"
+### server
 
-#### caching
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| host | String | `0.0.0.0` | The hostname or IP address to use when starting the Web server | `example.com` |
+| port | Number | `8080` | The port to bind to when starting the Web server | `80` |
+| socketTimeoutSec | Number | `30` | The number of seconds to wait before closing an idle socket | `10` |
+| protocol | String | `http` | The protocol the web application will use | `https` |
+| sslPassphrase | String | - | The passphrase of the SSL private key | `secretPassword` |
+| sslPrivateKeyPath | String | - | The path to the SSL private key                                                             | `/etc/ssl/key.pem` |
+| sslCertificatePath | String | - | The filename of the SSL certificate | `/etc/ssl/cert.pem` |
+| sslIntermediateCertificatePath | String | - | The filename of an SSL intermediate certificate, if any | `/etc/ssl/ca.pem` |
+| sslIntermediateCertificatePaths | Array | - | The filenames of SSL intermediate certificates, overrides `  sslIntermediateCertificatePath` (singular) | `[ '/etc/ssl/ca/example.pem', '/etc/ssl/ca/other.pem' ]` |
 
-Property            | Description                                                                                                                                                   | Default value | Example
-:------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------ | :------------------------
-ttl                 |                                                                                                                                                               |               | 300
-directory           | Configuration block for caching using a local filesystem directory                                                                                            |               |
-directory.enabled   | If true, cache files will be stored on disk using the settings below. Either directory or redis caching must be enabled for caching to work.                  | true          | true
-directory.path      | The directory to use for storing cache files, relative to the root of the application. Automatically created at startup if it doesn't exist.                  | "./cache/web" |
-directory.extension | The file extension to use for cache files                                                                                                                     | "html"        |
-redis               | Configuration block for caching using a Redis caching service                                                                                                 |               |
-redis.enabled       | If true, cache files will be stored in the Redis cache store using the settings below. Either directory or redis caching must be enabled for caching to work. | false         | true
-redis.host          | The host for the Redis caching service                                                                                                                        | ""            | See example config above.
-redis.port          | The port for the Redis caching service                                                                                                                        | 6379          | 6379
+### api
 
-#### dust
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| host | String | `0.0.0.0` | The hostname or IP address of the [DADI API](https://dadi.tech/api) instance to connect to | `api.example.com` |
+| protocol | String | `http` | The protocol to use | `https` |
+| port | Number | `8080` | The port of the API instance to connect to | `3001`
+| enabled | Boolean | `true` | If false, the web server runs in stand-alone mode | `false`
 
-Property   | Description | Default value | Example
-:--------- | :---------- | :------------ | :------
-cache      |             | true          | true
-debug      |             | true          | true
-debugLevel |             | "DEBUG"       | "DEBUG"
-whitespace |             | true          | false
+### auth
 
-#### headers
+> This block is used in conjunction with the `api` block above.
 
-Property           | Description                                                       | Default value                                                                                                                            | Example
-:----------------- | :---------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------
-useGzipCompression | If true, compresses the reponse using GZip                        | true                                                                                                                                     | true
-cacheControl       | A set of custom cache-control headers for different content types | `{ "text/css": "public, max-age=86400", "text/javascript": "public, max-age=86400", "application/javascript": "public, max-age=86400" }` | `"cacheControl": { "text/css": "public, max-age=1000" }`
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| tokenUrl | String | `/token` | The endpoint to use when requesting Bearer tokens from the DADI API | `anotherapi.example.com/token` |
+| protocol | String | `http` | The protocol to use when connecting to the `tokenUrl` | `https`
+| clientId | String | `testClient` | Should reflect what you used when you setup your DAI API | `my-user`
+| secret | String | `superSecret` | The corresponding password | `my-secret` |
 
-#### logging
+### caching
 
-Property           | Description                                                                                                                                                                                                                                                                | Default value | Example
-:----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------ | :----------------------
-enabled            | If true, logging is enabled using the following settings.                                                                                                                                                                                                                  | true          | true
-level              | The level at which log messages will be written to the log file.                                                                                                                                                                                                           | "info"        | "warn"
-path               | The absolute or relative path to the directory for log files.                                                                                                                                                                                                              | "./log"       | "/data/app/log"
-filename           | The filename to use for the log files. The name you choose will be given a suffix indicating the current application environment.                                                                                                                                          | "dadi-web"    | "your_application_name"
-extension          | The extension to use for the log files.                                                                                                                                                                                                                                    | "log"         | "txt"                                                                     
+> N.B. Caching across DADI products is standardised by [DADI Cache](https://www.npmjs.com/package/@dadi/cache).
 
-#### logging.accessLog
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| ttl | Number | `300` | The time, in seconds, after which cached data is considered stale | `3600`
 
-Property           | Description                                                                                                                                                                                                                                                                       | Default value | Example
-:----------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------ | :----------------
-enabled            | If true, HTTP access logging is enabled. The log file name is similar to the setting used for normal logging, with the addition of 'access'. For example `dadi-web.access.log`.                                                                                                   | true          | true
-kinesisStream      | An [AWS Kinesis](https://aws.amazon.com/kinesis/streams/) stream to write to log records to.                                                                                                                                                                                                                                 | ""            | "web_aws_kinesis"
+#### directory 
 
-#### aws
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| enabled | Boolean | `true` | If enabled, cache files will be saved to the filesystem | `false` |
+| path | String | `./cache/web` | Where to store the cache files | `./tmp` |
+| extension | String | `html` | The default file extension for cache files. N.B. _Web_ will override this if compression is enabled | `json` |
 
-Property        | Description | Default value | Example
-:-------------- | :---------- | :------------ | :------
-accessKeyId     |             | ""            | ""
-secretAccessKey |             | ""            | ""
-region          |             | ""            | ""
+#### redis
 
-#### rewrites
+> You will need to have a [Redis](https://redis.io/) server running to use this. 
 
-Property           | Description                                                                                       | Default value | Example
-:----------------- | :------------------------------------------------------------------------------------------------ | :------------ | :------------------------------
-datasource         | The name of a datasource used to query the database for redirect records matching the current URL | ""            | "redirects"
-path               | The path to a file containing rewrite rules                                                       | ""            | "workspace/routes/rewrites.txt"
-forceLowerCase     | If true, converts URLs to lowercase before redirecting                                            | false         | true
-forceTrailingSlash | If true, adds a trailing slash to URLs before redirecting                                         | false         | true
-stripIndexPages    | A set of common index page filenames to remove from URLs.                                         | []            | ['index.php', 'default.aspx']
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| enabled | Boolean | `true` | If enabled, cache files will be saved to specified Redis server | `false` |
+| cluster | Boolean | `false` | | |
+| host | String | `127.0.0.1` | | |
+| port | Number | `6379` | | |
+| password | String | - | | | |
 
-#### global
+### engines
+
+In version 3.0 and above, _Web_ can handle multiple template engines, the default being a [Dust.js interface](https://www.npmjs.com/package/@dadi/web-dustjs). You can pass configuration options to these adaptors in this block.
+
+Please see Templates later for more information.
+
+### headers
+
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| useGzipCompression (deprecated, see `useCompression`) | Boolean | | | |
+| useCompression | Boolean | `true` | Attempts to compress the response, including assets, using either [Brotli](https://github.com/google/brotli) or [Gzip](https://nodejs.org/api/zlib.html) | `false` |
+| cacheControl | Object | `{ 'image/png': 'public, max-age=86400', 'image/jpeg': 'public, max-age=86400', 'text/css': 'public, max-age=86400', 'text/javascript': 'public, max-age=86400', 'application/javascript': 'public, max-age=86400',        'image/x-icon': 'public, max-age=31536000000' }` | A set of custom cache-control headers (in seconds) for different content types | | |
+
+### logging
+
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| enabled | Boolean | `true` | If true, logging is enabled using the following settings. | `false` |
+| level | [`debug`|`info`|`warn`|`error`|`trace`] | `info` |  The level at which log messages will be written to the log file.                                                                                                                                                                                                           | `warn` |
+| path | String | `./log` | The absolute or relative path to the directory for log files | `/data/app/log` |
+| filename | String | `web` | The filename to use for the log files. The name you choose will be given a suffix indicating the current application environment | `my_application_name` |
+| extension | String | `log` | The extension to use for the log files | `txt` |                                                                  
+
+#### accessLog
+
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| enabled | Boolean | `true` | If true, HTTP access logging is enabled. The log file name is similar to the setting used for normal logging, with the addition of 'access'. For example `dadi-web.access.log` | `false ` |
+| kinesisStream | String | - | An [AWS Kinesis](https://aws.amazon.com/kinesis/streams/) stream to write to log records to | `web_aws_kinesis` |
+
+### aws
+
+> For use with the above block `logging.accessLog`.
+
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| accessKeyId | String | | | 
+| secretAccessKey | String | | | 
+| region | String | | | 
+
+### rewrites
+
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| datasource | String | - | The name of a datasource used to query the database for redirect records matching the current URL. [More info](#web/routing-rewrites-and-redirects) | `redirects` |
+| path | String | - | The path to a file containing rewrite rules | `workspace/routes/rewrites.txt` |
+| forceLowerCase | Boolean | `false` | If true, converts URLs to lowercase before redirecting | `true` |
+| forceTrailingSlash | Boolean | `false` | If `true`, adds a trailing slash to URLs before redirecting | `true` |
+| stripIndexPages | Array | - | A set of common index page filenames to remove from URLs | `[‘index.php', 'default.aspx']` |
+
+### global
 
 The `global` section can be used for any application parameters that should be available for use in page templates, such as asset locations, 3rd party account identifiers, etc
 
@@ -315,357 +310,263 @@ The `global` section can be used for any application parameters that should be a
 }
 ```
 
-In the above example `baseUrl` would be availabe to a page template and could be used in the following way:
+In the above example `baseUrl` would be available to a page template and could be used in the following way:
 
 ```html
 <html>
 <body>
   <h1>Welcome to DADI Web</h1>
-  <img src="{baseUrl}/images/welcome.png"/>
+  <img src="{global.baseUrl}/images/welcome.png"/>
 </body>
 </html>
 ```
 
-#### paths
+### paths
 
 Paths can be used to configure where any folder of the app assets are located.
 
-## Connecting API
+For example:
 
-If you are using _Web_ in conjunction with [DADI API](https://dadi.tech/platform/api) you can connect it so you make use of it with datasources.
-
-You can connect to an instance of _API_ that exists locally, or on a remote address easily.
-
-```json
-"api": {
-  "host": "localhost",
-  "port": 1337
-},
-"auth": {
-  "tokenUrl":"/token",
-  "clientId":"webClient",
-  "secret":"secretSquirrel"
+```
+"paths": {
+  "workspace": "workspace",
+  "datasources": "workspace/datasources",
+  "pages": "workspace/pages",
+  "events": "workspace/events",
+  "middleware": "workspace/middleware",
+  "media": "workspace/media",
+  "public": "workspace/public",
+  "routes": "workspace/routes"
 }
 ```
 
-When you boot _Web_ you should see something similar to this message in the commandline if you have succesfully connected:
+### Environmental variables
 
-```
-----------------------------
-Your Project
-Started 'DADI Web'
-----------------------------
-Server:      localhost:3000
-Version:     X.X.X
-Node.JS:     4.6
-Environment: development
-API:         localhost:1337
-```
+Best practice is to avoid keeping sensitive information inside a `config.*.json`. Therefore anywhere a password or secret is used in a config file can be substituted for an [environmental variable](https://nodejs.org/api/process.html#process_process_env).
 
-## Migrating from v2 to v3
+|Variable|Block to substitute|
+|:--|:--|
+| AUTH_TOKEN_ID|`auth.clientId`|
+| AUTH_TOKEN_SECRET|`auth.secret`|
+| AWS_ACCESS_KEY|`aws.accessKeyId`|
+| AWS_SECRET_KEY|`aws.secretAccessKey`|
+| AWS_REGION|`aws.region`|
+| NODE_ENV|`env`|
+| REDIS_HOST|`caching.redis.host`|
+| REDIS_PORT|`caching.redis.post`|
+| REDIS_PASSWORD|`caching.redis.password`|
+| SESSION_SECRET|`sessions.secret`|
+| PORT|`server.port`|
+| PROTOCOL|`server.potocol`|
+| SSL_PRIVATE_KEY_PASSPHRASE|`server.sslPassphrase`|
+| SSL_PRIVATE_KEY_PATH|`server.sslPrivateKeyPath`|
+| SSL_CERTIFICATE_PATH|`server.sslCertificatePath`|
+| SSL_INTERMEDIATE_CERTIFICATE_PATH|`server.sslIntermediateCertificatePath`|
+| SSL_INTERMEDIATE_CERTIFICATE_PATHS|`server.sslIntermediateCertificatePaths`|
+| TWITTER_CONSUMER_KEY|`twitter.consumerKey`|
+| TWITTER_CONSUMER_SECRET|`twitter.consumerSecret`|
+| TWITTER_ACCESS_TOKEN_KEY|`twitter.accessTokenKey`|
+| TWITTER_ACCESS_TOKEN_SECRET|`twitter.accessTokenSecret`|
+| WORDPRESS_BEARER_TOKEN|`workspress.bearerToken`|
 
-### 1. Install Dust.js dependency
+### twitter
 
-Web 3.0 supports multiple template engines. As a consequence, Dust.js is now decoupled from core and needs to be included as a dependency on projects that want to use it.
+> See [twitter data provider](#web/twitter).
 
-```
-npm install @dadi/web-dustjs --save
-```
+### wordpress
 
-### 2. Change bootstrap script
+> See [wordpress data provider](#web/wordpress).
 
-The bootstrap script (which you may be calling `index.js`, `main.js` or `server.js`) now needs to inform Web of the engines it has available and which npm modules implement them.
+## Adding pages
 
-```js
-require('@dadi/web')({
-  engines: [
-    require('@dadi/web-dustjs')
-  ]
-})
-```
+A page on your website consists of two files within your workspace: a JSON specification and a template.
 
-### 3. Update config
+> N.B. The location of this folder is configurable, but defaults to workspace/pages.
 
-The `dust` config block has been moved inside a generic `engines` block.
+### Example specification
 
-*Before:*
-
-```
-"dust": {
-  "cache": true,
-  "debug": true,
-  "debugLevel": "DEBUG",
-  "whitespace": true,
-  "paths": {
-    "helpers": "workspace/utils/helpers"
-  }
-}
-```
-
-*After:*
-
-```
-"engines": {
-  "dust": {
-    "cache": true,
-    "debug": true,
-    "debugLevel": "DEBUG",
-    "whitespace": true,
-    "paths": {
-      "helpers": "workspace/utils/helpers"
-    }
-  }
-}
-```
-
-### 4. Move partials directory
-
-Before Web 3.0, Dust templates were separated between the `pages` and `partials` directories, with the former being used for templates that generate a page (i.e. have a route) and the latter being used for partials/includes.
-
-In Web 3.0, all templates live under the same directory (`pages`). The distinction between a page and a partial is made purely by whether or not the template has an accompanying JSON schema file.
-
-Also, pages and partials can now be located in sub-directories, nested as deeply as possible.
-
-To migrate an existing project, all you need to do is move the `partials` directory inside `pages` and everything will work as expected.
-
-*Before:*
-
-```
-workspace
-|_ pages
-|_ partials
-```
-
-*After:*
-```
-workspace
-|_ pages
-  |_ partials
-```
-
-```
-mv workspace/partials workspace/pages
-```
-
-### 5. Update Dust helpers
-
-If your project is using custom helpers, you might need to change the way they access the Dust engine. You should now access the module directly, rather than reference the one from Web.
-
-```js
-// Before
-var dust = require('@dadi/web').Dust
-require('@dadi/dustjs-helpers')(dust.getEngine())
-
-// After
-var dust = require('dustjs-linkedin')
-require('@dadi/dustjs-helpers')(dust)
-```
-
-## The "Hello World" App
-
-This is a brief outline of the minimum files you might need to an app to say "hello world". The folder structure looks like:
-
-```
-your-project/
-  web/
-    package.json
-    main.js
-    config/
-      config.development.json
-    workspace/
-      datasources/
-        greeting.json
-      pages/
-        index.json
-        index.dust
-      partials/
-        header.dust
-        footer.dust
-      public/
-        styles.css
-    node_modules/ # Location of Web after installing
-  api/
-  cdn/
-```
-
-### package.json
-
-This is where we manage the _Web_ dependency and also tell _Node.js_ how to run our app when we `$ npm start`.
-
-```json
-{
-  "name": "your-project",
-  "version": "0.0.1",
-  "author": "Your Name <hello@example.com>"
-  "description": "Just me getting started with DADI Web.",
-  "main": "main.js",
-  "scripts": {
-    "start": "NODE_ENV=development node main.js"
-  },
-  "dependencies": {
-    "@dadi/web": "^v1.7.0"
-  },
-  "engines": {
-    "node": ">=4.6.0",
-    "npm": ">3.0.0"
-  }
-}
-```
-
-`main.js`
-
-This is where we reference the installation of _Web_ for booting.
-
-```javascript
-require('@dadi/web')
-```
-
-`/config/config.development.json`
-
-For this example we will use this basic configuration.
-
-```json
-{
-  "app": {
-    "name": "Hello World"
-  },
-  "server": {
-    "host": "127.0.0.1",
-    "port": 3000
-  },
-  "api": {
-    "enabled": false
-  },
-  "paths": {
-    "datasources": "workspace/datasources",
-    "pages": "workspace/pages",
-    "partials": "workspace/partials",
-    "public": "workspace/public"
-  }
-}
-```
-
-See [configuration](/web/getting-started/configuration/) for full information.
-
-### workspace
-
-This is the heart of the project lives. We can organise this how we like in time - the `config.json` can be updated to let it know where to find the core files it needs to run. We can also store our front-end assets in here.
-
-#### workspace/datasources/greeting.json
-
-You can read more about datasources later, but for now we are using a static datasource to keep things simple.
-
-```json
-{
-  "datasource": {
-    "key": "greeting",
-    "name": "A statically loaded greeting.",
-    "source": {
-      "type": "static",
-      "data": {
-        "message": "hello world!"
-      }
-    }
-  }
-}
-```
-
-#### workspace/pages/index.json
-
-This is how we define a page (or section) of our project. Again, you can read more about advanced configuration options later.
-
-Notice we are referencing the datasource we created by its assigned `key`.
+Here is an example page specification, with all options specified.
 
 ```json
 {
   "page": {
-    "name": "Homepage"
+    "name": "People",
+    "description": "A page for displaying People records."
   },
-  "datasources": [
-    "greeting"
-  ],
+  "settings": {
+    "cache": true,
+    "beautify": true,
+    "keepWhitespace": true,
+    "passFilters": true
+  },
   "routes": [
     {
-    "path": "/"
+      "path": "/people"
     }
-  ]
+  ],
+  "contentType": "text/html",
+  "template": "people.dust",
+  "datasources": [
+    "allPeople"
+  ],
+  "requiredDatasources": [
+    "allPeople"
+  ],
+  "events": [
+    "processPeopleData"
+  ],
+  "preloadEvents": [
+    "geolocate"
+  ],
 }
 ```
 
-#### workspace/pages/index.dust
+### page
 
-_Web_ uses [Dust.js](http://www.dustjs.com/) as it's templating language.
+| Property | Type | Default | Description |
+|:--|:--|:--|:--|
+| name | String |-| Used by the application for identifying the page internally. |
 
-As a datasource acts as a collection, to get our greeting, we have to select the first result.
+Any other properties you add are passed to the page data. Useful for maintaining HTML `<meta>` tags, languages etc.
+
+### settings
+
+| Property | Type | Default | Description |
+|:--|:--|:--|:--|
+| cache | Boolean | Reflects the `caching` settings in the main config file | Used by the application for identifying the page internally. |
+
+Any other properties you add are passed to the page data. Useful for maintaining HTML `<meta>` tags, languages etc.
+
+### routes
+
+For every page added to your application, a route is created by default. A page’s default route is a value matching the page name. For example if the page name is `books` the page will be available in the browser at `/books`.
+
+To make the books page reachable via a different URL, simply add (or modify) the page’s routes property:
 
 ```js
-{>"partials/header" /}
-
-<h1>All being well we should see "Hello world!" below:</h1>
-<p><em>{greeting.results[0].message}</em></p>
-
-{>"partials/footer" /}
+"routes": [
+  {
+    "path": "/reading"
+  }
+]
 ```
 
-If you need to check what your datasource is returning, you can use the Dust.js helper `{@contextDump/}`.
+> For detailed documentation of routing, see [Routing](#web/routing-rewrites-and-redirects).
 
-### workspace/partials/header.dust
+### Templates
 
-This is a typical Dust.js partial.
+Template files are stored in the same folder as the page specifications and by default share the same filename as the `page.json`. Unless the page specification contains an explicit `template` property, the template name should match the page specification name.
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>DADI Web saying hi!</title>
-  <link rel="stylesheet" href="/styles.css">
-</head>
-<body>
+> See [Views](#web/views) for further documentation.
+
+### Datasources
+
+An array containing datasources that should be executed to load data for the page.
+
+> For detailed documentation of datasources, see [Datasources](/web/concepts/datasources)
+
+```js
+"datasources": [
+  "datasource-one",
+  …
+]
 ```
 
-#### workspace/partials/footer.dust
+### Required Datasources
 
-Finishing what we started.
+Allows specifying an array of datasources that must return data for the page to function. If any of the listed datasources return no `results`, a 404 is returned. The datasources specified must exist in the `datasources` array.
 
-```html
-</body>
-</html>
+```js
+"requiredDatasources": [
+  "datasource-one",
+  …
+]
 ```
 
-#### workspace/public/styles.css
+### Events
 
-Giving it all a lick of paint:
+An array containing events that should be executed after the page's datasources have loaded data.
 
-```css
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: #fff;
+```js
+"events": [
+  "event-one",
+  …
+]
+```
+
+> For detailed documentation of events, see [Events](/web/concepts/events)
+
+### Preload Events
+
+An array containing events that should be executed before the rest of the page's datasources and events.
+
+Preload events are loaded from the filesystem in the same way as a page's regular events, and a Javascript file with the same name must exist in the `events` path.
+
+```js
+"preloadEvents": [
+  "preloadevent-one",
+  …
+]
+```
+
+### Caching
+
+If true the output of the page will be cached using cache settings in the main configuration file.
+
+```js
+"settings": {
+  "cache": true
 }
-h1 {
-  color: red;
-}
 ```
 
-### Start the app
+> For detailed documentation of page caching, see [Caching](#web/caching-1).
 
-Now let's start the app.
+## Routing, rewrites and redirects
 
-```console
-$ npm install
-$ npm start
 
-----------------------------
-Hello World
-Started 'DADI Web'
-----------------------------
-Server:      127.0.0.1:3000
-Version:     X.X.X
-Node.JS:     4.4
-Environment: development
-API:         Not found
-----------------------------
-```
+## Views
+### Templates
+### Engines
+### Adding engines
+### Error pages
 
-Now open up your browser and navigate to [127.0.0.1:3000](http://127.0.0.1:3000).
 
-Hello world!
+## Adding data
+### Datasource files
+### Chained datasources
+### Filter events
+### Preload data
+### Routing
+### Providers
+#### DADI API
+#### Remote
+#### Markdown
+#### Twitter
+#### Wordpress
+#### RSS
+
+## Adding logic
+### Events
+### Middleware
+
+## Performance
+### Caching
+### Compression
+### Headers
+### App cache
+
+## Serving static assets and content
+### Public folder
+### Virtual directories
+
+## Debugging
+### JSON view
+
+## Security
+### CSRF tokens
+### SSL
+### SSL with a load balancer
+
+## How-to guides
+### Sendgrid example
+
