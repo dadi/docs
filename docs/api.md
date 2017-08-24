@@ -19,7 +19,7 @@ The easiest way to install API is using DADI CLI. CLI is a command line applicat
 
 #### Install DADI CLI
 
-```
+```console
 $ npm install @dadi/cli -g
 ```
 
