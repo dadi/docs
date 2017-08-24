@@ -63,10 +63,10 @@ $ [sudo] forever-service install -s main.js -e NODE_ENV=production web --start
 You can then interact with the service using the following command:
 
 ```
-$ [sudo] start web
-$ [sudo] stop web
-$ [sudo] status web
-$ [sudo] restart web
+$ [sudo] service web start
+$ [sudo] service web stop
+$ [sudo] service web status
+$ [sudo] service web restart
 ```
 
 **And you're done, now move on to [configuration](/web/getting-started/configuration/).**
