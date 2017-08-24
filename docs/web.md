@@ -575,7 +575,7 @@ A route segment with a colon at the beginning indicates a dynamic segment which 
 The following URLs match the above route, with the segment defined by `:title` extracted, placed into `req.params` and accessible via the property `title`.
 
 URL       | Named Parameter `:title`        | Request Parameters `req.params`         
----------------|----------------------|-----
+:--|:--|:--
 /books/war-and-peace           |    `war-and-peace` | `{ title: "war-and-peace" }`
 /books/sisters-brothers           |    `sisters-brothers` | `{ title: "sisters-brothers" }`
 
@@ -586,7 +586,7 @@ Parameters can be made optional by adding a question mark `?`.
 For example the route `/books/:page?` will match requests in both the following formats:
 
 | URL | Matched? | Named Parameters | Request Parameters `req.params`         
-:---------------|:------|:---------------------|------
+:--|:--|:--|:--
 | /books  | Yes|| `{}`
 | /books/2 | Yes | `:page` | `{ page: "2" }`
 
@@ -599,7 +599,7 @@ Specifying a format for a parameter can help Web identify the correct route to u
 The route `/books/:page(\\d+)` will only match a URL that has `books` in the first segment and a number in the second segment:
 
 | URL | Matched? | Named Parameters  | Request Parameters `req.params`         
-:---------------|:--------|:---------------------|------
+:--|:--|:--|:--
 | /books/war-and-peace | No ||
 | /books/2 | Yes | `:page` | `{ page: "2" }`
 
@@ -644,7 +644,7 @@ DADI Web sorts your routes into a priority order so that the most likely matches
 * Any route with a `page` parameter gets a slight edge, with 1 point being added to its priority.
 
 | Path | Priority |
-|:---|:---------|
+|:--|:--|
 | `/movies/news/:page(\\d+)?/` |  12
 | `/movies/reviews/:page(\\d+)?` |  12
 | `/movies/features/:page(\\d+)?/` |  12
