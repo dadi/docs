@@ -86,10 +86,10 @@ $ [sudo] forever-service install -s main.js -e NODE_ENV=production cdn --start
 You can then interact with the service using the following command:
 
 ```
-$ [sudo] start cdn
-$ [sudo] stop cdn
-$ [sudo] status cdn
-$ [sudo] restart cdn
+$ [sudo] service cdn start
+$ [sudo] service cdn stop
+$ [sudo] service cdn status
+$ [sudo] service cdn restart
 ```
 
 **And you're done, now move on to [configuration](/cdn/getting-started/configuration/).**
