@@ -22,6 +22,7 @@ The easiest way to install Web is using DADI CLI. CLI is a command line applicat
 $ npm install @dadi/cli -g
 ```
 
+
 #### Create new Web installation
 
 There are two ways to create a new Web application with the CLI: either manually create a new directory for Web or let CLI handle that for you. DADI CLI accepts an argument for `project-name` which it uses to create a directory for installation.
