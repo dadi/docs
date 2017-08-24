@@ -6,17 +6,48 @@ title: Web
 
 ### Requirements
 
-* **[Node.js](https://www.nodejs.org/)** (supported versions: 4.8.4, 5.12.0, 6.11.x)
+Microservices in the DADI platform are built on Node.js, a JavaScript runtime built on Google Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.
+
+DADI follows the Node.js LTS (Long Term Support) release schedule, and as such the version of Node.js required to run DADI products is coupled to the version of Node.js currently in Active LTS. See the [LTS schedule](https://github.com/nodejs/LTS) for further information.
+
+* **[Node.js](https://www.nodejs.org/)** (current LTS version)
 
 ### DADI CLI
 
-__Coming soon__
+The easiest way to install Web is using DADI CLI. CLI is a command line application that can be used to create and maintain installations of DADI products.
+
+#### Install DADI CLI
+
+```
+$ npm install @dadi/cli -g
+```
+
+#### Create new Web installation
+
+There are two ways to create a new Web application with the CLI: either manually create a new directory for Web or let CLI handle that for you.
+DADI CLI accepts an argument for `project-name` which it uses to create a directory for installation.
+
+*Manual directory creation*
+
+```console
+$ mkdir my-web-app
+$ cd my-web-app
+$ dadi web new
+```
+
+*Automatic directory creation*
+
+```console
+$ dadi web new my-web-app
+$ cd my-web-app
+```
 
 ### NPM
 
-All DADI platform microservices are available from [NPM](https://www.npmjs.com/). To add *Web* to your project as a dependency:
+All DADI platform microservices are available from [NPM](https://www.npmjs.com/). To add *Web* to your existing project as a dependency:
 
 ```console
+$ cd my-existing-node-app
 $ npm install --save @dadi/web
 ```
 
@@ -196,7 +227,7 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 |:--|:--|:--|:--|:--|
 | ttl | Number | `300` | The time, in seconds, after which cached data is considered stale | `3600`
 
-#### directory 
+#### directory
 
 | Property | Type | Default | Description | Example |
 |:--|:--|:--|:--|:--|
@@ -206,7 +237,7 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 
 #### redis
 
-> You will need to have a [Redis](https://redis.io/) server running to use this. 
+> You will need to have a [Redis](https://redis.io/) server running to use this.
 
 | Property | Type | Default | Description | Example |
 |:--|:--|:--|:--|:--|
@@ -940,10 +971,10 @@ Serve content from a local folder containing text files. You can specify also sp
 `workspace/posts/somefolder/myslug.md`
 
 ```markdown
---- 
+---
 date: 2016-02-17
 title: Your title here
---- 
+---
 Some *markdown*
 ```
 
@@ -997,10 +1028,10 @@ This will look similar to the following:
 ```JSON
 {
   "query": {
-    
+
   },
   "params": {
-    
+
   },
   "pathname": "/",
   "host": "127.0.0.1:3001",
@@ -1152,13 +1183,13 @@ var Event = function (req, res, data, callback) {
   default:
       return callback()
   }
-  
+
 }
 
 // Taken from: http://stackoverflow.com/a/46181/306059
 function isEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  
+
   return re.test(email)
 }
 

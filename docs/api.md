@@ -6,19 +6,49 @@ title: API
 
 ### Requirements
 
+Microservices in the DADI platform are built on Node.js, a JavaScript runtime built on Google Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.
+
+DADI follows the Node.js LTS (Long Term Support) release schedule, and as such the version of Node.js required to run DADI products is coupled to the version of Node.js currently in Active LTS. See the [LTS schedule](https://github.com/nodejs/LTS) for further information.
+
 * **[MongoDB](https://docs.mongodb.com/v3.0/)** (supported versions: 2.6 - 3.2)
-* **[Node.js](https://www.nodejs.org/)** (supported versions: 4.8.4, 5.12.0, 6.11.x)
+* **[Node.js](https://www.nodejs.org/)** (current LTS version)
 
 ### DADI CLI
 
-__Coming soon__
+The easiest way to install API is using DADI CLI. CLI is a command line application that can be used to create and maintain installations of DADI products.
+
+#### Install DADI CLI
+
+```
+$ npm install @dadi/cli -g
+```
+
+#### Create new API installation
+
+There are two ways to create a new API with the CLI: either manually create a new directory for API or let CLI handle that for you.
+DADI CLI accepts an argument for `project-name` which it uses to create a directory for installation.
+
+*Manual directory creation*
+
+```console
+$ mkdir my-api
+$ cd my-api
+$ dadi api new
+```
+
+*Automatic directory creation*
+
+```console
+$ dadi api new my-api
+$ cd my-api
+```
 
 ### NPM
 
-All DADI platform microservices are available from [NPM](https://www.npmjs.com/). To add *API* to your project as a dependency:
+All DADI platform microservices are available from [NPM](https://www.npmjs.com/). To add *API* to an existing project as a dependency:
 
 ```console
-$ cd my-app
+$ cd my-existing-node-app
 $ npm install --save @dadi/api
 ```
 
@@ -254,12 +284,7 @@ Each field is defined in the following way:
     },
     "required": false,
     "message": "must not be blank",
-    "default": "Untitled",
-    "placement": "Main content",
-    "display": {
-      "index": true,
-      "edit": true
-    }
+    "default": "Untitled"
   }
 }
 ```
@@ -271,7 +296,6 @@ type | The type of the field. Possible values `"String"`, `"Number"`, `"Boolean"
 label | The label for the field | 1.0.0 |  | `"Title"`
 comments | The description of the field | 1.0.0 |  | `"The article title"`
 example | An example value for the field | 1.0.0 |  | `"War and Peace"`
-placement | Determines where to display the field in the backend interface  | 1.0.0 |  | `"Main content"`
 validation | Validation rules, including minimum and maximum length and regular expression patterns. | 1.3.0 |  |
 validation.minLength | The minimum length for the field.| 1.3.0  | unlimited | `4`
 validation.maxLength | The maximum length for the field.| 1.3.0  | unlimited | `20`
@@ -279,10 +303,7 @@ validation.regex | A regular expression the field's value must match | 1.3.0  | 
 required | If true, a value must be entered for the field. | 1.0.0 | `false` | `true`
 message | The message to return if field validation fails.| 1.0.0  | `"is invalid"` | `"must contain uppercase letters only"`
 default | An optional value to use as a default if no value is supplied for this field ||  | `"0"`
-display | Determines in which view states the field should be visible within the backend interface | 1.0.0|  | `{ "index": true, "edit": false }`
 matchType | Specify the type of query that is performed when using this field. If "exact" then API will attempt to match the query value exactly, otherwise it will performa a case-insensitive query. | 1.14.0 | | `"exact"`
-validationRule | Replaced by `validation`  | removed 1.8.2 |  |
-limit | Replaced by `validation` | removed 1.8.2 |  |
 
 #### Field Types
 
@@ -909,6 +930,8 @@ Cache-Control: no-cache
 ```
 
 ## Adding application logic
+
+While
 
 ### Endpoints
 
