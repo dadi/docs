@@ -970,10 +970,10 @@ Serve content from a local folder containing text files. You can specify also sp
 `workspace/posts/somefolder/myslug.md`
 
 ```markdown
----
+--
 date: 2016-02-17
 title: Your title here
----
+--
 Some *markdown*
 ```
 
@@ -991,7 +991,7 @@ When loaded becomes the following data:
       "somefolder"
     ]
   },
-  "original": "---\ndate: 2016-02-17\ntitle: Your title here\n---\nSome *markdown*",
+  "original": "--\ndate: 2016-02-17\ntitle: Your title here\n--\nSome *markdown*",
   "contentText": "Some *markdown*",
   "contentHtml": "<p>Some <em>markdown</em></p>\n"
 }
