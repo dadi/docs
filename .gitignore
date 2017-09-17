@@ -1,5 +1,7 @@
 .metalsmith-github-meta
 
+cache/**/*
+
 # Logs
 logs
 *.log

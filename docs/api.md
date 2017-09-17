@@ -121,6 +121,105 @@ $ npm explore @dadi/api -- npm run create-client
 > ```
 > -- warning
 
+### Collection Authentication
+
+Each [collection specification](#x) contains a "settings" block which modifies certain aspects of the collection. The [`settings.authenticate`](#x) property can be used in the following ways.
+
+To specify that authentication for the collection is:
+
+* *always* required, use `"authenticate": true` 
+* *not* required, use `"authenticate": false` 
+* *required only for certain HTTP methods*, use an array of HTTP methods such as `"authenticate": ["POST"]` 
+
+The following configuration for a collection will allow all GET requests to proceed without authentication, while POST, PUT and DELETE requests will require authentication.
+ 
+```json
+"settings": {
+  "authenticate": ["POST", "PUT", "DELETE"]
+}
+```
+
+See [more information about collection specifications and their configuration](#x).
+
+### Obtaining an Access Token
+
+Unless requesting data from an unauthenticated endpoint, every request to API requires an Authorization header containing an access token.
+
+Obtain an access token by sending a POST request to your API's token endpoint, passing your client credentials in the body of the request. The token endpoint is configurable using the property [`auth.tokenRoute`](#x), with a default value of `/token`.
+
+```http
+POST /token HTTP/1.1
+Content-Type: application/json
+Host: api.somedomain.tech
+Connection: close
+Content-Length: 65
+
+{
+  "clientId": "my-client-key",
+  "secret": "my-client-secret"
+}
+```
+
+With a request like the above, you should expect a response containing an access token, as below: 
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+Content-Length: 95
+
+{
+  "accessToken": "4172bbf1-0890-41c7-b0db-477095a288b6",
+  "tokenType": "Bearer",
+  "expiresIn": 1800
+}
+```
+
+### Using an Access Token
+
+Once you have an access token, each request to the API should include an `Authorization` header containing the token:
+
+```http
+GET /1.0/library/books HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6
+Host: api.somedomain.tech
+Connection: close
+```
+
+### Access Token Expiry
+
+asdf
+
+### Authentication Errors
+
+#### Invalid Credentials
+
+```http
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer, error="invalid_credentials", error_description="Invalid credentials supplied"
+content-type: application/json
+content-length: 18
+Date: Sun, 17 Sep 2017 17:44:48 GMT
+Connection: close
+
+{"statusCode":401}
+```
+
+#### Invalid or Expired Token
+
+```http
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer, error="invalid_token", error_description="Invalid or expired access token"
+content-type: application/json
+content-length: 18
+Date: Sun, 17 Sep 2017 17:46:28 GMT
+Connection: close
+
+{"statusCode":401}
+```
+
+
 ## Authorisation and permissions
 
 The Client Record allows anyone with those credentials to request an access token and use the API. For further control over access to endpoints in API, it is possible to extend the Client Record and configure collections to only require authentication for certain HTTP methods.
@@ -178,116 +277,19 @@ It is also possible to restrict access to versions of your API (see [API Version
 > Adding permissions to a client record will result in that client being able to access only those collections and endpoints they have been given permissions to.
 > -- warning
 
-### Collection Authentication
+### Authorisation Errors
 
-Each [collection specification](#x) contains a "settings" block which modifies certain aspects of the collection. The [`settings.authenticate`](#x) property can be used in the following ways.
-
-To specify that authentication for the collection is:
-
-* *always* required, use `"authenticate": true` 
-* *not* required, use `"authenticate": false` 
-* *required only for certain HTTP methods*, use an array of HTTP methods such as `"authenticate": ["POST"]` 
-
-The following configuration for a collection will allow all GET requests to proceed without authentication, while POST, PUT and DELETE requests will require authentication.
- 
-```json
-"settings": {
-  "authenticate": ["POST", "PUT", "DELETE"]
-}
-```
-
-See [more information about collection specifications and their configuration](#x).
-
-### Obtaining an Access Token
-
-Every request to the API requires a Bearer token which should be passed as a header.
-
-Obtain a token by sending a POST request to the `/token` endpoint and passing your client credentials in the body of the request:
-
-#### Example request using Node.JS
-
-```js
-const http = require('http')
-
-const options = {
-  'hostname': 'api.example.com',
-  'port': 80,
-  'method': 'POST',
-  'path': '/token',
-  'headers': {
-    'content-type': 'application/json'
-  }
-}
-
-const credentials = JSON.stringify({
-  'clientId': 'your-client-key',
-  'secret': 'your-client-secret'
-})
-
-let req = http.request(options, (res) => {
-  let chunks = []
-
-  res.on('data', (chunk) => {
-    chunks.push(chunk)
-  })
-
-  res.on('end', () => {
-    let body = Buffer.concat(chunks)
-    console.log(body.toString())
-  })
-})
-
-req.write(credentials)
-req.end()
-```
-
-#### Response
+#### Not Allowed
 
 ```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-Cache-Control: no-store
-Content-Length: 95
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer realm="/1.0/library/books"
+content-type: application/json
+content-length: 18
+Date: Sun, 17 Sep 2017 17:52:00 GMT
+Connection: close
 
-{
-  "accessToken": "4172bbf1-0890-41c7-b0db-477095a288b6",
-  "tokenType": "Bearer",
-  "expiresIn": 1800
-}
-```
-
-Once you have the token, each request to the API should include an `Authorization` header containing the token:
-
-#### Example request using Node.JS
-
-```js
-const http = require('http')
-
-let options = {
-  hostname: 'api.example.com',
-  port: 80,
-  method: 'GET',
-  path: '/api/collections',
-  headers: {
-    'authorization': 'Bearer 4172bbf1-0890-41c7-b0db-477095a288b6',
-    'content-type': 'application/json'
-  }
-}
-
-let req = http.request(options, (res) => {
-  let chunks = []
-
-  res.on('data', (chunk) => {
-    chunks.push(chunk)
-  })
-
-  res.on('end', () => {
-    let body = Buffer.concat(chunks)
-    console.log(body.toString())
-  })
-})
-
-req.end()
+{"statusCode":401}
 ```
 
 ## Collections
