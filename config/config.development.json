@@ -13,5 +13,13 @@
     "public": "workspace/public",
     "routes": "workspace/routes"
   },
-  "allowJsonView": true
+  "allowJsonView": true,
+  "caching": {
+    "directory": {
+      "enabled": false
+    },
+    "redis": {
+      "enabled": false
+    }
+  }
 }

@@ -1,3 +1,4 @@
+var cheerio = require('cheerio')
 var dust = require('dustjs-linkedin')
 var hljs = require('highlight.js')
 var marked = require('marked')
@@ -28,6 +29,27 @@ dust.helpers.markdown = function(chunk, context, bodies, params) {
           duplicateText = escapedText + '-' + headings[duplicateIndex].count
         }
         return '<h' + level + '><a id="' + params.app + '\/' + (duplicateText || escapedText) + '" class="anchor" href="#' + params.app + '\/' + (duplicateText || escapedText) + '">Link here</a>' + text + '</h' + level + '>\n'
+      }
+
+      /**
+       * Determine if the blockquote has a special type denoted by a final paragraph
+       * beginning with "-- type". Possible types are "advice", "warning", "danger"
+       *
+       * Adds a class to the blockquote containing the specified type.
+       */
+      renderer.blockquote = function (text) {
+        let $ = cheerio.load('' + text)
+        let type = ''
+
+        $('p').each(function () {
+          if ($(this).text().indexOf('--') > -1) {
+            type = $(this).text().substring($(this).text().indexOf('--') + 3)
+            var html = $(this).html().replace('-- ' + type, '')
+            $(this).replaceWith(html)
+          }
+        })
+
+        return `<blockquote class="${type}">${$.html()}</blockquote>`
       }
 
       if (!params.highlight) {

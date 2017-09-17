@@ -2,9 +2,7 @@
 title: API
 ---
 
-## Installation
-
-### Requirements
+## Requirements
 
 Microservices in the DADI platform are built on Node.js, a JavaScript runtime built on Google Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.
 
@@ -13,20 +11,19 @@ DADI follows the Node.js LTS (Long Term Support) release schedule, and as such t
 * **[MongoDB](https://docs.mongodb.com/v3.0/)** (supported versions: 2.6 - 3.2)
 * **[Node.js](https://www.nodejs.org/)** (current LTS version)
 
-### DADI CLI
+## Creating an API
 
-The easiest way to install API is using DADI CLI. CLI is a command line application that can be used to create and maintain installations of DADI products.
+The easiest way to install API is using DADI CLI. CLI is a command line application that can be used to create and maintain installations of DADI products. Follow the simple instructions below, or see [more detailed documentation for DADI CLI](#cli).
 
-#### Install DADI CLI
+### Install DADI CLI
 
 ```console
 $ npm install @dadi/cli -g
 ```
 
-#### Create new API installation
+### Create new API installation
 
-There are two ways to create a new API with the CLI: either manually create a new directory for API or let CLI handle that for you.
-DADI CLI accepts an argument for `project-name` which it uses to create a directory for installation.
+There are two ways to create a new API with the CLI: either manually create a new directory for API or let CLI handle that for you. DADI CLI accepts an argument for `project-name` which it uses to create a directory for the installation.
 
 *Manual directory creation*
 
@@ -43,90 +40,199 @@ $ dadi api new my-api
 $ cd my-api
 ```
 
-### NPM
+DADI CLI will install the latest version of API and copy a set of files to your chosen directory so you can launch API almost immediately.
 
-All DADI platform microservices are available from [NPM](https://www.npmjs.com/). To add *API* to an existing project as a dependency:
+> **Installing DADI API directly from NPM**
+>
+> All DADI platform microservices are also available from [NPM](https://www.npmjs.com/). To add *API* to an existing project as a dependency:
 
-```console
-$ cd my-existing-node-app
-$ npm install --save @dadi/api
-```
+> ```console
+> $ cd my-existing-node-app
+> $ npm install --save @dadi/api
+> ```
+> -- advice
 
-#### Add an entry point
-
-You'll need an entry point for your project. We'll create a file called `index.js` and later we will start the application with `node index.js`. Add the following to the new file:
-
-```js
-var app = require('@dadi/api')
-
-app.start(function() {
-  console.log('API Started')
-})
-```
-
-## Creating an API application
 
 ## Application Anatomy
 
-## Command line tools
+When CLI finishes creating your API, the application directory will contain the basic requirements for launching your API. The following directories and files have been created for you: 
 
-## Getting started
+```console
+my-api/
+  config/              # contains environment-specific configuration files
+    config.development.json
+  server.js            # the entry point for the application
+  package.json
+  workspace/
+    collections/       # collection specification files
+    endpoints/         # custom JavaScript endpoints
+```
 
-### First use
+## First use
 
-### Connecting to API
 
-### Data connectors
 
-### Auto generate documentation
 
-## Managing users
 
-## Authentication, authorisation and permissions
+## Authentication
 
-### Adding client accounts
+DADI API provides a full-featured authentication layer based on the [Client Credentials flow of oAuth 2.0](http://oauthbible.com/#oauth-2-two-legged). By default all requests to collection endpoints in API require a user to have first been authenticated. Read the following to learn what's involved in authenticating against your DADI API.
 
-### Obtaining a token
+### Client Store
+At the heart of API's authentication mechanism is an internal "client store" collection. The default name for this collection is `clientStore` but this can be modified using the configuration property [`auth.clientCollectionName`](#x).
+
+The client store collection holds information about "clients" that are able to connect to the API. Think of a client as your website, mobile application or any application that should be allowed to access your API. The client credentials are used to obtain access tokens for communicating with the API.
+
+Each client record consists of a `clientId`, `secret` and `accessType`.
+
+```json
+{
+  "clientId": "your-client-key",
+  "secret": "your-client-secret",
+  "accessType": "user"
+}
+```
+
+The `accessType` property accepts one of two values: `admin` or `user`. An `admin` client is able to perform configuration and maintenance on the API using internal REST endpoints and the REST collection endpoints. A `user` client is, with no other access controls in place, simply able to read and write data using the REST collection endpoints. 
+
+> **Setting strong client secrets**
+>
+> dhdhdhd .. Viktor how do you generate passwords for clients for WC?
+> -- advice
+
+Once you have client records in the database, you can request an access token for to continue communicating with the API. See [Obtaining an Access Token](#obtaining-an-access-token). 
+
+### Adding Clients
+
+If you've installed [DADI CLI](#cli) you can use that to create a new client in the database. See instructions for [Adding Clients with CLI](#x).
+
+Alternatively, use the built in NPM script to start the Client Record Generator which will present you with a series of questions about the new client and insert a record into the configured database.
+
+```console
+$ npm explore @dadi/api -- npm run create-client
+```
+
+> **Creating the client in the correct database**
+>
+> To ensure the correct database is used for your environment, add an environment variable to the command:
+>
+> ```console
+> $ NODE_ENV=production npm explore @dadi/api -- npm run create-client
+> ```
+> -- warning
+
+## Authorisation and permissions
+
+The Client Record allows anyone with those credentials to request an access token and use the API. For further control over access to endpoints in API, it is possible to extend the Client Record and configure collections to only require authentication for certain HTTP methods.
+
+### Access Control
+
+DADI API allows controlling access to endpoints by extending the client record with a `permissions` block.
+
+> There is currently no interface or script available to add permissions to a client record, so this must be done in the database directly.
+> -- advice
+
+Add a permissions block containing an array of the collections and/or an array of the endpoints that the client should have access to.
+
+* to give access to a collection, use the collection name for the `path` property
+* to give access to an endpoint, use the final part of the endpoint's URL for the `path` property 
+
+```json
+{
+  "clientId": "my-client-key",
+  "secret": "my-client-secret",
+  "accessType": "user",
+  "permissions": {
+    "collections": [
+      { "path": "test-collection" }
+    ],
+    "endpoints": [
+      { "path": "test-endpoint" }
+    ]
+  }
+}
+```
+
+#### API Version Access Control
+
+It is also possible to restrict access to versions of your API (see [API Versioning](#api-versioning) for more information). Add an `apiVersion` property to the collection or endpoint permission:
+
+```json
+{
+  "clientId": "my-client-key",
+  "secret": "my-client-secret",
+  "accessType": "user",
+  "permissions": {
+    "collections": [
+      {
+        "apiVersion": "1.0",
+        "path": "test-collection"
+      }
+    ]
+  }
+}
+```    
+
+> **Warning!**
+> 
+> Adding permissions to a client record will result in that client being able to access only those collections and endpoints they have been given permissions to.
+> -- warning
+
+### Collection Authentication
+
+Each [collection specification](#x) contains a "settings" block which modifies certain aspects of the collection. The [`settings.authenticate`](#x) property can be used in the following ways.
+
+To specify that authentication for the collection is:
+
+* *always* required, use `"authenticate": true` 
+* *not* required, use `"authenticate": false` 
+* *required only for certain HTTP methods*, use an array of HTTP methods such as `"authenticate": ["POST"]` 
+
+The following configuration for a collection will allow all GET requests to proceed without authentication, while POST, PUT and DELETE requests will require authentication.
+ 
+```json
+"settings": {
+  "authenticate": ["POST", "PUT", "DELETE"]
+}
+```
+
+See [more information about collection specifications and their configuration](#x).
+
+### Obtaining an Access Token
 
 Every request to the API requires a Bearer token which should be passed as a header.
 
 Obtain a token by sending a POST request to the `/token` endpoint and passing your client credentials in the body of the request:
 
-#### Example Request using curl
-
-```
-curl -X POST -H "Content-Type: application/json" --data "{\"clientId\":\"testClient\",\"secret\":\"superSecret\"}" "http://api.example.com/token"
-```
-
 #### Example request using Node.JS
 
 ```js
-var http = require('http')
+const http = require('http')
 
-var options = {
-  hostname: 'api.example.com',
-  port: 80,
-  method: 'POST',
-  path: '/token',
-  headers: {
+const options = {
+  'hostname': 'api.example.com',
+  'port': 80,
+  'method': 'POST',
+  'path': '/token',
+  'headers': {
     'content-type': 'application/json'
   }
 }
 
-var credentials = JSON.stringify({
-  clientId: 'your-client-id',
-  secret: 'your-secret'
+const credentials = JSON.stringify({
+  'clientId': 'your-client-key',
+  'secret': 'your-client-secret'
 })
 
-var req = http.request(options, function (res) {
-  var chunks = []
+let req = http.request(options, (res) => {
+  let chunks = []
 
-  res.on('data', function (chunk) {
+  res.on('data', (chunk) => {
     chunks.push(chunk)
   })
 
-  res.on('end', function () {
-    var body = Buffer.concat(chunks)
+  res.on('end', () => {
+    let body = Buffer.concat(chunks)
     console.log(body.toString())
   })
 })
@@ -137,7 +243,12 @@ req.end()
 
 #### Response
 
-```js
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+Content-Length: 95
+
 {
   "accessToken": "4172bbf1-0890-41c7-b0db-477095a288b6",
   "tokenType": "Bearer",
@@ -147,18 +258,12 @@ req.end()
 
 Once you have the token, each request to the API should include an `Authorization` header containing the token:
 
-#### Example Request using curl
-
-```
-curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6" "http://api.example.com/api/collections"
-```
-
 #### Example request using Node.JS
 
 ```js
-var http = require('http')
+const http = require('http')
 
-var options = {
+let options = {
   hostname: 'api.example.com',
   port: 80,
   method: 'GET',
@@ -169,15 +274,15 @@ var options = {
   }
 }
 
-var req = http.request(options, function (res) {
-  var chunks = []
+let req = http.request(options, (res) => {
+  let chunks = []
 
-  res.on('data', function (chunk) {
+  res.on('data', (chunk) => {
     chunks.push(chunk)
   })
 
-  res.on('end', function () {
-    var body = Buffer.concat(chunks)
+  res.on('end', () => {
+    let body = Buffer.concat(chunks)
     console.log(body.toString())
   })
 })
@@ -185,15 +290,11 @@ var req = http.request(options, function (res) {
 req.end()
 ```
 
-### Obtaining an admin token
+## Collections
 
-### Restricting access to collections
+### Collection specification
 
-## Defining collections
-
-### Collection schema
-
-Collections are the storage containers for your data within API. DADI API handles creation and modification of database collections within the database. All that is required in order to create a new database collection and it's associated collection endpoint is a collection specification file.
+Collections are the storage containers for your data within API. DADI API handles creation and modification of database collections within the database - all that is required in order to create a new database collection and it's associated collection endpoint is a collection specification file.
 
 Collection specifications are simply JSON files stored in your application's `/workspace/collections` folder.
 
@@ -210,26 +311,28 @@ Collection documents may be stored in separate databases, represented by the nam
 
 ##### Collection
 
-Collection specifications exist as JSON files containing any number of field specifications and a configuration block. The naming convention for the collection specifications is `collection.<collection name>.json` where `<collection name>` is used as the name of the collection in MongoDB.
+Collection specifications exist as JSON files containing at least one field specification and a configuration block.
 
-#### Use the Plural Form
+The naming convention for collection specifications is `collection.<collection name>.json` where `<collection name>` is used as the name of the collection in the underlying database.
 
-We recommend you use the plural form for all collection endpoints to keep consistency across your API. Using the singular form means a GET request for a list of results can easily be confused with a request for a single entity.
-
-For example, a collection named `book (collection.book.json)` will accept GET requests at the following endpoints:
-
-```
+> **Use the plural form**
+>
+> We recommend you use the plural form for all collection endpoints to keep consistency across your API. Using the singular form means a GET request for a list of results can easily be confused with a request for a single entity.
+>
+> For example, a collection named `book (collection.book.json)` will accept GET requests at the following endpoints:
+>
+> ```
 http://api.example.com/1.0/library/book
 http://api.example.com/1.0/library/book/560a44b33a4d7de29f168ce4
 ```
-
-Is the first one going to return all books, as intended? It's not obvious. Instead, using the plural form makes it clear what the endpoint's intended behaviour is:
-
-```
+>
+> Is the first one going to return all books, as intended? It's not obvious. Instead, using the plural form makes it clear what the endpoint's intended behaviour is:
+>
+> ```
 http://api.example.com/1.0/library/books
 http://api.example.com/1.0/library/books/560a44b33a4d7de29f168ce4
 ```
-
+> -- advice
 
 ##### Collection Endpoint
 
@@ -244,7 +347,13 @@ In actual use this might look like the following:
 
 ##### The JSON File
 
-Collection specification files take the following format:
+Collection specification files are simply JSON files that take the below format. They can be created and edited in any text editor, then added to the API's `collections` directory. API will load new and changed collections the next time it starts.
+
+The JSON file must contain a `fields` property and a `settings` property. `fields` must contain at least one field for the collection specification to be valid. Each field is added as a property of the `fields` object. See [Collection Fields](#collection-fields) (below) for details regarding the format of field objects.
+
+There are a number of properties required for the `settings` object before the collection specification is considered valid - see [Collection Settings](#collection-settings) for details.
+
+**A skeleton collection specification**
 
 ```json
 {
@@ -263,65 +372,58 @@ Collection specification files take the following format:
 ```
 
 
-### Fields
+### Collection Fields
 
 Each field is defined in the following way:
 
 ```json
-{
-  "fieldName": {
-    "type": "String",
-    "label": "Title",
-    "comments": "The title of the entry",
-    "example": "War and Peace",
-    "matchType": "exact",
-    "validation": {
-      "minLength": 4,
-      "maxLength": 20,
-      "regex": {
-        "pattern": "/[A-Za-z0-9]*/"
-      }
-    },
-    "required": false,
-    "message": "must not be blank",
-    "default": "Untitled"
+"fieldName": {
+  "type": "String",
+  "required": true,
+  "label": "Title",
+  "comments": "The title of the entry",
+  "example": "War and Peace",
+  "message": "must not be blank",
+  "default": "Untitled"
+  "matchType": "exact",
+  "validation": {
+    "minLength": 4,
+    "maxLength": 20,
+    "regex": {
+      "pattern": "/[A-Za-z0-9]*/"
+    }
   }
 }
 ```
 
- Property       | Description        | Introduced        |  Default                                  | Example
-:----------------|:-------------------|:------------------------------------------|:-------
-fieldName | The name of the field | | | `"title"`
-type | The type of the field. Possible values `"String"`, `"Number"`, `"Boolean"`, `"Mixed"`, `"Object"`, `"ObjectID"`, `"Reference"`  | 1.0.0|  | `"String"`
-label | The label for the field | 1.0.0 |  | `"Title"`
-comments | The description of the field | 1.0.0 |  | `"The article title"`
-example | An example value for the field | 1.0.0 |  | `"War and Peace"`
-validation | Validation rules, including minimum and maximum length and regular expression patterns. | 1.3.0 |  |
-validation.minLength | The minimum length for the field.| 1.3.0  | unlimited | `4`
-validation.maxLength | The maximum length for the field.| 1.3.0  | unlimited | `20`
-validation.regex | A regular expression the field's value must match | 1.3.0  |  | `{ "pattern": /[A-Z]*/ }`
-required | If true, a value must be entered for the field. | 1.0.0 | `false` | `true`
-message | The message to return if field validation fails.| 1.0.0  | `"is invalid"` | `"must contain uppercase letters only"`
-default | An optional value to use as a default if no value is supplied for this field ||  | `"0"`
-matchType | Specify the type of query that is performed when using this field. If "exact" then API will attempt to match the query value exactly, otherwise it will performa a case-insensitive query. | 1.14.0 | | `"exact"`
+| Property  | Description |  Default | Example | Required?
+|:--|:--|:--|:--|:--
+| fieldName | The name of the field | | `"title"` | Yes
+| type | The type of the field. Possible values `"String"`, `"Number"`, `"Boolean"`, `"Mixed"`, `"Object"`, `"ObjectID"`, `"Reference"`  |  N/A  | `"String"` | Yes
+| label | The label for the field | `""` | `"Title"` | No
+| comments | The description of the field | `""` | `"The article title"` | No
+| example | An example value for the field | `""` | `"War and Peace"` | No
+| validation | Validation rules, including minimum and maximum length and regular expression patterns. | `{}` | | No
+| validation.minLength | The minimum length for the field.| unlimited | `4` | No
+| validation.maxLength | The maximum length for the field.| unlimited | `20` | No
+| validation.regex | A regular expression the field's value must match |  | `{ "pattern": /[A-Z]*/ }` | No
+| required | If true, a value must be entered for the field. | `false` | `true` | No
+| message | The message to return if field validation fails.| `"is invalid"` | `"must contain uppercase letters only"` | No
+| default | An optional value to use as a default if no value is supplied for this field | | `"0"` | No
+| matchType | Specify the type of query that is performed when using this field. If "exact" then API will attempt to match the query value exactly, otherwise it will performa a case-insensitive query. | | `"exact"` | No
 
 #### Field Types
 
-##### String
+| Type | Description | Example 
+|:--|:--|:--
+| String | The most basic field type, used for text data | `"The quick brown fox"` 
+| Number | Accepts numeric data types including whole integers and floats | `5`, `5.01` 
+| Boolean | Accepts only two possible values: `true` or `false` | `true` 
+| Mixed | z | z
+| Object | Accepts single JSON documents or an array | z
+| ObjectID | z | z
+| Reference | Used for linking documents in the same collection or a different collection. Solves the problem of storing subdocuments in documents. See [Document Composition (reference fields)](#document-composition) for further information. | the ID of another document: `"560a5baf320039f7d6a78d3b"` 
 
-##### Number
-
-##### Boolean
-
-##### Mixed
-
-##### Object
-
-##### ObjectID
-
-##### Reference
-
-See [Document Composition (reference fields)](#document-composition) for further information.
 
 ### Collection Settings
 
@@ -346,67 +448,20 @@ Default values for the collection endpoint are set the following way:
 ```
 
  Property       | Description        |   Example
-:----------------|:-------------------|:-------
+:--|:--|:--
 cache | If true, caching is enabled for this collection. The global config must also have `cache: true` for caching to be enabled | `true`
-authenticate |  | `true`
+authenticate | Specifies whether requests to the endpoint for this collection require authentication  | `true`
 count | The number of results to return when querying the collection | `40`
 sort | The default field to sort results by | `"title"`
 sortOrder | The sort direction to sort results by | `1` = ascending, `-1` = descending
 callback |  |
-defaultFilters | A default set of filters to query the collection by | `{ "publishState": true }`
-fieldLimiters | A default set of fields to return | `{ "title": 1, "author": 1 }`
-index | | | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
+defaultFilters | Specifies a default query for the collection. A `filter` parameter passed in a query will extend the default filters.  | `{ "published": true }`
+fieldLimiters | Specifies a default list of fields for inclusion/exclusion. Fields can be included or excluded, but not both. See [Returning Data](XXX) for more detail. | `{ "title": 1, "author": 1 }`, `{ "dob": 0, "state": 0 }`
+index | Specifies a set of indexes that should be created for the collection. See [Creating Database Indexes](#creating-database-indexes) for more detail.  | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
 
 > It is possible to override some of these values when requesting data from the endpoint, by using querystring parameters. See [Querying a collection](./querying) for detailed documentation.
 
-#### defaultFilters
-
-Specifies a default query for the collection.
-
-```
-defaultFilters: { "publishState": "published" }
-```
-
-A `filter` parameter passed in a query will extend the default filters. For example the following request would extend the default filters and the database query would reflect both the defaults and the filters passed in the querystring:
-
-```
-http://api.example.com/1.0/magazine/articles?filter={"magazineTitle":"Vogue"}
-
-{ "publishState": "published", "magazineTitle": "Vogue" }
-```
-
-#### fieldLimiters
-
-Specifies a default list of fields for inclusion/exclusion. Fields can be included or excluded, but not both.
-
-#### Selecting fields for inclusion
-
-For example to include only `name` and `email`:
-
-```
-fieldLimiters: {"name":1, "email": 1}
-```
-
-The `_id` field is returned by default and is the only field which can be excluded in a list of included fields. To exclude the `_id` field:
-
-```
-fieldLimiters: {"name":1, "email": 1, "_id": 0}
-```
-
-Attempting to mix included with excluded results in a MongoDB error:
-
-```
-fieldLimiters: {"name":1, "email": 0}
-```
-
-#### Selecting fields for exclusion
-
-To exclude fields, list only the fields for exclusion:
-
-```
-fieldLimiters: {"name":0, "email": 0}
-```
-
+### Restricting access to collections
 
 ### Creating a collection
 
@@ -421,6 +476,19 @@ fieldLimiters: {"name":0, "email": 0}
 #### Using REST API
 
 #### Using a Model directly
+
+```js
+// require the Model component from API
+const Model = require('@dadi/api').Model
+
+// get a reference to the "books" collection via the Model
+const books = Model('books')
+
+// call a method on the collection, for e.g. find(), insert(), update()
+books.find({ title: 'Harry Potter 2' }, { compose: true }, (err, result) => {
+  // do something with result
+})
+```
 
 ### Updating data
 
@@ -440,7 +508,7 @@ fieldLimiters: {"name":0, "email": 0}
 
 ### Validation
 
-Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema.
+Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema. 
 
 * [Validation Options](#validation-options)
 * [Validation Response](#validation-response)
@@ -553,8 +621,8 @@ If a document fails validation an errors collection will be returned with the re
 
 A set of default error messages are returned for fields that fail validation. The table below lists the built-in error messages and their associated meaning.
 
-Message       | Description         
-:----------------|:-------------------
+Message       | Description
+:--|:--
 "is invalid" | The default message returned for a field that fails validation
 "must be specified" | A `required` field has not been supplied
 "can't be blank" | A `required` field has been supplied but with no value
@@ -575,7 +643,7 @@ For example:
 }
 ```
 
-## Database Indexes
+## Creating Database Indexes
 
 Indexes provide high performance read operations for frequently used queries and are fundamental in ensuring performance under load and at scale.
 
@@ -749,11 +817,11 @@ GET /1.0/library/books?filter={"_id":"560a5baf320039f7d6a78d3b"}&compose=true
 ```
 
 ```js
-var books = model('books')
+const books = model('books')
 
-books.find({ title: "Harry Potter 2" }, { "compose": true }, function (err, result) {
+books.find({ title: 'Harry Potter 2' }, { compose: true }, (err, result) => {
   // do something with result
-});
+})
 ```
 
 This setting will allow the first level of Reference fields to be resolved. To allow Reference fields to resolve which are nested further within the document, add a `compose` property to the collection specification's settings block:
@@ -995,12 +1063,11 @@ Each function receives the following three arguments:
 
 ```js
 module.exports.get = function (req, res, next) {
-
-  var data = {
+  let data = {
     results: [
       {
-        title: "Book One",
-        author: "Benjamin Franklin"
+        title: 'Book One',
+        author: 'Benjamin Franklin'
       }
     ]
   }
@@ -1015,12 +1082,11 @@ module.exports.get = function (req, res, next) {
 
 ```js
 module.exports.get = function (req, res, next) {
-
-  var data = {
+  let data = {
     results: [
       {
-        title: "Book One",
-        author: "Benjamin Franklin"
+        title: 'Book One',
+        author: 'Benjamin Franklin'
       }
     ]
   }
@@ -1035,12 +1101,11 @@ module.exports.get = function (req, res, next) {
 
 ```js
 module.exports.get = function (req, res, next) {
-
-  var data = {
+  let data = {
     results: [
       {
-        title: "Book One",
-        author: "Benjamin Franklin"
+        title: 'Book One',
+        author: 'Benjamin Franklin'
       }
     ]
   }
@@ -1059,7 +1124,9 @@ The following example returns a config object with a route that specifies an opt
 
 ```js
 module.exports.config = function () {
-  return { "route": "/1.0/books/:id([a-fA-F0-9]{24})?" }
+  return {
+    route: '/1.0/books/:id([a-fA-F0-9]{24})?'
+  }
 }
 ```
 
@@ -1152,7 +1219,7 @@ For that reason, developers might have the need to pass extra information to the
 ```json
 "settings": {
   "hooks": {
-    "create": [
+    "beforeCreate": [
       {
         "hook": "slugify",
         "options": {
@@ -1262,23 +1329,67 @@ And then enable it in a model:
 }
 ```
 
+## Internal Endpoints
+
+### Hello
+### Configuration
+### Cache flush
+### All Collections
+
 ## Data connectors reference
 
 ### MongoDB Connector
 
+The MongoDB connector allows you to use MongoDB as the backend for API.
+
+
+Help improve the package at https://github.com/dadi/api-mongodb.
+
+
 #### Installing
+
+```console
+$ npm install --save @dadi/api-mongodb
+```
 
 #### Configuring
 
 #### Using MongoLab
 
-### CouchDB
+### CouchDB Connector
 
-### JSON File
+The CouchDB connector allows you to use CouchDB as the backend for API.
+
+Help improve the package at https://github.com/dadi/api-couchdb.
+#### Installing
+
+
+```console
+$ npm install --save @dadi/api-couchdb
+```
+
+### FileStore Connector
+
+The FileStore connector allows you to use JSON files as the backend for API, via [LokiJS](http://lokijs.org).
+
+Help improve the package at https://github.com/dadi/api-filestore.
+
+#### Installing
+
+```console
+$ npm install --save @dadi/api-filestore
+```
 
 ### Building a connector
+
+Sample repository at https://github.com/dadi/api-connector-template.
+
 
 ## How-to guides
 
 
+### Connecting to API
 
+### Data connectors
+
+### Auto generate documentation

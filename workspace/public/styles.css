@@ -331,12 +331,27 @@ nav > ul > li > ul > li > a {
 	}
 }
 
+.docs blockquote.advice {
+  padding: 10px;
+  background: darkseagreen;
+	opacity: 1;
+	border-left: none;
+}
+
+.docs blockquote.warning {
+  padding: 10px;
+  background: lightsalmon;
+	opacity: 1;
+	border-left: none;
+}
+
 .docs blockquote {
 	padding: 0 1em;
 	margin: 0;
 	opacity: 0.5;
 	border-left: 0.25em solid #ddd;
 }
+
 .docs h1 {
 	color: #8F8F8F;
 }
