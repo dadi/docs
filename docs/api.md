@@ -307,68 +307,88 @@ ClientId not authorized to access requested collection.
 
 ## Collections
 
-Collections are the storage containers for your data within DADI API. API can handle the creation and modification of database collections/tables within the underlying database.
+A *Collection* represents data within your API. Collections can be thought of as the data models for your application and define how API connects to the underlying data store to store and retrieve data.
 
-All that is required in order to create a new database collection and it's associated collection endpoint is a collection specification file. Of course, API can also connect to existing
+API can handle the creation of new collections or tables in the configured data store simply by creating collection specification files. To connect collections to existing data, simply name the file using the same name as the existing collection/table.
 
-### Collection specification
+All that is required to connect to your data is a collection specification file, and once that is created API provides data access over a REST endpoint and programmatically via the API's `Model` module.
 
-Collection specifications are simply JSON files stored in your application's `/workspace/collections` folder.
+### Collections directory
 
-##### API Version
+Collection specifications are simply JSON files stored in your application's `collections` directory. The location of this directory is configurable using the configuration property `paths.collections` but defaults to `workspace/collections`. The structure of this directory is as follows:
+
+```console
+my-api/
+  workspace/
+    collections/                    
+      1.0/                          # API version
+        library/                    # database
+          collection.books.json     # collection specification file
+```
+
+**API Version**
 
 Specific versions of your API are represented by "version" folders within the collections folder.
 [MORE]
 
-##### Database
+**Database**
 
-Collection documents may be stored in separate databases, represented by the name of the folder within the "version" folder.
+Collection documents may be stored in separate databases in the underlying data store, represented by the name of the "database" directory.
 
-> **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](../../setup/configuration#collection-specific-databases) for more information.
+> **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](#collection-specific-databases) for more information.
 
-##### Collection
+**Collection specification file**
 
-Collection specifications exist as JSON files containing at least one field specification and a configuration block.
+A collection specification file is a JSON file containing at least one field specification and a configuration block.
 
-The naming convention for collection specifications is `collection.<collection name>.json` where `<collection name>` is used as the name of the collection in the underlying database.
+The naming convention for collection specifications is `collection.<collection name>.json` where `<collection name>` is used as the name of the collection/table in the underlying data store.
 
 > **Use the plural form**
 >
-> We recommend you use the plural form for all collection endpoints to keep consistency across your API. Using the singular form means a GET request for a list of results can easily be confused with a request for a single entity.
+> We recommend you use the plural form when naming collections in order to keep consistency across your API. Using the singular form means a GET request for a list of results can easily be confused with a request for a single entity.
 >
 > For example, a collection named `book (collection.book.json)` will accept GET requests at the following endpoints:
 >
 > ```
-http://api.example.com/1.0/library/book
-http://api.example.com/1.0/library/book/560a44b33a4d7de29f168ce4
-```
+> http://api.somedomain.tech/1.0/library/book
+> http://api.somedomain.tech/1.0/library/book/560a44b33a4d7de29f168ce4
+> ```
 >
-> Is the first one going to return all books, as intended? It's not obvious. Instead, using the plural form makes it clear what the endpoint's intended behaviour is:
+> It's not obvious whether or not the first example is going to return all books, as intended. Using the plural form makes it clear what the endpoint's intended behaviour is:
 >
 > ```
-http://api.example.com/1.0/library/books
-http://api.example.com/1.0/library/books/560a44b33a4d7de29f168ce4
+> http://api.somedomain.tech/1.0/library/books
+> http://api.somedomain.tech/1.0/library/books/560a44b33a4d7de29f168ce4
 ```
 > -- advice
 
-##### Collection Endpoint
 
-With the above folder and file hierarchy a collection's endpoint within the API uses the following format:
+### The Collection Endpoint
+
+API automatically generates a REST endpoint for each collection specification loaded from the collections directory. The format of the REST endpoint follows this convention `/{version}/{database}/{collection name}` and matches the structure of the collections directory.
+
+```console
+my-api/
+  workspace/
+    collections/                    
+      1.0/                          # API version
+        library/                    # database
+          collection.books.json     # collection specification file
+```
+
+With the above directory structure API will generate this REST endpoint: http://api.somedomain.tech/1.0/library/books.
 
 
-`http://api.example.com/{version}/{database}/{collection name}`
+### The JSON File
 
-In actual use this might look like the following:
+Collection specification files can be created and edited in any text editor, then added to the API's `collections` directory. API will load all valid collections when it is restarted.
 
-`http://api.example.com/1.0/library/books`
+#### Minimum Requirements
 
-##### The JSON File
+The JSON file must contain a `fields` property and a `settings` property.
 
-Collection specification files are simply JSON files that take the below format. They can be created and edited in any text editor, then added to the API's `collections` directory. API will load new and changed collections the next time it starts.
-
-The JSON file must contain a `fields` property and a `settings` property. `fields` must contain at least one field for the collection specification to be valid. Each field is added as a property of the `fields` object. See [Collection Fields](#collection-fields) (below) for details regarding the format of field objects.
-
-There are a number of properties required for the `settings` object before the collection specification is considered valid - see [Collection Settings](#collection-settings) for details.
+* `fields`: must contain at least one field specification. See [Collection Fields](#collection-fields) for the format of fields.
+* `settings`: a `settings` block must be provided, even if it's empty. API uses sensible defaults for collection configuration, but these can be overridden using properties in the `settings` block. See [Collection Settings](#collection-settings) for details.
 
 **A skeleton collection specification**
 
@@ -376,14 +396,9 @@ There are a number of properties required for the `settings` object before the c
 {
   "fields": {
     "field1": {
-
-    },
-    "field2": {
-
     }
   },
   "settings": {
-
   }
 }
 ```
@@ -391,7 +406,17 @@ There are a number of properties required for the `settings` object before the c
 
 ### Collection Fields
 
-Each field is defined in the following way:
+Each field in a collection is defined using the following format. The only required property is `type` which tells API what data types the field can contain. 
+
+**A basic field specification**
+
+```json
+"fieldName": {
+  "type": "String"
+}
+```
+
+**A complete field specification**
 
 ```json
 "fieldName": {
@@ -429,56 +454,56 @@ Each field is defined in the following way:
 | default | An optional value to use as a default if no value is supplied for this field | | `"0"` | No
 | matchType | Specify the type of query that is performed when using this field. If "exact" then API will attempt to match the query value exactly, otherwise it will performa a case-insensitive query. | | `"exact"` | No
 
-#### Field Types
+### Field Types
+
+Every field in a collection must be one of the following types. All documents sent to API are validated against a collection's field type to ensure that data will be stored in the format intended. See the section on [Validation](#validation) for more details.
 
 | Type | Description | Example 
 |:--|:--|:--
-| String | The most basic field type, used for text data | `"The quick brown fox"` 
+| String | The most basic field type, used for text data. Will also accept arrays of Strings. | `"The quick brown fox"`,  `["The", "quick", "brown", "fox"]`
 | Number | Accepts numeric data types including whole integers and floats | `5`, `5.01` 
 | Boolean | Accepts only two possible values: `true` or `false` | `true` 
-| Mixed | z | z
-| Object | Accepts single JSON documents or an array | z
-| ObjectID | z | z
-| Reference | Used for linking documents in the same collection or a different collection. Solves the problem of storing subdocuments in documents. See [Document Composition (reference fields)](#document-composition) for further information. | the ID of another document: `"560a5baf320039f7d6a78d3b"` 
+| Object | Accepts single JSON documents or an array of documents | `{ "firstName": "Steve" }`
+| Mixed | Can accept any of the above types: String, Number, Boolean or Object | 
+| ObjectID | **Deprecated** Accepts MongoDB ObjectIds | `560a5baf320039f7d6a78d3b`
+| Reference | Used for linking documents in the same collection or a different collection, solving the problem of storing subdocuments in documents. See [Document Composition (reference fields)](#document-composition) for further information. | the ID of another document as a String: `"560a5baf320039f7d6a78d3b"` 
 
 
 ### Collection Settings
 
-Default values for the collection endpoint are set the following way:
+Each collection specification must contain a `settings` block, even if it is empty. API applies sensible defaults to collections, all of which can be overridden using properties in the `settings` block. Collection configuration is controlled in the following way:
 
 ```json
 {
   "settings": {
     "cache": true,
     "authenticate": true,
-    "count": 40,
+    "count": 100,
     "sort": "title",
     "sortOrder": 1,
     "callback": null,
-    "defaultFilters": null,
-    "fieldLimiters": null,
-    "storeRevisions": false,
-    "revisionCollection": null,
+    "storeRevisions": false
     "index": []
   }
 }
 ```
 
- Property       | Description        |   Example
-:--|:--|:--
-cache | If true, caching is enabled for this collection. The global config must also have `cache: true` for caching to be enabled | `true`
-authenticate | Specifies whether requests to the endpoint for this collection require authentication  | `true`
-count | The number of results to return when querying the collection | `40`
-sort | The default field to sort results by | `"title"`
-sortOrder | The sort direction to sort results by | `1` = ascending, `-1` = descending
-callback |  |
-defaultFilters | Specifies a default query for the collection. A `filter` parameter passed in a query will extend the default filters.  | `{ "published": true }`
-fieldLimiters | Specifies a default list of fields for inclusion/exclusion. Fields can be included or excluded, but not both. See [Returning Data](XXX) for more detail. | `{ "title": 1, "author": 1 }`, `{ "dob": 0, "state": 0 }`
-index | Specifies a set of indexes that should be created for the collection. See [Creating Database Indexes](#creating-database-indexes) for more detail.  | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
+| Property | Description | Default | Example
+|:--|:--|:--|:--
+| cache | If true, caching is enabled for this collection. The global config must also have `cache: true` for caching to be enabled | `false` | `true`
+| authenticate | Specifies whether requests for this collection require authentication, or if there only certain HTTP methods that must be authenticated | `true` | `false`, `["POST"]`
+| count | The number of results to return when querying the collection | `50` | `100`
+| sort | The field to sort results by | `"_id"`  | `"title"`
+| sortOrder | The sort direction to sort results by | `1`  | `1` = ascending, `-1` = descending
+| callback | x | x | x
+| defaultFilters | Specifies a default query for the collection. A `filter` parameter passed in the querystring will extend these filters.  | `{}` | `{ "published": true }`
+| fieldLimiters | Specifies a list of fields for inclusion/exclusion in the response. Fields can be included or excluded, but not both. See [Returning Data](#xxx) for more detail. | `{}` | `{ "title": 1, "author": 1 }`, `{ "dob": 0, "state": 0 }`
+| index | Specifies a set of indexes that should be created for the collection. See [Creating Database Indexes](#creating-database-indexes) for more detail. | `[]`  | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
 
-> It is possible to override some of these values when requesting data from the endpoint, by using querystring parameters. See [Querying a collection](./querying) for detailed documentation.
-
-### Restricting access to collections
+> **Overriding configuration using querystring parameters**
+> 
+> It is possible to override some of these values when requesting data from the endpoint, by using querystring parameters. See [Querying a collection](#querying) for detailed documentation.
+> -- advice
 
 ### Creating a collection
 
@@ -952,7 +977,7 @@ An example request:
 
 ```http
 GET /1.0/library/books/stats HTTP/1.1
-Host: api.example.com
+Host: api.somedomain.tech
 Content-Type: application/json
 Cache-Control: no-cache
 ```
@@ -979,7 +1004,7 @@ A document containing information about the available collections can be retriev
 
 ```http
 GET /api/collections HTTP/1.1
-Host: api.example.com
+Host: api.somedomain.tech
 Content-Type: application/json
 Cache-Control: no-cache
 ```
@@ -1045,11 +1070,11 @@ Endpoint specifications exist as Javascript files within a `version` folder as m
 
 With the above folder and file hierarchy an endpoint's URL uses the following format:
 
-`http://api.example.com/{version}/{endpoint name}`
+`http://api.somedomain.tech/{version}/{endpoint name}`
 
 In actual use this might look like the following:
 
-`http://api.example.com/1.0/booksByAuthor`
+`http://api.somedomain.tech/1.0/booksByAuthor`
 
 #### The Endpoint file
 
@@ -1150,13 +1175,13 @@ module.exports.config = function () {
 This route will now respond to requests such as
 
 ```
-http://api.example.com/1.0/books/55bb8f688d76f74b1303a137
+http://api.somedomain.tech/1.0/books/55bb8f688d76f74b1303a137
 ```
 
 Without this custom route, the same could be achieved by requesting the default route with a querystring parameter.
 
 ```
-http://api.example.com/1.0/books?id=55bb8f688d76f74b1303a137
+http://api.somedomain.tech/1.0/books?id=55bb8f688d76f74b1303a137
 ```
 
 #### Authentication
@@ -1175,7 +1200,7 @@ This will return a "Hello World" example -
 
 ```
 GET /v1/test-endpoint HTTP/1.1
-Host: api.example.com
+Host: api.somedomain.tech
 content-type: application/json
 Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 ```

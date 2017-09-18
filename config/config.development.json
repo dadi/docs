@@ -16,7 +16,7 @@
   "allowJsonView": true,
   "caching": {
     "directory": {
-      "enabled": true,
+      "enabled": false,
       "path": "./cache"
     },
     "redis": {
