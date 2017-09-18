@@ -498,18 +498,142 @@ Each collection specification must contain a `settings` block, even if it is emp
 | callback | x | x | x
 | defaultFilters | Specifies a default query for the collection. A `filter` parameter passed in the querystring will extend these filters.  | `{}` | `{ "published": true }`
 | fieldLimiters | Specifies a list of fields for inclusion/exclusion in the response. Fields can be included or excluded, but not both. See [Returning Data](#xxx) for more detail. | `{}` | `{ "title": 1, "author": 1 }`, `{ "dob": 0, "state": 0 }`
-| index | Specifies a set of indexes that should be created for the collection. See [Creating Database Indexes](#creating-database-indexes) for more detail. | `[]`  | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
+| index | Specifies a set of indexes that should be created for the collection. See [Creating Database Indexes](#api/creating-database-indexes) for more detail. | `[]`  | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
 
 > **Overriding configuration using querystring parameters**
 > 
 > It is possible to override some of these values when requesting data from the endpoint, by using querystring parameters. See [Querying a collection](#querying) for detailed documentation.
 > -- advice
 
-### Creating a collection
+### Collection Configuration Endpoints
 
-### Editing a collection
+Every collection in your API has an additional configuration route available. To use it, append `/config` to one of your collection endpoints, for example: http://api.somedomain.tech/1.0/libray/books/config. 
 
-### Data types
+If the collection already exists (that is, a collection specification is located at `workspace/collections/1.0/library/collection.books.json`), making a GET request to the collection's configuration endpoint returns the collection schema:
+
+```http
+GET /1.0/library/books/config HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 37f9786b-3f39-4c87-a8ff-9530efd176c3
+Host: api.somedomain.tech
+Connection: close
+```
+
+```http
+HTTP/1.1 200 OK
+content-type: application/json
+content-length: 12639
+Date: Mon, 18 Sep 2017 14:05:44 GMT
+Connection: close
+
+{
+  "fields": {
+    "published": {
+      "type": "Object",
+      "label": "Published State",
+      "required": true
+    }
+  },
+  "settings": {
+  }
+}
+```
+
+#### Creating a collection specification
+
+There are two ways to create a collection specification. The first, using a text editor and adding a file to the collections directory on the filesystem, has already been discussed. The second way is to use the API's "collection configuration" endpoints.
+
+If the collection does not already exist, you can create it by making a POST request to the configuration endpoint. API will use the various parts of the endpoint URL to determine version, database and collection name. A new file will be created in the collections directory at `workspace/collections/<version>/<database>/collection.<collection name>.json`). The collection specification must be sent as the body of the POST request.
+
+```http
+POST /1.0/library/books/config HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 37f9786b-3f39-4c87-a8ff-9530efd176c3
+Host: api.somedomain.tech
+Connection: close
+Content-Length: 140
+
+{
+  "fields": {
+    "title": {
+      "type": "String",
+      "label": "The Book Title",
+      "required": true
+    }
+  },
+  "settings": {
+  }
+}
+```
+
+```http
+HTTP/1.1 200 OK
+content-type: application/json
+Date: Mon, 18 Sep 2017 15:18:01 GMT
+Connection: close
+Content-Length: 57
+
+{
+  "result": "success",
+  "message": "books collection created"
+}
+```
+
+> **Note**
+> 
+> To create or edit collection specifications using the configuration endpoints, you must use an access token obtained by using credentials for a client with an `accessType` of "admin". See the [Authentication](#api/authentication) section for more detail.
+> 
+> If your access token was not obtained using a set of "admin" credentials, API responds with HTTP 401 Unauthorized.
+>
+> ```http
+> HTTP/1.1 401 Unauthorized
+> WWW-Authenticate: Bearer realm="/1.0/library/books/config"
+> content-type: application/json
+> content-length: 18
+> Date: Mon, 18 Sep 2017 14:16:46 GMT
+> Connection: close
+```
+> -- warning
+
+
+#### Editing a collection specification
+
+Modifying an existing collection specification can be done by making another POST request to the collection's configuration endpoint. The full collection specification must be sent as the body of the POST request.
+
+```http
+POST /1.0/library/books/config HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer c389340b-718f-4eed-8e8e-3400a1c6cd5a
+Host: api.somedomain.tech
+Connection: close
+Content-Length: 254
+
+{
+  "fields": {
+    "title": {
+      "type":"String",
+      "label":"The Book's Title",
+      "required":true
+    }
+  },
+  "settings":{
+    "authenticate": true
+  }
+}
+```
+
+```http
+HTTP/1.1 200 OK
+content-type: application/json
+content-length: 20
+Date: Mon, 18 Sep 2017 15:21:32 GMT
+Connection: close
+
+{
+  "result": "success"
+}
+```
+
 
 ## Working with data
 
