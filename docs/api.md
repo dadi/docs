@@ -71,8 +71,13 @@ my-api/
 ## First use
 
 
+## Configuration
 
+xxxx
 
+### Choosing a Data Store
+
+xxx
 
 ## Authentication
 
@@ -171,7 +176,7 @@ Content-Length: 95
 {
   "accessToken": "4172bbf1-0890-41c7-b0db-477095a288b6",
   "tokenType": "Bearer",
-  "expiresIn": 1800
+  "expiresIn": 3600
 }
 ```
 
@@ -189,9 +194,13 @@ Connection: close
 
 ### Access Token Expiry
 
-asdf
+The response returned when requesting an access token contains a property `expiresIn` which is set to the number of seconds the access token is valid for. When this period has elapsed API automatically invalidates the access token and a subsequent request to API using that access token will return an invalid token error (see below). 
+
+The consumer application must request a new access token to continue communicating with the API.   
 
 ### Authentication Errors
+
+API responds with HTTP 401 Unauthorized errors when either the supplied credentials are incorrect or an invalid token has been provided. The `WWW-Authenticate` header indicates the nature of the error. In the case of an expired access token, a new one should be requested.
 
 #### Invalid Credentials
 
@@ -202,8 +211,6 @@ content-type: application/json
 content-length: 18
 Date: Sun, 17 Sep 2017 17:44:48 GMT
 Connection: close
-
-{"statusCode":401}
 ```
 
 #### Invalid or Expired Token
@@ -215,8 +222,6 @@ content-type: application/json
 content-length: 18
 Date: Sun, 17 Sep 2017 17:46:28 GMT
 Connection: close
-
-{"statusCode":401}
 ```
 
 
@@ -279,7 +284,9 @@ It is also possible to restrict access to versions of your API (see [API Version
 
 ### Authorisation Errors
 
-#### Not Allowed
+#### Access Not Allowed
+
+If the client record has permissions set and an attempt is made to request an endpoint that hasn't been added to the permissions block, API responds with HTTP 401 Unauthorized. The `WWW-Authenticate` header indicates that there was an issue requesting the specified endpoint.  
 
 ```http
 HTTP/1.1 401 Unauthorized
@@ -292,11 +299,19 @@ Connection: close
 {"statusCode":401}
 ```
 
+API will also log the following error to the console:
+
+```console
+ClientId not authorized to access requested collection.
+```
+
 ## Collections
 
-### Collection specification
+Collections are the storage containers for your data within DADI API. API can handle the creation and modification of database collections/tables within the underlying database.
 
-Collections are the storage containers for your data within API. DADI API handles creation and modification of database collections within the database - all that is required in order to create a new database collection and it's associated collection endpoint is a collection specification file.
+All that is required in order to create a new database collection and it's associated collection endpoint is a collection specification file. Of course, API can also connect to existing
+
+### Collection specification
 
 Collection specifications are simply JSON files stored in your application's `/workspace/collections` folder.
 
