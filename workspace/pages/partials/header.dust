@@ -7,7 +7,7 @@
     <li><a href="https://github.com/dadi/">Find us on Github</a></li><li><a href="http://docs.dadi.tech" class="on">Documentation</a></li>
   </ul>
 
-  <div class="search">
+  {! <div class="search">
     <input type="search" placeholder="Search the documentation…">
-  </div>
+  </div> !}
 </header>
