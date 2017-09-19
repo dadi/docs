@@ -13,7 +13,7 @@ DADI follows the Node.js LTS (Long Term Support) release schedule, and as such t
 
 Installing DADI Publish directly from NPM
 
-All DADI platform microservices are also available from NPM. To add API to an existing project as a dependency:
+All DADI platform microservices are also available from NPM. To add Publish to an existing project as a dependency:
 
 ```console
 $ cd my-existing-node-app
