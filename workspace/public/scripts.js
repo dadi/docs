@@ -91,13 +91,15 @@
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function() {
+      // Reset nav
+      initNav();
+
       if (xmlhttp.readyState == XMLHttpRequest.DONE) {
         if (xmlhttp.status == 200) {
           var results = JSON.parse(xmlhttp.responseText);
 
           appendHtml(document.getElementById('main'), results.main);
           appendHtml(document.getElementById('nav'), results.nav);
-          initNav();
 
           if (window.location.hash.length) window.location.href = window.location.hash;
 
