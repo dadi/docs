@@ -278,7 +278,7 @@ $ AWS_S3_IMAGES_ACCESS_KEY=your-access-key AWS_S3_IMAGES_SECRET_KEY=your-secret 
 
 See the documentation for your operating system for details on setting environment variables. A useful guide for Linux users can be found here https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps.
 
-#### Remote server
+### Remote server
 
 The Remote Server source connects CDN to any publicly available URL where you are hosting your assets and images.
 
@@ -322,7 +322,7 @@ The [configuration file](/cdn/getting-started/configuration/) contains two secti
 }
 ```
 
-#### Local filesystem
+### Local filesystem
 
 The [configuration file](/cdn/getting-started/configuration/) contains two sections for configuring a Local Filesystem source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different filesystem locations for each one.
 
@@ -366,6 +366,111 @@ The [configuration file](/cdn/getting-started/configuration/) contains two secti
 
 ## URL Parameters
 
+### Image compression & quality
+> Reduce file size by applying compression to images
+
+Applies compression to the image, reducing file size. Accepts any number from 1-100. If not specified, the default is 75.
+
+> The `quality` parameter can be added to the querystring as either `q` or `quality`
+
+The best results for quality and file size can be found around 40-60%, where we've found generated images to be visually indistinguishable from the source image.
+
+> The original image and all quality variations below are 2048 × 1024 pixels.
+
+`https://cdn.somedomain.tech/images/vegetables.jpg?q=50`
+
+**Original image, 4.7MB**
+
+![Original JPG](/assets/cdn/vegetables.jpg)
+
+| x | x 
+|:--|:--
+| ![Quality 100](/assets/cdn/vegetables-full-quality-100.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 100%, 1.3MB** | ![Quality 75](/assets/cdn/vegetables-full-quality-75.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 75%, 180kB**
+| ![Quality 50](/assets/cdn/vegetables-full-quality-50.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 50%, 119kB** | ![Quality 25](/assets/cdn/vegetables-full-quality-25.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 25%, 82kB**
+
+### Resize
+> Specify new image dimensions
+
+**Original image**
+
+![Original JPG](/assets/cdn/canoe.jpeg)
+
+
+#### Width
+
+The width (`w`) of the required output image, in pixels.
+
+If only `w` is specified, the `h (height)` dimension will be _set to the height of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
+
+If both width and height are omitted, the original image’s dimensions are used.
+
+> **Security Note:** The maximum output image size can be specified in the configuration file.
+
+The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
+
+You should set this to the maximum size required for images in your application.
+
+```json
+"security": {
+  "maxWidth": 2048,
+  "maxHeight": 1024
+}
+```
+
+**Example**
+
+`https://cdn.somedomain.tech/images/canoe.jpg?w=400&resize=aspectfit`
+
+| **w=400** | **w=400&resize=aspectfit** 
+|:--|:--
+| ![Width 400](/assets/cdn/canoe-w400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Width 400, Aspect Fit](/assets/cdn/canoe-w400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
+
+
+#### Height
+
+The height (`h`) of the required output image, in pixels.
+
+If only `h` is specified, the `w (width)` dimension will be _set to the width of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
+
+If both width and height are omitted, the original image’s dimensions are used.
+
+> **Security Note:** The maximum output image size can be specified in the configuration file.
+
+The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
+
+You should set this to the maximum size required for images in your application.
+
+```json
+"security": {
+  "maxWidth": 2048,
+  "maxHeight": 1024
+}
+```
+
+**Example**
+
+`https://cdn.somedomain.tech/images/canoe.jpg?h=400&resize=aspectfit`
+
+| **h=400** | **h=400&resize=aspectfit** 
+|:--|:--
+| ![Height 400](/assets/cdn/canoe-h400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Height 400, Aspect Fit](/assets/cdn/canoe-h400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+
+
+#### Aspect ratio
+
+A width (`w`) or (`h`) can be provided with the addition of the variable `ratio` to give back a cropped version of the image to the specificed ratio. [Resize styles](/cdn/concepts/cropping/) are respected.
+
+```bash
+https://cdn.somedomain.tech/images/canoe.jpg?h=400&amp;ratio=16-9
+```
+
+### Rotation
+> Rotating an image
+
+#### rotate
+
+Rotates the image according to the value specified in degrees. Valid values are in the range 0 - 359. The default value is 0 which leaves the image unchanged. The image will be zoomed so that it covers the entire area after rotation.
+
 ### Blur
 > Add blur to an image
 
@@ -375,29 +480,10 @@ Adds blur to an image, using any value above zero.
 
 `https://cdn.somedomain.tech/images/dog.jpg?b=5`
 
-**Original image**
-
-![Original JPG](/assets/cdn/dog-w600.jpeg)
-
-**Blur amount = 1**
-
-![Blur 1](/assets/cdn/dog-w600-blur-1.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
-**Blur amount = 5**
-
-![Blur 5](/assets/cdn/dog-w600-blur-5.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
-**Blur amount = 10**
-
-![Blur 10](/assets/cdn/dog-w600-blur-10.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
-**Blur amount = 20**
-
-![Blur 20](/assets/cdn/dog-w600-blur-20.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
-**Blur amount = 100**
-
-![Blur 20](/assets/cdn/dog-w600-blur-100.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+| x | x | x
+|:--|:--|:--
+| ![Original JPG](/assets/cdn/dog-w600.jpeg) **Original image** | ![Blur 1](/assets/cdn/dog-w600-blur-1.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](/assets/cdn/dog-w600-blur-5.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
+| ![Blur 10](/assets/cdn/dog-w600-blur-10.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 10** | ![Blur 20](/assets/cdn/dog-w600-blur-20.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 20** | ![Blur 20](/assets/cdn/dog-w600-blur-100.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 100**
 
 
 ### Cropping an image
@@ -423,23 +509,13 @@ Used to position the crop area. Available options (case sensitive): `northwest`,
 
 > In each example, the output image is 400 x 300 pixels.
 
-**g=North**
-
 `https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=North`
-
-![](/assets/cdn/med-portrait-north.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
-
-**g=Center**
-
 `https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=Center`
-
-![](/assets/cdn/med-portrait-center.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
-
-**g=South**
-
 `https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=South`
 
-![](/assets/cdn/med-portrait-south.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+| x | x | x
+|:--|:--|:--
+| ![](/assets/cdn/med-portrait-north.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=North** | ![](/assets/cdn/med-portrait-center.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=Center** | ![](/assets/cdn/med-portrait-south.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=South**
 
 ##### aspectfit
 
@@ -501,19 +577,19 @@ Flips the image horizontally, vertically or both. Valid values are `x`, `y` and 
 
 > The `flip` parameter can be added to the querystring as either `fl` or `flip`
 
-## Flip horizontally
+#### Flip horizontally
 
 `https://cdn.somedomain.tech/images/dog.jpg?flip=x`
 
 ![Dog flipped on the X axis](/assets/cdn/dog-w600-flip-x.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
-## Flip vertically
+#### Flip vertically
 
 `https://cdn.somedomain.tech/images/dog.jpg?flip=y`
 
 ![Dog flipped on the Y axis](/assets/cdn/dog-w600-flip-y.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
-## Flip horizontally and vertically
+#### Flip horizontally and vertically
 
 `https://cdn.somedomain.tech/images/dog.jpg?flip=xy`
 
@@ -595,7 +671,7 @@ Possible values:
  - `grid`
  - `moving-average`
 
-## Example
+**Example**
 
 ```http
 https://cdn.somedomain.tech/images/dog.jpg?width=600&height=400&resize=aspectfill&filter=linear
@@ -628,7 +704,7 @@ A request to CDN specifying the processor name of "layout" and including a set o
 
 Each part of the request must be separated by a pipe character: `|`
 
-## Example request
+**Example request**
 
 The following request contains the following:
 
@@ -648,7 +724,7 @@ http://cdn.somedomain.tech/layout/i:test.jpg,
 
 ![Output image](/assets/cdn/layout-output.jpg)
 
-## Input Images
+### Input Images
 
 An input image is specified in the request using the format `i:IMAGE_URL,h_HEIGHT,w_WIDTH,x_HORIZONTAL,y_VERTICAL`
 
@@ -660,7 +736,7 @@ An input image is specified in the request using the format `i:IMAGE_URL,h_HEIGH
 
 **Example:** `i:path/to/image.jpg,w_640,h_480,x_0,y_0`
 
-## Colour tiles
+### Colour tiles
 
 A colour tile can be used as an input image by using the format `c:COLOUR,h_HEIGHT,w_WIDTH,x_HORIZONTAL,y_VERTICAL`
 
@@ -672,7 +748,7 @@ A colour tile can be used as an input image by using the format `c:COLOUR,h_HEIG
 
 **Example:** `c:F3EACD,w_320,h_480,x_320,y_0`
 
-## Output Image
+### Output Image
 
 The format and dimensions of the output image are controlled using the output image portion of the request, using the format `o:IMAGE_URL,h_HEIGHT,w_WIDTH`
 
@@ -689,7 +765,7 @@ The format and dimensions of the output image are controlled using the output im
 A pre-signed URL allows you to give one-off access to users who may not have direct access to the file.
 Pre-signing generates a valid URL signed with your credentials that any user can access.
 
-## Generating a pre-signed URL
+### Generating a pre-signed URL
 
 To generate a simple pre-signed URL that allows any user to view the contents of a private object in a bucket you own,
 you can use the following call to `getSignedUrl`:
@@ -720,7 +796,7 @@ The above should result in a response similar to this:
 The URL is https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D
 ```
 
-## Controlling `Expires` time
+### Controlling `Expires` time
 
 The default `Expires` time is 15 minutes. This can be modified by passing a value in the
 params that are passed to the `getSignedUrl` method. The following example will cause the
@@ -734,11 +810,11 @@ var params = {
 }
 ```
 
-## Accessing via CDN
+### Accessing via CDN
 
 http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D
 
-## Adding image manipulation parameters
+### Adding image manipulation parameters
 
 When requesting images from external URLs it is possible they have an existing querystring. To
 add CDN image manipulation parameters to an external URL, they must be added to the existing querystring.
@@ -751,47 +827,13 @@ The following example uses the above URL, adding `width` and `height` parameters
 
 http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D&?width=300&height=300
 
-## Expired URLs
+### Expired URLs
 
 If a pre-signed URL has already expired at the time of the request, a HTTP 403 Forbidden error will be returned:
 
 ```json
 {"statusCode":"403","message":"Forbidden: http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D"}
 ```
-
-
-### Image compression & quality
-> Reduce file size by applying compression to images
-
-Applies compression to the image, reducing file size. Accepts any number from 1-100. If not specified, the default is 75.
-
-> The `quality` parameter can be added to the querystring as either `q` or `quality`
-
-The best results for quality and file size can be found around 40-60%, where we've found generated images to be visually indistinguishable from the source image.
-
-> The original image and all quality variations below are 2048 × 1024 pixels.
-
-`https://cdn.somedomain.tech/images/vegetables.jpg?q=50`
-
-**Original image, 4.7MB**
-
-![Original JPG](/assets/cdn/vegetables.jpg)
-
-**Quality = 100%, 1.3MB**
-
-![Quality 100](/assets/cdn/vegetables-full-quality-100.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)")
-
-**Quality = 75%, 180kB**
-
-![Quality 75](/assets/cdn/vegetables-full-quality-75.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)")
-
-**Quality = 50%, 119kB**
-
-![Quality 50](/assets/cdn/vegetables-full-quality-50.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)")
-
-**Quality = 25%, 82kB**
-
-![Quality 25](/assets/cdn/vegetables-full-quality-25.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)")
 
 ## Delivery Recipes
 > Create a "recipe" of image manipulation parameters to apply to images at runtime
@@ -808,9 +850,9 @@ Let's use the image from our magazine example.
 
 Recipes are defined in JSON files held in the `/workspace/recipes` folder.
 
-## Example recipe
+### Example recipe
 
-```js
+```json
 {
   "recipe": "thumbnail",
   "settings": {
@@ -823,108 +865,13 @@ Recipes are defined in JSON files held in the `/workspace/recipes` folder.
 }
 ```
 
-## Using a recipe
+### Using a recipe
 
 Making use of a recipe is simple: call your image via the recipe name defined in the recipe JSON.
 
 For example:
 
 `http://cdn.somedomain.tech/thumbnail/image-filename.png`
-
-
-### Resize
-> Specify new image dimensions
-
-#### Width
-
-The width (`w`) of the required output image, in pixels.
-
-If only `w` is specified, the `h (height)` dimension will be _set to the height of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
-
-If both width and height are omitted, the original image’s dimensions are used.
-
-> **Security Note:** The maximum output image size can be specified in the configuration file.
-
-The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
-
-You should set this to the maximum size required for images in your application.
-
-```json
-"security": {
-  "maxWidth": 2048,
-  "maxHeight": 1024
-}
-```
-
-**Example**
-
-`https://cdn.somedomain.tech/images/canoe.jpg?w=400&resize=aspectfit`
-
-**Original image**
-
-![Original JPG](/assets/cdn/canoe.jpeg)
-
-**w=400**
-
-![Width 400](/assets/cdn/canoe-w400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
-
-**w=400&resize=aspectfit**
-
-![Width 400, Aspect Fit](/assets/cdn/canoe-w400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
-
-
-#### Height
-
-The height (`h`) of the required output image, in pixels.
-
-If only `h` is specified, the `w (width)` dimension will be _set to the width of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
-
-If both width and height are omitted, the original image’s dimensions are used.
-
-> **Security Note:** The maximum output image size can be specified in the configuration file.
-
-The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
-
-You should set this to the maximum size required for images in your application.
-
-```json
-"security": {
-  "maxWidth": 2048,
-  "maxHeight": 1024
-}
-```
-
-**Example**
-
-`https://cdn.somedomain.tech/images/canoe.jpg?h=400&resize=aspectfit`
-
-**Original image**
-
-![Original JPG](/assets/cdn/canoe.jpeg)
-
-**h=400**
-
-![Height 400](/assets/cdn/canoe-h400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
-
-**h=400&resize=aspectfit**
-
-![Height 400, Aspect Fit](/assets/cdn/canoe-h400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
-
-#### Aspect ratio
-
-A width (`w`) or (`h`) can be provided with the addition of the variable `ratio` to give back a cropped version of the image to the specificed ratio. [Resize styles](/cdn/concepts/cropping/) are respected.
-
-```bash
-https://cdn.somedomain.tech/images/canoe.jpg?h=400&amp;ratio=16-9
-```
-
-### Rotation
-> Rotating an image
-
-#### rotate
-
-Rotates the image according to the value specified in degrees. Valid values are in the range 0 - 359. The default value is 0 which leaves the image unchanged. The image will be zoomed so that it covers the entire area after rotation.
-
 
 ## Delivery Routes
 > Let CDN choose the recipe based on device, network, location or language
