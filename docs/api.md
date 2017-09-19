@@ -104,6 +104,7 @@ The `accessType` property accepts one of two values: `admin` or `user`. An `admi
 > **Setting strong client secrets**
 >
 > It's important that you choose a strong secret for each of your client records. Generating a strong password can be handled by a number of online services. We regularly use https://www.random.org/passwords/ and https://strongpasswordgenerator.com/ to generate secrets for our client records.
+>
 > -- advice
 
 Once you have client records in the database, you can request an access token for to continue communicating with the API. See [Obtaining an Access Token](#obtaining-an-access-token). 
