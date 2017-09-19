@@ -113,7 +113,7 @@ h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover
 	opacity: 1;
 }
 
-/* 
+/*
 	Header
 */
 
@@ -331,12 +331,27 @@ nav > ul > li > ul > li > a {
 	}
 }
 
+.docs blockquote.advice {
+  padding: 10px;
+  background: darkseagreen;
+	opacity: 1;
+	border-left: none;
+}
+
+.docs blockquote.warning {
+  padding: 10px;
+  background: lightsalmon;
+	opacity: 1;
+	border-left: none;
+}
+
 .docs blockquote {
 	padding: 0 1em;
 	margin: 0;
 	opacity: 0.5;
 	border-left: 0.25em solid #ddd;
 }
+
 .docs h1 {
 	color: #8F8F8F;
 }
@@ -352,7 +367,7 @@ nav > ul > li > ul > li > a {
 	word-break: keep-all;
 	border-spacing: 0;
 	border-collapse: collapse;
-	
+
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 }
@@ -372,7 +387,7 @@ nav > ul > li > ul > li > a {
 	border-top: 1px solid #ccc;
 }
 .docs table tr:nth-child(2n) {
-	background-color: #f8f8f8; 
+	background-color: #f8f8f8;
 }
 .docs table tr:hover {
 	background-color: #EDEDED;
@@ -388,7 +403,7 @@ nav > ul > li > ul > li > a {
 	border: 3px solid #fff;
 }
 
-/* 
+/*
 	Code highlighting
 */
 
@@ -444,8 +459,8 @@ pre code {
 #nav--cdn {
 	background: url(https://dadi.tech/assets/products/dadi-cdn.png) no-repeat 90% 22px;
 	background-size: auto 22px;
-} 
-.docs--cdn ::selection { 
+}
+.docs--cdn ::selection {
 	background: #e02975;
 	color: #fff;
 }
@@ -488,6 +503,25 @@ pre code {
 	color: #fff;
 }
 .docs--web ::-moz-selection {
+	background: #e42918;
+	color: #fff;
+}
+
+.docs--cli h2,
+#nav--cli .active { color: #e42918;}
+.docs--cli a {
+	border-bottom: 1px solid #e42918;
+	font-weight: bold;
+}
+#nav--cli {
+	background: url(https://dadi.tech/assets/products/dadi-cli.png) no-repeat 90% 22px;
+	background-size: auto 22px;
+}
+.docs--cli ::selection {
+	background: #e42918;
+	color: #fff;
+}
+.docs--cli ::-moz-selection {
 	background: #e42918;
 	color: #fff;
 }

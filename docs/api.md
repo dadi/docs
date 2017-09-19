@@ -2,396 +2,642 @@
 title: API
 ---
 
-## Installation
+## Requirements
 
-### Requirements
+Microservices in the DADI platform are built on Node.js, a JavaScript runtime built on Google Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.
+
+DADI follows the Node.js LTS (Long Term Support) release schedule, and as such the version of Node.js required to run DADI products is coupled to the version of Node.js currently in Active LTS. See the [LTS schedule](https://github.com/nodejs/LTS) for further information.
 
 * **[MongoDB](https://docs.mongodb.com/v3.0/)** (supported versions: 2.6 - 3.2)
-* **[Node.js](https://www.nodejs.org/)** (supported versions: 4.8.4, 5.12.0, 6.11.x)
+* **[Node.js](https://www.nodejs.org/)** (current LTS version)
 
-### DADI CLI
+## Creating an API
 
-__Coming soon__
+The easiest way to install API is using DADI CLI. CLI is a command line application that can be used to create and maintain installations of DADI products. Follow the simple instructions below, or see [more detailed documentation for DADI CLI](#cli).
 
-### NPM
-
-All DADI platform microservices are available from [NPM](https://www.npmjs.com/). To add *API* to your project as a dependency:
+### Install DADI CLI
 
 ```console
-$ cd my-app
-$ npm install --save @dadi/api
+$ npm install @dadi/cli -g
 ```
 
-#### Add an entry point
+### Create new API installation
 
-You'll need an entry point for your project. We'll create a file called `index.js` and later we will start the application with `node index.js`. Add the following to the new file:
+There are two ways to create a new API with the CLI: either manually create a new directory for API or let CLI handle that for you. DADI CLI accepts an argument for `project-name` which it uses to create a directory for the installation.
 
-```js
-var app = require('@dadi/api')
+*Manual directory creation*
 
-app.start(function() {
-  console.log('API Started')
-})
+```console
+$ mkdir my-api
+$ cd my-api
+$ dadi api new
 ```
 
-## Creating an API application
+*Automatic directory creation*
+
+```console
+$ dadi api new my-api
+$ cd my-api
+```
+
+DADI CLI will install the latest version of API and copy a set of files to your chosen directory so you can launch API almost immediately.
+
+> **Installing DADI API directly from NPM**
+>
+> All DADI platform microservices are also available from [NPM](https://www.npmjs.com/). To add *API* to an existing project as a dependency:
+
+> ```console
+> $ cd my-existing-node-app
+> $ npm install --save @dadi/api
+> ```
+> -- advice
+
 
 ## Application Anatomy
 
-## Command line tools
+When CLI finishes creating your API, the application directory will contain the basic requirements for launching your API. The following directories and files have been created for you: 
 
-## Getting started
-
-### First use
-
-### Connecting to API
-
-### Data connectors
-
-### Auto generate documentation
-
-## Managing users
-
-## Authentication, authorisation and permissions
-
-### Adding client accounts
-
-### Obtaining a token
-
-Every request to the API requires a Bearer token which should be passed as a header.
-
-Obtain a token by sending a POST request to the `/token` endpoint and passing your client credentials in the body of the request:
-
-#### Example Request using curl
-
-```
-curl -X POST -H "Content-Type: application/json" --data "{\"clientId\":\"testClient\",\"secret\":\"superSecret\"}" "http://api.example.com/token"
+```console
+my-api/
+  config/              # contains environment-specific configuration files
+    config.development.json
+  server.js            # the entry point for the application
+  package.json
+  workspace/
+    collections/       # collection specification files
+    endpoints/         # custom JavaScript endpoints
 ```
 
-#### Example request using Node.JS
+## First use
 
-```js
-var http = require('http')
 
-var options = {
-  hostname: 'api.example.com',
-  port: 80,
-  method: 'POST',
-  path: '/token',
-  headers: {
-    'content-type': 'application/json'
-  }
+## Configuration
+
+xxxx
+
+### Choosing a Data Store
+
+xxx
+
+## Authentication
+
+DADI API provides a full-featured authentication layer based on the [Client Credentials flow of oAuth 2.0](http://oauthbible.com/#oauth-2-two-legged). By default all requests to collection endpoints in API require a user to have first been authenticated. Read the following to learn what's involved in authenticating against your DADI API.
+
+### Client Store
+At the heart of API's authentication mechanism is an internal "client store" collection. The default name for this collection is `clientStore` but this can be modified using the configuration property [`auth.clientCollectionName`](#x).
+
+The client store collection holds information about "clients" that are able to connect to the API. Think of a client as your website, mobile application or any application that should be allowed to access your API. The client credentials are used to obtain access tokens for communicating with the API.
+
+Each client record consists of a `clientId`, `secret` and `accessType`.
+
+```json
+{
+  "clientId": "your-client-key",
+  "secret": "your-client-secret",
+  "accessType": "user"
 }
-
-var credentials = JSON.stringify({
-  clientId: 'your-client-id',
-  secret: 'your-secret'
-})
-
-var req = http.request(options, function (res) {
-  var chunks = []
-
-  res.on('data', function (chunk) {
-    chunks.push(chunk)
-  })
-
-  res.on('end', function () {
-    var body = Buffer.concat(chunks)
-    console.log(body.toString())
-  })
-})
-
-req.write(credentials)
-req.end()
 ```
 
-#### Response
+The `accessType` property accepts one of two values: `admin` or `user`. An `admin` client is able to perform configuration and maintenance on the API using internal REST endpoints and the REST collection endpoints. A `user` client is, with no other access controls in place, simply able to read and write data using the REST collection endpoints. 
 
-```js
+> **Setting strong client secrets**
+>
+> dhdhdhd .. Viktor how do you generate passwords for clients for WC?
+> -- advice
+
+Once you have client records in the database, you can request an access token for to continue communicating with the API. See [Obtaining an Access Token](#obtaining-an-access-token). 
+
+### Adding Clients
+
+If you've installed [DADI CLI](#cli) you can use that to create a new client in the database. See instructions for [Adding Clients with CLI](#x).
+
+Alternatively, use the built in NPM script to start the Client Record Generator which will present you with a series of questions about the new client and insert a record into the configured database.
+
+```console
+$ npm explore @dadi/api -- npm run create-client
+```
+
+> **Creating the client in the correct database**
+>
+> To ensure the correct database is used for your environment, add an environment variable to the command:
+>
+> ```console
+> $ NODE_ENV=production npm explore @dadi/api -- npm run create-client
+> ```
+> -- warning
+
+### Collection Authentication
+
+Each [collection specification](#x) contains a "settings" block which modifies certain aspects of the collection. The [`settings.authenticate`](#x) property can be used in the following ways.
+
+To specify that authentication for the collection is:
+
+* *always* required, use `"authenticate": true` 
+* *not* required, use `"authenticate": false` 
+* *required only for certain HTTP methods*, use an array of HTTP methods such as `"authenticate": ["POST"]` 
+
+The following configuration for a collection will allow all GET requests to proceed without authentication, while POST, PUT and DELETE requests will require authentication.
+ 
+```json
+"settings": {
+  "authenticate": ["POST", "PUT", "DELETE"]
+}
+```
+
+See [more information about collection specifications and their configuration](#x).
+
+### Obtaining an Access Token
+
+Unless requesting data from an unauthenticated endpoint, every request to API requires an Authorization header containing an access token.
+
+Obtain an access token by sending a POST request to your API's token endpoint, passing your client credentials in the body of the request. The token endpoint is configurable using the property [`auth.tokenRoute`](#x), with a default value of `/token`.
+
+```http
+POST /token HTTP/1.1
+Content-Type: application/json
+Host: api.somedomain.tech
+Connection: close
+Content-Length: 65
+
+{
+  "clientId": "my-client-key",
+  "secret": "my-client-secret"
+}
+```
+
+With a request like the above, you should expect a response containing an access token, as below: 
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+Cache-Control: no-store
+Content-Length: 95
+
 {
   "accessToken": "4172bbf1-0890-41c7-b0db-477095a288b6",
   "tokenType": "Bearer",
-  "expiresIn": 1800
+  "expiresIn": 3600
 }
 ```
 
-Once you have the token, each request to the API should include an `Authorization` header containing the token:
+### Using an Access Token
 
-#### Example Request using curl
+Once you have an access token, each request to the API should include an `Authorization` header containing the token:
 
+```http
+GET /1.0/library/books HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6
+Host: api.somedomain.tech
+Connection: close
 ```
-curl -X GET -H "Content-Type: application/json" -H "Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6" "http://api.example.com/api/collections"
+
+### Access Token Expiry
+
+The response returned when requesting an access token contains a property `expiresIn` which is set to the number of seconds the access token is valid for. When this period has elapsed API automatically invalidates the access token and a subsequent request to API using that access token will return an invalid token error (see below). 
+
+The consumer application must request a new access token to continue communicating with the API.   
+
+### Authentication Errors
+
+API responds with HTTP 401 Unauthorized errors when either the supplied credentials are incorrect or an invalid token has been provided. The `WWW-Authenticate` header indicates the nature of the error. In the case of an expired access token, a new one should be requested.
+
+#### Invalid Credentials
+
+```http
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer, error="invalid_credentials", error_description="Invalid credentials supplied"
+content-type: application/json
+content-length: 18
+Date: Sun, 17 Sep 2017 17:44:48 GMT
+Connection: close
 ```
 
-#### Example request using Node.JS
+#### Invalid or Expired Token
 
-```js
-var http = require('http')
+```http
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer, error="invalid_token", error_description="Invalid or expired access token"
+content-type: application/json
+content-length: 18
+Date: Sun, 17 Sep 2017 17:46:28 GMT
+Connection: close
+```
 
-var options = {
-  hostname: 'api.example.com',
-  port: 80,
-  method: 'GET',
-  path: '/api/collections',
-  headers: {
-    'authorization': 'Bearer 4172bbf1-0890-41c7-b0db-477095a288b6',
-    'content-type': 'application/json'
+
+## Authorisation and permissions
+
+The Client Record allows anyone with those credentials to request an access token and use the API. For further control over access to endpoints in API, it is possible to extend the Client Record and configure collections to only require authentication for certain HTTP methods.
+
+### Access Control
+
+DADI API allows controlling access to endpoints by extending the client record with a `permissions` block.
+
+> There is currently no interface or script available to add permissions to a client record, so this must be done in the database directly.
+> -- advice
+
+Add a permissions block containing an array of the collections and/or an array of the endpoints that the client should have access to.
+
+* to give access to a collection, use the collection name for the `path` property
+* to give access to an endpoint, use the final part of the endpoint's URL for the `path` property 
+
+```json
+{
+  "clientId": "my-client-key",
+  "secret": "my-client-secret",
+  "accessType": "user",
+  "permissions": {
+    "collections": [
+      { "path": "test-collection" }
+    ],
+    "endpoints": [
+      { "path": "test-endpoint" }
+    ]
   }
 }
-
-var req = http.request(options, function (res) {
-  var chunks = []
-
-  res.on('data', function (chunk) {
-    chunks.push(chunk)
-  })
-
-  res.on('end', function () {
-    var body = Buffer.concat(chunks)
-    console.log(body.toString())
-  })
-})
-
-req.end()
 ```
 
-### Obtaining an admin token
+#### API Version Access Control
 
-### Restricting access to collections
+It is also possible to restrict access to versions of your API (see [API Versioning](#api-versioning) for more information). Add an `apiVersion` property to the collection or endpoint permission:
 
-## Defining collections
+```json
+{
+  "clientId": "my-client-key",
+  "secret": "my-client-secret",
+  "accessType": "user",
+  "permissions": {
+    "collections": [
+      {
+        "apiVersion": "1.0",
+        "path": "test-collection"
+      }
+    ]
+  }
+}
+```    
 
-### Collection schema
+> **Warning!**
+> 
+> Adding permissions to a client record will result in that client being able to access only those collections and endpoints they have been given permissions to.
+> -- warning
 
-Collections are the storage containers for your data within API. DADI API handles creation and modification of database collections within the database. All that is required in order to create a new database collection and it's associated collection endpoint is a collection specification file.
+### Authorisation Errors
 
-Collection specifications are simply JSON files stored in your application's `/workspace/collections` folder.
+#### Access Not Allowed
 
-##### API Version
+If the client record has permissions set and an attempt is made to request an endpoint that hasn't been added to the permissions block, API responds with HTTP 401 Unauthorized. The `WWW-Authenticate` header indicates that there was an issue requesting the specified endpoint.  
+
+```http
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Bearer realm="/1.0/library/books"
+content-type: application/json
+content-length: 18
+Date: Sun, 17 Sep 2017 17:52:00 GMT
+Connection: close
+
+{"statusCode":401}
+```
+
+API will also log the following error to the console:
+
+```console
+ClientId not authorized to access requested collection.
+```
+
+## Collections
+
+A *Collection* represents data within your API. Collections can be thought of as the data models for your application and define how API connects to the underlying data store to store and retrieve data.
+
+API can handle the creation of new collections or tables in the configured data store simply by creating collection specification files. To connect collections to existing data, simply name the file using the same name as the existing collection/table.
+
+All that is required to connect to your data is a collection specification file, and once that is created API provides data access over a REST endpoint and programmatically via the API's `Model` module.
+
+### Collections directory
+
+Collection specifications are simply JSON files stored in your application's `collections` directory. The location of this directory is configurable using the configuration property `paths.collections` but defaults to `workspace/collections`. The structure of this directory is as follows:
+
+```console
+my-api/
+  workspace/
+    collections/                    
+      1.0/                          # API version
+        library/                    # database
+          collection.books.json     # collection specification file
+```
+
+**API Version**
 
 Specific versions of your API are represented by "version" folders within the collections folder.
 [MORE]
 
-##### Database
+**Database**
 
-Collection documents may be stored in separate databases, represented by the name of the folder within the "version" folder.
+Collection documents may be stored in separate databases in the underlying data store, represented by the name of the "database" directory.
 
-> **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](../../setup/configuration#collection-specific-databases) for more information.
+> **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](#collection-specific-databases) for more information.
 
-##### Collection
+**Collection specification file**
 
-Collection specifications exist as JSON files containing any number of field specifications and a configuration block. The naming convention for the collection specifications is `collection.<collection name>.json` where `<collection name>` is used as the name of the collection in MongoDB.
+A collection specification file is a JSON file containing at least one field specification and a configuration block.
 
-#### Use the Plural Form
+The naming convention for collection specifications is `collection.<collection name>.json` where `<collection name>` is used as the name of the collection/table in the underlying data store.
 
-We recommend you use the plural form for all collection endpoints to keep consistency across your API. Using the singular form means a GET request for a list of results can easily be confused with a request for a single entity.
-
-For example, a collection named `book (collection.book.json)` will accept GET requests at the following endpoints:
-
+> **Use the plural form**
+>
+> We recommend you use the plural form when naming collections in order to keep consistency across your API. Using the singular form means a GET request for a list of results can easily be confused with a request for a single entity.
+>
+> For example, a collection named `book (collection.book.json)` will accept GET requests at the following endpoints:
+>
+> ```
+> http://api.somedomain.tech/1.0/library/book
+> http://api.somedomain.tech/1.0/library/book/560a44b33a4d7de29f168ce4
+> ```
+>
+> It's not obvious whether or not the first example is going to return all books, as intended. Using the plural form makes it clear what the endpoint's intended behaviour is:
+>
+> ```
+> http://api.somedomain.tech/1.0/library/books
+> http://api.somedomain.tech/1.0/library/books/560a44b33a4d7de29f168ce4
 ```
-http://api.example.com/1.0/library/book
-http://api.example.com/1.0/library/book/560a44b33a4d7de29f168ce4
+> -- advice
+
+
+### The Collection Endpoint
+
+API automatically generates a REST endpoint for each collection specification loaded from the collections directory. The format of the REST endpoint follows this convention `/{version}/{database}/{collection name}` and matches the structure of the collections directory.
+
+```console
+my-api/
+  workspace/
+    collections/                    
+      1.0/                          # API version
+        library/                    # database
+          collection.books.json     # collection specification file
 ```
 
-Is the first one going to return all books, as intended? It's not obvious. Instead, using the plural form makes it clear what the endpoint's intended behaviour is:
-
-```
-http://api.example.com/1.0/library/books
-http://api.example.com/1.0/library/books/560a44b33a4d7de29f168ce4
-```
+With the above directory structure API will generate this REST endpoint: http://api.somedomain.tech/1.0/library/books.
 
 
-##### Collection Endpoint
+### The JSON File
 
-With the above folder and file hierarchy a collection's endpoint within the API uses the following format:
+Collection specification files can be created and edited in any text editor, then added to the API's `collections` directory. API will load all valid collections when it is restarted.
 
+#### Minimum Requirements
 
-`http://api.example.com/{version}/{database}/{collection name}`
+The JSON file must contain a `fields` property and a `settings` property.
 
-In actual use this might look like the following:
+* `fields`: must contain at least one field specification. See [Collection Fields](#collection-fields) for the format of fields.
+* `settings`: a `settings` block must be provided, even if it's empty. API uses sensible defaults for collection configuration, but these can be overridden using properties in the `settings` block. See [Collection Settings](#collection-settings) for details.
 
-`http://api.example.com/1.0/library/books`
-
-##### The JSON File
-
-Collection specification files take the following format:
+**A skeleton collection specification**
 
 ```json
 {
   "fields": {
     "field1": {
-
-    },
-    "field2": {
-
     }
   },
   "settings": {
-
   }
 }
 ```
 
 
-### Fields
+### Collection Fields
 
-Each field is defined in the following way:
+Each field in a collection is defined using the following format. The only required property is `type` which tells API what data types the field can contain. 
+
+**A basic field specification**
 
 ```json
-{
-  "fieldName": {
-    "type": "String",
-    "label": "Title",
-    "comments": "The title of the entry",
-    "example": "War and Peace",
-    "matchType": "exact",
-    "validation": {
-      "minLength": 4,
-      "maxLength": 20,
-      "regex": {
-        "pattern": "/[A-Za-z0-9]*/"
-      }
-    },
-    "required": false,
-    "message": "must not be blank",
-    "default": "Untitled",
-    "placement": "Main content",
-    "display": {
-      "index": true,
-      "edit": true
+"fieldName": {
+  "type": "String"
+}
+```
+
+**A complete field specification**
+
+```json
+"fieldName": {
+  "type": "String",
+  "required": true,
+  "label": "Title",
+  "comments": "The title of the entry",
+  "example": "War and Peace",
+  "message": "must not be blank",
+  "default": "Untitled"
+  "matchType": "exact",
+  "validation": {
+    "minLength": 4,
+    "maxLength": 20,
+    "regex": {
+      "pattern": "/[A-Za-z0-9]*/"
     }
   }
 }
 ```
 
- Property       | Description        | Introduced        |  Default                                  | Example
-:----------------|:-------------------|:------------------------------------------|:-------
-fieldName | The name of the field | | | `"title"`
-type | The type of the field. Possible values `"String"`, `"Number"`, `"Boolean"`, `"Mixed"`, `"Object"`, `"ObjectID"`, `"Reference"`  | 1.0.0|  | `"String"`
-label | The label for the field | 1.0.0 |  | `"Title"`
-comments | The description of the field | 1.0.0 |  | `"The article title"`
-example | An example value for the field | 1.0.0 |  | `"War and Peace"`
-placement | Determines where to display the field in the backend interface  | 1.0.0 |  | `"Main content"`
-validation | Validation rules, including minimum and maximum length and regular expression patterns. | 1.3.0 |  |
-validation.minLength | The minimum length for the field.| 1.3.0  | unlimited | `4`
-validation.maxLength | The maximum length for the field.| 1.3.0  | unlimited | `20`
-validation.regex | A regular expression the field's value must match | 1.3.0  |  | `{ "pattern": /[A-Z]*/ }`
-required | If true, a value must be entered for the field. | 1.0.0 | `false` | `true`
-message | The message to return if field validation fails.| 1.0.0  | `"is invalid"` | `"must contain uppercase letters only"`
-default | An optional value to use as a default if no value is supplied for this field ||  | `"0"`
-display | Determines in which view states the field should be visible within the backend interface | 1.0.0|  | `{ "index": true, "edit": false }`
-matchType | Specify the type of query that is performed when using this field. If "exact" then API will attempt to match the query value exactly, otherwise it will performa a case-insensitive query. | 1.14.0 | | `"exact"`
-validationRule | Replaced by `validation`  | removed 1.8.2 |  |
-limit | Replaced by `validation` | removed 1.8.2 |  |
+| Property  | Description |  Default | Example | Required?
+|:--|:--|:--|:--|:--
+| fieldName | The name of the field | | `"title"` | Yes
+| type | The type of the field. Possible values `"String"`, `"Number"`, `"Boolean"`, `"Mixed"`, `"Object"`, `"ObjectID"`, `"Reference"`  |  N/A  | `"String"` | Yes
+| label | The label for the field | `""` | `"Title"` | No
+| comments | The description of the field | `""` | `"The article title"` | No
+| example | An example value for the field | `""` | `"War and Peace"` | No
+| validation | Validation rules, including minimum and maximum length and regular expression patterns. | `{}` | | No
+| validation.minLength | The minimum length for the field.| unlimited | `4` | No
+| validation.maxLength | The maximum length for the field.| unlimited | `20` | No
+| validation.regex | A regular expression the field's value must match |  | `{ "pattern": /[A-Z]*/ }` | No
+| required | If true, a value must be entered for the field. | `false` | `true` | No
+| message | The message to return if field validation fails.| `"is invalid"` | `"must contain uppercase letters only"` | No
+| default | An optional value to use as a default if no value is supplied for this field | | `"0"` | No
+| matchType | Specify the type of query that is performed when using this field. If "exact" then API will attempt to match the query value exactly, otherwise it will performa a case-insensitive query. | | `"exact"` | No
 
-#### Field Types
+### Field Types
 
-##### String
+Every field in a collection must be one of the following types. All documents sent to API are validated against a collection's field type to ensure that data will be stored in the format intended. See the section on [Validation](#validation) for more details.
 
-##### Number
+| Type | Description | Example 
+|:--|:--|:--
+| String | The most basic field type, used for text data. Will also accept arrays of Strings. | `"The quick brown fox"`,  `["The", "quick", "brown", "fox"]`
+| Number | Accepts numeric data types including whole integers and floats | `5`, `5.01` 
+| Boolean | Accepts only two possible values: `true` or `false` | `true` 
+| Object | Accepts single JSON documents or an array of documents | `{ "firstName": "Steve" }`
+| Mixed | Can accept any of the above types: String, Number, Boolean or Object | 
+| ObjectID | **Deprecated** Accepts MongoDB ObjectIds | `560a5baf320039f7d6a78d3b`
+| Reference | Used for linking documents in the same collection or a different collection, solving the problem of storing subdocuments in documents. See [Document Composition (reference fields)](#document-composition) for further information. | the ID of another document as a String: `"560a5baf320039f7d6a78d3b"` 
 
-##### Boolean
-
-##### Mixed
-
-##### Object
-
-##### ObjectID
-
-##### Reference
-
-See [Document Composition (reference fields)](#document-composition) for further information.
 
 ### Collection Settings
 
-Default values for the collection endpoint are set the following way:
+Each collection specification must contain a `settings` block, even if it is empty. API applies sensible defaults to collections, all of which can be overridden using properties in the `settings` block. Collection configuration is controlled in the following way:
 
 ```json
 {
   "settings": {
     "cache": true,
     "authenticate": true,
-    "count": 40,
+    "count": 100,
     "sort": "title",
     "sortOrder": 1,
     "callback": null,
-    "defaultFilters": null,
-    "fieldLimiters": null,
-    "storeRevisions": false,
-    "revisionCollection": null,
+    "storeRevisions": false
     "index": []
   }
 }
 ```
 
- Property       | Description        |   Example
-:----------------|:-------------------|:-------
-cache | If true, caching is enabled for this collection. The global config must also have `cache: true` for caching to be enabled | `true`
-authenticate |  | `true`
-count | The number of results to return when querying the collection | `40`
-sort | The default field to sort results by | `"title"`
-sortOrder | The sort direction to sort results by | `1` = ascending, `-1` = descending
-callback |  |
-defaultFilters | A default set of filters to query the collection by | `{ "publishState": true }`
-fieldLimiters | A default set of fields to return | `{ "title": 1, "author": 1 }`
-index | | | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
+| Property | Description | Default | Example
+|:--|:--|:--|:--
+| displayName | A friendly name for the collection. Used by the auto-generated documentation plugin.  | n/a | `"Articles"`
+| cache | If true, caching is enabled for this collection. The global config must also have `cache: true` for caching to be enabled | `false` | `true`
+| authenticate | Specifies whether requests for this collection require authentication, or if there only certain HTTP methods that must be authenticated | `true` | `false`, `["POST"]`
+| count | The number of results to return when querying the collection | `50` | `100`
+| sort | The field to sort results by | `"_id"`  | `"title"`
+| sortOrder | The sort direction to sort results by | `1`  | `1` = ascending, `-1` = descending
+| storeRevisions | x | x | x
+| revisionCollection | x | x | x
+| callback | x | x | x
+| defaultFilters | Specifies a default query for the collection. A `filter` parameter passed in the querystring will extend these filters.  | `{}` | `{ "published": true }`
+| fieldLimiters | Specifies a list of fields for inclusion/exclusion in the response. Fields can be included or excluded, but not both. See [Returning Data](#xxx) for more detail. | `{}` | `{ "title": 1, "author": 1 }`, `{ "dob": 0, "state": 0 }`
+| index | Specifies a set of indexes that should be created for the collection. See [Creating Database Indexes](#api/creating-database-indexes) for more detail. | `[]`  | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
 
-> It is possible to override some of these values when requesting data from the endpoint, by using querystring parameters. See [Querying a collection](./querying) for detailed documentation.
+> **Overriding configuration using querystring parameters**
+> 
+> It is possible to override some of these values when requesting data from the endpoint, by using querystring parameters. See [Querying a collection](#querying) for detailed documentation.
+> -- advice
 
-#### defaultFilters
+### Collection Configuration Endpoints
 
-Specifies a default query for the collection.
+Every collection in your API has an additional configuration route available. To use it, append `/config` to one of your collection endpoints, for example: http://api.somedomain.tech/1.0/libray/books/config. 
 
-```
-defaultFilters: { "publishState": "published" }
-```
+If the collection already exists (that is, a collection specification is located at `workspace/collections/1.0/library/collection.books.json`), making a GET request to the collection's configuration endpoint returns the collection schema:
 
-A `filter` parameter passed in a query will extend the default filters. For example the following request would extend the default filters and the database query would reflect both the defaults and the filters passed in the querystring:
-
-```
-http://api.example.com/1.0/magazine/articles?filter={"magazineTitle":"Vogue"}
-
-{ "publishState": "published", "magazineTitle": "Vogue" }
-```
-
-#### fieldLimiters
-
-Specifies a default list of fields for inclusion/exclusion. Fields can be included or excluded, but not both.
-
-#### Selecting fields for inclusion
-
-For example to include only `name` and `email`:
-
-```
-fieldLimiters: {"name":1, "email": 1}
+```http
+GET /1.0/library/books/config HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 37f9786b-3f39-4c87-a8ff-9530efd176c3
+Host: api.somedomain.tech
+Connection: close
 ```
 
-The `_id` field is returned by default and is the only field which can be excluded in a list of included fields. To exclude the `_id` field:
+```http
+HTTP/1.1 200 OK
+content-type: application/json
+content-length: 12639
+Date: Mon, 18 Sep 2017 14:05:44 GMT
+Connection: close
 
+{
+  "fields": {
+    "published": {
+      "type": "Object",
+      "label": "Published State",
+      "required": true
+    }
+  },
+  "settings": {
+  }
+}
 ```
-fieldLimiters: {"name":1, "email": 1, "_id": 0}
+
+#### Creating a collection specification
+
+There are two ways to create a collection specification. The first, using a text editor and adding a file to the collections directory on the filesystem, has already been discussed. The second way is to use the API's "collection configuration" endpoints.
+
+If the collection does not already exist, you can create it by making a POST request to the configuration endpoint. API will use the various parts of the endpoint URL to determine version, database and collection name. A new file will be created in the collections directory at `workspace/collections/<version>/<database>/collection.<collection name>.json`). The collection specification must be sent as the body of the POST request.
+
+```http
+POST /1.0/library/books/config HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 37f9786b-3f39-4c87-a8ff-9530efd176c3
+Host: api.somedomain.tech
+Connection: close
+Content-Length: 140
+
+{
+  "fields": {
+    "title": {
+      "type": "String",
+      "label": "The Book Title",
+      "required": true
+    }
+  },
+  "settings": {
+  }
+}
 ```
 
-Attempting to mix included with excluded results in a MongoDB error:
+```http
+HTTP/1.1 200 OK
+content-type: application/json
+Date: Mon, 18 Sep 2017 15:18:01 GMT
+Connection: close
+Content-Length: 57
 
+{
+  "result": "success",
+  "message": "books collection created"
+}
 ```
-fieldLimiters: {"name":1, "email": 0}
+
+> **Note**
+> 
+> To create or edit collection specifications using the configuration endpoints, you must use an access token obtained by using credentials for a client with an `accessType` of "admin". See the [Authentication](#api/authentication) section for more detail.
+> 
+> If your access token was not obtained using a set of "admin" credentials, API responds with HTTP 401 Unauthorized.
+>
+> ```http
+> HTTP/1.1 401 Unauthorized
+> WWW-Authenticate: Bearer realm="/1.0/library/books/config"
+> content-type: application/json
+> content-length: 18
+> Date: Mon, 18 Sep 2017 14:16:46 GMT
+> Connection: close
+```
+> -- warning
+
+
+#### Editing a collection specification
+
+Modifying an existing collection specification can be done by making another POST request to the collection's configuration endpoint. The full collection specification must be sent as the body of the POST request.
+
+```http
+POST /1.0/library/books/config HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer c389340b-718f-4eed-8e8e-3400a1c6cd5a
+Host: api.somedomain.tech
+Connection: close
+Content-Length: 254
+
+{
+  "fields": {
+    "title": {
+      "type":"String",
+      "label":"The Book's Title",
+      "required":true
+    }
+  },
+  "settings":{
+    "authenticate": true
+  }
+}
 ```
 
-#### Selecting fields for exclusion
+```http
+HTTP/1.1 200 OK
+content-type: application/json
+content-length: 20
+Date: Mon, 18 Sep 2017 15:21:32 GMT
+Connection: close
 
-To exclude fields, list only the fields for exclusion:
-
+{
+  "result": "success"
+}
 ```
-fieldLimiters: {"name":0, "email": 0}
-```
 
-
-### Creating a collection
-
-### Editing a collection
-
-### Data types
+## The REST API
 
 ## Working with data
 
@@ -400,6 +646,19 @@ fieldLimiters: {"name":0, "email": 0}
 #### Using REST API
 
 #### Using a Model directly
+
+```js
+// require the Model component from API
+const Model = require('@dadi/api').Model
+
+// get a reference to the "books" collection via the Model
+const books = Model('books')
+
+// call a method on the collection, for e.g. find(), insert(), update()
+books.find({ title: 'Harry Potter 2' }, { compose: true }, (err, result) => {
+  // do something with result
+})
+```
 
 ### Updating data
 
@@ -419,24 +678,17 @@ fieldLimiters: {"name":0, "email": 0}
 
 ### Validation
 
-Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema.
+Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema. 
 
-* [Validation Options](#validation-options)
-* [Validation Response](#validation-response)
-* [Error Messages](#error-messages)
+Several means of data validation are supported in API, including [type validation](#api/type-validation), [mandatory field validation](#api/mandatory-field-validation), [length validation](#api/length-validation) and [regular expression validation](#api/regular-expression-validation).
 
-#### Validation Options
-
-* [Type Validation](#type-validation)
-* [Mandatory Field Validation](#mandatory-field-validation)
-* [Length Validation](#length-validation)
-* [Regular Expression Validation](#regular-expression-validation)
+While API can return default error messages when data fails validation, it is possible to customise the error messages for each field individually. See [Error Messages](#api/error-messages) below for more detail.
 
 ##### Type Validation
 
 A field can be validated by type. DADI API will check that the value supplied for the field is the correct type as specified in the schema. Only the following JavaScript primitives are considered for type validation: `String`, `Number`, `Boolean`
 
-```
+```json
 "fields": {
   "title": {
     "type": "String",
@@ -447,9 +699,9 @@ A field can be validated by type. DADI API will check that the value supplied fo
 
 ##### Mandatory Field Validation
 
-Fields can be made mandatory by setting their `required` property to `true`. DADI API will check that a value has been supplied for the field when creating new documents. Validation for update requests is more relaxed and mandatory fields aren't validated as they would have already been populated with data when the document was first created.
+Fields can be made mandatory by setting their `required` property to `true`. DADI API will check that a value has been supplied for the field when creating new documents. Validation for update requests is more relaxed and mandatory fields are not validated as they would have already been populated with data when the document was first created.
 
-```
+```json
 "fields": {
   "title": {
     "type": "String",
@@ -462,7 +714,7 @@ Fields can be made mandatory by setting their `required` property to `true`. DAD
 
 A field's length can be controlled by using the `minLength` and `maxLength` properties. Validation will fail if the length of the string is greater or less than the specified length limits.
 
-```
+```json
 "fields": {
   "username": {
     "type": "String",
@@ -485,7 +737,7 @@ A field's length can be controlled by using the `minLength` and `maxLength` prop
 
 A regular expression pattern can be specified for a field, which may help enforcing business rules.
 
-```
+```json
 "fields": {
   "productCode": {
     "type": "String",
@@ -504,7 +756,13 @@ A regular expression pattern can be specified for a field, which may help enforc
 
 If a document fails validation an errors collection will be returned with the reasons for validation failure:
 
-```
+```http
+HTTP/1.1 400 Bad Request
+content-type: application/json
+content-length: 681
+Date: Mon, 18 Sep 2017 18:21:04 GMT
+Connection: close
+
 {
   "success": false,
   "errors": [
@@ -532,49 +790,46 @@ If a document fails validation an errors collection will be returned with the re
 
 A set of default error messages are returned for fields that fail validation. The table below lists the built-in error messages and their associated meaning.
 
-Message       | Description         
-:----------------|:-------------------
+Message       | Description
+:--|:--
 "is invalid" | The default message returned for a field that fails validation
 "must be specified" | A `required` field has not been supplied
 "can't be blank" | A `required` field has been supplied but with no value
 "should match the pattern `^[A-Z]*$`" | The value does not match the configured regular expression
 
-It is possible to supply a custom error message by specifying a `message` property in a field specification.
-
-For example:
+It is possible to supply a custom error message by specifying a `message` property in a field specification. For example:
 
 ```
 "title": {
   "type": "String",
-  "label": "Title",
-  "comments": "The title of the book",
-  "example": "The Autobiography of Benjamin Franklin",
   "required": true,
+  "example": "The Autobiography of Benjamin Franklin",
   "message": "must contain a value"
 }
 ```
 
-## Database Indexes
+## Creating Database Indexes
 
 Indexes provide high performance read operations for frequently used queries and are fundamental in ensuring performance under load and at scale.
 
-Database indexes can be automatically created for a collection by specifying the fields to be indexed in the `settings` object.
-An index will be created on the collection using the fields specified in the `index.keys` setting. A value of `keys: { fieldName: 1 }` will create an index for field `fieldName` using an ascending order. `keys: { fieldName: -1 }` will create an index for field `fieldName` using a descending order. Specifying multiple fields will create a compound index.
+Database indexes can be automatically created for a collection by specifying the fields to be indexed in the `settings` block.
+An index will be created on the collection using the fields specified in the `keys` property.
+
+An index block such as `{ "keys": { "fieldName": 1 }` will create an index for the field `fieldName` using an ascending order. 
+The order will be reversed if the `1` is replaced with `-1`. Specifying multiple fields will create a compound index.
 
 The index will be created in the background to avoid blocking other database operations.
-
-**settings.index**
 
 ```json
 "settings": {
   "cache": true,
-  "index": {
-    "enabled": true,
-    "keys": {
-      "field1": 1,
-      "field2": -1
+  "index": [
+    {
+      "keys": {
+        "title": 1
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -635,19 +890,19 @@ update operation to change the value of `title`:
 
 ## Document Composition
 
-To reduce data duplication through document embedding, DADI API allows the use of "Reference" fields which can best be described as pointers to other documents. The referenced document could be in the same collection, another collection in the same database or a collection in a different database.
+To reduce data duplication caused by embedding subdocuments, DADI API allows the use of "Reference" fields which can best be described as pointers to other documents. The referenced document could be in the same collection, another collection in the same database or a collection in a different database.
 
 **Reference Field Settings**
 
- Property       | Description        |   Example
-:----------------|:-------------------|:-------
-database | The name of the database that holds the reference data. Can be omitted if the field references data in the same **database** as the referring document. | `"title"`
-collection | The name of the collection that holds the reference data. Can be omitted if the field references data in the same **collection** as the referring document. | `"title"`
-fields    | An array of fields to return for each referenced document.   | `["firstName", "lastName"]`
+| Property       | Description        |   Example
+|:----------------|:-------------------|:-------
+| database | The name of the database that holds the reference data. Can be omitted if the field references data in the same **database** as the referring document. | `"library"`
+| collection | The name of the collection that holds the reference data. Can be omitted if the field references data in the same **collection** as the referring document. | `"people"`
+| fields  | An array of fields to return for each referenced document.   | `["firstName", "lastName"]`
 
 ### Example
 
-Consider the following two collections, `books` and `people`. `books` contains a Reference field `author` which is capable of loading documents from the `people` collection. By creating a `book` document and setting the `author` field to the `_id` value of a document from the `people` collection, the application is able to resolve this reference and return the `author` document within a result set for a `books` query.
+Consider the following two collections, `books` and `people`. `books` contains a Reference field `author` which is capable of loading documents from the `people` collection. By creating a `book` document and setting the `author` field to the `_id` value of a document from the `people` collection, API is able to resolve the reference and return the `author` as a subdocument within the response for a `books` query.
 
 **Books `(collection.books.json)`**
 
@@ -728,11 +983,11 @@ GET /1.0/library/books?filter={"_id":"560a5baf320039f7d6a78d3b"}&compose=true
 ```
 
 ```js
-var books = model('books')
+const books = model('books')
 
-books.find({ title: "Harry Potter 2" }, { "compose": true }, function (err, result) {
+books.find({ title: 'Harry Potter 2' }, { compose: true }, (err, result) => {
   // do something with result
-});
+})
 ```
 
 This setting will allow the first level of Reference fields to be resolved. To allow Reference fields to resolve which are nested further within the document, add a `compose` property to the collection specification's settings block:
@@ -846,7 +1101,7 @@ An example request:
 
 ```http
 GET /1.0/library/books/stats HTTP/1.1
-Host: api.example.com
+Host: api.somedomain.tech
 Content-Type: application/json
 Cache-Control: no-cache
 ```
@@ -865,50 +1120,10 @@ An example response:
 }
 ```
 
-## Available Collections
-
-A document containing information about the available collections can be retrieved by sending a GET request to the API's `/api/collections` endpoint.
-
-**Example request**
-
-```http
-GET /api/collections HTTP/1.1
-Host: api.example.com
-Content-Type: application/json
-Cache-Control: no-cache
-```
-
-**Example response**
-
-```json
-{
-  "collections": [
-    {
-      "version": "1.0",
-      "database": "library",
-      "name": "books",
-      "slug": "books",
-      "path": "/1.0/library/books"
-    },
-    {
-      "version": "1.0",
-      "database": "library",
-      "name": "user",
-      "slug": "user",
-      "path": "/1.0/library/users"
-    },
-    {
-      "version": "1.0",
-      "database": "library",
-      "name": "author",
-      "slug": "author",
-      "path": "/1.0/library/authors"
-    }
-  ]
-}
-```
 
 ## Adding application logic
+
+While
 
 ### Endpoints
 
@@ -937,11 +1152,11 @@ Endpoint specifications exist as Javascript files within a `version` folder as m
 
 With the above folder and file hierarchy an endpoint's URL uses the following format:
 
-`http://api.example.com/{version}/{endpoint name}`
+`http://api.somedomain.tech/{version}/{endpoint name}`
 
 In actual use this might look like the following:
 
-`http://api.example.com/1.0/booksByAuthor`
+`http://api.somedomain.tech/1.0/booksByAuthor`
 
 #### The Endpoint file
 
@@ -972,12 +1187,11 @@ Each function receives the following three arguments:
 
 ```js
 module.exports.get = function (req, res, next) {
-
-  var data = {
+  let data = {
     results: [
       {
-        title: "Book One",
-        author: "Benjamin Franklin"
+        title: 'Book One',
+        author: 'Benjamin Franklin'
       }
     ]
   }
@@ -992,12 +1206,11 @@ module.exports.get = function (req, res, next) {
 
 ```js
 module.exports.get = function (req, res, next) {
-
-  var data = {
+  let data = {
     results: [
       {
-        title: "Book One",
-        author: "Benjamin Franklin"
+        title: 'Book One',
+        author: 'Benjamin Franklin'
       }
     ]
   }
@@ -1012,12 +1225,11 @@ module.exports.get = function (req, res, next) {
 
 ```js
 module.exports.get = function (req, res, next) {
-
-  var data = {
+  let data = {
     results: [
       {
-        title: "Book One",
-        author: "Benjamin Franklin"
+        title: 'Book One',
+        author: 'Benjamin Franklin'
       }
     ]
   }
@@ -1036,20 +1248,22 @@ The following example returns a config object with a route that specifies an opt
 
 ```js
 module.exports.config = function () {
-  return { "route": "/1.0/books/:id([a-fA-F0-9]{24})?" }
+  return {
+    route: '/1.0/books/:id([a-fA-F0-9]{24})?'
+  }
 }
 ```
 
 This route will now respond to requests such as
 
 ```
-http://api.example.com/1.0/books/55bb8f688d76f74b1303a137
+http://api.somedomain.tech/1.0/books/55bb8f688d76f74b1303a137
 ```
 
 Without this custom route, the same could be achieved by requesting the default route with a querystring parameter.
 
 ```
-http://api.example.com/1.0/books?id=55bb8f688d76f74b1303a137
+http://api.somedomain.tech/1.0/books?id=55bb8f688d76f74b1303a137
 ```
 
 #### Authentication
@@ -1068,7 +1282,7 @@ This will return a "Hello World" example -
 
 ```
 GET /v1/test-endpoint HTTP/1.1
-Host: api.example.com
+Host: api.somedomain.tech
 content-type: application/json
 Authorization: Bearer 171c8c12-6e9b-47a8-be29-0524070b0c65
 ```
@@ -1129,7 +1343,7 @@ For that reason, developers might have the need to pass extra information to the
 ```json
 "settings": {
   "hooks": {
-    "create": [
+    "beforeCreate": [
       {
         "hook": "slugify",
         "options": {
@@ -1239,23 +1453,107 @@ And then enable it in a model:
 }
 ```
 
+## Internal Endpoints
+
+### Hello
+
+
+
+### Configuration
+### Cache flush
+### All Collections
+
+A document containing information about the available collections can be retrieved by sending a GET request to the API's `/api/collections` endpoint.
+
+```http
+GET /api/collections HTTP/1.1
+Host: api.somedomain.tech
+Content-Type: application/json
+Cache-Control: no-cache
+```
+
+```json
+{
+  "collections": [
+    {
+      "name": "books",
+      "slug": "books",
+      "version": "1.0",
+      "database": "library",
+      "path": "/1.0/library/books"
+    },
+    {
+      "name": "user",
+      "slug": "user",
+      "version": "1.0",
+      "database": "library",
+      "path": "/1.0/library/users"
+    },
+    {
+      "name": "author",
+      "slug": "author",
+      "version": "1.0",
+      "database": "library",
+      "path": "/1.0/library/authors"
+    }
+  ]
+}
+```
+
 ## Data connectors reference
 
 ### MongoDB Connector
 
+The MongoDB connector allows you to use MongoDB as the backend for API.
+
+
+Help improve the package at https://github.com/dadi/api-mongodb.
+
+
 #### Installing
+
+```console
+$ npm install --save @dadi/api-mongodb
+```
 
 #### Configuring
 
 #### Using MongoLab
 
-### CouchDB
+### CouchDB Connector
 
-### JSON File
+The CouchDB connector allows you to use CouchDB as the backend for API.
+
+Help improve the package at https://github.com/dadi/api-couchdb.
+#### Installing
+
+
+```console
+$ npm install --save @dadi/api-couchdb
+```
+
+### FileStore Connector
+
+The FileStore connector allows you to use JSON files as the backend for API, via [LokiJS](http://lokijs.org).
+
+Help improve the package at https://github.com/dadi/api-filestore.
+
+#### Installing
+
+```console
+$ npm install --save @dadi/api-filestore
+```
 
 ### Building a connector
+
+Sample repository at https://github.com/dadi/api-connector-template.
+
 
 ## How-to guides
 
 
+### Connecting to API
 
+### Data connectors
+
+### Auto generate documentation

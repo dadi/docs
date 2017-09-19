@@ -6,17 +6,48 @@ title: Web
 
 ### Requirements
 
-* **[Node.js](https://www.nodejs.org/)** (supported versions: 4.8.4, 5.12.0, 6.11.x)
+Microservices in the DADI platform are built on Node.js, a JavaScript runtime built on Google Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.
+
+DADI follows the Node.js LTS (Long Term Support) release schedule, and as such the version of Node.js required to run DADI products is coupled to the version of Node.js currently in Active LTS. See the [LTS schedule](https://github.com/nodejs/LTS) for further information.
+
+* **[Node.js](https://www.nodejs.org/)** (current LTS version)
 
 ### DADI CLI
 
-__Coming soon__
+The easiest way to install Web is using DADI CLI. CLI is a command line application that can be used to create and maintain installations of DADI products.
+
+#### Install DADI CLI
+
+```console
+$ npm install @dadi/cli -g
+```
+
+
+#### Create new Web installation
+
+There are two ways to create a new Web application with the CLI: either manually create a new directory for Web or let CLI handle that for you. DADI CLI accepts an argument for `project-name` which it uses to create a directory for installation.
+
+*Manual directory creation*
+
+```console
+$ mkdir my-web-app
+$ cd my-web-app
+$ dadi web new
+```
+
+*Automatic directory creation*
+
+```console
+$ dadi web new my-web-app
+$ cd my-web-app
+```
 
 ### NPM
 
-All DADI platform microservices are available from [NPM](https://www.npmjs.com/). To add *Web* to your project as a dependency:
+All DADI platform microservices are available from [NPM](https://www.npmjs.com/). To add *Web* to your existing project as a dependency:
 
 ```console
+$ cd my-existing-node-app
 $ npm install --save @dadi/web
 ```
 
@@ -191,7 +222,7 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 |:--|:--|:--|:--|:--|
 | ttl | Number | `300` | The time, in seconds, after which cached data is considered stale | `3600`
 
-#### directory 
+#### directory
 
 | Property | Type | Default | Description | Example |
 |:--|:--|:--|:--|:--|
@@ -201,7 +232,7 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 
 #### redis
 
-> You will need to have a [Redis](https://redis.io/) server running to use this. 
+> You will need to have a [Redis](https://redis.io/) server running to use this.
 
 | Property | Type | Default | Description | Example |
 |:--|:--|:--|:--|:--|
@@ -540,7 +571,7 @@ A route segment with a colon at the beginning indicates a dynamic segment which 
 The following URLs match the above route, with the segment defined by `:title` extracted, placed into `req.params` and accessible via the property `title`.
 
 URL       | Named Parameter `:title`        | Request Parameters `req.params`         
----------------|----------------------|-----
+:--|:--|:--
 /books/war-and-peace           |    `war-and-peace` | `{ title: "war-and-peace" }`
 /books/sisters-brothers           |    `sisters-brothers` | `{ title: "sisters-brothers" }`
 
@@ -551,7 +582,7 @@ Parameters can be made optional by adding a question mark `?`.
 For example the route `/books/:page?` will match requests in both the following formats:
 
 | URL | Matched? | Named Parameters | Request Parameters `req.params`         
-:---------------|:------|:---------------------|------
+:--|:--|:--|:--
 | /books  | Yes|| `{}`
 | /books/2 | Yes | `:page` | `{ page: "2" }`
 
@@ -564,7 +595,7 @@ Specifying a format for a parameter can help Web identify the correct route to u
 The route `/books/:page(\\d+)` will only match a URL that has `books` in the first segment and a number in the second segment:
 
 | URL | Matched? | Named Parameters  | Request Parameters `req.params`         
-:---------------|:--------|:---------------------|------
+:--|:--|:--|:--
 | /books/war-and-peace | No ||
 | /books/2 | Yes | `:page` | `{ page: "2" }`
 
@@ -609,7 +640,7 @@ DADI Web sorts your routes into a priority order so that the most likely matches
 * Any route with a `page` parameter gets a slight edge, with 1 point being added to its priority.
 
 | Path | Priority |
-|:---|:---------|
+|:--|:--|
 | `/movies/news/:page(\\d+)?/` |  12
 | `/movies/reviews/:page(\\d+)?` |  12
 | `/movies/features/:page(\\d+)?/` |  12
@@ -935,10 +966,10 @@ Serve content from a local folder containing text files. You can specify also sp
 `workspace/posts/somefolder/myslug.md`
 
 ```markdown
---- 
+--
 date: 2016-02-17
 title: Your title here
---- 
+--
 Some *markdown*
 ```
 
@@ -956,7 +987,7 @@ When loaded becomes the following data:
       "somefolder"
     ]
   },
-  "original": "---\ndate: 2016-02-17\ntitle: Your title here\n---\nSome *markdown*",
+  "original": "--\ndate: 2016-02-17\ntitle: Your title here\n--\nSome *markdown*",
   "contentText": "Some *markdown*",
   "contentHtml": "<p>Some <em>markdown</em></p>\n"
 }
@@ -992,10 +1023,10 @@ This will look similar to the following:
 ```JSON
 {
   "query": {
-    
+
   },
   "params": {
-    
+
   },
   "pathname": "/",
   "host": "127.0.0.1:3001",
@@ -1056,6 +1087,106 @@ A working example can be found here: [dadi-web-csrf-test](https://github.com/ada
 ### SSL with a load balancer
 
 ## How-to guides
+
+### Migrating from version 2.x to 3.x
+
+**1. Install Dust.js dependency**
+
+Web 3.0 supports multiple template engines. As a consequence, Dust.js is now decoupled from core and needs to be included as a dependency on projects that want to use it.
+
+```
+npm install @dadi/web-dustjs --save
+```
+
+**2. Change bootstrap script**
+
+The bootstrap script (which you may be calling `index.js`, `main.js` or `server.js`) now needs to inform Web of the engines it has available and which npm modules implement them.
+
+```js
+require('@dadi/web')({
+  engines: [
+    require('@dadi/web-dustjs')
+  ]
+})
+```
+
+**3. Update config**
+
+The `dust` config block has been moved inside a generic `engines` block.
+
+*Before:*
+
+```
+"dust": {
+  "cache": true,
+  "debug": true,
+  "debugLevel": "DEBUG",
+  "whitespace": true,
+  "paths": {
+    "helpers": "workspace/utils/helpers"
+  }
+}
+```
+
+*After:*
+
+```
+"engines": {
+  "dust": {
+    "cache": true,
+    "debug": true,
+    "debugLevel": "DEBUG",
+    "whitespace": true,
+    "paths": {
+      "helpers": "workspace/utils/helpers"
+    }
+  }
+}
+```
+
+**4. Move partials directory**
+
+Before Web 3.0, Dust templates were separated between the `pages` and `partials` directories, with the former being used for templates that generate a page (i.e. have a route) and the latter being used for partials/includes.
+
+In Web 3.0, all templates live under the same directory (`pages`). The distinction between a page and a partial is made purely by whether or not the template has an accompanying JSON schema file.
+
+Also, pages and partials can now be located in sub-directories, nested as deeply as possible.
+
+To migrate an existing project, all you need to do is move the `partials` directory inside `pages` and everything will work as expected.
+
+*Before:*
+
+```
+workspace
+|_ pages
+|_ partials
+```
+
+*After:*
+```
+workspace
+|_ pages
+  |_ partials
+```
+
+```
+mv workspace/partials workspace/pages
+```
+
+**5. Update Dust helpers**
+
+If your project is using custom helpers, you might need to change the way they access the Dust engine. You should now access the module directly, rather than reference the one from Web.
+
+```js
+// Before
+var dust = require('@dadi/web').Dust
+require('@dadi/dustjs-helpers')(dust.getEngine())
+
+// After
+var dust = require('dustjs-linkedin')
+require('@dadi/dustjs-helpers')(dust)
+```
+
 ### Dealing with form data & Sendgrid
 
 This is an example of an event which uses [SendGrid](https://sendgrid.com/) to send a message from an HTML form.
@@ -1147,13 +1278,13 @@ var Event = function (req, res, data, callback) {
   default:
       return callback()
   }
-  
+
 }
 
 // Taken from: http://stackoverflow.com/a/46181/306059
 function isEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  
+
   return re.test(email)
 }
 
