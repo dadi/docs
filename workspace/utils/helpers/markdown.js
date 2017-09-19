@@ -4,10 +4,24 @@ var hljs = require('highlight.js')
 var marked = require('marked')
 var toc = require('markdown-toc')
 
+// function findParent (arr, currentText, currentLevel) {
+//   let reversed = arr.slice(0)
+//   reversed = reversed.reverse()
+//
+//   let currentIndex = reversed.findIndex((element, index, array) => {
+//     return (element.text === currentText && element.level === currentLevel)
+//   })
+//
+//   let parentIndex = reversed.findIndex((element, index, array) => {
+//     return (index > currentIndex && element.level < currentLevel)
+//   })
+//
+//   return reversed[parentIndex]
+// }
+
 /*
 * Returns the markdown content formatted as HTML
 */
-
 dust.helpers.markdown = function(chunk, context, bodies, params) {
   var headings = []
 
@@ -22,13 +36,28 @@ dust.helpers.markdown = function(chunk, context, bodies, params) {
         if (duplicateIndex === -1) {
           headings.push({
             text: escapedText,
-            count: 0
+            count: 0,
+            level: level
           })
         } else {
           headings[duplicateIndex].count++
           duplicateText = escapedText + '-' + headings[duplicateIndex].count
         }
-        return '<h' + level + '><a id="' + params.app + '\/' + (duplicateText || escapedText) + '" class="anchor" href="#' + params.app + '\/' + (duplicateText || escapedText) + '">Link here</a>' + text + '</h' + level + '>\n'
+
+        let id = params.app + '\/'
+        let href = params.app + '\/'
+
+        // let parent = findParent(headings, (duplicateText || escapedText), level)
+        //
+        // if (parent) {
+        //    id += parent.text + '\/'
+        //    href += parent.text + '\/'
+        // }
+
+        id += (duplicateText || escapedText)
+        href += (duplicateText || escapedText)
+
+        return '<h' + level + '><a id="' + id + '" class="anchor" href="#' + href + '">Link here</a>' + text + '</h' + level + '>\n'
       }
 
       /**
