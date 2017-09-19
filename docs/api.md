@@ -235,6 +235,7 @@ The Client Record allows anyone with those credentials to request an access toke
 DADI API allows controlling access to endpoints by extending the client record with a `permissions` block.
 
 > There is currently no interface or script available to add permissions to a client record, so this must be done in the database directly.
+>
 > -- advice
 
 Add a permissions block containing an array of the collections and/or an array of the endpoints that the client should have access to.
@@ -281,6 +282,7 @@ It is also possible to restrict access to versions of your API (see [API Version
 > **Warning!**
 > 
 > Adding permissions to a client record will result in that client being able to access only those collections and endpoints they have been given permissions to.
+> 
 > -- warning
 
 ### Authorisation Errors
@@ -507,6 +509,7 @@ Each collection specification must contain a `settings` block, even if it is emp
 > **Overriding configuration using querystring parameters**
 > 
 > It is possible to override some of these values when requesting data from the endpoint, by using querystring parameters. See [Querying a collection](#querying) for detailed documentation.
+>
 > -- advice
 
 ### Collection Configuration Endpoints
