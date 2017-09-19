@@ -1,5 +1,6 @@
 ---
 title: CDN
+order: 3
 ---
 
 ## Installation

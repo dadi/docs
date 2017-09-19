@@ -8,7 +8,7 @@
     "count": 1,
     "paginate": true,
     "sort": {
-      "title": 1
+      "order": 1
     },
     "fields": [
       "attributes",

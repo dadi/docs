@@ -1,5 +1,6 @@
 ---
 title: Publish
+order: 4
 ---
 
 ## Installation
