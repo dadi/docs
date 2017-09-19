@@ -512,20 +512,20 @@ pre code {
 }
 
 .docs--cli h2,
-#nav--cli .active { color: #e42918;}
+#nav--cli .active { color: #e7461f;}
 .docs--cli a {
-	border-bottom: 1px solid #e42918;
+	border-bottom: 1px solid #e7461f;
 	font-weight: bold;
 }
 #nav--cli {
-	background: url(https://dadi.tech/assets/products/dadi-cli.png) no-repeat 90% 22px;
+	background: url(/assets/dadi-cli.png) no-repeat 90% 22px;
 	background-size: auto 22px;
 }
 .docs--cli ::selection {
-	background: #e42918;
+	background: #e7461f;
 	color: #fff;
 }
 .docs--cli ::-moz-selection {
-	background: #e42918;
+	background: #e7461f;
 	color: #fff;
 }
