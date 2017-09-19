@@ -490,11 +490,14 @@ Each collection specification must contain a `settings` block, even if it is emp
 
 | Property | Description | Default | Example
 |:--|:--|:--|:--
+| displayName | A friendly name for the collection. Used by the auto-generated documentation plugin.  | n/a | `"Articles"`
 | cache | If true, caching is enabled for this collection. The global config must also have `cache: true` for caching to be enabled | `false` | `true`
 | authenticate | Specifies whether requests for this collection require authentication, or if there only certain HTTP methods that must be authenticated | `true` | `false`, `["POST"]`
 | count | The number of results to return when querying the collection | `50` | `100`
 | sort | The field to sort results by | `"_id"`  | `"title"`
 | sortOrder | The sort direction to sort results by | `1`  | `1` = ascending, `-1` = descending
+| storeRevisions | x | x | x
+| revisionCollection | x | x | x
 | callback | x | x | x
 | defaultFilters | Specifies a default query for the collection. A `filter` parameter passed in the querystring will extend these filters.  | `{}` | `{ "published": true }`
 | fieldLimiters | Specifies a list of fields for inclusion/exclusion in the response. Fields can be included or excluded, but not both. See [Returning Data](#xxx) for more detail. | `{}` | `{ "title": 1, "author": 1 }`, `{ "dob": 0, "state": 0 }`
@@ -634,6 +637,7 @@ Connection: close
 }
 ```
 
+## The REST API
 
 ## Working with data
 
@@ -676,22 +680,15 @@ books.find({ title: 'Harry Potter 2' }, { compose: true }, (err, result) => {
 
 Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema. 
 
-* [Validation Options](#validation-options)
-* [Validation Response](#validation-response)
-* [Error Messages](#error-messages)
+Several means of data validation are supported in API, including [type validation](#api/type-validation), [mandatory field validation](#api/mandatory-field-validation), [length validation](#api/length-validation) and [regular expression validation](#api/regular-expression-validation).
 
-#### Validation Options
-
-* [Type Validation](#type-validation)
-* [Mandatory Field Validation](#mandatory-field-validation)
-* [Length Validation](#length-validation)
-* [Regular Expression Validation](#regular-expression-validation)
+While API can return default error messages when data fails validation, it is possible to customise the error messages for each field individually. See [Error Messages](#api/error-messages) below for more detail.
 
 ##### Type Validation
 
 A field can be validated by type. DADI API will check that the value supplied for the field is the correct type as specified in the schema. Only the following JavaScript primitives are considered for type validation: `String`, `Number`, `Boolean`
 
-```
+```json
 "fields": {
   "title": {
     "type": "String",
@@ -702,9 +699,9 @@ A field can be validated by type. DADI API will check that the value supplied fo
 
 ##### Mandatory Field Validation
 
-Fields can be made mandatory by setting their `required` property to `true`. DADI API will check that a value has been supplied for the field when creating new documents. Validation for update requests is more relaxed and mandatory fields aren't validated as they would have already been populated with data when the document was first created.
+Fields can be made mandatory by setting their `required` property to `true`. DADI API will check that a value has been supplied for the field when creating new documents. Validation for update requests is more relaxed and mandatory fields are not validated as they would have already been populated with data when the document was first created.
 
-```
+```json
 "fields": {
   "title": {
     "type": "String",
@@ -717,7 +714,7 @@ Fields can be made mandatory by setting their `required` property to `true`. DAD
 
 A field's length can be controlled by using the `minLength` and `maxLength` properties. Validation will fail if the length of the string is greater or less than the specified length limits.
 
-```
+```json
 "fields": {
   "username": {
     "type": "String",
@@ -740,7 +737,7 @@ A field's length can be controlled by using the `minLength` and `maxLength` prop
 
 A regular expression pattern can be specified for a field, which may help enforcing business rules.
 
-```
+```json
 "fields": {
   "productCode": {
     "type": "String",
@@ -759,7 +756,13 @@ A regular expression pattern can be specified for a field, which may help enforc
 
 If a document fails validation an errors collection will be returned with the reasons for validation failure:
 
-```
+```http
+HTTP/1.1 400 Bad Request
+content-type: application/json
+content-length: 681
+Date: Mon, 18 Sep 2017 18:21:04 GMT
+Connection: close
+
 {
   "success": false,
   "errors": [
@@ -794,17 +797,13 @@ Message       | Description
 "can't be blank" | A `required` field has been supplied but with no value
 "should match the pattern `^[A-Z]*$`" | The value does not match the configured regular expression
 
-It is possible to supply a custom error message by specifying a `message` property in a field specification.
-
-For example:
+It is possible to supply a custom error message by specifying a `message` property in a field specification. For example:
 
 ```
 "title": {
   "type": "String",
-  "label": "Title",
-  "comments": "The title of the book",
-  "example": "The Autobiography of Benjamin Franklin",
   "required": true,
+  "example": "The Autobiography of Benjamin Franklin",
   "message": "must contain a value"
 }
 ```
@@ -813,23 +812,24 @@ For example:
 
 Indexes provide high performance read operations for frequently used queries and are fundamental in ensuring performance under load and at scale.
 
-Database indexes can be automatically created for a collection by specifying the fields to be indexed in the `settings` object.
-An index will be created on the collection using the fields specified in the `index.keys` setting. A value of `keys: { fieldName: 1 }` will create an index for field `fieldName` using an ascending order. `keys: { fieldName: -1 }` will create an index for field `fieldName` using a descending order. Specifying multiple fields will create a compound index.
+Database indexes can be automatically created for a collection by specifying the fields to be indexed in the `settings` block.
+An index will be created on the collection using the fields specified in the `keys` property.
+
+An index block such as `{ "keys": { "fieldName": 1 }` will create an index for the field `fieldName` using an ascending order. 
+The order will be reversed if the `1` is replaced with `-1`. Specifying multiple fields will create a compound index.
 
 The index will be created in the background to avoid blocking other database operations.
-
-**settings.index**
 
 ```json
 "settings": {
   "cache": true,
-  "index": {
-    "enabled": true,
-    "keys": {
-      "field1": 1,
-      "field2": -1
+  "index": [
+    {
+      "keys": {
+        "title": 1
+      }
     }
-  }
+  ]
 }
 ```
 
@@ -890,19 +890,19 @@ update operation to change the value of `title`:
 
 ## Document Composition
 
-To reduce data duplication through document embedding, DADI API allows the use of "Reference" fields which can best be described as pointers to other documents. The referenced document could be in the same collection, another collection in the same database or a collection in a different database.
+To reduce data duplication caused by embedding subdocuments, DADI API allows the use of "Reference" fields which can best be described as pointers to other documents. The referenced document could be in the same collection, another collection in the same database or a collection in a different database.
 
 **Reference Field Settings**
 
- Property       | Description        |   Example
-:----------------|:-------------------|:-------
-database | The name of the database that holds the reference data. Can be omitted if the field references data in the same **database** as the referring document. | `"title"`
-collection | The name of the collection that holds the reference data. Can be omitted if the field references data in the same **collection** as the referring document. | `"title"`
-fields    | An array of fields to return for each referenced document.   | `["firstName", "lastName"]`
+| Property       | Description        |   Example
+|:----------------|:-------------------|:-------
+| database | The name of the database that holds the reference data. Can be omitted if the field references data in the same **database** as the referring document. | `"library"`
+| collection | The name of the collection that holds the reference data. Can be omitted if the field references data in the same **collection** as the referring document. | `"people"`
+| fields  | An array of fields to return for each referenced document.   | `["firstName", "lastName"]`
 
 ### Example
 
-Consider the following two collections, `books` and `people`. `books` contains a Reference field `author` which is capable of loading documents from the `people` collection. By creating a `book` document and setting the `author` field to the `_id` value of a document from the `people` collection, the application is able to resolve this reference and return the `author` document within a result set for a `books` query.
+Consider the following two collections, `books` and `people`. `books` contains a Reference field `author` which is capable of loading documents from the `people` collection. By creating a `book` document and setting the `author` field to the `_id` value of a document from the `people` collection, API is able to resolve the reference and return the `author` as a subdocument within the response for a `books` query.
 
 **Books `(collection.books.json)`**
 
@@ -1120,48 +1120,6 @@ An example response:
 }
 ```
 
-## Available Collections
-
-A document containing information about the available collections can be retrieved by sending a GET request to the API's `/api/collections` endpoint.
-
-**Example request**
-
-```http
-GET /api/collections HTTP/1.1
-Host: api.somedomain.tech
-Content-Type: application/json
-Cache-Control: no-cache
-```
-
-**Example response**
-
-```json
-{
-  "collections": [
-    {
-      "version": "1.0",
-      "database": "library",
-      "name": "books",
-      "slug": "books",
-      "path": "/1.0/library/books"
-    },
-    {
-      "version": "1.0",
-      "database": "library",
-      "name": "user",
-      "slug": "user",
-      "path": "/1.0/library/users"
-    },
-    {
-      "version": "1.0",
-      "database": "library",
-      "name": "author",
-      "slug": "author",
-      "path": "/1.0/library/authors"
-    }
-  ]
-}
-```
 
 ## Adding application logic
 
@@ -1498,9 +1456,49 @@ And then enable it in a model:
 ## Internal Endpoints
 
 ### Hello
+
+
+
 ### Configuration
 ### Cache flush
 ### All Collections
+
+A document containing information about the available collections can be retrieved by sending a GET request to the API's `/api/collections` endpoint.
+
+```http
+GET /api/collections HTTP/1.1
+Host: api.somedomain.tech
+Content-Type: application/json
+Cache-Control: no-cache
+```
+
+```json
+{
+  "collections": [
+    {
+      "name": "books",
+      "slug": "books",
+      "version": "1.0",
+      "database": "library",
+      "path": "/1.0/library/books"
+    },
+    {
+      "name": "user",
+      "slug": "user",
+      "version": "1.0",
+      "database": "library",
+      "path": "/1.0/library/users"
+    },
+    {
+      "name": "author",
+      "slug": "author",
+      "version": "1.0",
+      "database": "library",
+      "path": "/1.0/library/authors"
+    }
+  ]
+}
+```
 
 ## Data connectors reference
 
