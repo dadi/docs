@@ -373,7 +373,7 @@ Adds blur to an image, using any value above zero.
 
 > The `blur` parameter can be added to the querystring as either `b` or `blur`
 
-`https://cdn.example.com/images/dog.jpg?b=5`
+`https://cdn.somedomain.tech/images/dog.jpg?b=5`
 
 **Original image**
 
@@ -425,19 +425,19 @@ Used to position the crop area. Available options (case sensitive): `northwest`,
 
 **g=North**
 
-`https://cdn.example.com/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=North`
+`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=North`
 
 ![](/assets/cdn/med-portrait-north.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
 **g=Center**
 
-`https://cdn.example.com/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=Center`
+`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=Center`
 
 ![](/assets/cdn/med-portrait-center.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
 **g=South**
 
-`https://cdn.example.com/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=South`
+`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=South`
 
 ![](/assets/cdn/med-portrait-south.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
@@ -447,7 +447,7 @@ Keeps the aspect ratio of the original image and generates an output image with 
 
 **Example**
 
-`https://cdn.example.com/images/canoe.jpg?w=400&h=300&resize=aspectfit`
+`https://cdn.somedomain.tech/images/canoe.jpg?w=400&h=300&resize=aspectfit`
 
 The output image is 400 x 267 pixels.
 
@@ -459,7 +459,7 @@ Ignores the aspect ratio of the original image and generates an output image wit
 
 **Example**
 
-`https://cdn.example.com/images/canoe.jpg?w=400&h=300&resize=fill`
+`https://cdn.somedomain.tech/images/canoe.jpg?w=400&h=300&resize=fill`
 
 The output image is 400 x 300 pixels.
 
@@ -475,7 +475,7 @@ Crops the image using a technique that determines the most important areas. Area
 
 ![](/assets/cdn/med-portrait.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
-`https://cdn.example.com/images/med-portrait.jpg?w=400&h=300&resize=entropy`
+`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=entropy`
 
 ![](/assets/cdn/med-portrait-entropy.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
@@ -503,19 +503,19 @@ Flips the image horizontally, vertically or both. Valid values are `x`, `y` and 
 
 ## Flip horizontally
 
-`https://cdn.example.com/images/dog.jpg?flip=x`
+`https://cdn.somedomain.tech/images/dog.jpg?flip=x`
 
 ![Dog flipped on the X axis](/assets/cdn/dog-w600-flip-x.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 ## Flip vertically
 
-`https://cdn.example.com/images/dog.jpg?flip=y`
+`https://cdn.somedomain.tech/images/dog.jpg?flip=y`
 
 ![Dog flipped on the Y axis](/assets/cdn/dog-w600-flip-y.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 ## Flip horizontally and vertically
 
-`https://cdn.example.com/images/dog.jpg?flip=xy`
+`https://cdn.somedomain.tech/images/dog.jpg?flip=xy`
 
 ![Dog flipped on both axes](/assets/cdn/dog-w600-flip-xy.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
@@ -532,13 +532,13 @@ Flips the image horizontally, vertically or both. Valid values are `x`, `y` and 
 
 **JPG to PNG**
 
-`https://cdn.example.com/images/dog.jpg?format=png`
+`https://cdn.somedomain.tech/images/dog.jpg?format=png`
 
 ![PNG](/assets/cdn/dog-w600.png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 **JPG to GIF**
 
-`https://cdn.example.com/images/dog.jpg?format=gif`
+`https://cdn.somedomain.tech/images/dog.jpg?format=gif`
 
 ![GIF](/assets/cdn/dog-w600.gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
@@ -550,13 +550,13 @@ Flips the image horizontally, vertically or both. Valid values are `x`, `y` and 
 
 **GIF to JPG**
 
-`https://cdn.example.com/images/giphy.gif?format=jpg`
+`https://cdn.somedomain.tech/images/giphy.gif?format=jpg`
 
 ![JPG](/assets/cdn/giphy.jpeg)
 
 **GIF to PNG**
 
-`https://cdn.example.com/images/giphy.gif?format=png`
+`https://cdn.somedomain.tech/images/giphy.gif?format=png`
 
 ![PNG](/assets/cdn/giphy.png)
 
@@ -568,13 +568,13 @@ Flips the image horizontally, vertically or both. Valid values are `x`, `y` and 
 
 **PNG to JPG**
 
-`https://cdn.example.com/images/landscape.png?format=jpg`
+`https://cdn.somedomain.tech/images/landscape.png?format=jpg`
 
 ![JPG](/assets/cdn/landscape.jpeg)
 
 **PNG to GIF**
 
-`https://cdn.example.com/images/landscape.png?format=gif`
+`https://cdn.somedomain.tech/images/landscape.png?format=gif`
 
 ![GIF](/assets/cdn/landscape.gif)
 
@@ -639,7 +639,7 @@ The following request contains the following:
 * Output: an image 600 pixels wide by 300 pixels high, in JPEG format
 
 ```
-http://cdn.example.com/layout/i:test.jpg,
+http://cdn.somedomain.tech/layout/i:test.jpg,
   h_300,w_200,x_0,y_0 |
   c:01ee88,h_300,w_200,x_200,y_0 |
   i:original.jpeg,h_300,w_200,x_400,y_0 |
@@ -771,7 +771,7 @@ The best results for quality and file size can be found around 40-60%, where we'
 
 > The original image and all quality variations below are 2048 × 1024 pixels.
 
-`https://cdn.example.com/images/vegetables.jpg?q=50`
+`https://cdn.somedomain.tech/images/vegetables.jpg?q=50`
 
 **Original image, 4.7MB**
 
@@ -800,9 +800,9 @@ A Delivery Recipe is a predefined set of image manipulation parameters stored in
 
 Let's use the image from our magazine example.
 
-`https://cdn.example.com/thumbnail/images/man-walking-on-beach.jpg`
+`https://cdn.somedomain.tech/thumbnail/images/man-walking-on-beach.jpg`
 
-`https://cdn.example.com/images/man-walking-on-beach.jpg?width=100&height=100&resizeStyle=entropy`
+`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?width=100&height=100&resizeStyle=entropy`
 
 ![Thumbnail image, 100 × 100 px, 9kB](/assets/cdn/thumbnail-100x100.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
@@ -829,13 +829,13 @@ Making use of a recipe is simple: call your image via the recipe name defined in
 
 For example:
 
-`http://cdn.example.com/thumbnail/image-filename.png`
+`http://cdn.somedomain.tech/thumbnail/image-filename.png`
 
 
 ### Resize
 > Specify new image dimensions
 
-## Width
+#### Width
 
 The width (`w`) of the required output image, in pixels.
 
@@ -849,16 +849,16 @@ The `security` setting allows you to set a maximum width and height for generate
 
 You should set this to the maximum size required for images in your application.
 
-```js
+```json
 "security": {
   "maxWidth": 2048,
   "maxHeight": 1024
 }
 ```
 
-### Example
+**Example**
 
-`https://cdn.example.com/images/canoe.jpg?w=400&resize=aspectfit`
+`https://cdn.somedomain.tech/images/canoe.jpg?w=400&resize=aspectfit`
 
 **Original image**
 
@@ -873,7 +873,7 @@ You should set this to the maximum size required for images in your application.
 ![Width 400, Aspect Fit](/assets/cdn/canoe-w400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
 
-## Height
+#### Height
 
 The height (`h`) of the required output image, in pixels.
 
@@ -887,16 +887,16 @@ The `security` setting allows you to set a maximum width and height for generate
 
 You should set this to the maximum size required for images in your application.
 
-```js
+```json
 "security": {
   "maxWidth": 2048,
   "maxHeight": 1024
 }
 ```
 
-### Example
+**Example**
 
-`https://cdn.example.com/images/canoe.jpg?h=400&resize=aspectfit`
+`https://cdn.somedomain.tech/images/canoe.jpg?h=400&resize=aspectfit`
 
 **Original image**
 
@@ -910,26 +910,20 @@ You should set this to the maximum size required for images in your application.
 
 ![Height 400, Aspect Fit](/assets/cdn/canoe-h400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
-## Aspect ratio
+#### Aspect ratio
 
 A width (`w`) or (`h`) can be provided with the addition of the variable `ratio` to give back a cropped version of the image to the specificed ratio. [Resize styles](/cdn/concepts/cropping/) are respected.
 
 ```bash
-https://cdn.example.com/images/canoe.jpg?h=400&amp;ratio=16-9
+https://cdn.somedomain.tech/images/canoe.jpg?h=400&amp;ratio=16-9
 ```
 
 ### Rotation
 > Rotating an image
 
-## rotate
+#### rotate
 
 Rotates the image according to the value specified in degrees. Valid values are in the range 0 - 359. The default value is 0 which leaves the image unchanged. The image will be zoomed so that it covers the entire area after rotation.
-
-### Other Rotation Methods
-
-#### [flip](flip)
-Flip Axis
-
 
 
 ## Delivery Routes
@@ -940,7 +934,7 @@ Routes allow CDN to make a decision about which [Delivery Recipe](/cdn/concepts/
 
 Conditions can include the type of device being used, the network type, user location and language.
 
-## Creating a Route
+### Creating a Route
 
 A route is defined in JSON format and added to a directory in your CDN installation. The default location for route files is `workspace/routes`, but this is [configurable](/web/getting-started/configuration/).
 
@@ -953,7 +947,7 @@ Send a `POST` request to the routes endpoint with the request body containing th
 **An example using cURL**
 
 ```
-curl -i -H "Content-Type: application/json" -X POST "http://cdn.example.com/api/routes" -d '{
+curl -i -H "Content-Type: application/json" -X POST "http://cdn.somedomain.tech/api/routes" -d '{
   "route": "example-route",
   "branches": [
     {
@@ -972,7 +966,7 @@ Status Code | Description | Response
 400 | A route with the same name already exists | `{ success: false, errors: ['Route already exists'] }`
 400 | An error occurred when saving | `{ success: false, errors: ['Error when saving route'] }`
 
-## Route Basics
+### Route Basics
 
 A route must contain a `name` property, as well as an array of `branches` which contain the conditions that must be true for CDN to select the route.
 
@@ -989,7 +983,7 @@ At a minimum, a route must take the following form. The `branches` array below c
 }
 ```
 
-## Branches
+### Branches
 
 Each branch within the `branches` array should contain two properties, `recipe` and `condition`.
 
@@ -1020,9 +1014,9 @@ Branches are evaluated in the order they appear in the route. If a branch condit
 
 The default case (where none of the conditions are met) is handled by a branch with a `recipe` but no `condition`, which is matched immediately. This branch must be last in the array, otherwise it may be used when you don't intend it to be.
 
-## Conditions
+### Conditions
 
-### Device
+#### Device
 
 The `device` condition matches the user's device type, based on the user-agent header sent in the request.
 
@@ -1052,18 +1046,18 @@ The `device` condition can test against a single device type:
 }
 ```
 
-#### Default value
+##### Default value
 
 If a device type is specified that doesn't match one of the possible values above, CDN uses `desktop` in its place.
 
 
-### Location
+#### Location
 
 The `location` condition uses the IP address from the request and performs a GeoLocation lookup to obtain the user's approximate location.
 
 CDN can perform the GeoLocation lookup using the [Maxmind GeoIP](http://dev.maxmind.com/geoip/) database (bundled with the application), or by making a request to any remote address (such as the DADI GeoLocation API).
 
-#### Configuring CDN to use the Maxmind GeoIP database
+##### Configuring CDN to use the Maxmind GeoIP database
 
 To use the Maxmind GeoIP database CDN's main configuration file should contain the following block:
 
@@ -1077,7 +1071,7 @@ To use the Maxmind GeoIP database CDN's main configuration file should contain t
 
 If no value is provided for `countryDbPath` it defaults to the one shown in the above example.
 
-#### Configuring CDN for remote lookup
+##### Configuring CDN for remote lookup
 
 To use a remote lookup service, the `geolocation` block in CDN's main configuration file should specify a remote URI.
 
@@ -1118,7 +1112,7 @@ If the response format for the service you use differs (and it probably does), y
 }
 ```
 
-### Language
+#### Language
 
 The `language` condition is based on the `Accept-Language` headers sent in the request. Values are ISO 639-1 language codes.
 
@@ -1140,7 +1134,7 @@ Language detection has support for [quality values](https://tools.ietf.org/html/
 }
 ```
 
-### Network
+#### Network
 
 Specifying the `network` condition in a route performs a remote lookup on a network connectivity API to determine the type of connection being used.
 
@@ -1162,7 +1156,7 @@ The condition can be specified as a single connection type:
 }
 ```
 
-#### Configuration
+##### Configuration
 
 The configuration block required for network connectivity lookups is similar to that used for GeoLocation.
 
@@ -1199,11 +1193,11 @@ If the response format for the service you use differs (and it probably does), y
 }
 ```
 
-## Caching
+### Caching
 
 Caching is automatically enabled for routes. Depending on what's defined in the config, it uses Redis or the local filesystem.
 
-## Example route
+**Example route**
 
 ```json
 {
@@ -1280,7 +1274,7 @@ http://cdn.somedomain.tech/images/beach.jpg?saturate=2.5
 
 Add sharpness to an image. If not specified, the default value is `5`.
 
-## Example
+**Example**
 
 ```http
 http://cdn.somedomain.tech/images/beach.jpg?sharpen=25
@@ -1362,7 +1356,7 @@ When dealing with mulitiple device pixel ratios, you can 'multiply' the outputte
 For example a `100px x 100px` image with the variable `devicePixelRatio=2` will return an image of `200px x 200px` in size. You can then scale down the image in your front-end output e.g.,
 
 ```html
-<img src="https://cdn.example.com/images/dog.jpg?w=200&height=200&devicePixelRatio=2" width="100">
+<img src="https://cdn.somedomain.tech/images/dog.jpg?w=200&height=200&devicePixelRatio=2" width="100">
 ```
 
 ## Serving Images and Assets
@@ -1388,7 +1382,7 @@ Version 1.0.0-Beta of CDN used the URL path for specifying parameters. In this s
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDNa domain</span>
   </span>
   <code>/</code>
@@ -1488,7 +1482,7 @@ Version 1.0.0-Beta of CDN used the URL path for specifying parameters. In this s
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1512,14 +1506,14 @@ Version 1.0.0-Beta of CDN used the URL path for specifying parameters. In this s
 
 Version 1.0.0 of CDN introduced this URL format for specifying parameters. You only need to supply the parameters you want to use, specifying as many or as few as you want.
 
-> **Note:** The differentiation between the Path and Querystring URL schemes is the inclusion of a querystring (i.e. everything following the `?` in the URL). If you need to serve an image in it's original, unmodified state, add a dummy querystring to the request to tell CDN you're using the Querystring URL scheme. For example: `https://cdn.example.com/cars/aston-martin.jpg?v2`
+> **Note:** The differentiation between the Path and Querystring URL schemes is the inclusion of a querystring (i.e. everything following the `?` in the URL). If you need to serve an image in it's original, unmodified state, add a dummy querystring to the request to tell CDN you're using the Querystring URL scheme. For example: `https://cdn.somedomain.tech/cars/aston-martin.jpg?v2`
 
 **Serving Images via the Querystring URL**
 
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1539,7 +1533,7 @@ Version 1.0.0 of CDN introduced this URL format for specifying parameters. You o
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1574,7 +1568,7 @@ In the following example CDN will attempt to load the image from the `S3 URL` sh
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1602,7 +1596,7 @@ In the following example CDN will attempt to load the image from the `Remote Loc
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1630,7 +1624,7 @@ In the following example CDN will look in the `File Location` shown in the final
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1665,7 +1659,7 @@ For each of the below source types, refer to the [Locating Files](#locating-file
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1695,7 +1689,7 @@ For each of the below source types, refer to the [Locating Files](#locating-file
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1720,7 +1714,7 @@ For each of the below source types, refer to the [Locating Files](#locating-file
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1747,7 +1741,7 @@ For each of the below source types, refer to the [Locating Files](#locating-file
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1770,7 +1764,7 @@ For each of the below source types, refer to the [Locating Files](#locating-file
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1790,7 +1784,7 @@ For each of the below source types, refer to the [Locating Files](#locating-file
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1813,7 +1807,7 @@ For each of the below source types, refer to the [Locating Files](#locating-file
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1833,7 +1827,7 @@ For each of the below source types, refer to the [Locating Files](#locating-file
 <div class="code-callout">
   <code>https://</code>
   <span class="callout">
-    <code>cdn.example.com</code>
+    <code>cdn.somedomain.tech</code>
     <span class="definition">CDN domain</span>
   </span>
   <code>/</code>
@@ -1858,7 +1852,7 @@ We’ll show a basic example, then it's over to you to experiment with the param
 
 For this example we're going to imagine you have a magazine-style website with a list of articles on the homepage and an article page. We'll start with the following image, which your editor wants to use as the main article image.
 
-`https://cdn.example.com/images/man-walking-on-beach.jpg`
+`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg`
 
 **Original image, 5616 × 3744 px, 4MB**
 
@@ -1872,7 +1866,7 @@ On the article page, let’s assume your main image spot is a 500×300 pixel con
 
 To adjust the image we need to specify the new width and height, as well as tell CDN how we want to crop the image.
 
-`https://cdn.example.com/images/man-walking-on-beach.jpg?w=500&h=300&crop=entropy`
+`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?w=500&h=300&crop=entropy`
 
 * `width=500&height=300`: Sets the width and height to fit the container.
 
@@ -1884,7 +1878,7 @@ To adjust the image we need to specify the new width and height, as well as tell
 
 Now, on the homepage page, let’s assume each feature article has an image container that is 200×200 pixels. With the main subject of the image so close to the right, we'll once again need to tell CDN how we want the image cropped.
 
-`https://cdn.example.com/images/man-walking-on-beach.jpg?w=200&h=200&crop=entropy`
+`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?w=200&h=200&crop=entropy`
 
 **Resized image, 200 × 200 px, 29kB**
 
@@ -1892,14 +1886,14 @@ Now, on the homepage page, let’s assume each feature article has an image cont
 
 If we don't specify `entropy` as the `crop` parameter, CDN defaults to using `aspectfill` and our image would look a little different, with the main subject almost excluded from the image.
 
-`https://cdn.example.com/images/man-walking-on-beach.jpg?w=200&h=200`
+`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?w=200&h=200`
 
 ![Aspectfill, 200 × 200 px, 29kB](/assets/cdn/aspectfill-200x200.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 ## Next Steps
 
 Resizing and cropping are just the beginning. CDN helps you to serve assets and images to your customers easier and faster, giving you complete control over how they are served.
-
+cdn.somedomain.tech
 * API URL Guide
 * Recipes - Setting default parameters
 * Tutorials
