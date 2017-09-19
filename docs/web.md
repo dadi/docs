@@ -26,20 +26,15 @@ This will create `config` & `workspace` folders and `server.js` which will serve
 
 All the core platform services are configured using enviroment specific configuration.json files, the default being `development`. For more advanced users this can also load based on the `hostname` i.e., it will also look for `config." + req.headers.host + ".json`
 
-A very basic `config.development.json` file looks like this:
+The minimal `config.development.json` file looks like this:
 
 ```json
 {
-  "app": {
-    "name": "Your Project"
-  },
   "server": {
     "host": "localhost",
     "port": 3000
   },
-  "api": {
-    "enabled": false
-  }
+  "cluster": false
 }
 ```
 
