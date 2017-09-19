@@ -5,12 +5,6 @@ order: 3
 
 ## Installation
 
-### Image libraries
-
-```bash
-$ sudo apt-get install libcairo2-dev libjpeg-dev libgif-dev
-```
-
 ### Sqwish CSS Compressor
 
 ```bash
@@ -43,20 +37,6 @@ $ cd ./release-download-location/
 $ npm install
 ```
 
-### Dependencies
-
-*API* requires [MongoDB](https://www.mongodb.com/). There is a complete guide to installing this and *API* together [here]().
-
-You can see our full list of dependencies in the [package.json](https://github.com/dadi/cdn/blob/master/package.json).
-
-### Tests
-
-If you have installed manually, you can run tests by:
-
-``` console
-$ npm run test
-```
-
 ### Forever (optional)
 
 As with most Node.js applications, to run the app in the background you will need to install install [Forever](https://github.com/nodejitsu/forever) and [Forever-service](https://github.com/zapty/forever-service):
@@ -77,18 +57,15 @@ $ [sudo] forever-service install -s main.js -e NODE_ENV=production cdn --start
 You can then interact with the service using the following command:
 
 ``` console
-$ [sudo] start cdn
-$ [sudo] stop cdn
-$ [sudo] status cdn
-$ [sudo] restart cdn
+$ [sudo] service cdn start
+$ [sudo] service cdn stop
+$ [sudo] service cdn status 
+$ [sudo] service cdn restart
 ```
 
-**And you're done, now move on to [configuration](/cdn/getting-started/configuration/).**
+## Configuration
 
-
-## Basic configuration
-
-All the core platform services are configured using enviroment specific configuration.json files, the default being `development`. For more advanced users this can also load based on the `hostname` i.e., it will also look for `config." + req.headers.host + ".json`
+All the core platform services are configured using environment specific configuration files, the default being `development`. For more advanced users this can also load based on the `hostname` i.e., it will also look for `config." + req.headers.host + ".json`
 
 A very basic `config.development.json` file looks like this:
 
@@ -214,27 +191,29 @@ A very basic `config.development.json` file looks like this:
 
 ## Defining sources
 
-### Introduction
+Before you can serve assets or images you need to tell CDN where your files are located. CDN can serve your files from three types of source:
 
-Before you can serve assets or images you need to tell CDN where your files are located. Currently, CDN can serve your files from three types of source:
+* [Amazon S3](#-amazon-s3-https-aws-amazon-com-s3-) - retrieve files from existing Amazon S3 buckets
+* [Remote server](#remote-server) - retrieve files from a remote web server
+* [Local filesystem](#local-filesystem) - retrieve files from the same server as CDN
 
-* [Amazon S3](#-amazon-s3-https-aws-amazon-com-s3-) - store assets in existing Amazon S3 buckets
-* [Remote server](#remote-server) - store assets on a remote web server
-* [Local filesystem](#local-filesystem) - store assets on the same server as CDN
+You’re not limited to choosing one source, either. If you’ve elected to use the [Querystring URL scheme](#cdn/querystring-url-scheme) then you can use all configured sources at the same time.
 
-You’re not limited to choosing one source, either. If you’ve elected to use the [Querystring URL scheme](serving-assets.md#querystring-url-scheme) then you can use all configured sources at the same time.
+> **Using the legacy path scheme**
+> 
+> If you're _not_ using the [Querystring URL scheme](#cdn/querystring-url-scheme), that is, you're using the legacy [Path URL scheme](#cdn/path-url-scheme), then *only one source* can be configured at a time.
+> -- advice
 
-> **Note:** if _not_ using the [Querystring URL scheme](serving-assets.md#querystring-url-scheme), that is, you're using the legacy [Path URL scheme](serving-assets.md#path-url-scheme), then only one source can be configured at a time.
+## Configuring sources
 
-Learn the basic concepts involved in using DADI CDN to deliver images, JavaScript and CSS to your application. Topics include resizing and cropping images, boosting saturation, converting between image formats and file compression.
+### [Amazon S3](https://aws.amazon.com/s3/)
 
-# Configuring sources
+> **Security Note**
+> 
+> We **strongly** recommend creating an Amazon IAM account specifically for accessing your S3 buckets.
+> -- warning
 
-## [Amazon S3](https://aws.amazon.com/s3/)
-
-> **Security Note:** We **strongly** recommend creating an Amazon IAM account specifically for accessing your S3 buckets.
-
-### Using the configuration file
+#### Using the configuration file
 
 The [configuration file](/cdn/getting-started/configuration/) contains two sections for configuring an Amazon S3 source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different Amazon credentials for each one.
 
@@ -289,7 +268,7 @@ The [configuration file](/cdn/getting-started/configuration/) contains two secti
 
 It was mentioned earlier that if using the [Querystring URL scheme](serving-assets.md#querystring-url-scheme) then you can use all configured sources at the same time, regardless of the value of the `enabled` property.
 
-### Using environment variables
+##### Using environment variables
 
 One easy way to set environment variables is to specify them on the command line when you launch CDN:
 
@@ -299,7 +278,7 @@ $ AWS_S3_IMAGES_ACCESS_KEY=your-access-key AWS_S3_IMAGES_SECRET_KEY=your-secret 
 
 See the documentation for your operating system for details on setting environment variables. A useful guide for Linux users can be found here https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps.
 
-## Remote server
+#### Remote server
 
 The Remote Server source connects CDN to any publicly available URL where you are hosting your assets and images.
 
@@ -343,7 +322,7 @@ The [configuration file](/cdn/getting-started/configuration/) contains two secti
 }
 ```
 
-## Local filesystem
+#### Local filesystem
 
 The [configuration file](/cdn/getting-started/configuration/) contains two sections for configuring a Local Filesystem source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different filesystem locations for each one.
 
@@ -424,15 +403,15 @@ Adds blur to an image, using any value above zero.
 ### Cropping an image
 > Crop and resize images using fill, fit &amp; stretch
 
-## resize
+#### resize
 
-### aspectfill
+##### aspectfill
 
 Keeps the aspect ratio of the original image and generates an output image of the specified width and height.
 
 > **Note:** The output image may be cropped, however by specifying the `gravity` parameter you can tell CDN which part of the image should be retained.
 
-### gravity
+##### gravity
 
 Used to position the crop area. Available options (case sensitive): `northwest`, `north`, `northeast`, `west`, `center`, `east`, `southWest`, `south`, `southeast`, `none`
 
@@ -462,7 +441,7 @@ Used to position the crop area. Available options (case sensitive): `northwest`,
 
 ![](/assets/cdn/med-portrait-south.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
-### aspectfit
+##### aspectfit
 
 Keeps the aspect ratio of the original image and generates an output image with the maximum dimensions that fit inside the specified width and height.
 
@@ -474,7 +453,7 @@ The output image is 400 x 267 pixels.
 
 ![](/assets/cdn/canoe-w400-h300-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
-### fill
+##### fill
 
 Ignores the aspect ratio of the original image and generates an output image with specified width and height. _The output image may appear squashed or stretched._
 
@@ -486,7 +465,7 @@ The output image is 400 x 300 pixels.
 
 ![](/assets/cdn/canoe-w400-h300-fill.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
-### entropy
+##### entropy
 
 Crops the image using a technique that determines the most important areas. Areas of higher contrast are considered more important, and images are often cropped to remove large areas of static color.
 
@@ -500,19 +479,18 @@ Crops the image using a technique that determines the most important areas. Area
 
 ![](/assets/cdn/med-portrait-entropy.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
-### crop
+##### crop
 
 | crop-x | Integer | Default: 0. X position of crop area |
 | crop-y | Integer | Default: 0. Y position of crop area |
 
 When `resize=crop` an additional `crop` parameter must be used to specify the coordinates of the crop rectangle. There are two ways to pass the crop rectangle coordinates:
 
-#### Specify only the top left corner of the rectangle
+**Specify only the top left corner of the rectangle**
 
 `?resize=crop&crop=10,15`
 
-
-#### Specify the top left corner and the bottom right corner of the rectangle
+**Specify the top left corner and the bottom right corner of the rectangle**
 
 `?resize=crop&crop=10,15,200,300`
 
@@ -546,55 +524,55 @@ Flips the image horizontally, vertically or both. Valid values are `x`, `y` and 
 
 > **URL parameter:** `format`, `fmt`
 
-# From JPG
+#### From JPG
 
-## Original JPG Image
+**Original JPG Image**
 
 ![Original JPG](/assets/cdn/dog-w600.jpeg)
 
-## JPG to PNG
+**JPG to PNG**
 
 `https://cdn.example.com/images/dog.jpg?format=png`
 
 ![PNG](/assets/cdn/dog-w600.png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
-## JPG to GIF
+**JPG to GIF**
 
 `https://cdn.example.com/images/dog.jpg?format=gif`
 
 ![GIF](/assets/cdn/dog-w600.gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
-# From GIF
+#### From GIF
 
-## Original GIF Image
+**Original GIF Image**
 
 ![Original GIF](/assets/cdn/giphy.gif)
 
-## GIF to JPG
+**GIF to JPG**
 
 `https://cdn.example.com/images/giphy.gif?format=jpg`
 
 ![JPG](/assets/cdn/giphy.jpeg)
 
-## GIF to PNG
+**GIF to PNG**
 
 `https://cdn.example.com/images/giphy.gif?format=png`
 
 ![PNG](/assets/cdn/giphy.png)
 
-# From PNG
+#### From PNG
 
-## Original PNG Image
+**Original PNG Image**
 
 ![Original PNG](/assets/cdn/landscape.png)
 
-## PNG to JPG
+**PNG to JPG**
 
 `https://cdn.example.com/images/landscape.png?format=jpg`
 
 ![JPG](/assets/cdn/landscape.jpeg)
 
-## PNG to GIF
+**PNG to GIF**
 
 `https://cdn.example.com/images/landscape.png?format=gif`
 

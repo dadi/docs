@@ -604,15 +604,13 @@ The route `/books/:page(\\d+)` will only match a URL that has `books` in the fir
 
 ### Multiple Route Pages
 
-The `routes` property makes it easy for you to define "multiple route" pages, where one page specification can respond to requests for multiple routes.
+The `routes` property makes it easy for you to define "multiple route" pages, where one page specification can handle requests for multiple routes.
 
 **DADI Web versions >= 1.7.0**
 
 DADI Web 1.7.0 introduced a more explicit way of specifying multiple routes per page . The `route` property has been replaced with `routes` which should be an Array of route objects.
 
 Each route object must contain, at the very least, a `path` property. At startup, Web adds the value of each `path` property to an internal collection of routes for matching incoming requests.
-
-In this example, the same page (and therefore it's template) will be loaded for requests matching any of the formats specified by the `path` properties:
 
 ```json
 {
@@ -629,12 +627,21 @@ In this example, the same page (and therefore it's template) will be loaded for 
   ]
 }
 ```
+In the above example, the same page (and therefore it's template) will be loaded for requests matching any of the formats specified by the `path` properties:
+
+```
+http://web.somedomain.tech/movies/deadpool
+http://web.somedomain.tech/movies/news/
+http://web.somedomain.tech/movies/news/2
+http://web.somedomain.tech/movies/news/deadpool
+```
+
 
 ### Route Priority
 
 DADI Web sorts your routes into a priority order so that the most likely matches are easier to find.
 
-* In Web, the most important parts of a route are the static segments, or rather the non-dynamic segments, for example `/books`. The more static segments in a route the its priority.
+* In Web, the most important parts of a route are the static segments, or rather the non-dynamic segments, for example `/books`. The more static segments in a route the higher its priority.
 * The second most important parts are the mandatory dynamic segments, for example `/:title`.
 * The least important parts are the optional dynamic segments, for example `/:year?`.
 * Any route with a `page` parameter gets a slight edge, with 1 point being added to its priority.
