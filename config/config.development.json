@@ -5,5 +5,14 @@
   },
   "cluster": false,
   "allowJsonView": true,
-  "debug": true
+  "debug": true,
+  "caching": {
+    "directory": {
+      "enabled": false,
+      "path": "./cache"
+    },
+    "redis": {
+      "enabled": false
+    }
+  }
 }
