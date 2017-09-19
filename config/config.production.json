@@ -3,24 +3,5 @@
     "host": "0.0.0.0",
     "port": 3001
   },
-  "cluster": false,
-  "paths": {
-    "workspace": "workspace",
-    "datasources": "workspace/datasources",
-    "pages": "workspace/pages",
-    "events": "workspace/events",
-    "middleware": "workspace/middleware",
-    "public": "workspace/public",
-    "routes": "workspace/routes"
-  },
-  "allowJsonView": true,
-  "caching": {
-    "directory": {
-      "enabled": true,
-      "path": "./cache"
-    },
-    "redis": {
-      "enabled": false
-    }
-  }
+  "cluster": false
 }
