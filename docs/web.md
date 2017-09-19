@@ -146,7 +146,6 @@ The minimal `config.development.json` file looks like this:
     "paths": {
       "datasources": "./workspace/datasources",
       "events": "./workspace/events",
-      "media": "./workspace/media",
       "middleware": "./workspace/middleware",
       "pages": "./workspace/pages",
       "partials": "./workspace/partials",
