@@ -86,6 +86,8 @@
   };
 
   function getPages() {
+    NProgress.start();
+
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function() {
@@ -101,7 +103,12 @@
 
           pagesLoaded++;
 
-          if (pagesLoaded < totalPages) getPages();
+          if (pagesLoaded < totalPages) {
+            NProgress.inc();
+            getPages();
+          } else {      
+            NProgress.done(true);
+          }
         }
         else if (xmlhttp.status == 400) {
           pagesLoaded++;

@@ -12,8 +12,11 @@
     <link rel="stylesheet" type="text/css" href="/fonts.css">
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     <link rel="stylesheet" type="text/css" href="/styles.css">
+    <link rel="stylesheet" type="text/css" href="/nprogress.css">
+
 
     <script>var totalPages = {docs.metadata.totalPages}</script>
+    <script src="/nprogress.js"></script>
     <script src="/scripts.js"></script>
   </head>
 <body>
