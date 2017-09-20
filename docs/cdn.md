@@ -595,6 +595,59 @@ Flips the image horizontally, vertically or both. Valid values are `x`, `y` and 
 
 ![Dog flipped on both axes](/assets/cdn/dog-w600-flip-xy.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
+### Adjusting saturation
+> Increase or reduce colour saturation, or convert to black and white
+
+> **URL parameter:** `saturate`, `sat`
+
+Increase or decrease an image's colour saturation. To desaturate (convert to black and white), use `-1`. If not specified, the default value is `0.1`.
+
+```http
+http://cdn.somedomain.tech/images/beach.jpg?saturate=2.5
+```
+
+**Default amount = 0.1**
+
+![Saturate 0.1](/assets/cdn/beach-sat-01.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+**Saturate amount = -1**
+
+![Saturate -1](/assets/cdn/beach-sat--1.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+**Saturate amount = 0.5**
+
+![Saturate 0.5](/assets/cdn/beach-sat-05.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+**Saturate amount = 1**
+
+![Saturate 1](/assets/cdn/beach-sat-1.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+### Sharpen images
+> Sharpen images
+
+> **URL parameter:** `sharpen`, `sh`
+
+Add sharpness to an image. If not specified, the default value is `5`.
+
+**Example**
+
+```http
+http://cdn.somedomain.tech/images/beach.jpg?sharpen=25
+```
+
+**Default amount = 5**
+
+![Sharpen 5](/assets/cdn/beach-sharp-5.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+**Sharpen amount = 20**
+
+![Sharpen 20](/assets/cdn/beach-sharp-20.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+**Sharpen amount = 80**
+
+![Sharpen 80](/assets/cdn/beach-sharp-80.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+
 ### Image formats
 > Converting between formats
 
@@ -1186,58 +1239,6 @@ Caching is automatically enabled for routes. Depending on what's defined in the 
   ]
 }
 ```
-
-### Adjusting saturation
-> Increase or reduce colour saturation, or convert to black and white
-
-> **URL parameter:** `saturate`, `sat`
-
-Increase or decrease an image's colour saturation. To desaturate (convert to black and white), use `-1`. If not specified, the default value is `0.1`.
-
-```http
-http://cdn.somedomain.tech/images/beach.jpg?saturate=2.5
-```
-
-**Default amount = 0.1**
-
-![Saturate 0.1](/assets/cdn/beach-sat-01.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Saturate amount = -1**
-
-![Saturate -1](/assets/cdn/beach-sat--1.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Saturate amount = 0.5**
-
-![Saturate 0.5](/assets/cdn/beach-sat-05.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Saturate amount = 1**
-
-![Saturate 1](/assets/cdn/beach-sat-1.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-### Sharpen images
-> Sharpen images
-
-> **URL parameter:** `sharpen`, `sh`
-
-Add sharpness to an image. If not specified, the default value is `5`.
-
-**Example**
-
-```http
-http://cdn.somedomain.tech/images/beach.jpg?sharpen=25
-```
-
-**Default amount = 5**
-
-![Sharpen 5](/assets/cdn/beach-sharp-5.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Sharpen amount = 20**
-
-![Sharpen 20](/assets/cdn/beach-sharp-20.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Sharpen amount = 80**
-
-![Sharpen 80](/assets/cdn/beach-sharp-80.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 ## Retrieving a colour palette
 
