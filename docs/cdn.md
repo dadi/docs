@@ -845,7 +845,7 @@ The best results for quality and file size can be found around 40-60, where we'v
 
 The original image and all quality variations below are 2048 × 1024 pixels.
 
-`https://cdn.somedomain.tech/images/vegetables.jpg?q=50`
+`https://cdn.somedomain.tech/samples/vegetables.jpg?q=50`
 
 **Original image, 4.7MB**
 
@@ -853,8 +853,8 @@ The original image and all quality variations below are 2048 × 1024 pixels.
 
 |   |   
 |:--|:--
-| ![Quality 100](/assets/cdn/vegetables-full-quality-100.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 100, 1.3MB** | ![Quality 75](/assets/cdn/vegetables-full-quality-75.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 75, 180kB**
-| ![Quality 50](/assets/cdn/vegetables-full-quality-50.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 50, 119kB** | ![Quality 25](/assets/cdn/vegetables-full-quality-25.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 25, 82kB**
+| ![Quality 100](https://cdn.somedomain.tech/samples/vegetables.jpg?q=100 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 100, 1.3MB** | ![Quality 75](https://cdn.somedomain.tech/samples/vegetables.jpg?q=75 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 75, 180kB**
+| ![Quality 50](https://cdn.somedomain.tech/samples/vegetables.jpg?q=50 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 50, 119kB** | ![Quality 25](https://cdn.somedomain.tech/samples/vegetables.jpg?q=25 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 25, 82kB**
 
 ### ratio: resize to aspect ratio
 
@@ -871,7 +871,7 @@ The `rotate` parameter rotates the image according to the value specified in deg
 - **Accepts:** any number from 0-359
 - **Default:** 0
 
-### saturate: Adjust image saturation
+### saturate: adjust image saturation
 
 The `saturate` parameter increases or reduces an image's colour saturation and can be used to convert it to black and white.
 
@@ -902,7 +902,7 @@ http://cdn.somedomain.tech/images/beach.jpg?saturate=2
 
 ![Saturate 1](/assets/cdn/beach-sat-1.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
-### sharpen: Sharpen an image
+### sharpen: sharpen an image
 
 The `sharpen` parameter adds sharpness to an image.
 
