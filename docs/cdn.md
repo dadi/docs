@@ -669,12 +669,12 @@ The `blur` parameter adds blur to an image, using any value above zero.
 
 **Examples**
 
-`https://cdn.somedomain.tech/images/dog.jpg?blur=5`
+`https://cdn.somedomain.tech/samples/dog.jpeg?blur=5`
 
 |   |   |   
 |:--|:--|:--
-| ![Original JPG](/assets/cdn/dog-w600.jpeg) **Original image** | ![Blur 1](/assets/cdn/dog-w600-blur-1.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](/assets/cdn/dog-w600-blur-5.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
-| ![Blur 10](/assets/cdn/dog-w600-blur-10.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 10** | ![Blur 20](/assets/cdn/dog-w600-blur-20.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 20** | ![Blur 20](/assets/cdn/dog-w600-blur-100.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 100**
+| ![Original JPG](https://cdn.somedomain.tech/samples/dog.jpeg?w=600) **Original image** | ![Blur 1](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=1 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=5 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
+| ![Blur 10](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=10 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 10** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=20 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 20** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=100 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 100**
 
 ### filter: interpolation filter
 
@@ -687,7 +687,7 @@ The `filter` parameter allows you to specify the interpolation method to use whe
 **Example**
 
 ```http
-https://cdn.somedomain.tech/images/dog.jpg?width=600&height=400&resize=aspectfill&filter=linear
+https://cdn.somedomain.tech/samples/dog.jpeg?width=600&height=400&resize=aspectfill&filter=linear
 ```
 
 #### Filters
@@ -719,21 +719,21 @@ The `flip` parameter flips images horizontally, vertically or both. A horizontal
 
 **Horizontal flip**
 
-`https://cdn.somedomain.tech/images/dog.jpg?flip=x`
+`https://cdn.somedomain.tech/samples/dog.jpeg?flip=x`
 
-![Dog flipped on the X axis](/assets/cdn/dog-w600-flip-x.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![Dog flipped on the X axis](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&flip=x "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 **Vertical flip**
 
-`https://cdn.somedomain.tech/images/dog.jpg?flip=y`
+`https://cdn.somedomain.tech/samples/dog.jpeg?flip=y`
 
-![Dog flipped on the Y axis](/assets/cdn/dog-w600-flip-y.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![Dog flipped on the Y axis](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&flip=y "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
-**Horizontal and verticalflip**
+**Horizontal and vertical flip**
 
-`https://cdn.somedomain.tech/images/dog.jpg?flip=xy`
+`https://cdn.somedomain.tech/samples/dog.jpeg?flip=xy`
 
-![Dog flipped on both axes](/assets/cdn/dog-w600-flip-xy.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![Dog flipped on both axes](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&flip=xy "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 ### format: converting images
 
@@ -744,19 +744,19 @@ The `flip` parameter flips images horizontally, vertically or both. A horizontal
 
 **Original JPG Image**
 
-![Original JPG](/assets/cdn/dog-w600.jpeg)
+![Original JPG](https://cdn.somedomain.tech/samples/dog.jpeg?w=600)
 
 **JPG to PNG**
 
-`https://cdn.somedomain.tech/images/dog.jpg?format=png`
+`https://cdn.somedomain.tech/samples/dog.jpeg?format=png`
 
-![PNG](/assets/cdn/dog-w600.png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![PNG](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&format=png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 **JPG to GIF**
 
-`https://cdn.somedomain.tech/images/dog.jpg?format=gif`
+`https://cdn.somedomain.tech/samples/dog.jpeg?format=gif`
 
-![GIF](/assets/cdn/dog-w600.gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![GIF](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&format=gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 #### from GIF
 
@@ -1490,5 +1490,5 @@ When dealing with mulitiple device pixel ratios, you can 'multiply' the outputte
 For example a `100px x 100px` image with the variable `devicePixelRatio=2` will return an image of `200px x 200px` in size. You can then scale down the image in your front-end output e.g.,
 
 ```html
-<img src="https://cdn.somedomain.tech/images/dog.jpg?w=200&height=200&devicePixelRatio=2" width="100">
+<img src="https://cdn.somedomain.tech/samples/dog.jpeg?w=200&height=200&devicePixelRatio=2" width="100">
 ```
