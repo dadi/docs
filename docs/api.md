@@ -823,8 +823,6 @@ An index will be created on the collection using the fields specified in the `ke
 An index block such as `{ "keys": { "fieldName": 1 }` will create an index for the field `fieldName` using an ascending order. 
 The order will be reversed if the `1` is replaced with `-1`. Specifying multiple fields will create a compound index.
 
-The index will be created in the background to avoid blocking other database operations.
-
 ```json
 "settings": {
   "cache": true,
@@ -836,6 +834,25 @@ The index will be created in the background to avoid blocking other database ope
     }
   ]
 }
+```
+
+Multiple indexes can be created for each collection, simply add more index blocks to the array for the `index` property.
+
+### Index Options
+
+Each index also accepts an `options` property. The options available for an index depend on the underlying data connector being used, so it's essential that you check the documentation for the data connector to determine what is possible. For example, the MongoDB data connector is capable of creating indexes with any of the options available in the MongoDB driver, such as specifying that an index be a unique index:
+
+```json
+"index": [
+  {
+    "keys": {
+      "email": 1
+    },
+    "options": {
+      "unique": true
+    }
+  }
+]
 ```
 
 ## Document Revision History
