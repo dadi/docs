@@ -614,11 +614,11 @@ We’ll show a basic example, then it's over to you to experiment with the param
 
 For this example we're going to imagine you have a magazine-style website with a list of articles on the homepage and an article page. We'll start with the following image, which your editor wants to use as the main article image.
 
-`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg`
+`https://cdn.somedomain.tech/samples/beach.jpeg`
 
 **Original image, 5616 × 3744 px, 4MB**
 
-![Original image, 5616 × 3744 px, 4MB](/assets/cdn/original.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Original image, 5616 × 3744 px, 4MB](https://cdn.somedomain.tech/samples/beach.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 This is a large image, and it's not going to fit easily into the two spaces we have available for it. Unfortunately, no one in the department knows how to use Adobe Photoshop to make appropriately sized images. Fortunately, CDN can handle this task for you.
 
@@ -628,29 +628,29 @@ On the article page, let’s assume your main image spot is a 500×300 pixel con
 
 To adjust the image we need to specify the new width and height, as well as tell CDN how we want to crop the image.
 
-`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?w=500&h=300&crop=entropy`
+`https://cdn.somedomain.tech/samples/beach.jpeg?w=500&h=300&resize=entropy`
 
 * `width=500&height=300`: Sets the width and height to fit the container.
 
-* `crop=entropy`: Tells CDN how to determine the crop area. [Entropy](#cdn/entropy) is a smart cropping feature that adjusts the crop area to ensure the important part of your image is retained. It uses areas of high contrast to set the crop area.
+* `resize=entropy`: Tells CDN how to determine the crop area. [Entropy](#cdn/entropy) is a smart cropping feature that adjusts the crop area to ensure the important part of your image is retained. It uses areas of high contrast to set the crop area.
 
 **Resized image, 500 × 300 px, 98kB**
 
-![Resized image, 500 × 300 px, 98kB](/assets/cdn/entropy-500x300.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Resized image, 500 × 300 px, 98kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=500&h=300&resize=entropy "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 Now, on the homepage, let’s assume each feature article has an image container that is 200×200 pixels. With the main subject of the image so close to the right, we'll once again need to tell CDN how we want the image cropped.
 
-`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?w=200&h=200&crop=entropy`
+`https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200&resize=entropy`
 
 **Resized image, 200 × 200 px, 29kB**
 
-![Resized image, 200 × 200 px, 29kB](/assets/cdn/entropy-200x200.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Resized image, 200 × 200 px, 29kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200&resize=entropy "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
-If we don't specify `entropy` as the `crop` parameter, CDN defaults to using `aspectfill` and our image would look a little different, with the main subject almost excluded from the image.
+If we don't specify `entropy` as the `resize` parameter, CDN defaults to using `aspectfit` and our image would look a little different, with the main subject almost excluded from the image.
 
-`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?w=200&h=200`
+`https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200`
 
-![Aspectfill, 200 × 200 px, 29kB](/assets/cdn/aspectfill-200x200.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Aspectfill, 200 × 200 px, 29kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 ## Resizing Images
 
@@ -883,24 +883,24 @@ The `saturate` parameter increases or reduces an image's colour saturation and c
 To desaturate (convert to black and white), use `-1`.
 
 ```http
-http://cdn.somedomain.tech/images/beach.jpg?saturate=2
+http://cdn.somedomain.tech/samples/beach.jpeg?saturate=2
 ```
 
 **Default amount = 0.1**
 
-![Saturate 0.1](/assets/cdn/beach-sat-01.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Saturate 0.1](http://cdn.somedomain.tech/samples/beach.jpeg?sat=0.1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Saturate amount = -1**
 
-![Saturate -1](/assets/cdn/beach-sat--1.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Saturate -1](http://cdn.somedomain.tech/samples/beach.jpeg?sat=-1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Saturate amount = 0.5**
 
-![Saturate 0.5](/assets/cdn/beach-sat-05.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Saturate 0.5](http://cdn.somedomain.tech/samples/beach.jpeg?sat=0.5 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Saturate amount = 1**
 
-![Saturate 1](/assets/cdn/beach-sat-1.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Saturate 1](http://cdn.somedomain.tech/samples/beach.jpeg?sat=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 ### sharpen: sharpen an image
 
@@ -913,20 +913,20 @@ The `sharpen` parameter adds sharpness to an image.
 **Example**
 
 ```http
-http://cdn.somedomain.tech/images/beach.jpg?sharpen=25
+http://cdn.somedomain.tech/samples/beach.jpeg?sharpen=10
 ```
 
 **Default amount = 5**
 
-![Sharpen 5](/assets/cdn/beach-sharp-5.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 5](http://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=5 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Sharpen amount = 20**
 
-![Sharpen 20](/assets/cdn/beach-sharp-20.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 20](http://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=10 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Sharpen amount = 80**
 
-![Sharpen 80](/assets/cdn/beach-sharp-80.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 80](http://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=80 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 ### width: set image width
 
@@ -1112,9 +1112,9 @@ Let's use the image from our magazine example:
 
 `https://cdn.somedomain.tech/thumbnail/images/man-walking-on-beach.jpg`
 
-`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?width=100&height=100&resizeStyle=entropy`
+`https://cdn.somedomain.tech/samples/beach.jpeg?width=100&height=100&resizeStyle=entropy`
 
-![Thumbnail image, 100 × 100 px, 9kB](/assets/cdn/thumbnail-100x100.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Thumbnail image, 100 × 100 px, 9kB](https://cdn.somedomain.tech/samples/beach.jpeg?width=100&height=100&resizeStyle=entropy "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 Recipes are defined in JSON files held in the `/workspace/recipes` folder.
 
