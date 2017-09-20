@@ -608,7 +608,7 @@ https://cdn.somedomain.tech/fonts/site/museo-sans.ttf
 
 Now that you have your [sources](#cdn/defining-sources) configured and have decided on the URL scheme you're going to use, you can start applying parameters to manipulate your images.
 
-We’ll show a basic example, then it's over to you to experiment with the parameters to match your requirements. For a full list of available parameters, see the [URL Parameters](#cdn/url-parameters) section.
+We’ll show a basic example, then it's over to you to experiment with the parameters to match your requirements. For a full list of available parameters, see the [Image Parameters](#cdn/image-parameters) section.
 
 ### Basic Parameter Example
 
@@ -652,89 +652,176 @@ If we don't specify `entropy` as the `crop` parameter, CDN defaults to using `as
 
 ![Aspectfill, 200 × 200 px, 29kB](/assets/cdn/aspectfill-200x200.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
+## Resizing Images
 
-## URL Parameters
-
-### Image compression & quality
-> Reduce file size by applying compression to images
-
-Applies compression to the image, reducing file size. Accepts any number from 1-100. If not specified, the default is 75.
-
-> The `quality` parameter can be added to the querystring as either `q` or `quality`
-
-The best results for quality and file size can be found around 40-60%, where we've found generated images to be visually indistinguishable from the source image.
-
-> The original image and all quality variations below are 2048 × 1024 pixels.
-
-`https://cdn.somedomain.tech/images/vegetables.jpg?q=50`
-
-**Original image, 4.7MB**
-
-![Original JPG](/assets/cdn/vegetables.jpg)
-
-|   |   
-|:--|:--
-| ![Quality 100](/assets/cdn/vegetables-full-quality-100.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 100%, 1.3MB** | ![Quality 75](/assets/cdn/vegetables-full-quality-75.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 75%, 180kB**
-| ![Quality 50](/assets/cdn/vegetables-full-quality-50.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 50%, 119kB** | ![Quality 25](/assets/cdn/vegetables-full-quality-25.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 25%, 82kB**
-
-### Resize
-> Specify new image dimensions
-
-**Original image**
-
-![Original JPG](/assets/cdn/canoe.jpeg)
+## Cropping Images
 
 
-#### Width
+## Image Parameters
 
-The width (`w`) of the required output image, in pixels.
+### blur: adding blur to an image
 
-If only `w` is specified, the `h (height)` dimension will be _set to the height of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
+The `blur` parameter adds blur to an image, using any value above zero.
 
-If both width and height are omitted, the original image’s dimensions are used.
+- **Accepts:** any number from 1-100
+- **Default:** 0
+- **Alias:** `b`
 
-> **Security Note:** The maximum output image size can be specified in the configuration file.
+**Examples**
 
-The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
+`https://cdn.somedomain.tech/images/dog.jpg?blur=5`
 
-You should set this to the maximum size required for images in your application.
+|   |   |   
+|:--|:--|:--
+| ![Original JPG](/assets/cdn/dog-w600.jpeg) **Original image** | ![Blur 1](/assets/cdn/dog-w600-blur-1.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](/assets/cdn/dog-w600-blur-5.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
+| ![Blur 10](/assets/cdn/dog-w600-blur-10.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 10** | ![Blur 20](/assets/cdn/dog-w600-blur-20.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 20** | ![Blur 20](/assets/cdn/dog-w600-blur-100.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 100**
 
-```json
-"security": {
-  "maxWidth": 2048,
-  "maxHeight": 1024
-}
-```
+### filter: interpolation filter
+
+The `filter` parameter allows you to specify the interpolation method to use when resizing images. When reducing the size of an image (or downsampling), some image data is simply discarded. However when increasing image dimensions, the image is expanded and gaps must be "filled in". Each interpolation filter uses a different algorithm for determining how to fill the gaps.
+
+- **Accepts:** valid values are `lanczos`, `nearest-neighbor`, `linear`, `cubic`, `grid`, `moving-average`
+- **Default:** `lanczos`
+- **Alias:** `f`
 
 **Example**
 
-`https://cdn.somedomain.tech/images/canoe.jpg?w=400&resize=aspectfit`
+```http
+https://cdn.somedomain.tech/images/dog.jpg?width=600&height=400&resize=aspectfill&filter=linear
+```
 
-| **w=400** | **w=400&resize=aspectfit** 
-|:--|:--
-| ![Width 400](/assets/cdn/canoe-w400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Width 400, Aspect Fit](/assets/cdn/canoe-w400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
+#### Filters
+
+**nearest-neighbor**
+
+The simplest approach to interpolation. Rather than calculating an average value by some weighting criteria or generating an intermediate value based on complicated rules, this method simply determines the "nearest" neighbouring pixel, and assumes the intensity value of it.
+
+**linear**
+
+Considers the closest two pixels and takes a weighted average to arrive at its final interpolated value. Results in a much smoother image than `nearest-neighbor`.
+
+**cubic**
+
+Images resampled with cubic interpolation are smoother and have fewer interpolation artifacts, but processing is slower than with `linear` or `nearest-neighbor`.
+
+**lanczos**
+
+Tends to reduce aliasing artifacts and preserve sharp edges. [It has been considered the "best compromise"](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.116.7898) among several simple filters for this purpose.
 
 
-#### Height
+### flip: flipping an image
 
-The height (`h`) of the required output image, in pixels.
+The `flip` parameter flips images horizontally, vertically or both. A horizontal flip can also be referred to as "mirroring".
 
-If only `h` is specified, the `w (width)` dimension will be _set to the width of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
+- **Accepts:** valid values are `x`, `y` and `xy`
+- **Default:** 0
+- **Alias:** `fl`
+
+**Horizontal flip**
+
+`https://cdn.somedomain.tech/images/dog.jpg?flip=x`
+
+![Dog flipped on the X axis](/assets/cdn/dog-w600-flip-x.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+
+**Vertical flip**
+
+`https://cdn.somedomain.tech/images/dog.jpg?flip=y`
+
+![Dog flipped on the Y axis](/assets/cdn/dog-w600-flip-y.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+
+**Horizontal and verticalflip**
+
+`https://cdn.somedomain.tech/images/dog.jpg?flip=xy`
+
+![Dog flipped on both axes](/assets/cdn/dog-w600-flip-xy.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+
+### format: converting images
+
+- **Accepts:** valid values are `bmp`, `gif`, `jpg`, `png`
+- **Alias:** `fmt`
+
+#### from JPG
+
+**Original JPG Image**
+
+![Original JPG](/assets/cdn/dog-w600.jpeg)
+
+**JPG to PNG**
+
+`https://cdn.somedomain.tech/images/dog.jpg?format=png`
+
+![PNG](/assets/cdn/dog-w600.png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+
+**JPG to GIF**
+
+`https://cdn.somedomain.tech/images/dog.jpg?format=gif`
+
+![GIF](/assets/cdn/dog-w600.gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+
+#### from GIF
+
+**Original GIF Image**
+
+![Original GIF](/assets/cdn/giphy.gif)
+
+**GIF to JPG**
+
+`https://cdn.somedomain.tech/images/giphy.gif?format=jpg`
+
+![JPG](/assets/cdn/giphy.jpeg)
+
+**GIF to PNG**
+
+`https://cdn.somedomain.tech/images/giphy.gif?format=png`
+
+![PNG](/assets/cdn/giphy.png)
+
+#### from PNG
+
+**Original PNG Image**
+
+![Original PNG](/assets/cdn/landscape.png)
+
+**PNG to JPG**
+
+`https://cdn.somedomain.tech/images/landscape.png?format=jpg`
+
+![JPG](/assets/cdn/landscape.jpeg)
+
+**PNG to GIF**
+
+`https://cdn.somedomain.tech/images/landscape.png?format=gif`
+
+![GIF](/assets/cdn/landscape.gif)
+
+### gravity: 
+
+### height: set image height
+
+The `height` parameter is used to specify the required height of the output image, in pixels.
+
+- **Default:** original height dimension
+- **Alias:** `h`
+
+If only height is specified, the width dimension will be _set to the width of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
 
 If both width and height are omitted, the original image’s dimensions are used.
 
-> **Security Note:** The maximum output image size can be specified in the configuration file.
-
-The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
-
-You should set this to the maximum size required for images in your application.
-
-```json
-"security": {
-  "maxWidth": 2048,
-  "maxHeight": 1024
-}
-```
+> **Security Note:**
+> 
+> The maximum output image size can be specified in the configuration file.
+> 
+> The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
+>
+> You should set this to the maximum size required for images in your application.
+>
+> ```json
+> "security": {
+>  "maxWidth": 2048,
+>  "maxHeight": 1024
+>}
+>```
+> -- advice
 
 **Example**
 
@@ -744,155 +831,59 @@ You should set this to the maximum size required for images in your application.
 |:--|:--
 | ![Height 400](/assets/cdn/canoe-h400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Height 400, Aspect Fit](/assets/cdn/canoe-h400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
+### quality: image compression
 
-#### Aspect ratio
+The `quality` parameter applies compression to an image, reducing it's file size.
 
-A width (`w`) or (`h`) can be provided with the addition of the variable `ratio` to give back a cropped version of the image to the specificed ratio. [Resize styles](/cdn/concepts/cropping/) are respected.
+- **Accepts:** any number from 1-100
+- **Default:** 75
+- **Alias:** `q`
 
-```bash
-https://cdn.somedomain.tech/images/canoe.jpg?h=400&amp;ratio=16-9
+The best results for quality and file size can be found around 40-60, where we've found generated images to be visually indistinguishable from the source image.
+
+**Examples**
+
+The original image and all quality variations below are 2048 × 1024 pixels.
+
+`https://cdn.somedomain.tech/images/vegetables.jpg?q=50`
+
+**Original image, 4.7MB**
+
+![Original JPG](/assets/cdn/vegetables.jpg)
+
+|   |   
+|:--|:--
+| ![Quality 100](/assets/cdn/vegetables-full-quality-100.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 100, 1.3MB** | ![Quality 75](/assets/cdn/vegetables-full-quality-75.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 75, 180kB**
+| ![Quality 50](/assets/cdn/vegetables-full-quality-50.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 50, 119kB** | ![Quality 25](/assets/cdn/vegetables-full-quality-25.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 25, 82kB**
+
+### ratio: resize to aspect ratio
+
+Use the `ratio` parameter in combination with width (`w`) or height (`h`) to crop the image to the specified aspect ratio. [Resize styles](/#cdn/x) are respected.
+
+```
+https://cdn.somedomain.tech/images/canoe.jpg?h=400&ratio=16-9
 ```
 
-### Rotation
-> Rotating an image
+### rotate: rotating an image
 
-#### rotate
+The `rotate` parameter rotates the image according to the value specified in degrees. The image will be zoomed so that it covers the entire area after rotation.
 
-Rotates the image according to the value specified in degrees. Valid values are in the range 0 - 359. The default value is 0 which leaves the image unchanged. The image will be zoomed so that it covers the entire area after rotation.
+- **Accepts:** any number from 0-359
+- **Default:** 0
 
-### Blur
-> Add blur to an image
+### saturate: Adjust image saturation
 
-Adds blur to an image, using any value above zero.
+The `saturate` parameter increases or reduces an image's colour saturation and can be used to convert it to black and white.
 
-> The `blur` parameter can be added to the querystring as either `b` or `blur`
-
-`https://cdn.somedomain.tech/images/dog.jpg?b=5`
-
-| x | x | x
-|:--|:--|:--
-| ![Original JPG](/assets/cdn/dog-w600.jpeg) **Original image** | ![Blur 1](/assets/cdn/dog-w600-blur-1.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](/assets/cdn/dog-w600-blur-5.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
-| ![Blur 10](/assets/cdn/dog-w600-blur-10.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 10** | ![Blur 20](/assets/cdn/dog-w600-blur-20.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 20** | ![Blur 20](/assets/cdn/dog-w600-blur-100.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 100**
+- **Accepts:** any number from -1-10
+- **Default:** 0
+- **Alias:** `sat`
 
 
-### Cropping an image
-> Crop and resize images using fill, fit &amp; stretch
-
-#### resize
-
-##### aspectfill
-
-Keeps the aspect ratio of the original image and generates an output image of the specified width and height.
-
-> **Note:** The output image may be cropped, however by specifying the `gravity` parameter you can tell CDN which part of the image should be retained.
-
-##### gravity
-
-Used to position the crop area. Available options (case sensitive): `northwest`, `north`, `northeast`, `west`, `center`, `east`, `southWest`, `south`, `southeast`, `none`
-
-**Example**
-
-**Original image**
-
-![](/assets/cdn/med-portrait.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
-
-> In each example, the output image is 400 x 300 pixels.
-
-`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=North`
-`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=Center`
-`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=South`
-
-| x | x | x
-|:--|:--|:--
-| ![](/assets/cdn/med-portrait-north.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=North** | ![](/assets/cdn/med-portrait-center.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=Center** | ![](/assets/cdn/med-portrait-south.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=South**
-
-##### aspectfit
-
-Keeps the aspect ratio of the original image and generates an output image with the maximum dimensions that fit inside the specified width and height.
-
-**Example**
-
-`https://cdn.somedomain.tech/images/canoe.jpg?w=400&h=300&resize=aspectfit`
-
-The output image is 400 x 267 pixels.
-
-![](/assets/cdn/canoe-w400-h300-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
-
-##### fill
-
-Ignores the aspect ratio of the original image and generates an output image with specified width and height. _The output image may appear squashed or stretched._
-
-**Example**
-
-`https://cdn.somedomain.tech/images/canoe.jpg?w=400&h=300&resize=fill`
-
-The output image is 400 x 300 pixels.
-
-![](/assets/cdn/canoe-w400-h300-fill.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
-
-##### entropy
-
-Crops the image using a technique that determines the most important areas. Areas of higher contrast are considered more important, and images are often cropped to remove large areas of static color.
-
-**Example**
-
-**Original image**
-
-![](/assets/cdn/med-portrait.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
-
-`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=entropy`
-
-![](/assets/cdn/med-portrait-entropy.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
-
-##### crop
-
-| crop-x | Integer | Default: 0. X position of crop area |
-| crop-y | Integer | Default: 0. Y position of crop area |
-
-When `resize=crop` an additional `crop` parameter must be used to specify the coordinates of the crop rectangle. There are two ways to pass the crop rectangle coordinates:
-
-**Specify only the top left corner of the rectangle**
-
-`?resize=crop&crop=10,15`
-
-**Specify the top left corner and the bottom right corner of the rectangle**
-
-`?resize=crop&crop=10,15,200,300`
-
-### Flipping an image
-> Flip images horizontally, vertically or both
-
-Flips the image horizontally, vertically or both. Valid values are `x`, `y` and `xy`. The default value is `0`, which means it is not set.
-
-> The `flip` parameter can be added to the querystring as either `fl` or `flip`
-
-#### Flip horizontally
-
-`https://cdn.somedomain.tech/images/dog.jpg?flip=x`
-
-![Dog flipped on the X axis](/assets/cdn/dog-w600-flip-x.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
-#### Flip vertically
-
-`https://cdn.somedomain.tech/images/dog.jpg?flip=y`
-
-![Dog flipped on the Y axis](/assets/cdn/dog-w600-flip-y.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
-#### Flip horizontally and vertically
-
-`https://cdn.somedomain.tech/images/dog.jpg?flip=xy`
-
-![Dog flipped on both axes](/assets/cdn/dog-w600-flip-xy.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
-### Adjusting saturation
-> Increase or reduce colour saturation, or convert to black and white
-
-> **URL parameter:** `saturate`, `sat`
-
-Increase or decrease an image's colour saturation. To desaturate (convert to black and white), use `-1`. If not specified, the default value is `0.1`.
+To desaturate (convert to black and white), use `-1`.
 
 ```http
-http://cdn.somedomain.tech/images/beach.jpg?saturate=2.5
+http://cdn.somedomain.tech/images/beach.jpg?saturate=2
 ```
 
 **Default amount = 0.1**
@@ -911,12 +902,13 @@ http://cdn.somedomain.tech/images/beach.jpg?saturate=2.5
 
 ![Saturate 1](/assets/cdn/beach-sat-1.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
-### Sharpen images
-> Sharpen images
+### sharpen: Sharpen an image
 
-> **URL parameter:** `sharpen`, `sh`
+The `sharpen` parameter adds sharpness to an image.
 
-Add sharpness to an image. If not specified, the default value is `5`.
+- **Accepts:** any number from 0-100
+- **Default:** 5
+- **Alias:** `sh`
 
 **Example**
 
@@ -936,106 +928,41 @@ http://cdn.somedomain.tech/images/beach.jpg?sharpen=25
 
 ![Sharpen 80](/assets/cdn/beach-sharp-80.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
+### width: set image width
 
-### Image formats
-> Converting between formats
+The `width` parameter is used to specify the required width of the output image, in pixels.
 
-> **URL parameter:** `format`, `fmt`
+- **Default:** original width dimension
+- **Alias:** `w`
 
-#### From JPG
+If only width is specified, the height dimension will be _set to the height of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
 
-**Original JPG Image**
+If both width and height are omitted, the original image’s dimensions are used.
 
-![Original JPG](/assets/cdn/dog-w600.jpeg)
-
-**JPG to PNG**
-
-`https://cdn.somedomain.tech/images/dog.jpg?format=png`
-
-![PNG](/assets/cdn/dog-w600.png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
-**JPG to GIF**
-
-`https://cdn.somedomain.tech/images/dog.jpg?format=gif`
-
-![GIF](/assets/cdn/dog-w600.gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
-#### From GIF
-
-**Original GIF Image**
-
-![Original GIF](/assets/cdn/giphy.gif)
-
-**GIF to JPG**
-
-`https://cdn.somedomain.tech/images/giphy.gif?format=jpg`
-
-![JPG](/assets/cdn/giphy.jpeg)
-
-**GIF to PNG**
-
-`https://cdn.somedomain.tech/images/giphy.gif?format=png`
-
-![PNG](/assets/cdn/giphy.png)
-
-#### From PNG
-
-**Original PNG Image**
-
-![Original PNG](/assets/cdn/landscape.png)
-
-**PNG to JPG**
-
-`https://cdn.somedomain.tech/images/landscape.png?format=jpg`
-
-![JPG](/assets/cdn/landscape.jpeg)
-
-**PNG to GIF**
-
-`https://cdn.somedomain.tech/images/landscape.png?format=gif`
-
-![GIF](/assets/cdn/landscape.gif)
-
-### Interpolation filter
-> Choose the interpolation method when resizing images
-
-> **URL parameter:** `filter`, `f`
-
-This parameter allows you to specify the interpolation method to use when resizing images. If not specified, the default is `lanczos`.
-
-When reducing the size of an image (or downsampling), some image data is simply discarded. However when increasing image dimensions, the image is expanded and gaps must be "filled in". Each interpolation filter uses a different algorithm for determining how to fill the gaps.
-
-Possible values:
- - `lanczos` (default)
- - `nearest-neighbor`
- - `linear`
- - `cubic`
- - `grid`
- - `moving-average`
+> **Security Note:**
+> 
+> The maximum output image size can be specified in the configuration file.
+> 
+> The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
+>
+> You should set this to the maximum size required for images in your application.
+>
+> ```json
+> "security": {
+>  "maxWidth": 2048,
+>  "maxHeight": 1024
+>}
+>```
+> -- advice
 
 **Example**
 
-```http
-https://cdn.somedomain.tech/images/dog.jpg?width=600&height=400&resize=aspectfill&filter=linear
-```
+`https://cdn.somedomain.tech/images/canoe.jpg?w=400&resize=aspectfit`
 
-## Filters
+| **w=400** | **w=400&resize=aspectfit** 
+|:--|:--
+| ![Width 400](/assets/cdn/canoe-w400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Width 400, Aspect Fit](/assets/cdn/canoe-w400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
 
-### nearest-neighbor
-
-The simplest approach to interpolation. Rather than calculating an average value by some weighting criteria or generating an intermediate value based on complicated rules, this method simply determines the "nearest" neighbouring pixel, and assumes the intensity value of it.
-
-### linear
-
-Considers the closest two pixels and takes a weighted average to arrive at its final interpolated value. Results in a much smoother image than `nearest-neighbor`.
-
-### cubic
-
-Images resampled with cubic interpolation are smoother and have fewer interpolation artifacts, but processing is slower than with `linear` or `nearest-neighbor`.
-
-### lanczos
-
-Tends to reduce aliasing artifacts and preserve sharp edges. [It has been considered the "best compromise"](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.116.7898) among several simple filters for this purpose.
 
 ## Layout Processor
 > Combining images with the layout processor
@@ -1138,7 +1065,7 @@ The above should result in a response similar to this:
 The URL is https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D
 ```
 
-### Controlling `Expires` time
+### Controlling Expiry Time
 
 The default `Expires` time is 15 minutes. This can be modified by passing a value in the
 params that are passed to the `getSignedUrl` method. The following example will cause the
@@ -1178,11 +1105,10 @@ If a pre-signed URL has already expired at the time of the request, a HTTP 403 F
 ```
 
 ## Delivery Recipes
-> Create a "recipe" of image manipulation parameters to apply to images at runtime
 
 A Delivery Recipe is a predefined set of image manipulation parameters stored in a JSON file and applied to images at the time of request.
 
-Let's use the image from our magazine example.
+Let's use the image from our magazine example:
 
 `https://cdn.somedomain.tech/thumbnail/images/man-walking-on-beach.jpg`
 
@@ -1216,8 +1142,8 @@ For example:
 `http://cdn.somedomain.tech/thumbnail/image-filename.png`
 
 ## Delivery Routes
-> Let CDN choose the recipe based on device, network, location or language
 
+Delivery Routes allow you to let CDN choose the appropriate recipe based on device, network, location or language.
 
 Routes allow CDN to make a decision about which [Delivery Recipe](/cdn/concepts/recipes/) to use for the current request, based on a set of configurable conditions.
 
@@ -1497,29 +1423,17 @@ Caching is automatically enabled for routes. Depending on what's defined in the 
       "condition": {
         "device": "desktop",
         "language": "en",
-        "country": [
-          "GB",
-          "US"
-        ],
+        "country": ["GB", "US"],
         "network": "cable"
       }
     },
     {
       "recipe": "thumbnail-lo-res",
       "condition": {
-        "device": [
-          "mobile",
-          "tablet"
-        ],
-        "language": [
-          "en",
-          "pt"
-        ],
+        "device": ["mobile", "tablet"],
+        "language": ["en", "pt"],
         "country": "GB",
-        "network": [
-          "cable",
-          "dsl"
-        ]
+        "network": ["cable", "dsl"]
       }
     },
     {
@@ -1542,34 +1456,16 @@ http://cdn.yourdomain.com/disk/test.jpg?format=json
 Response JSON:
 
 ```json
-"primaryColor": "#434234",
+{
+  "primaryColor": "#434234",
   "palette": {
     "rgb": [
-      [
-        237,
-        231,
-        224
-      ], [
-        67,
-        66,
-        52
-      ], [
-        148,
-        142,
-        83
-      ], [
-        147,
-        95,
-        81
-      ], [
-        150,
-        150,
-        138
-      ], [
-        88,
-        201,
-        232
-      ]
+      [237, 231, 224],
+      [67, 66, 52],
+      [148, 142,83],
+      [147, 95, 81],
+      [150, 150,138],
+      [88, 201, 232]
     ],
     "hex": [
       "#ede7e0",
@@ -1579,7 +1475,8 @@ Response JSON:
       "#96968a",
       "#58c9e8"
     ]
-  },
+  }
+ }
  ```
 
 ![input image](/assets/cdn/palette-source.jpg)
@@ -1595,12 +1492,3 @@ For example a `100px x 100px` image with the variable `devicePixelRatio=2` will 
 ```html
 <img src="https://cdn.somedomain.tech/images/dog.jpg?w=200&height=200&devicePixelRatio=2" width="100">
 ```
-
-
-## Next Steps
-
-Resizing and cropping are just the beginning. CDN helps you to serve assets and images to your customers easier and faster, giving you complete control over how they are served.
-cdn.somedomain.tech
-* API URL Guide
-* Recipes - Setting default parameters
-* Tutorials
