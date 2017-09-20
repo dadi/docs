@@ -825,11 +825,11 @@ If both width and height are omitted, the original image’s dimensions are used
 
 **Example**
 
-`https://cdn.somedomain.tech/images/canoe.jpg?h=400&resize=aspectfit`
+`https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&resize=aspectfit`
 
 | **h=400** | **h=400&resize=aspectfit** 
 |:--|:--
-| ![Height 400](/assets/cdn/canoe-h400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Height 400, Aspect Fit](/assets/cdn/canoe-h400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+| ![Height 400](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Height 400, Aspect Fit](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
 ### quality: image compression
 
@@ -849,7 +849,7 @@ The original image and all quality variations below are 2048 × 1024 pixels.
 
 **Original image, 4.7MB**
 
-![Original JPG](/assets/cdn/vegetables.jpg)
+![Original JPG](https://cdn.somedomain.tech/samples/vegetables.jpg)
 
 |   |   
 |:--|:--
@@ -861,7 +861,7 @@ The original image and all quality variations below are 2048 × 1024 pixels.
 Use the `ratio` parameter in combination with width (`w`) or height (`h`) to crop the image to the specified aspect ratio. [Resize styles](/#cdn/x) are respected.
 
 ```
-https://cdn.somedomain.tech/images/canoe.jpg?h=400&ratio=16-9
+https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9
 ```
 
 ### rotate: rotating an image
@@ -957,11 +957,11 @@ If both width and height are omitted, the original image’s dimensions are used
 
 **Example**
 
-`https://cdn.somedomain.tech/images/canoe.jpg?w=400&resize=aspectfit`
+`https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resize=aspectfit`
 
 | **w=400** | **w=400&resize=aspectfit** 
 |:--|:--
-| ![Width 400](/assets/cdn/canoe-w400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Width 400, Aspect Fit](/assets/cdn/canoe-w400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
+| ![Width 400](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Width 400, Aspect Fit](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
 
 
 ## Layout Processor
