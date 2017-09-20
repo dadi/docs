@@ -883,24 +883,24 @@ The `saturate` parameter increases or reduces an image's colour saturation and c
 To desaturate (convert to black and white), use `-1`.
 
 ```http
-http://cdn.somedomain.tech/samples/beach.jpeg?saturate=2
+https://cdn.somedomain.tech/samples/beach.jpeg?saturate=2
 ```
 
 **Default amount = 0.1**
 
-![Saturate 0.1](http://cdn.somedomain.tech/samples/beach.jpeg?sat=0.1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Saturate 0.1](https://cdn.somedomain.tech/samples/beach.jpeg?sat=0.1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Saturate amount = -1**
 
-![Saturate -1](http://cdn.somedomain.tech/samples/beach.jpeg?sat=-1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Saturate -1](https://cdn.somedomain.tech/samples/beach.jpeg?sat=-1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Saturate amount = 0.5**
 
-![Saturate 0.5](http://cdn.somedomain.tech/samples/beach.jpeg?sat=0.5 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Saturate 0.5](https://cdn.somedomain.tech/samples/beach.jpeg?sat=0.5 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Saturate amount = 1**
 
-![Saturate 1](http://cdn.somedomain.tech/samples/beach.jpeg?sat=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Saturate 1](https://cdn.somedomain.tech/samples/beach.jpeg?sat=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 ### sharpen: sharpen an image
 
@@ -913,20 +913,20 @@ The `sharpen` parameter adds sharpness to an image.
 **Example**
 
 ```http
-http://cdn.somedomain.tech/samples/beach.jpeg?sharpen=10
+https://cdn.somedomain.tech/samples/beach.jpeg?sharpen=10
 ```
 
 **Default amount = 5**
 
-![Sharpen 5](http://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=5 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 5](https://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=5 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Sharpen amount = 20**
 
-![Sharpen 20](http://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=10 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 20](https://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=10 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Sharpen amount = 80**
 
-![Sharpen 80](http://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=80 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 80](https://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=80 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 ### width: set image width
 
@@ -984,7 +984,7 @@ The following request contains the following:
 * Output: an image 600 pixels wide by 300 pixels high, in JPEG format
 
 ```
-http://cdn.somedomain.tech/layout/i:test.jpg,
+https://cdn.somedomain.tech/layout/i:test.jpg,
   h_300,w_200,x_0,y_0 |
   c:01ee88,h_300,w_200,x_200,y_0 |
   i:original.jpeg,h_300,w_200,x_400,y_0 |
@@ -1081,7 +1081,7 @@ var params = {
 
 ### Accessing via CDN
 
-http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D
+https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D
 
 ### Adding image manipulation parameters
 
@@ -1094,14 +1094,14 @@ The following example uses the above URL, adding `width` and `height` parameters
 
 >...W6blQuGQ%3D**&?**width=300&height=300
 
-http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D&?width=300&height=300
+https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D&?width=300&height=300
 
 ### Expired URLs
 
 If a pre-signed URL has already expired at the time of the request, a HTTP 403 Forbidden error will be returned:
 
 ```json
-{"statusCode":"403","message":"Forbidden: http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D"}
+{"statusCode":"403","message":"Forbidden: https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D"}
 ```
 
 ## Delivery Recipes
@@ -1139,7 +1139,7 @@ Making use of a recipe is simple: call your image via the recipe name defined in
 
 For example:
 
-`http://cdn.somedomain.tech/thumbnail/image-filename.png`
+`https://cdn.somedomain.tech/thumbnail/image-filename.png`
 
 ## Delivery Routes
 
@@ -1162,7 +1162,7 @@ Send a `POST` request to the routes endpoint with the request body containing th
 **An example using cURL**
 
 ```
-curl -i -H "Content-Type: application/json" -X POST "http://cdn.somedomain.tech/api/routes" -d '{
+curl -i -H "Content-Type: application/json" -X POST "https://cdn.somedomain.tech/api/routes" -d '{
   "route": "example-route",
   "branches": [
     {
