@@ -1,6 +1,7 @@
 ---
 title: API
 order: 1
+published: true
 ---
 
 ## Requirements

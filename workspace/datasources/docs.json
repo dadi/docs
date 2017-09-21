@@ -10,6 +10,9 @@
     "sort": {
       "order": 1
     },
+    "filter": {
+      "published": true
+    },
     "fields": [
       "attributes",
       "contentText"

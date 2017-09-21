@@ -1,6 +1,7 @@
 ---
 title: Web
 order: 2
+published: true
 ---
 
 ## Installation
