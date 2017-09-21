@@ -673,8 +673,8 @@ The `blur` parameter adds blur to an image, using any value above zero.
 
 |   |   |   
 |:--|:--|:--
-| ![Original JPG](https://cdn.somedomain.tech/samples/dog.jpeg?w=600) **Original image** | ![Blur 1](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=1 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=5 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
-| ![Blur 10](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=10 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 10** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=20 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 20** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=100 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 100**
+| ![Original JPG](https://cdn.somedomain.tech/samples/dog.jpeg?w=600) **Original image** | ![Blur 1](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=1 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=5 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
+| ![Blur 10](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=10 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 10** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=20 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 20** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=100 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 100**
 
 ### filter: interpolation filter
 
@@ -721,19 +721,19 @@ The `flip` parameter flips images horizontally, vertically or both. A horizontal
 
 `https://cdn.somedomain.tech/samples/dog.jpeg?flip=x`
 
-![Dog flipped on the X axis](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&flip=x "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![Dog flipped on the X axis](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=x "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 **Vertical flip**
 
 `https://cdn.somedomain.tech/samples/dog.jpeg?flip=y`
 
-![Dog flipped on the Y axis](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&flip=y "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![Dog flipped on the Y axis](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=y "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 **Horizontal and vertical flip**
 
 `https://cdn.somedomain.tech/samples/dog.jpeg?flip=xy`
 
-![Dog flipped on both axes](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&flip=xy "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![Dog flipped on both axes](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=xy "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 ### format: converting images
 
@@ -744,19 +744,19 @@ The `flip` parameter flips images horizontally, vertically or both. A horizontal
 
 **Original JPG Image**
 
-![Original JPG](https://cdn.somedomain.tech/samples/dog.jpeg?w=600)
+![Original JPG](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600)
 
 **JPG to PNG**
 
 `https://cdn.somedomain.tech/samples/dog.jpeg?format=png`
 
-![PNG](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&format=png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![PNG](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&format=png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 **JPG to GIF**
 
 `https://cdn.somedomain.tech/samples/dog.jpeg?format=gif`
 
-![GIF](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&format=gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![GIF](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&format=gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 #### from GIF
 
@@ -1445,35 +1445,33 @@ Caching is automatically enabled for routes. Depending on what's defined in the 
 
 ## Retrieving a colour palette
 
-Each image stored in _CDN_ can be returned as a json object with information on how the image was generated. Within that object there is the `primaryColor` and `palette` nodes which contains information about the colour of the image.
+Each image stored in _CDN_ can be returned as a json object with information on how the image was generated. Within that object there are `primaryColor` and `palette` nodes which contains information about the colour of the image.
 
 Request URL:
 
 ```
-http://cdn.yourdomain.com/disk/test.jpg?format=json
+https://cdn.somedomain.tech/samples/canoe.jpeg?format=json
 ```
 
 Response JSON:
 
 ```json
 {
-  "primaryColor": "#434234",
+  "primaryColor": "#1888a2",
   "palette": {
     "rgb": [
-      [237, 231, 224],
-      [67, 66, 52],
-      [148, 142,83],
-      [147, 95, 81],
-      [150, 150,138],
-      [88, 201, 232]
+      [173, 220, 233],
+      [23, 109, 129],
+      [244, 240, 230],
+      [116, 87, 68],
+      [179, 150, 133]
     ],
     "hex": [
-      "#ede7e0",
-      "#434234",
-      "#948e53",
-      "#935f51",
-      "#96968a",
-      "#58c9e8"
+      "#addce9",
+      "#176d81",
+      "#f4f0e6",
+      "#745744",
+      "#b39685"
     ]
   }
  }
