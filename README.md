@@ -26,3 +26,16 @@ Commands:
 * `pm2 monit` - monitor all pm2 processes
 
 
+## Style
+
+### Blockquotes
+
+To add blockquotes that stand out, for tips/tricks/warnings, use the following format. Available types are `advice`, `warning` and `danger`.
+
+```
+> **Security Note**
+> 
+> We **strongly** recommend creating an Amazon IAM account specifically for accessing your S3 buckets.
+> -- warning
+```
+

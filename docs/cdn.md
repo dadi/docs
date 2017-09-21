@@ -364,314 +364,401 @@ The [configuration file](/cdn/getting-started/configuration/) contains two secti
 }
 ```
 
-## URL Parameters
+## Serving Images and Assets
 
-### Image compression & quality
-> Reduce file size by applying compression to images
+With your [sources](/cdn/getting-started/defining-sources/) configured so that CDN knows where to find them, you can start sending requests for your assets and images.
 
-Applies compression to the image, reducing file size. Accepts any number from 1-100. If not specified, the default is 75.
+CDN currently responds to two types of URL scheme. One, the Path URL scheme, is a legacy format and exists for backwards compatibility with early-adoption client applications. The other, the Querystring URL scheme, is succinct, flexible and robust.
 
-> The `quality` parameter can be added to the querystring as either `q` or `quality`
+> The Querystring URL scheme is the preferred format and is where future development efforts will be focused. In the event that new image manipulation parameters are added to CDN, the Querystring URL scheme will be the only format that supports them.  
 
-The best results for quality and file size can be found around 40-60%, where we've found generated images to be visually indistinguishable from the source image.
+### The URL schemes
 
-> The original image and all quality variations below are 2048 × 1024 pixels.
+While the Querystring URL scheme is preferred for new applications, both are documented here. If you don't need details about the Path URL scheme, [jump right to the Querystring URL scheme](#querystring-url-scheme).
 
-`https://cdn.somedomain.tech/images/vegetables.jpg?q=50`
-
-**Original image, 4.7MB**
-
-![Original JPG](/assets/cdn/vegetables.jpg)
-
-| x | x 
-|:--|:--
-| ![Quality 100](/assets/cdn/vegetables-full-quality-100.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 100%, 1.3MB** | ![Quality 75](/assets/cdn/vegetables-full-quality-75.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 75%, 180kB**
-| ![Quality 50](/assets/cdn/vegetables-full-quality-50.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 50%, 119kB** | ![Quality 25](/assets/cdn/vegetables-full-quality-25.jpg "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 25%, 82kB**
-
-### Resize
-> Specify new image dimensions
-
-**Original image**
-
-![Original JPG](/assets/cdn/canoe.jpeg)
+> For a complete guide to the image and asset manipulation parameters, see the [URL API Guide](x).
 
 
-#### Width
+#### Path URL Scheme
 
-The width (`w`) of the required output image, in pixels.
+Version 1.0.0-Beta of CDN used the URL path for specifying parameters. In this scheme, there are 17 parameters that can be used to manipulate images and 1 parameter for assets. All parameters must be supplied - those that aren't required should be set to `0`.
 
-If only `w` is specified, the `h (height)` dimension will be _set to the height of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
+##### Serving Images via the Path URL Scheme
 
-If both width and height are omitted, the original image’s dimensions are used.
+**Format**
 
-> **Security Note:** The maximum output image size can be specified in the configuration file.
-
-The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
-
-You should set this to the maximum size required for images in your application.
-
-```json
-"security": {
-  "maxWidth": 2048,
-  "maxHeight": 1024
-}
+```
+https://domain/format/quality/trim/trimFuzz/width/height/crop-x/crop-y/ratio/devicePixelRatio/crop/gravity/filter/blur/strip/rotate/flip/path
 ```
 
 **Example**
 
-`https://cdn.somedomain.tech/images/canoe.jpg?w=400&resize=aspectfit`
+```
+https://cdn.somedomain.tech/jpg/80/0/0/640/480/10/10/16-9/1/aspectfill/North/lanczos/3/0/45/x/cars/aston-martin.jpg
+```
 
-| **w=400** | **w=400&resize=aspectfit** 
-|:--|:--
-| ![Width 400](/assets/cdn/canoe-w400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Width 400, Aspect Fit](/assets/cdn/canoe-w400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
+##### Serving Assets via the Path URL Scheme
 
+**Format**
 
-#### Height
-
-The height (`h`) of the required output image, in pixels.
-
-If only `h` is specified, the `w (width)` dimension will be _set to the width of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
-
-If both width and height are omitted, the original image’s dimensions are used.
-
-> **Security Note:** The maximum output image size can be specified in the configuration file.
-
-The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
-
-You should set this to the maximum size required for images in your application.
-
-```json
-"security": {
-  "maxWidth": 2048,
-  "maxHeight": 1024
-}
+```
+https://cdn.somedomain.tech/css/0/styles/main.css
 ```
 
 **Example**
 
-`https://cdn.somedomain.tech/images/canoe.jpg?h=400&resize=aspectfit`
-
-| **h=400** | **h=400&resize=aspectfit** 
-|:--|:--
-| ![Height 400](/assets/cdn/canoe-h400.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Height 400, Aspect Fit](/assets/cdn/canoe-h400-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
-
-
-#### Aspect ratio
-
-A width (`w`) or (`h`) can be provided with the addition of the variable `ratio` to give back a cropped version of the image to the specificed ratio. [Resize styles](/cdn/concepts/cropping/) are respected.
-
-```bash
-https://cdn.somedomain.tech/images/canoe.jpg?h=400&amp;ratio=16-9
+```
+https://domain/format/compress/path
 ```
 
-### Rotation
-> Rotating an image
+#### Querystring URL Scheme
 
-#### rotate
+Version 1.0.0 of CDN introduced this URL format for specifying parameters. You only need to supply the parameters you need to use, specifying as many or as few as you want.
 
-Rotates the image according to the value specified in degrees. Valid values are in the range 0 - 359. The default value is 0 which leaves the image unchanged. The image will be zoomed so that it covers the entire area after rotation.
+> **Note:** The differentiation between the Path and Querystring URL schemes is the inclusion of a querystring (i.e. everything following the `?` in the URL). If you need to serve an image in it's original, unmodified state, add a dummy querystring to the request to tell CDN you're using the Querystring URL scheme. For example: `https://cdn.somedomain.tech/cars/aston-martin.jpg?v2`
 
-### Blur
-> Add blur to an image
+##### Serving Images via the Querystring URL Scheme
 
-Adds blur to an image, using any value above zero.
+**Format**
 
-> The `blur` parameter can be added to the querystring as either `b` or `blur`
+```
+https://domain/path?querystring-parameters
+```
 
-`https://cdn.somedomain.tech/images/dog.jpg?b=5`
+**Example**
 
-| x | x | x
+```
+https://cdn.somedomain.tech/cars/aston-martin.jpg?w=600&h=400
+```
+
+##### Serving Assets via the Querystring URL Scheme
+
+**Format**
+
+```
+https://domain/path?querystring-parameters
+```
+
+**Example**
+
+```
+https://cdn.somedomain.tech/styles/main.css?compress=0
+```
+
+### Locating Files
+
+There is one common piece to the URL schemes: the `path` segment that CDN uses to locate the file to be served. In the Path URL Scheme it comes after all the parameters and in the Querystring URL Scheme it's between the [dynamic source parameter](#dynamic-sources) (if used) and the querystring.
+
+Ignoring the parameters for a moment, the following sections explain how CDN locates your files for each source.
+
+#### Amazon S3 source
+
+When you connect CDN to an Amazon S3 source, the `path` in the URL is used to locate the file within the S3 bucket you specified in the configuration file.
+
+Depending on the region in your configuration, CDN might construct a URL similar to one the following:
+
+* region `us-east-1`: http://bucket.s3.amazonaws.com
+* any other region: http://bucket.s3-aws-region.amazonaws.com
+
+In the following example CDN will attempt to load the image from the `S3 URL` shown in the final column:
+
+```
+https://cdn.somedomain.tech/cars/aston-martin.jpg?w=400
+```
+
+|Bucket|Region|Path|S3 URL
 |:--|:--|:--
-| ![Original JPG](/assets/cdn/dog-w600.jpeg) **Original image** | ![Blur 1](/assets/cdn/dog-w600-blur-1.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](/assets/cdn/dog-w600-blur-5.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
-| ![Blur 10](/assets/cdn/dog-w600-blur-10.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 10** | ![Blur 20](/assets/cdn/dog-w600-blur-20.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 20** | ![Blur 20](/assets/cdn/dog-w600-blur-100.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 100**
+|`my-images`|`eu-west-1`|`cars/aston-martin.jpg`|`http://my-images.s3-eu-west-1.amazonaws.com/cars/aston-martin.jpg`
 
+#### Remote Server source
 
-### Cropping an image
-> Crop and resize images using fill, fit &amp; stretch
+When you connect CDN to a Remote Server source, the `path` in the URL is added to the `path` you specified in the configuration file, resulting in a remote URL (which must be publicly accessible).
 
-#### resize
+In the following example CDN will attempt to load the image from the `Remote Location` shown in the final column:
 
-##### aspectfill
+```
+https://cdn.somedomain.tech/cars/aston-martin.jpg?w=400
+```
 
-Keeps the aspect ratio of the original image and generates an output image of the specified width and height.
-
-> **Note:** The output image may be cropped, however by specifying the `gravity` parameter you can tell CDN which part of the image should be retained.
-
-##### gravity
-
-Used to position the crop area. Available options (case sensitive): `northwest`, `north`, `northeast`, `west`, `center`, `east`, `southWest`, `south`, `southeast`, `none`
-
-**Example**
-
-**Original image**
-
-![](/assets/cdn/med-portrait.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
-
-> In each example, the output image is 400 x 300 pixels.
-
-`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=North`
-`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=Center`
-`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=aspectfit&g=South`
-
-| x | x | x
+|Configuration|Path|Remote Location
 |:--|:--|:--
-| ![](/assets/cdn/med-portrait-north.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=North** | ![](/assets/cdn/med-portrait-center.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=Center** | ![](/assets/cdn/med-portrait-south.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=South**
+|`"path": "http://media.example.com/public/images"`|`cars/aston-martin.jpg`|`http://media.example.com/public/images/cars/aston-martin.jpg`
 
-##### aspectfit
+#### Local Filesystem source
 
-Keeps the aspect ratio of the original image and generates an output image with the maximum dimensions that fit inside the specified width and height.
+When you connect CDN to a Local Filesystem source, the `path` in the URL is relative to the `path` you specified in the configuration file.
+
+In the following example CDN will look in the `File Location` shown in the final column:
+
+```
+https://cdn.somedomain.tech/cars/aston-martin.jpg?w=400
+```
+
+|Configuration|URL|File Location
+|:--|:--|:--
+|`"path": "/data/media/images"`|`cars/aston-martin.jpg`|`/data/media/images/cars/aston-martin.jpg`
+
+
+### Dynamic Sources
+
+Adding a `source` parameter to the request URL allows you to specify which connected source CDN serves your asset or image from. This feature allows you to store assets and images in multiple places and serve them all from a single CDN installation.
+
+When you add a `source` parameter CDN reads the standard configuration block for that source, but ignores the `enabled` property. By specifying it in the URL you're essentially saying "it's enabled".
+
+> **Querystring URL Scheme Only**
+> 
+> Sources can only be specified in the URL if using the Querystring URL Scheme. When using the Path URL Scheme a single source can be configured for use at any one time.
+> -- warning
+
+For each of the below source types, refer to the [Locating Files](#cdn/locating-files) section above to understand how CDN interprets the path to your files.
+
+#### Specifying an Amazon S3 source in the URL
+
+**Format**
+
+```
+https://domain/s3/bucket-name/path?querystring-parameters
+```
 
 **Example**
 
-`https://cdn.somedomain.tech/images/canoe.jpg?w=400&h=300&resize=aspectfit`
+```
+https://cdn.somedomain.tech/s3/images/cars/aston-martin.jpg?width=600&height=400
+```
 
-The output image is 400 x 267 pixels.
+#### Specifying a Remote Server source in the URL
 
-![](/assets/cdn/canoe-w400-h300-aspectfit.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+**Format**
 
-##### fill
-
-Ignores the aspect ratio of the original image and generates an output image with specified width and height. _The output image may appear squashed or stretched._
-
-**Example**
-
-`https://cdn.somedomain.tech/images/canoe.jpg?w=400&h=300&resize=fill`
-
-The output image is 400 x 300 pixels.
-
-![](/assets/cdn/canoe-w400-h300-fill.jpeg "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
-
-##### entropy
-
-Crops the image using a technique that determines the most important areas. Areas of higher contrast are considered more important, and images are often cropped to remove large areas of static color.
+```
+https://domain/http/path?querystring-parameters
+```
 
 **Example**
 
-**Original image**
+```
+https://cdn.somedomain.tech/http/cars/aston-martin.jpg?width=600&height=400
+```
 
-![](/assets/cdn/med-portrait.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+#### Specifying a Local Filesystem source in the URL
 
-`https://cdn.somedomain.tech/images/med-portrait.jpg?w=400&h=300&resize=entropy`
+**Format**
 
-![](/assets/cdn/med-portrait-entropy.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+```
+https://domain/disk/path?querystring-parameters
+```
 
-##### crop
+**Example**
 
-| crop-x | Integer | Default: 0. X position of crop area |
-| crop-y | Integer | Default: 0. Y position of crop area |
+```
+https://cdn.somedomain.tech/disk/cars/aston-martin.jpg?width=600&height=400
+```
 
-When `resize=crop` an additional `crop` parameter must be used to specify the coordinates of the crop rectangle. There are two ways to pass the crop rectangle coordinates:
 
-**Specify only the top left corner of the rectangle**
+### Serving Assets
 
-`?resize=crop&crop=10,15`
+Notice that in each of the examples below, the Querystring URL Scheme does not require the format to be specified, as it is inferred from the file extension.
 
-**Specify the top left corner and the bottom right corner of the rectangle**
+#### CSS
 
-`?resize=crop&crop=10,15,200,300`
+**Formats**
 
-### Flipping an image
-> Flip images horizontally, vertically or both
+```
+https://domain/format/compress/path
+https://domain/path?querystring-parameters
+```
 
-Flips the image horizontally, vertically or both. Valid values are `x`, `y` and `xy`. The default value is `0`, which means it is not set.
+**Example**
 
-> The `flip` parameter can be added to the querystring as either `fl` or `flip`
+```
+https://cdn.somedomain.tech/css/0/styles/main.css
+https://cdn.somedomain.tech/styles/main.css?compress=0
+```
 
-#### Flip horizontally
+#### JavaScript
 
-`https://cdn.somedomain.tech/images/dog.jpg?flip=x`
+**Formats**
 
-![Dog flipped on the X axis](/assets/cdn/dog-w600-flip-x.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+```
+https://domain/format/compress/path
+https://domain/path?querystring-parameters
+```
 
-#### Flip vertically
+**Example**
 
-`https://cdn.somedomain.tech/images/dog.jpg?flip=y`
+```
+https://cdn.somedomain.tech/js/0/js/main.js
+https://cdn.somedomain.tech/js/main.js?compress=0
+```
+#### Fonts
 
-![Dog flipped on the Y axis](/assets/cdn/dog-w600-flip-y.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+**Format**
 
-#### Flip horizontally and vertically
+```
+https://domain/fonts/path
+```
 
-`https://cdn.somedomain.tech/images/dog.jpg?flip=xy`
+**Example**
 
-![Dog flipped on both axes](/assets/cdn/dog-w600-flip-xy.jpeg "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+```
+https://cdn.somedomain.tech/fonts/site/museo-sans.ttf
+```
 
-### Adjusting saturation
-> Increase or reduce colour saturation, or convert to black and white
+## Applying Parameters to Images
 
-> **URL parameter:** `saturate`, `sat`
+Now that you have your [sources](#cdn/defining-sources) configured and have decided on the URL scheme you're going to use, you can start applying parameters to manipulate your images.
 
-Increase or decrease an image's colour saturation. To desaturate (convert to black and white), use `-1`. If not specified, the default value is `0.1`.
+We’ll show a basic example, then it's over to you to experiment with the parameters to match your requirements. For a full list of available parameters, see the [Image Parameters](#cdn/image-parameters) section.
+
+### Basic Parameter Example
+
+For this example we're going to imagine you have a magazine-style website with a list of articles on the homepage and an article page. We'll start with the following image, which your editor wants to use as the main article image.
+
+`https://cdn.somedomain.tech/samples/beach.jpeg`
+
+**Original image, 5616 × 3744 px, 4MB**
+
+![Original image, 5616 × 3744 px, 4MB](https://cdn.somedomain.tech/samples/beach.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+This is a large image, and it's not going to fit easily into the two spaces we have available for it. Unfortunately, no one in the department knows how to use Adobe Photoshop to make appropriately sized images. Fortunately, CDN can handle this task for you.
+
+#### Resizing and Cropping
+
+On the article page, let’s assume your main image spot is a 500×300 pixel container. It's an odd size, but illustrates this concept well. To fit the base image into that container, we’ll need to change the dimensions and crop some data from the top and bottom.
+
+To adjust the image we need to specify the new width and height, as well as tell CDN how we want to crop the image.
+
+`https://cdn.somedomain.tech/samples/beach.jpeg?w=500&h=300&resize=entropy`
+
+* `width=500&height=300`: Sets the width and height to fit the container.
+
+* `resize=entropy`: Tells CDN how to determine the crop area. [Entropy](#cdn/entropy) is a smart cropping feature that adjusts the crop area to ensure the important part of your image is retained. It uses areas of high contrast to set the crop area.
+
+**Resized image, 500 × 300 px, 98kB**
+
+![Resized image, 500 × 300 px, 98kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=500&h=300&resize=entropy "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+Now, on the homepage, let’s assume each feature article has an image container that is 200×200 pixels. With the main subject of the image so close to the right, we'll once again need to tell CDN how we want the image cropped.
+
+`https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200&resize=entropy`
+
+**Resized image, 200 × 200 px, 29kB**
+
+![Resized image, 200 × 200 px, 29kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200&resize=entropy "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+If we don't specify `entropy` as the `resize` parameter, CDN defaults to using `aspectfit` and our image would look a little different, with the main subject almost excluded from the image.
+
+`https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200`
+
+![Aspectfill, 200 × 200 px, 29kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+## Resizing Images
+
+## Cropping Images
+
+
+## Image Parameters
+
+### blur: adding blur to an image
+
+The `blur` parameter adds blur to an image, using any value above zero.
+
+- **Accepts:** any number from 1-100
+- **Default:** 0
+- **Alias:** `b`
+
+**Examples**
+
+`https://cdn.somedomain.tech/samples/dog.jpeg?blur=5`
+
+|   |   |   
+|:--|:--|:--
+| ![Original JPG](https://cdn.somedomain.tech/samples/dog.jpeg?w=600) **Original image** | ![Blur 1](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=1 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=5 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
+| ![Blur 10](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=10 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 10** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=20 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 20** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&blur=100 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 100**
+
+### filter: interpolation filter
+
+The `filter` parameter allows you to specify the interpolation method to use when resizing images. When reducing the size of an image (or downsampling), some image data is simply discarded. However when increasing image dimensions, the image is expanded and gaps must be "filled in". Each interpolation filter uses a different algorithm for determining how to fill the gaps.
+
+- **Accepts:** valid values are `lanczos`, `nearest-neighbor`, `linear`, `cubic`, `grid`, `moving-average`
+- **Default:** `lanczos`
+- **Alias:** `f`
+
+**Example**
 
 ```http
-http://cdn.somedomain.tech/images/beach.jpg?saturate=2.5
+https://cdn.somedomain.tech/samples/dog.jpeg?width=600&height=400&resize=aspectfill&filter=linear
 ```
 
-**Default amount = 0.1**
+#### Filters
 
-![Saturate 0.1](/assets/cdn/beach-sat-01.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+**nearest-neighbor**
 
-**Saturate amount = -1**
+The simplest approach to interpolation. Rather than calculating an average value by some weighting criteria or generating an intermediate value based on complicated rules, this method simply determines the "nearest" neighbouring pixel, and assumes the intensity value of it.
 
-![Saturate -1](/assets/cdn/beach-sat--1.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+**linear**
 
-**Saturate amount = 0.5**
+Considers the closest two pixels and takes a weighted average to arrive at its final interpolated value. Results in a much smoother image than `nearest-neighbor`.
 
-![Saturate 0.5](/assets/cdn/beach-sat-05.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+**cubic**
 
-**Saturate amount = 1**
+Images resampled with cubic interpolation are smoother and have fewer interpolation artifacts, but processing is slower than with `linear` or `nearest-neighbor`.
 
-![Saturate 1](/assets/cdn/beach-sat-1.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+**lanczos**
 
-### Sharpen images
-> Sharpen images
-
-> **URL parameter:** `sharpen`, `sh`
-
-Add sharpness to an image. If not specified, the default value is `5`.
-
-**Example**
-
-```http
-http://cdn.somedomain.tech/images/beach.jpg?sharpen=25
-```
-
-**Default amount = 5**
-
-![Sharpen 5](/assets/cdn/beach-sharp-5.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Sharpen amount = 20**
-
-![Sharpen 20](/assets/cdn/beach-sharp-20.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Sharpen amount = 80**
-
-![Sharpen 80](/assets/cdn/beach-sharp-80.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+Tends to reduce aliasing artifacts and preserve sharp edges. [It has been considered the "best compromise"](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.116.7898) among several simple filters for this purpose.
 
 
-### Image formats
-> Converting between formats
+### flip: flipping an image
 
-> **URL parameter:** `format`, `fmt`
+The `flip` parameter flips images horizontally, vertically or both. A horizontal flip can also be referred to as "mirroring".
 
-#### From JPG
+- **Accepts:** valid values are `x`, `y` and `xy`
+- **Default:** 0
+- **Alias:** `fl`
+
+**Horizontal flip**
+
+`https://cdn.somedomain.tech/samples/dog.jpeg?flip=x`
+
+![Dog flipped on the X axis](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&flip=x "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+
+**Vertical flip**
+
+`https://cdn.somedomain.tech/samples/dog.jpeg?flip=y`
+
+![Dog flipped on the Y axis](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&flip=y "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+
+**Horizontal and vertical flip**
+
+`https://cdn.somedomain.tech/samples/dog.jpeg?flip=xy`
+
+![Dog flipped on both axes](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&flip=xy "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+
+### format: converting images
+
+- **Accepts:** valid values are `bmp`, `gif`, `jpg`, `png`
+- **Alias:** `fmt`
+
+#### from JPG
 
 **Original JPG Image**
 
-![Original JPG](/assets/cdn/dog-w600.jpeg)
+![Original JPG](https://cdn.somedomain.tech/samples/dog.jpeg?w=600)
 
 **JPG to PNG**
 
-`https://cdn.somedomain.tech/images/dog.jpg?format=png`
+`https://cdn.somedomain.tech/samples/dog.jpeg?format=png`
 
-![PNG](/assets/cdn/dog-w600.png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![PNG](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&format=png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 **JPG to GIF**
 
-`https://cdn.somedomain.tech/images/dog.jpg?format=gif`
+`https://cdn.somedomain.tech/samples/dog.jpeg?format=gif`
 
-![GIF](/assets/cdn/dog-w600.gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+![GIF](https://cdn.somedomain.tech/samples/dog.jpeg?w=600&format=gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
-#### From GIF
+#### from GIF
 
 **Original GIF Image**
 
@@ -689,7 +776,7 @@ http://cdn.somedomain.tech/images/beach.jpg?sharpen=25
 
 ![PNG](/assets/cdn/giphy.png)
 
-#### From PNG
+#### from PNG
 
 **Original PNG Image**
 
@@ -707,46 +794,175 @@ http://cdn.somedomain.tech/images/beach.jpg?sharpen=25
 
 ![GIF](/assets/cdn/landscape.gif)
 
-### Interpolation filter
-> Choose the interpolation method when resizing images
+### gravity: 
 
-> **URL parameter:** `filter`, `f`
+### height: set image height
 
-This parameter allows you to specify the interpolation method to use when resizing images. If not specified, the default is `lanczos`.
+The `height` parameter is used to specify the required height of the output image, in pixels.
 
-When reducing the size of an image (or downsampling), some image data is simply discarded. However when increasing image dimensions, the image is expanded and gaps must be "filled in". Each interpolation filter uses a different algorithm for determining how to fill the gaps.
+- **Default:** original height dimension
+- **Alias:** `h`
 
-Possible values:
- - `lanczos` (default)
- - `nearest-neighbor`
- - `linear`
- - `cubic`
- - `grid`
- - `moving-average`
+If only height is specified, the width dimension will be _set to the width of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
+
+If both width and height are omitted, the original image’s dimensions are used.
+
+> **Security Note:**
+> 
+> The maximum output image size can be specified in the configuration file.
+> 
+> The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
+>
+> You should set this to the maximum size required for images in your application.
+>
+> ```json
+> "security": {
+>  "maxWidth": 2048,
+>  "maxHeight": 1024
+>}
+>```
+> -- advice
+
+**Example**
+
+`https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&resize=aspectfit`
+
+| **h=400** | **h=400&resize=aspectfit** 
+|:--|:--
+| ![Height 400](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Height 400, Aspect Fit](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+
+### quality: image compression
+
+The `quality` parameter applies compression to an image, reducing it's file size.
+
+- **Accepts:** any number from 1-100
+- **Default:** 75
+- **Alias:** `q`
+
+The best results for quality and file size can be found around 40-60, where we've found generated images to be visually indistinguishable from the source image.
+
+**Examples**
+
+The original image and all quality variations below are 2048 × 1024 pixels.
+
+`https://cdn.somedomain.tech/samples/vegetables.jpg?q=50`
+
+**Original image, 4.7MB**
+
+![Original JPG](https://cdn.somedomain.tech/samples/vegetables.jpg)
+
+|   |   
+|:--|:--
+| ![Quality 100](https://cdn.somedomain.tech/samples/vegetables.jpg?q=100 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 100, 1.3MB** | ![Quality 75](https://cdn.somedomain.tech/samples/vegetables.jpg?q=75 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 75, 180kB**
+| ![Quality 50](https://cdn.somedomain.tech/samples/vegetables.jpg?q=50 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 50, 119kB** | ![Quality 25](https://cdn.somedomain.tech/samples/vegetables.jpg?q=25 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 25, 82kB**
+
+### ratio: resize to aspect ratio
+
+Use the `ratio` parameter in combination with width (`w`) or height (`h`) to crop the image to the specified aspect ratio. [Resize styles](/#cdn/x) are respected.
+
+```
+https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9
+```
+
+### rotate: rotating an image
+
+The `rotate` parameter rotates the image according to the value specified in degrees. The image will be zoomed so that it covers the entire area after rotation.
+
+- **Accepts:** any number from 0-359
+- **Default:** 0
+
+### saturate: adjust image saturation
+
+The `saturate` parameter increases or reduces an image's colour saturation and can be used to convert it to black and white.
+
+- **Accepts:** any number from -1-10
+- **Default:** 0
+- **Alias:** `sat`
+
+
+To desaturate (convert to black and white), use `-1`.
+
+```http
+https://cdn.somedomain.tech/samples/beach.jpeg?saturate=2
+```
+
+**Default amount = 0.1**
+
+![Saturate 0.1](https://cdn.somedomain.tech/samples/beach.jpeg?sat=0.1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+**Saturate amount = -1**
+
+![Saturate -1](https://cdn.somedomain.tech/samples/beach.jpeg?sat=-1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+**Saturate amount = 0.5**
+
+![Saturate 0.5](https://cdn.somedomain.tech/samples/beach.jpeg?sat=0.5 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+**Saturate amount = 1**
+
+![Saturate 1](https://cdn.somedomain.tech/samples/beach.jpeg?sat=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+### sharpen: sharpen an image
+
+The `sharpen` parameter adds sharpness to an image.
+
+- **Accepts:** any number from 0-100
+- **Default:** 5
+- **Alias:** `sh`
 
 **Example**
 
 ```http
-https://cdn.somedomain.tech/images/dog.jpg?width=600&height=400&resize=aspectfill&filter=linear
+https://cdn.somedomain.tech/samples/beach.jpeg?sharpen=10
 ```
 
-## Filters
+**Default amount = 5**
 
-### nearest-neighbor
+![Sharpen 5](https://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=5 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
-The simplest approach to interpolation. Rather than calculating an average value by some weighting criteria or generating an intermediate value based on complicated rules, this method simply determines the "nearest" neighbouring pixel, and assumes the intensity value of it.
+**Sharpen amount = 20**
 
-### linear
+![Sharpen 20](https://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=10 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
-Considers the closest two pixels and takes a weighted average to arrive at its final interpolated value. Results in a much smoother image than `nearest-neighbor`.
+**Sharpen amount = 80**
 
-### cubic
+![Sharpen 80](https://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=80 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
-Images resampled with cubic interpolation are smoother and have fewer interpolation artifacts, but processing is slower than with `linear` or `nearest-neighbor`.
+### width: set image width
 
-### lanczos
+The `width` parameter is used to specify the required width of the output image, in pixels.
 
-Tends to reduce aliasing artifacts and preserve sharp edges. [It has been considered the "best compromise"](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.116.7898) among several simple filters for this purpose.
+- **Default:** original width dimension
+- **Alias:** `w`
+
+If only width is specified, the height dimension will be _set to the height of the original image_. If you'd like to ensure the output image retains the aspect ratio of the original image, please ensure `resize=aspectfit` is specified.
+
+If both width and height are omitted, the original image’s dimensions are used.
+
+> **Security Note:**
+> 
+> The maximum output image size can be specified in the configuration file.
+> 
+> The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
+>
+> You should set this to the maximum size required for images in your application.
+>
+> ```json
+> "security": {
+>  "maxWidth": 2048,
+>  "maxHeight": 1024
+>}
+>```
+> -- advice
+
+**Example**
+
+`https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resize=aspectfit`
+
+| **w=400** | **w=400&resize=aspectfit** 
+|:--|:--
+| ![Width 400](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Width 400, Aspect Fit](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
+
 
 ## Layout Processor
 > Combining images with the layout processor
@@ -768,7 +984,7 @@ The following request contains the following:
 * Output: an image 600 pixels wide by 300 pixels high, in JPEG format
 
 ```
-http://cdn.somedomain.tech/layout/i:test.jpg,
+https://cdn.somedomain.tech/layout/i:test.jpg,
   h_300,w_200,x_0,y_0 |
   c:01ee88,h_300,w_200,x_200,y_0 |
   i:original.jpeg,h_300,w_200,x_400,y_0 |
@@ -849,7 +1065,7 @@ The above should result in a response similar to this:
 The URL is https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D
 ```
 
-### Controlling `Expires` time
+### Controlling Expiry Time
 
 The default `Expires` time is 15 minutes. This can be modified by passing a value in the
 params that are passed to the `getSignedUrl` method. The following example will cause the
@@ -865,7 +1081,7 @@ var params = {
 
 ### Accessing via CDN
 
-http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D
+https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D
 
 ### Adding image manipulation parameters
 
@@ -878,28 +1094,27 @@ The following example uses the above URL, adding `width` and `height` parameters
 
 >...W6blQuGQ%3D**&?**width=300&height=300
 
-http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D&?width=300&height=300
+https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D&?width=300&height=300
 
 ### Expired URLs
 
 If a pre-signed URL has already expired at the time of the request, a HTTP 403 Forbidden error will be returned:
 
 ```json
-{"statusCode":"403","message":"Forbidden: http://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D"}
+{"statusCode":"403","message":"Forbidden: https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D"}
 ```
 
 ## Delivery Recipes
-> Create a "recipe" of image manipulation parameters to apply to images at runtime
 
 A Delivery Recipe is a predefined set of image manipulation parameters stored in a JSON file and applied to images at the time of request.
 
-Let's use the image from our magazine example.
+Let's use the image from our magazine example:
 
 `https://cdn.somedomain.tech/thumbnail/images/man-walking-on-beach.jpg`
 
-`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?width=100&height=100&resizeStyle=entropy`
+`https://cdn.somedomain.tech/samples/beach.jpeg?width=100&height=100&resizeStyle=entropy`
 
-![Thumbnail image, 100 × 100 px, 9kB](/assets/cdn/thumbnail-100x100.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Thumbnail image, 100 × 100 px, 9kB](https://cdn.somedomain.tech/samples/beach.jpeg?width=100&height=100&resizeStyle=entropy "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 Recipes are defined in JSON files held in the `/workspace/recipes` folder.
 
@@ -924,11 +1139,11 @@ Making use of a recipe is simple: call your image via the recipe name defined in
 
 For example:
 
-`http://cdn.somedomain.tech/thumbnail/image-filename.png`
+`https://cdn.somedomain.tech/thumbnail/image-filename.png`
 
 ## Delivery Routes
-> Let CDN choose the recipe based on device, network, location or language
 
+Delivery Routes allow you to let CDN choose the appropriate recipe based on device, network, location or language.
 
 Routes allow CDN to make a decision about which [Delivery Recipe](/cdn/concepts/recipes/) to use for the current request, based on a set of configurable conditions.
 
@@ -947,7 +1162,7 @@ Send a `POST` request to the routes endpoint with the request body containing th
 **An example using cURL**
 
 ```
-curl -i -H "Content-Type: application/json" -X POST "http://cdn.somedomain.tech/api/routes" -d '{
+curl -i -H "Content-Type: application/json" -X POST "https://cdn.somedomain.tech/api/routes" -d '{
   "route": "example-route",
   "branches": [
     {
@@ -1208,29 +1423,17 @@ Caching is automatically enabled for routes. Depending on what's defined in the 
       "condition": {
         "device": "desktop",
         "language": "en",
-        "country": [
-          "GB",
-          "US"
-        ],
+        "country": ["GB", "US"],
         "network": "cable"
       }
     },
     {
       "recipe": "thumbnail-lo-res",
       "condition": {
-        "device": [
-          "mobile",
-          "tablet"
-        ],
-        "language": [
-          "en",
-          "pt"
-        ],
+        "device": ["mobile", "tablet"],
+        "language": ["en", "pt"],
         "country": "GB",
-        "network": [
-          "cable",
-          "dsl"
-        ]
+        "network": ["cable", "dsl"]
       }
     },
     {
@@ -1253,34 +1456,16 @@ http://cdn.yourdomain.com/disk/test.jpg?format=json
 Response JSON:
 
 ```json
-"primaryColor": "#434234",
+{
+  "primaryColor": "#434234",
   "palette": {
     "rgb": [
-      [
-        237,
-        231,
-        224
-      ], [
-        67,
-        66,
-        52
-      ], [
-        148,
-        142,
-        83
-      ], [
-        147,
-        95,
-        81
-      ], [
-        150,
-        150,
-        138
-      ], [
-        88,
-        201,
-        232
-      ]
+      [237, 231, 224],
+      [67, 66, 52],
+      [148, 142,83],
+      [147, 95, 81],
+      [150, 150,138],
+      [88, 201, 232]
     ],
     "hex": [
       "#ede7e0",
@@ -1290,7 +1475,8 @@ Response JSON:
       "#96968a",
       "#58c9e8"
     ]
-  },
+  }
+ }
  ```
 
 ![input image](/assets/cdn/palette-source.jpg)
@@ -1304,544 +1490,5 @@ When dealing with mulitiple device pixel ratios, you can 'multiply' the outputte
 For example a `100px x 100px` image with the variable `devicePixelRatio=2` will return an image of `200px x 200px` in size. You can then scale down the image in your front-end output e.g.,
 
 ```html
-<img src="https://cdn.somedomain.tech/images/dog.jpg?w=200&height=200&devicePixelRatio=2" width="100">
+<img src="https://cdn.somedomain.tech/samples/dog.jpeg?w=200&height=200&devicePixelRatio=2" width="100">
 ```
-
-## Serving Images and Assets
-
-With your [sources](/cdn/getting-started/defining-sources/) configured so that CDN knows where to find them, you can start sending requests for your assets and images.
-
-CDN currently responds to two types of URL scheme. One, the Path URL scheme, is a legacy format and exists for backwards compatibility with early-adoption client applications. The other, the Querystring URL scheme, is succinct, flexible and robust.
-
-> The Querystring URL scheme is the preferred format and is where future development efforts will be focused. In the event that new image manipulation parameters are added to CDN, the Querystring URL scheme will be the only format that supports them.  
-
-### The URL schemes
-
-While the Querystring URL scheme is preferred for new applications, both are documented here. If you don't need details about the Path URL scheme, [jump right to the Querystring URL scheme](#querystring-url-scheme).
-
-> For a complete guide to the image and asset manipulation parameters, see the [URL API Guide](x).
-
-
-#### Path URL scheme
-
-Version 1.0.0-Beta of CDN used the URL path for specifying parameters. In this scheme, there are 17 parameters that can be used to manipulate images and 1 parameter for assets.
-
-**Serving Images via the Path URL**
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDNa domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>jpg</code>
-    <span class="definition">format</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>80</code>
-    <span class="definition">quality</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>0</code>
-    <span class="definition">trim</span>
-  </span>
-  <code>/</code>
-  <span class="callout stagger">
-    <code>0</code>
-    <span class="definition">trimFuzz</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>640</code>
-    <span class="definition">width</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>480</code>
-    <span class="definition">height</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>10</code>
-    <span class="definition">crop-x</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>10</code>
-    <span class="definition">crop-y</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>16-9</code>
-    <span class="definition">ratio</span>
-  </span>
-  <code>/</code>
-  <span class="callout stagger">
-    <code>1</code>
-    <span class="definition">devicePixelRatio</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>aspectfill</code>
-    <span class="definition">crop</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>[North](x)</code>
-    <span class="definition">gravity</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>lanczos</code>
-    <span class="definition">filter</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>3</code>
-    <span class="definition">blur</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>0</code>
-    <span class="definition">strip</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>45</code>
-    <span class="definition">rotate</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>x</code>
-    <span class="definition">flip</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>cars/aston-martin.jpg</code>
-    <span class="definition">path</span>
-  </span>
-</div>
-
-**Serving Assets via the Path URL**
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>css</code>
-    <span class="definition">format</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>0</code>
-    <span class="definition">compress</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>styles/main.css</code>
-    <span class="definition">path</span>
-  </span>
-</div>
-
-#### Querystring URL scheme
-
-Version 1.0.0 of CDN introduced this URL format for specifying parameters. You only need to supply the parameters you want to use, specifying as many or as few as you want.
-
-> **Note:** The differentiation between the Path and Querystring URL schemes is the inclusion of a querystring (i.e. everything following the `?` in the URL). If you need to serve an image in it's original, unmodified state, add a dummy querystring to the request to tell CDN you're using the Querystring URL scheme. For example: `https://cdn.somedomain.tech/cars/aston-martin.jpg?v2`
-
-**Serving Images via the Querystring URL**
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>cars/aston-martin.jpg</code>
-    <span class="definition">path</span>
-  </span>
-  <code>?</code>
-  <span class="callout">
-    <code>w=600&amp;h=400</code>
-    <span class="definition">querystring parameters</span>
-  </span>
-</div>
-
-**Serving Assets via the Querystring URL**
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>styles/main.css</code>
-    <span class="definition">path</span>
-  </span>
-  <code>?</code>
-  <span class="callout">
-    <code>compress=0</code>
-    <span class="definition">querystring parameters</span>
-  </span>
-</div>
-
-#### Locating Files
-
-There is one common piece to the URL schemes: the `path` segment that CDN uses to locate the file to be served. In the Path URL scheme it comes after all the parameters and in the Querystring URL scheme it's between the [dynamic source parameter](#dynamic-sources) (if used) and the querystring.
-
-Ignoring the parameters for a moment, the following sections explain how CDN locates your files for each source.
-
-##### Amazon S3 source
-
-When you connect CDN to an Amazon S3 source, the `path` in the URL is used to locate the file within the S3 bucket you specified in the configuration file.
-
-Depending on the region in your configuration, CDN might construct a URL similar to one the following:
-
-* region `us-east-1`: http://bucket.s3.amazonaws.com
-* any other region: http://bucket.s3-aws-region.amazonaws.com
-
-In the following example CDN will attempt to load the image from the `S3 URL` shown in the final column:
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>...</code>
-    <span class="definition">parameters omitted</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>cars/aston-martin.jpg</code>
-    <span class="definition">path</span>
-  </span>
-</div>
-
-|Bucket|Region|URL|S3 URL|
-|--|--|--|
-|`my-images`|`eu-west-1`|`cars/aston-martin.jpg`|`http://my-images.s3-eu-west-1.amazonaws.com/cars/aston-martin.jpg`|
-
-##### Remote Server source
-
-When you connect CDN to a Remote Server source, the `path` in the URL is added to the `path` you specified in the configuration file, resulting in a remote URL (which must be publicly accessible).
-
-In the following example CDN will attempt to load the image from the `Remote Location` shown in the final column:
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>...</code>
-    <span class="definition">parameters omitted</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>cars/aston-martin.jpg</code>
-    <span class="definition">path</span>
-  </span>
-</div>
-
-|Configuration|URL|Remote Location|
-|--|--|--|
-|`"path": "http://media.example.com/public/images"`|`cars/aston-martin.jpg`|`http://media.example.com/public/images/cars/aston-martin.jpg`|
-
-##### Local Filesystem source
-
-When you connect CDN to a Local Filesystem source, the `path` in the URL is relative to the `path` you specified in the configuration file.
-
-In the following example CDN will look in the `File Location` shown in the final column:
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>...</code>
-    <span class="definition">parameters omitted</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>cars/aston-martin.jpg</code>
-    <span class="definition">path</span>
-  </span>
-</div>
-
-|Configuration|URL|File Location|
-|--|--|--|
-|`"path": "/data/media/images"`|`cars/aston-martin.jpg`|`/data/media/images/cars/aston-martin.jpg`|
-
-
-### Dynamic Sources
-
-Adding a `source` parameter to the request URL allows you to specify which connected source CDN serves your asset or image from. This feature allows you to store assets and images in multiple places and serve them all from a single CDN installation.
-
-When you add a `source` parameter CDN reads the standard configuration block for that source, but ignores the `enabled` property. By specifying it in the URL you're essentially saying "it's enabled".
-
-> **Note:** Sources can only be specified in the URL if using the Querystring URL scheme. When using the Path URL scheme a single source can be configured for use at any one time.
-
-For each of the below source types, refer to the [Locating Files](#locating-files) section above to understand how CDN interprets the path to your files.
-
-#### Specifying an Amazon S3 source in the URL
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>s3</code>
-    <span class="definition">source</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>images</code>
-    <span class="definition">bucket</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>cars/aston-martin.jpg</code>
-    <span class="definition">path</span>
-  </span>
-  <code>?</code>
-  <span class="callout">
-    <code>width=600&amp;height=400</code>
-    <span class="definition">querystring</span>
-  </span>
-</div>
-
-#### Specifying a Remote Server source in the URL
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>http</code>
-    <span class="definition">source</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>cars/aston-martin.jpg</code>
-    <span class="definition">path</span>
-  </span>
-  <code>?</code>
-  <span class="callout">
-    <code>width=600&amp;height=400</code>
-    <span class="definition">querystring</span>
-  </span>
-</div>
-
-#### Specifying a Local Filesystem source in the URL
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>disk</code>
-    <span class="definition">source</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>cars/aston-martin.jpg</code>
-    <span class="definition">path</span>
-  </span>
-  <code>?</code>
-  <span class="callout">
-    <code>width=600&amp;height=400</code>
-    <span class="definition">querystring</span>
-  </span>
-</div>
-
-### Serving Assets
-
-#### CSS
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>css</code>
-    <span class="definition">format</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>0</code>
-    <span class="definition">compress</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>styles/main.css</code>
-    <span class="definition">path</span>
-  </span>
-</div>
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>styles/main.css</code>
-    <span class="definition">path</span>
-  </span>
-  <code>?</code>
-  <span class="callout">
-    <code>compress=0</code>
-    <span class="definition">querystring</span>
-  </span>
-</div>
-
-#### Javascript
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>js</code>
-    <span class="definition">format</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>0</code>
-    <span class="definition">compress</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>js/main.js</code>
-    <span class="definition">path</span>
-  </span>
-</div>
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>js/main.js</code>
-    <span class="definition">path</span>
-  </span>
-  <code>?</code>
-  <span class="callout">
-    <code>compress=0</code>
-    <span class="definition">querystring</span>
-  </span>
-</div>
-
-#### Fonts
-
-<div class="code-callout">
-  <code>https://</code>
-  <span class="callout">
-    <code>cdn.somedomain.tech</code>
-    <span class="definition">CDN domain</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>fonts</code>
-    <span class="definition">format</span>
-  </span>
-  <code>/</code>
-  <span class="callout">
-    <code>site/museo-sans.ttf</code>
-    <span class="definition">path</span>
-  </span>
-</div>
-
-## Applying Parameters to Images
-
-Now that you have your [sources](x) configured and have decided on the URL scheme you're going to use, you can start applying parameters to manipulate your images.
-
-We’ll show a basic example, then it's over to you to experiment with the parameters to match your requirements. For a full list of available parameters, see the [URL API Guide](x).
-
-### Basic Parameter Example
-
-For this example we're going to imagine you have a magazine-style website with a list of articles on the homepage and an article page. We'll start with the following image, which your editor wants to use as the main article image.
-
-`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg`
-
-**Original image, 5616 × 3744 px, 4MB**
-
-![Original image, 5616 × 3744 px, 4MB](/assets/cdn/original.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-This is a large image, and it's not going to fit easily into the two spaces we have available for it. Unfortunately, no one in the department knows how to use Adobe Photoshop to make appropriately sized images. Fortunately, CDN can handle this task for you.
-
-#### Resizing and Cropping
-
-On the article page, let’s assume your main image spot is a 500×300 pixel container. It's an odd size, but illustrates this concept well. To fit the base image into that container, we’ll need to change the dimensions and crop some data from the top and bottom.
-
-To adjust the image we need to specify the new width and height, as well as tell CDN how we want to crop the image.
-
-`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?w=500&h=300&crop=entropy`
-
-* `width=500&height=300`: Sets the width and height to fit the container.
-
-* `crop=entropy`: Tells CDN how to determine the crop area. `entropy` is a smart cropping feature that adjusts the crop area to ensure the important part of your image is retained. It uses areas of high contrast to set the crop area.
-
-**Resized image, 500 × 300 px, 98kB**
-
-![Resized image, 500 × 300 px, 98kB](/assets/cdn/entropy-500x300.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-Now, on the homepage page, let’s assume each feature article has an image container that is 200×200 pixels. With the main subject of the image so close to the right, we'll once again need to tell CDN how we want the image cropped.
-
-`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?w=200&h=200&crop=entropy`
-
-**Resized image, 200 × 200 px, 29kB**
-
-![Resized image, 200 × 200 px, 29kB](/assets/cdn/entropy-200x200.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-If we don't specify `entropy` as the `crop` parameter, CDN defaults to using `aspectfill` and our image would look a little different, with the main subject almost excluded from the image.
-
-`https://cdn.somedomain.tech/images/man-walking-on-beach.jpg?w=200&h=200`
-
-![Aspectfill, 200 × 200 px, 29kB](/assets/cdn/aspectfill-200x200.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-## Next Steps
-
-Resizing and cropping are just the beginning. CDN helps you to serve assets and images to your customers easier and faster, giving you complete control over how they are served.
-cdn.somedomain.tech
-* API URL Guide
-* Recipes - Setting default parameters
-* Tutorials
