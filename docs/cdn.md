@@ -875,32 +875,25 @@ The `rotate` parameter rotates the image according to the value specified in deg
 
 The `saturate` parameter increases or reduces an image's colour saturation and can be used to convert it to black and white.
 
-- **Accepts:** any number from -1-10
-- **Default:** 0
+- **Accepts:** 0 or 1
+- **Default:** none
 - **Alias:** `sat`
 
 
-To desaturate (convert to black and white), use `-1`.
+To desaturate (convert to black and white), use `0` or any number below 0.
 
 ```http
-https://cdn.somedomain.tech/samples/beach.jpeg?saturate=2
+https://cdn.somedomain.tech/samples/beach.jpeg?saturate=0
 ```
 
-**Default amount = 0.1**
+**Saturate amount = 0 (B&W)**
 
-![Saturate 0.1](https://cdn.somedomain.tech/samples/beach.jpeg?sat=0.1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Saturate amount = -1**
-
-![Saturate -1](https://cdn.somedomain.tech/samples/beach.jpeg?sat=-1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Saturate amount = 0.5**
-
-![Saturate 0.5](https://cdn.somedomain.tech/samples/beach.jpeg?sat=0.5 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Saturate 0](https://cdn.somedomain.tech/samples/beach.jpeg?sat=0 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Saturate amount = 1**
 
 ![Saturate 1](https://cdn.somedomain.tech/samples/beach.jpeg?sat=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
 
 ### sharpen: sharpen an image
 
