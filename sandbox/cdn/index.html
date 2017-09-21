@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DADI CDN example</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="/sandbox/cdn/main.css">
+  <link rel="stylesheet" type="text/css" href="/sandbox/cdn/selectize.default.css">
+</head>
+<body>
+
+<div class="settings">
+  <h1><img src="/sandbox/cdn/cdn.png" width="140"> <span>The Sandbox</span></h1>
+
+  <ul class="settings__list">
+    <li><strong style="color:#ECB344">Domain</strong> <span class="truncate" id="imgDomain">somedomain.tech</span></li>
+    <li><strong style="color:#C969F5">Source</strong> <span class="truncate" id="imgSrc"">images</span></li>
+    <li><strong style="color:#FF5252">File</strong> <span class="truncate" id="imgFile">test.jpg</span></li>
+
+    <li id="addprop" class="hide">
+      <span class="js-killprop">𝖷</span>
+
+      <div class="prop-select">
+        <select class="theKey">
+          <optgroup label="Resizing">
+            <option value="width">Width</option>
+            <option value="height">Height</option>
+            <option value="ratio">Aspect ratio</option>
+            <option value="resizeStyle">Resize style</option>
+            <option value="gravity">Gravity</option>
+          </optgroup>
+          <optgroup label="Transform">
+            <option value="flip">Flip</option>
+            <option value="rotate">Rotate</option>
+          </optgroup>
+          <optgroup label="Style">
+            <option value="blur">Blur</option>
+            <option value="saturate">Saturation</option>
+            <option value="sharpen">Sharpen</option>
+            <option value="filter">Interpolation</option>
+          </optgroup>
+          <optgroup label="Formatting">
+            <option value="quality">Quality</option>
+            <option value="format">Format</option>
+          </optgroup>
+        </select> 
+      </div>
+      
+      <div data-type="width" class="hide prop-type">
+        <input class="prop-input theValue" type="number" min="1" placeholder="value">
+      </div>
+
+      <div data-type="height" class="hide prop-type">
+        <input class="prop-input theValue" type="number" min="1" placeholder="value">
+      </div>
+
+      <div data-type="ratio" class="hide prop-type">
+        <input class="prop-input theValue" type="text" placeholder="1-1">
+      </div>
+
+      <div data-type="resizeStyle" class="hide prop-type">
+        <select class="theValue">
+          <option value="aspectfit">aspectfit</option>
+          <option value="aspectfill">aspectfill</option>
+          <option value="fill">fill</option>
+          <option value="entropy">entropy</option>
+        </select>
+      </div>
+
+      <div data-type="gravity" class="hide prop-type">
+        <select class="theValue">
+          <option value="northWest">North West</option>
+          <option value="north">North</option>
+          <option value="northeast">North East</option>
+          <option value="west">West</option>
+          <option value="center">Center</option>
+          <option value="east">East</option>
+          <option value="southwest">South West</option>
+          <option value="south">South</option>
+          <option value="southeast">South East</option>
+          <option value="none">None</option>
+        </select>
+      </div>
+
+      <div data-type="format" class="hide prop-type">
+        <select class="theValue">
+          <option value="png">PNG</option>
+          <option value="jpg">JPG</option>
+        </select>
+      </div>
+
+       <div data-type="flip" class="hide prop-type">
+        <select class="theValue">
+          <option value="x">Horizontal</option>
+          <option value="y">Vertical</option>
+          <option value="xy">Both</option>
+        </select>
+      </div>
+
+      <div data-type="blur" class="hide prop-type">
+        <input class="prop-input theValue" type="number" min="0" max="100" placeholder="0">
+      </div>
+
+      <div data-type="saturate" class="hide prop-type">
+        <input class="prop-input theValue" type="number" step="0.1" min="0" max="1" placeholder="0">
+      </div>
+
+      <div data-type="sharpen" class="hide prop-type">
+        <input class="prop-input theValue" type="number" min="0" max="100" placeholder="0">
+      </div>
+
+      <div data-type="quality" class="hide prop-type">
+        <input class="prop-input theValue" type="number" min="1" max="100" placeholder="0">
+      </div>
+
+      <div data-type="rotate" class="hide prop-type">
+        <input class="prop-input theValue" type="number" min="0" max="359" placeholder="0"> °
+      </div>
+
+       <div data-type="filter" class="hide prop-type">
+        <select class="theValue">
+          <option value="lanczos">lanczos (default)</option>
+          <option value="nearest-neighbor">nearest-neighbor</option>
+          <option value="linear">linear</option>
+          <option value="cubic">cubic</option>
+          <option value="grid">grid</option>
+          <option value="moving-average">moving-average</option>
+        </select>
+      </div>
+    </li>
+  </ul>
+  <a href="#" class="btn js-addprop">Add new property</a>
+  <a href="#" class="btn js-update">Update image</a>
+
+  <div class="sources">
+    <ul class="cf">
+      <li><a class="js-switchsource active" href="#sample">Samples</a></li>
+      <li><a class="js-switchsource" href="#upload">Upload</a></li>
+      <li><a class="js-switchsource" href="#external">External</a></li>
+    </ul>
+
+    <div class="source" id="sample">
+      <a class="js-loadimage" href="https://cdn.somedomain.tech/samples/mountain.png?width=700&ratio=16-9&resizeStyle=aspectfill&saturate=-0.8"><img src="https://cdn.somedomain.tech/samples/mountain.png?width=50&ratio=1-1&resizeStyle=aspectfill&devicePixelRatio=2&gravity=center" width="50"></a>
+      <a class="js-loadimage" href="https://cdn.somedomain.tech/samples/moose.jpg?width=700&resizeStyle=aspectfit"><img src="https://cdn.somedomain.tech/samples/moose.jpg?width=50&ratio=1-1&resizeStyle=aspectfill&devicePixelRatio=2&gravity=center" width="50"></a>
+      <a class="js-loadimage" href="https://cdn.somedomain.tech/samples/wave.png?width=700&resizeStyle=aspectfill&sharpen=100&saturate=10&ratio=4-3"><img src="https://cdn.somedomain.tech/samples/wave.png?width=50&ratio=1-1&resizeStyle=aspectfill&devicePixelRatio=2&gravity=center" width="50"></a>
+      <a class="js-loadimage" href="https://cdn.somedomain.tech/samples/the_shining.png?width=700&resizeStyle=aspectfit&quality=4&format=jpg&saturate=-1"><img src="https://cdn.somedomain.tech/samples/the_shining.png?width=50&ratio=1-1&resizeStyle=aspectfill&devicePixelRatio=2&gravity=center" width="50"></a>
+      <a class="js-loadimage" href="https://cdn.somedomain.tech/samples/girl.jpg?width=500&resizeStyle=entropy&flip=x&ratio=1-1"><img src="https://cdn.somedomain.tech/samples/girl.jpg?width=50&ratio=1-1&resizeStyle=aspectfill&devicePixelRatio=2&gravity=center" width="50"></a>
+    </div>
+    <div class="source hide" style="color:#aaa" id="upload">
+      <!-- <form method="post" action="">
+        <input type="file" name="upload">
+        <input type="submit" value="Upload">
+      </form> -->
+      Coming soon
+    </div>
+    <div class="source hide" style="color:#aaa" id="external">
+      <!-- <form method="post" action="">
+        <input type="text" name="image">
+        <input type="submit" value="Fetch">
+      </form> -->
+      Coming soon
+    </div>
+  </div>
+</div>
+
+<div class="page cf">
+  <div class="image">
+    <img src="https://cdn.somedomain.tech/samples/mountain.png?width=700&ratio=16-9&resizeStyle=aspectfill&saturate=-0.8">
+
+    <div class="url"></div>
+
+    <div class="spinner hide">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="/sandbox/cdn/jquery.min.js"></script>
+<script type="text/javascript" src="/sandbox/cdn/selectize.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.18.4/URI.min.js"></script>
+<script type="text/javascript" src="/sandbox/cdn/main.js"></script>
+</body>
+</html>

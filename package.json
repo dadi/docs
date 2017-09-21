@@ -3,20 +3,6 @@
   "version": "2.0.0",
   "description": "Documentation for DADI microservices & tools",
   "main": "index.js",
-  "scripts": {
-    "watch": "watch 'npm run build:css' workspace/frontend/sass/ -d -u && watch 'npm run build:js' workspace/frontend/src/ -d -u",
-    "prebuild": "mkdir -p workspace/public/assets/css workspace/public/assets/js",
-    "build": "npm run build:css && npm run build:js",
-    "build:css": "node-sass workspace/frontend/sass/main.scss workspace/public/assets/css/main.css --source-map true",
-    "postbuild:css": "postcss --use postcss-import --use autoprefixer --autoprefixer.browsers '> 1%' workspace/public/assets/css/*.css --replace --map && npm run mincss",
-    "mincss": "cleancss -o workspace/public/assets/css/main.min.css workspace/public/assets/css/main.css --source-map && npm run notify:css",
-    "prebuild:js": "npm run lint",
-    "lint": "jshint workspace/frontend/src/**.js",
-    "build:js": "browserify workspace/frontend/src/**.js --debug | exorcist workspace/public/assets/js/main.js.map > workspace/public/assets/js/main.js",
-    "postbuild:js": "uglifyjs workspace/public/assets/js/main.js -o workspace/public/assets/js/main.min.js && npm run notify:js",
-    "notify:css": "notify -t 'CSS' -m '🎉 Compiled & minified'",
-    "notify:js": "notify -t 'JS' -m '🎉 Compiled & minified'"
-  },
   "dependencies": {
     "@dadi/web": "4.x.x",
     "accept-language-parser": "^1.4.0",
