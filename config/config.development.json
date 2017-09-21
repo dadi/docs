@@ -14,5 +14,9 @@
     "redis": {
       "enabled": false
     }
-  }
+  },
+  "virtualDirectories": [{
+    "path": "sandbox",
+    "index": "index.html"
+  }]
 }
