@@ -2,32 +2,22 @@
   "name": "dadi-docs",
   "version": "2.0.0",
   "description": "Documentation for DADI microservices & tools",
-  "main": "index.js",
   "dependencies": {
     "@dadi/web": "4.x.x",
-    "accept-language-parser": "^1.4.0",
-    "autoprefixer": "^6.5.0",
-    "browserify": "^13.1.0",
-    "browserify-replace": "^0.9.0",
     "cheerio": "^1.0.0-rc.2",
-    "clean-css": "^3.4.20",
-    "domready": "^1.0.8",
     "dustjs-linkedin": "^2.7.5",
-    "exorcist": "^0.4.0",
-    "group-array": "^0.3.3",
     "highlight.js": "^9.12.0",
-    "jshint": "^2.9.3",
-    "lodash": "^4.17.4",
     "markdown-toc": "^1.1.0",
-    "marked": "^0.3.6",
-    "node-notifier": "^4.6.1",
-    "node-sass": "^3.10.1",
-    "normalize.css": "^4.2.0",
-    "postcss-cli": "^2.6.0",
-    "postcss-import": "^8.1.2",
-    "uglify-js": "^2.7.3",
-    "watch": "^1.0.2"
+    "marked": "^0.3.6"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dadi/docs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dadi/docs/issues"
+  },
+  "homepage": "https://github.com/dadi/docs",
   "author": "DADI (dadi.tech)",
   "license": "ISC"
 }
