@@ -199,6 +199,8 @@ If a large number of menu entries becomes difficult to read, or two connected AP
   }
 ]
 ```
+### Hidden fields
+### Hidden collections
 
 ## Extendibility
 ### Theming
