@@ -655,6 +655,162 @@ If we don't specify `entropy` as the `resize` parameter, CDN defaults to using `
 
 ## Resizing Images
 
+### Resizing images
+
+Images can be easily resized using DADI CDN. Use the `resize` parameter with `width` and `height` to resize images, or specify `crop` along with crop coordinates for full control over the portion of the original image that is retained.
+
+There are several ways to resize an image, the simplest of which is to specify the dimensions of the output images. Use `width` and `height` parameters to specify the final dimensions of the output image.
+
+#### Using the width parameter
+
+The `width` parameter (also `w`) specifies the width of the required output image in pixels. If only `width` is specified, the height dimension will be _set to the height of the original image_. If both width and height are omitted, the original image’s dimensions are used.
+
+> **Security Note:**
+> 
+> The maximum output image size can be specified in the configuration file.
+> 
+> The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
+>
+> You should set this to the maximum size required for images in your application.
+>
+> ```json
+> "security": {
+>  "maxWidth": 2048,
+>  "maxHeight": 1024
+>}
+>```
+> -- advice
+
+**Example**
+
+`https://cdn.somedomain.tech/samples/canoe.jpeg?w=400`
+
+To ensure the output image retains the aspect ratio of the original image, you can pass a `resizeStyle` parameter: `https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resizeStyle=aspectfit`.
+
+| **w=400** | **w=400&resize=aspectfit** 
+|:--|:--
+| ![Width 400](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Width 400, Aspect Fit](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
+ 
+#### Using the height parameter
+
+The `height` parameter (also `h`) specifies the height of the required output image in pixels. If only `height` is specified, the width dimension will be _set to the width of the original image_. If both width and height are omitted, the original image’s dimensions are used.
+
+> **Security Note:**
+> 
+> The maximum output image size can be specified in the configuration file.
+> 
+> The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
+>
+> You should set this to the maximum size required for images in your application.
+>
+> ```json
+> "security": {
+>  "maxWidth": 2048,
+>  "maxHeight": 1024
+>}
+>```
+> -- advice
+
+**Example**
+
+`https://cdn.somedomain.tech/samples/canoe.jpeg?h=400`
+
+To ensure the output image retains the aspect ratio of the original image, you can pass a `resizeStyle` parameter: `https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&resizeStyle=aspectfit`.
+
+| **h=400** | **h=400&resize=aspectfit** 
+|:--|:--
+| ![Height 400](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Height 400, Aspect Fit](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
+
+
+#### Maintaining aspect ratio
+
+Images can be resized to a specified aspect ratio by providing a width or height in combination with the `ratio` parameter. CDN will respect any [resizeStyle](#cdn/x) specified.
+
+```
+https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9
+```
+
+![Height 400, Aspect Ratio 16-9](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
+
+
+#### Specifying a resizeStyle
+
+The `resizeStyle` (also `resize`) parameter allows you to specify how CDN should fit your image into the specified dimensions.
+
+**aspectfill**
+
+Keeps the aspect ratio of the original image and generates an output image of the specified width and height. The output image may be cropped, however by specifying the `gravity` parameter you can tell CDN which part of the image should be retained.
+
+> The output image is 400 x 300 pixels.
+
+![](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=aspectfill "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+
+**aspectfit**
+
+Keeps the aspect ratio of the original image and generates an output image with the maximum dimensions that fit inside the specified width and height.
+
+> The output image is 400 x 267 pixels.
+
+![](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+
+**fill**
+
+Ignores the aspect ratio of the original image and generates an output image with specified width and height. The output image may appear squashed or stretched.
+
+> The output image is 400 x 300 pixels.
+
+![](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=fill "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+
+**entropy**
+
+Used in combination with width and height parameters, `entropy` crops the image using a technique that determines the most important areas. Areas of higher contrast are considered more important, and images are often cropped to remove large areas of static colour.
+
+`https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=entropy`
+
+| **Original image** | **Entropy crop**
+|:--|:--
+| ![](https://cdn.somedomain.tech/samples/med.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+ | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=entropy "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+
+**crop**
+
+| crop-x | Integer | Default: 0. X position of crop area |
+| crop-y | Integer | Default: 0. Y position of crop area |
+
+When `resize=crop` an additional `crop` parameter must be used to specify the coordinates of the crop rectangle. There are two ways to pass the crop rectangle coordinates:
+
+**Specify only the top left corner of the rectangle**
+
+`?resize=crop&crop=10,15`
+
+**Specify the top left corner and the bottom right corner of the rectangle**
+
+`?resize=crop&crop=10,15,200,300`
+
+
+
+
+
+##### gravity
+
+Used to position the crop area. Available options (case sensitive): `northwest`, `north`, `northeast`, `west`, `center`, `east`, `southWest`, `south`, `southeast`, `none`
+
+**Example**
+
+**Original image**
+
+![](https://cdn.somedomain.tech/samples/med.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+
+> In each example, the output image is 400 x 300 pixels.
+
+`https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=North`
+`https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=Center`
+`https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=South`
+
+| x | x | x
+|:--|:--|:--
+| ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=North "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=North** | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=Center "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=Center** | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=South "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=South**
+
 ## Cropping Images
 
 
