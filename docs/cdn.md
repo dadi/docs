@@ -959,9 +959,8 @@ If both width and height are omitted, the original image’s dimensions are used
 
 
 ## Layout Processor
-> Combining images with the layout processor
 
-The layout processor provides a way to generate a new image by combining existing images accessible by CDN.
+The layout processor provides a way to generate a new image by combining colour tiles with existing images accessible by CDN.
 
 A request to CDN specifying the processor name of "layout" and including a set of input images (or colour tiles) along with a size and position for each, will result in a new image being rendered as the response.
 
@@ -972,20 +971,16 @@ Each part of the request must be separated by a pipe character: `|`
 The following request contains the following:
 
 * Inputs:
-  * the image `test.jpg`, resized to 200 pixels wide by 300 pixels high, positioned at 0,0 in the output image
+  * the image `samples/dog.jpeg`, resized to 200 pixels wide by 300 pixels high, positioned at 0,0 in the output image
   * a tile with the colour `#01EE88`, 200 pixels wide by 300 pixels high, positioned at 0,200 in the output image
-  * the image `original.jpeg`, resized to 200 pixels wide by 300 pixels high, positioned at 0,400 in the output image
+  * the image `samples/canoe.jpeg`, resized to 200 pixels wide by 300 pixels high, positioned at 0,400 in the output image
 * Output: an image 600 pixels wide by 300 pixels high, in JPEG format
 
 ```
-https://cdn.somedomain.tech/layout/i:test.jpg,
-  h_300,w_200,x_0,y_0 |
-  c:01ee88,h_300,w_200,x_200,y_0 |
-  i:original.jpeg,h_300,w_200,x_400,y_0 |
-  o:output.jpg,h_300,w_600
+https://cdn.somedomain.tech/layout/i:samples/dog.jpeg,h_300,w_200,x_0,y_0%7Cc:01ee88,h_300,w_200,x_200,y_0%7Ci:samples/canoe.jpeg,h_300,w_200,x_400,y_0%7Co:output.jpg,h_300,w_600
 ```
 
-![Output image](/assets/cdn/layout-output.jpg)
+![Output image](https://cdn.somedomain.tech/layout/i:samples/dog.jpeg,h_300,w_200,x_0,y_0%7Cc:01ee88,h_300,w_200,x_200,y_0%7Ci:samples/canoe.jpeg,h_300,w_200,x_400,y_0%7Co:output.jpg,h_300,w_600)
 
 ### Input Images
 
@@ -1015,7 +1010,7 @@ A colour tile can be used as an input image by using the format `c:COLOUR,h_HEIG
 
 The format and dimensions of the output image are controlled using the output image portion of the request, using the format `o:IMAGE_URL,h_HEIGHT,w_WIDTH`
 
-* `IMAGE_URL`: an image name and extension - used to determine the output format. For example `test.jpg` will return an image encoded as JPEG.
+* `IMAGE_URL`: an image name and extension - used to determine the output format. For example `output.jpg` will return an image encoded as JPEG.
 * `h_HEIGHT`: the desired height of the output image, in pixels
 * `w_WIDTH`:  the desired width of the output image, in pixels
 
@@ -1023,10 +1018,9 @@ The format and dimensions of the output image are controlled using the output im
 
 
 ## Pre-signed URLs
-> Allow access to private S3 objects
+> Allow access to 
 
-A pre-signed URL allows you to give one-off access to users who may not have direct access to the file.
-Pre-signing generates a valid URL signed with your credentials that any user can access.
+A pre-signed URL allows you to give one-off access to private S3 objects, useful for when users may not have direct access to the file. Pre-signing generates a valid URL signed with your S3 credentials that any user can access.
 
 ### Generating a pre-signed URL
 
@@ -1075,7 +1069,9 @@ var params = {
 
 ### Accessing via CDN
 
+```
 https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D
+```
 
 ### Adding image manipulation parameters
 
@@ -1085,10 +1081,13 @@ add CDN image manipulation parameters to an external URL, they must be added to 
 The following example uses the above URL, adding `width` and `height` parameters.
 
 > Notice that we've added the parameters as part of the existing querystring by including an ampersand before the CDN querystring begins:
-
+>
 >...W6blQuGQ%3D**&?**width=300&height=300
+> -- advice
 
+```
 https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D&?width=300&height=300
+```
 
 ### Expired URLs
 
