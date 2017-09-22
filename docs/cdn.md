@@ -766,8 +766,7 @@ Used in combination with width and height parameters, `entropy` crops the image 
 
 | **Original image** | **Entropy crop**
 |:--|:--
-| ![](https://cdn.somedomain.tech/samples/med.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
- | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=entropy "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+| ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300 "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=entropy "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
 #### crop
 
