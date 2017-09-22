@@ -138,7 +138,7 @@ The minimal `config.development.json` file looks like this:
       "level": "info",
       "path": "./log",
       "filename": "dadi-web",
-      "extension": "log"
+      "extension": "log",
       "accessLog": {
         "enabled": true,
         "kinesisStream": "dadi_web_test_stream"
