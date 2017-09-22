@@ -38,6 +38,24 @@ $ npm install --save @dadi/publish
 
 ## Security
 ### SSL
+SSL is currently disabled by default. 
+
+Publish generates certificates automatically with [dadi/ssl](https://github.com/dadi/ssl), using [LetsEncrypt](https://letsencrypt.org/), the non-profit _free_ certificate authority. Certificates are renewed two days before expiry and do not require an app relaunch. To handle inbound challenge requests from the certificate authority, Publish opens port 80. All traffic other than requests from the CA are upgraded to 443.
+
+When SSL is enabled, the port defined in environment config is ignored in favour of port 443. LetsEncrypt requires an email address for renewal notifications.
+
+```json
+ "server": {
+    "host": "127.0.0.1",
+    "port": 80,
+    "ssl": {
+      "enabled": true,
+      "domains": ["somedomain.tech"],
+      "email": "publish@somedomain.tech"
+    }
+  }
+```
+
 ### Authentication
 ### Storing user data
 
@@ -55,10 +73,13 @@ $ npm install --save @dadi/publish
 ## Performance
 
 ## Customisation
+### Tabs
+### Menu ordering
 
 ## Extendibility
 ### Theming
 ### Custom fields
 ### App extensions
 ### Build process
+
 
