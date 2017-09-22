@@ -83,11 +83,6 @@ Validation rules are taken directly from the `validation` block in the collectio
   "type": "String",
   "required": true,
   "label": "Title",
-  "comments": "The title of the entry",
-  "example": "War and Peace",
-  "message": "must not be blank",
-  "default": "Untitled"
-  "matchType": "exact",
   "validation": {
     "minLength": 4,
     "maxLength": 20,
