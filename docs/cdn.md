@@ -753,12 +753,6 @@ The `flip` parameter flips images horizontally, vertically or both. A horizontal
 
 ![PNG](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&format=png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
-**JPG to GIF**
-
-`https://cdn.somedomain.tech/samples/dog.jpeg?format=gif`
-
-![GIF](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&format=gif "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
 #### from GIF
 
 **Original GIF Image**
