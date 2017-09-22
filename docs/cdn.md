@@ -734,7 +734,7 @@ https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9
 
 The `resizeStyle` (also `resize`) parameter allows you to specify how CDN should fit your image into the specified dimensions.
 
-**aspectfill**
+#### aspectfill
 
 Keeps the aspect ratio of the original image and generates an output image of the specified width and height. The output image may be cropped, however by specifying the `gravity` parameter you can tell CDN which part of the image should be retained.
 
@@ -742,7 +742,7 @@ Keeps the aspect ratio of the original image and generates an output image of th
 
 ![](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=aspectfill "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
-**aspectfit**
+#### aspectfit
 
 Keeps the aspect ratio of the original image and generates an output image with the maximum dimensions that fit inside the specified width and height.
 
@@ -750,7 +750,7 @@ Keeps the aspect ratio of the original image and generates an output image with 
 
 ![](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
-**fill**
+#### fill
 
 Ignores the aspect ratio of the original image and generates an output image with specified width and height. The output image may appear squashed or stretched.
 
@@ -758,7 +758,7 @@ Ignores the aspect ratio of the original image and generates an output image wit
 
 ![](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=fill "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
-**entropy**
+#### entropy
 
 Used in combination with width and height parameters, `entropy` crops the image using a technique that determines the most important areas. Areas of higher contrast are considered more important, and images are often cropped to remove large areas of static colour.
 
@@ -769,7 +769,7 @@ Used in combination with width and height parameters, `entropy` crops the image 
 | ![](https://cdn.somedomain.tech/samples/med.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
  | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=entropy "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
-**crop**
+#### crop
 
 | crop-x | Integer | Default: 0. X position of crop area |
 | crop-y | Integer | Default: 0. Y position of crop area |
@@ -784,7 +784,7 @@ When `resize=crop` an additional `crop` parameter must be used to specify the co
 
 `?resize=crop&crop=10,15,200,300`
 
-### gravity
+#### gravity
 
 Used to position the crop area. Available options (case sensitive): `northwest`, `north`, `northeast`, `west`, `center`, `east`, `southWest`, `south`, `southeast`, `none`
 
