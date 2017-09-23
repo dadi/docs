@@ -1,8 +1,12 @@
-var cheerio = require('cheerio')
-var dust = require('dustjs-linkedin')
-var hljs = require('highlight.js')
-var marked = require('marked')
-var toc = require('markdown-toc')
+const cheerio = require('cheerio')
+const dust = require('dustjs-linkedin')
+const hljs = require('highlight.js')
+const marked = require('marked')
+const toc = require('markdown-toc')
+
+let currentApiVersion = 2.2
+let currentCdnVersion = 1.12
+let currentWebVersion = 4.0
 
 // function findParent (arr, currentText, currentLevel) {
 //   let reversed = arr.slice(0)
@@ -79,6 +83,43 @@ dust.helpers.markdown = function(chunk, context, bodies, params) {
         })
 
         return `<blockquote class="${type}">${$.html()}</blockquote>`
+      }
+
+      /**
+       * If an HTML block is encountered, this function checks for an attribute
+       * on DIV elements that indicates the version of the product it applies to
+       * and hides it if it is higher than the current product version
+       */
+      renderer.html = function (html) {
+        let $ = cheerio.load('' + html)
+        let hide = false
+
+        $('div').each(function () {
+          let apiVersion = $(this).attr('data-api-version')
+          let cdnVersion = $(this).attr('data-cdn-version')
+          let webVersion = $(this).attr('data-web-version')
+
+          if (apiVersion && parseFloat(apiVersion) > currentApiVersion) {
+            hide = true
+          } else if (cdnVersion && parseFloat(cdnVersion) > currentCdnVersion) {
+            hide = true
+          } else if (webVersion && parseFloat(webVersion) > currentWebVersion) {
+            hide = true
+          }
+        })
+
+        if (hide) {
+          // return it (un-markdowned) in a hidden element
+          return `<div class="hide">${$.text()}</div>`
+        } else {
+          // return it (rendered)
+          return marked($.text(), {
+            renderer: renderer,
+            highlight: (code) => {
+              return hljs.highlightAuto(code).value
+            }
+          })
+        }
       }
 
       if (!params.highlight) {
