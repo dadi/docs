@@ -822,7 +822,7 @@ The `blur` parameter adds blur to an image, using any value above zero.
 
 |   |   |   
 |:--|:--|:--
-| ![Original JPG](https://cdn.somedomain.tech/samples/dog.jpeg?w=600) **Original image** | ![Blur 1](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=1 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=5 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
+| ![Original JPG](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600) **Original image** | ![Blur 1](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=1 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=5 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
 | ![Blur 10](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=10 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 10** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=20 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 20** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=100 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 100**
 
 ### filter: interpolation filter
