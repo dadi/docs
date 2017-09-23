@@ -878,10 +878,21 @@ The `flip` parameter flips images horizontally, vertically or both. A horizontal
 
 ### format: converting images
 
-- **Accepts:** valid values are `bmp`, `gif`, `jpg`, `png`
+Use the `format` parameter to specify the required output image format.
+
+- **Accepts:** valid values are `jpg`, `png`
+- **Default:** output defaults to the same as the input image 
 - **Alias:** `fmt`
 
-#### from JPG
+DADI CDN can currently convert the following:
+
+| **From** | **To**
+|:--|:--
+| GIF | JPG
+|  | PNG
+| JPG | PNG
+| PNG | JPG
+
 
 **Original JPG Image**
 
@@ -895,41 +906,32 @@ The `flip` parameter flips images horizontally, vertically or both. A horizontal
 
 #### from GIF
 
-**Original GIF Image**
-
-![Original GIF](/assets/cdn/giphy.gif)
-
 **GIF to JPG**
 
-`https://cdn.somedomain.tech/images/giphy.gif?format=jpg`
+`https://cdn.somedomain.tech/samples/giphy.gif?format=jpg`
 
-![JPG](/assets/cdn/giphy.jpeg)
+![JPG](https://cdn.somedomain.tech/samples/giphy.gif?w=400&resize=aspectfit&format=jpg)
 
 **GIF to PNG**
 
-`https://cdn.somedomain.tech/images/giphy.gif?format=png`
+`https://cdn.somedomain.tech/samples/giphy.gif?format=png`
 
-![PNG](/assets/cdn/giphy.png)
+![PNG](https://cdn.somedomain.tech/samples/giphy.gif?w=400&resize=aspectfit&format=png)
 
 #### from PNG
 
 **Original PNG Image**
 
-![Original PNG](/assets/cdn/landscape.png)
+![Original PNG](https://cdn.somedomain.tech/samples/mountain.png?w=400&resize=aspectfit)
 
 **PNG to JPG**
 
-`https://cdn.somedomain.tech/images/landscape.png?format=jpg`
+`https://cdn.somedomain.tech/samples/mountain.png?w=400&resize=aspectfit&format=jpg`
 
-![JPG](/assets/cdn/landscape.jpeg)
+![JPG](https://cdn.somedomain.tech/samples/mountain.png?w=400&resize=aspectfit&format=jpg)
 
-**PNG to GIF**
 
-`https://cdn.somedomain.tech/images/landscape.png?format=gif`
-
-![GIF](/assets/cdn/landscape.gif)
-
-### gravity: 
+### gravity: xx
 
 ### height: set image height
 
@@ -1035,7 +1037,7 @@ https://cdn.somedomain.tech/samples/beach.jpeg?saturate=0
 The `sharpen` parameter adds sharpness to an image.
 
 - **Accepts:** any number from 0-100
-- **Default:** 5
+- **Default:** 1
 - **Alias:** `sh`
 
 **Example**
@@ -1044,17 +1046,17 @@ The `sharpen` parameter adds sharpness to an image.
 https://cdn.somedomain.tech/samples/beach.jpeg?sharpen=10
 ```
 
-**Default amount = 5**
+**Default amount = 1**
 
-![Sharpen 5](https://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=5 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 5](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
-**Sharpen amount = 20**
+**Sharpen amount = 10**
 
-![Sharpen 20](https://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=10 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 20](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=10 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 **Sharpen amount = 80**
 
-![Sharpen 80](https://cdn.somedomain.tech/samples/beach.jpeg?w=600&height=600&sharpen=80 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+![Sharpen 80](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=80 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 ### width: set image width
 
