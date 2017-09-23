@@ -194,15 +194,15 @@ A very basic `config.development.json` file looks like this:
 
 Before you can serve assets or images you need to tell CDN where your files are located. CDN can serve your files from three types of source:
 
-* [Amazon S3](#-amazon-s3-https-aws-amazon-com-s3-) - retrieve files from existing Amazon S3 buckets
-* [Remote server](#remote-server) - retrieve files from a remote web server
-* [Local filesystem](#local-filesystem) - retrieve files from the same server as CDN
+* [Amazon S3](#cdn/amazon-s3) - retrieve files from existing Amazon S3 buckets
+* [Remote server](#cdn/remote-server) - retrieve files from a remote web server
+* [Local filesystem](#cdn/local-filesystem) - retrieve files from the same server as CDN
 
-You’re not limited to choosing one source, either. If you’ve elected to use the [Querystring URL scheme](#cdn/querystring-url-scheme) then you can use all configured sources at the same time.
+You’re not limited to choosing one source, either. If you’ve elected to use the [Querystring URL Scheme](#cdn/querystring-url-scheme) then you can use all configured sources at the same time.
 
 > **Using the legacy path scheme**
 > 
-> If you're _not_ using the [Querystring URL scheme](#cdn/querystring-url-scheme), that is, you're using the legacy [Path URL scheme](#cdn/path-url-scheme), then *only one source* can be configured at a time.
+> If you're _not_ using the [Querystring URL Scheme](#cdn/querystring-url-scheme), that is, you're using the legacy [Path URL Scheme](#cdn/path-url-scheme), then *only one source* can be configured at a time.
 > -- advice
 
 ## Configuring sources
@@ -216,9 +216,9 @@ You’re not limited to choosing one source, either. If you’ve elected to use 
 
 #### Using the configuration file
 
-The [configuration file](/cdn/getting-started/configuration/) contains two sections for configuring an Amazon S3 source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different Amazon credentials for each one.
+The [configuration file](#cdn/configuration) contains two sections for configuring an Amazon S3 source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different Amazon credentials for each one.
 
-> **Security Note:** We **strongly** recommend that Amazon credentials **are not** stored in your configuration file if that file could be viewed by the public (for example, committed to a public GitHub repository). A better solution is to use [Environment Variables](#using-environment-variables) when configuring an Amazon S3 source.
+> **Security Note:** We **strongly** recommend that Amazon credentials **are not** stored in your configuration file if that file could be viewed by the public (for example, committed to a public GitHub repository). A better solution is to use [Environment Variables](#cdn/using-environment-variables) when configuring an Amazon S3 source.
 
 **Configuration for an Amazon S3 image source**
 ```js
@@ -267,7 +267,7 @@ The [configuration file](/cdn/getting-started/configuration/) contains two secti
 }
 ```
 
-It was mentioned earlier that if using the [Querystring URL scheme](serving-assets.md#querystring-url-scheme) then you can use all configured sources at the same time, regardless of the value of the `enabled` property.
+It was mentioned earlier that if using the [Querystring URL Scheme](#cdn/querystring-url-scheme) then you can use all configured sources at the same time, regardless of the value of the `enabled` property.
 
 ##### Using environment variables
 
@@ -283,7 +283,7 @@ See the documentation for your operating system for details on setting environme
 
 The Remote Server source connects CDN to any publicly available URL where you are hosting your assets and images.
 
-The [configuration file](/cdn/getting-started/configuration/) contains two sections for configuring a Remote Server source. One section is for images and the other is for assets. This makes it possible to store your images and assets in different locations on a remote server, or even use different servers for each.
+The [configuration file](#cdn/configuration) contains two sections for configuring a Remote Server source. One section is for images and the other is for assets. This makes it possible to store your images and assets in different locations on a remote server, or even use different servers for each.
 
 **Configuration for a Remote Server image source**
 ```js
@@ -325,7 +325,7 @@ The [configuration file](/cdn/getting-started/configuration/) contains two secti
 
 ### Local filesystem
 
-The [configuration file](/cdn/getting-started/configuration/) contains two sections for configuring a Local Filesystem source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different filesystem locations for each one.
+The [configuration file](#cdn/configuration) contains two sections for configuring a Local Filesystem source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different filesystem locations for each one.
 
 **Configuration for a Local Filesystem image source**
 ```js
@@ -367,17 +367,17 @@ The [configuration file](/cdn/getting-started/configuration/) contains two secti
 
 ## Serving Images and Assets
 
-With your [sources](/cdn/getting-started/defining-sources/) configured so that CDN knows where to find them, you can start sending requests for your assets and images.
+With your [sources](#cdn/defining-sources) configured so that CDN knows where to find them, you can start sending requests for your assets and images.
 
-CDN currently responds to two types of URL scheme. One, the Path URL scheme, is a legacy format and exists for backwards compatibility with early-adoption client applications. The other, the Querystring URL scheme, is succinct, flexible and robust.
+CDN currently responds to two types of URL scheme. One, the Path URL scheme, is a legacy format and exists for backwards compatibility with early-adoption client applications. The other, the Querystring URL Scheme, is succinct, flexible and robust.
 
-> The Querystring URL scheme is the preferred format and is where future development efforts will be focused. In the event that new image manipulation parameters are added to CDN, the Querystring URL scheme will be the only format that supports them.  
+> The Querystring URL Scheme is the preferred format and is where future development efforts will be focused. In the event that new image manipulation parameters are added to CDN, the Querystring URL Scheme will be the only format that supports them.  
 
-### The URL schemes
+### The URL Schemes
 
-While the Querystring URL scheme is preferred for new applications, both are documented here. If you don't need details about the Path URL scheme, [jump right to the Querystring URL scheme](#querystring-url-scheme).
+While the Querystring URL Scheme is preferred for new applications, both are documented here. If you don't need details about the Path URL Scheme, [jump right to the Querystring URL Scheme](#cdn/querystring-url-scheme).
 
-> For a complete guide to the image and asset manipulation parameters, see the [URL API Guide](x).
+> For a complete guide to the image manipulation parameters, see the [Image Parameters](#cdn/image-parameters).
 
 
 #### Path URL Scheme
@@ -416,7 +416,7 @@ https://domain/format/compress/path
 
 Version 1.0.0 of CDN introduced this URL format for specifying parameters. You only need to supply the parameters you need to use, specifying as many or as few as you want.
 
-> **Note:** The differentiation between the Path and Querystring URL schemes is the inclusion of a querystring (i.e. everything following the `?` in the URL). If you need to serve an image in it's original, unmodified state, add a dummy querystring to the request to tell CDN you're using the Querystring URL scheme. For example: `https://cdn.somedomain.tech/cars/aston-martin.jpg?v2`
+> **Note:** The differentiation between the Path and Querystring URL schemes is the inclusion of a querystring (i.e. everything following the `?` in the URL). If you need to serve an image in it's original, unmodified state, add a dummy querystring to the request to tell CDN you're using the Querystring URL Scheme. For example: `https://cdn.somedomain.tech/cars/aston-martin.jpg?v2`
 
 ##### Serving Images via the Querystring URL Scheme
 
@@ -721,7 +721,7 @@ To ensure the output image retains the aspect ratio of the original image, you c
 
 ### Maintaining aspect ratio
 
-Images can be resized to a specified aspect ratio by providing a width or height in combination with the `ratio` parameter. CDN will respect any [resizeStyle](#cdn/x) specified.
+Images can be resized to a specified aspect ratio by providing a width or height in combination with the `ratio` parameter. CDN will respect any [resizeStyle](#cdn/specifying-a-resizestyle) specified.
 
 ```
 https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9
@@ -993,7 +993,7 @@ The original image and all quality variations below are 2048 × 1024 pixels.
 
 ### ratio: resize to aspect ratio
 
-Use the `ratio` parameter in combination with width (`w`) or height (`h`) to crop the image to the specified aspect ratio. [Resize styles](/#cdn/x) are respected.
+Use the `ratio` parameter in combination with width (`w`) or height (`h`) to crop the image to the specified aspect ratio. [Resize styles](/#cdn/specifying-a-resizestyle) are respected.
 
 ```
 https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9
@@ -1237,7 +1237,7 @@ A Delivery Recipe is a predefined set of image manipulation parameters stored in
 
 Let's use the image from our magazine example:
 
-`https://cdn.somedomain.tech/thumbnail/images/man-walking-on-beach.jpg`
+`https://cdn.somedomain.tech/thumbnail/samples/beach.jpeg`
 
 `https://cdn.somedomain.tech/samples/beach.jpeg?width=100&height=100&resizeStyle=entropy`
 
@@ -1272,13 +1272,13 @@ For example:
 
 Delivery Routes allow you to let CDN choose the appropriate recipe based on device, network, location or language.
 
-Routes allow CDN to make a decision about which [Delivery Recipe](/cdn/concepts/recipes/) to use for the current request, based on a set of configurable conditions.
+Routes allow CDN to make a decision about which [Delivery Recipe](#cdn/delivery-recipes) to use for the current request, based on a set of configurable conditions.
 
 Conditions can include the type of device being used, the network type, user location and language.
 
 ### Creating a Route
 
-A route is defined in JSON format and added to a directory in your CDN installation. The default location for route files is `workspace/routes`, but this is [configurable](/web/getting-started/configuration/).
+A route is defined in JSON format and added to a directory in your CDN installation. The default location for route files is `workspace/routes`, but this is configurable.
 
 You can create route files in a text editor and manually copy them to the routes folder, or you can send a `POST` request to CDN with the route content and have CDN create it for you.
 
@@ -1329,7 +1329,7 @@ At a minimum, a route must take the following form. The `branches` array below c
 
 Each branch within the `branches` array should contain two properties, `recipe` and `condition`.
 
-* `recipe` (string) - the name of the [Delivery Recipe](/cdn/concepts/recipes/) to use when all specified conditions are met
+* `recipe` (string) - the name of the [Delivery Recipe](#cdn/delivery-recipes) to use when all specified conditions are met
 
 * `condition` (object) - contains properties that correspond to test types
 
