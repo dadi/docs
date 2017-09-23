@@ -11,7 +11,7 @@ Microservices in the DADI platform are built on Node.js, a JavaScript runtime bu
 DADI follows the Node.js LTS (Long Term Support) release schedule, and as such the version of Node.js required to run DADI products is coupled to the version of Node.js currently in Active LTS. See the [LTS schedule](https://github.com/nodejs/LTS) for further information.
 
 * **[MongoDB](https://docs.mongodb.com/)** (supported versions: 2.6 - 3.2)
-* **[Node.js](https://www.nodejs.org/en/)** (current LTS version)
+* **[Node.js](https://nodejs.org/en/)** (current LTS version)
 
 ## Creating an API
 
