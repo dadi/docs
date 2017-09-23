@@ -1202,7 +1202,7 @@ Each function receives the following three arguments:
 
 `(request, response, next)`
 
-1. `request` is an instance of Node's [http.IncomingMessage](https://nodejs.org/api/http.html#http_http_incomingmessage)
+1. `request` is an instance of Node's [http.IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage)
 2. `response` is an instance of Node's [http.ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse)
 3. `next` is a function that can be passed an error or called if this endpoint has nothing to do.  Passing an error, e.g. `next(err)` will result in an HTTP 500 response. Calling `next()` will respond with an HTTP 404.
 
