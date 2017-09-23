@@ -10,8 +10,8 @@ Microservices in the DADI platform are built on Node.js, a JavaScript runtime bu
 
 DADI follows the Node.js LTS (Long Term Support) release schedule, and as such the version of Node.js required to run DADI products is coupled to the version of Node.js currently in Active LTS. See the [LTS schedule](https://github.com/nodejs/LTS) for further information.
 
-* **[MongoDB](https://docs.mongodb.com/v3.0/)** (supported versions: 2.6 - 3.2)
-* **[Node.js](https://www.nodejs.org/)** (current LTS version)
+* **[MongoDB](https://docs.mongodb.com/)** (supported versions: 2.6 - 3.2)
+* **[Node.js](https://www.nodejs.org/en/)** (current LTS version)
 
 ## Creating an API
 
@@ -108,7 +108,7 @@ The `accessType` property accepts one of two values: `admin` or `user`. An `admi
 >
 > -- advice
 
-Once you have client records in the database, you can request an access token for to continue communicating with the API. See [Obtaining an Access Token](#obtaining-an-access-token). 
+Once you have client records in the database, you can request an access token for to continue communicating with the API. See [Obtaining an Access Token](#api/obtaining-an-access-token). 
 
 ### Adding Clients
 
@@ -340,7 +340,7 @@ Specific versions of your API are represented by "version" folders within the co
 
 Collection documents may be stored in separate databases in the underlying data store, represented by the name of the "database" directory.
 
-> **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](#collection-specific-databases) for more information.
+> **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](#api/collection-specific-databases) for more information.
 
 **Collection specification file**
 
@@ -355,15 +355,15 @@ The naming convention for collection specifications is `collection.<collection n
 > For example, a collection named `book (collection.book.json)` will accept GET requests at the following endpoints:
 >
 > ```
-> http://api.somedomain.tech/1.0/library/book
-> http://api.somedomain.tech/1.0/library/book/560a44b33a4d7de29f168ce4
+> https://api.somedomain.tech/1.0/library/book
+> https://api.somedomain.tech/1.0/library/book/560a44b33a4d7de29f168ce4
 > ```
 >
 > It's not obvious whether or not the first example is going to return all books, as intended. Using the plural form makes it clear what the endpoint's intended behaviour is:
 >
 > ```
-> http://api.somedomain.tech/1.0/library/books
-> http://api.somedomain.tech/1.0/library/books/560a44b33a4d7de29f168ce4
+> https://api.somedomain.tech/1.0/library/books
+> https://api.somedomain.tech/1.0/library/books/560a44b33a4d7de29f168ce4
 ```
 > -- advice
 
@@ -381,7 +381,7 @@ my-api/
           collection.books.json     # collection specification file
 ```
 
-With the above directory structure API will generate this REST endpoint: http://api.somedomain.tech/1.0/library/books.
+With the above directory structure API will generate this REST endpoint: https://api.somedomain.tech/1.0/library/books.
 
 
 ### The JSON File
@@ -392,8 +392,8 @@ Collection specification files can be created and edited in any text editor, the
 
 The JSON file must contain a `fields` property and a `settings` property.
 
-* `fields`: must contain at least one field specification. See [Collection Fields](#collection-fields) for the format of fields.
-* `settings`: a `settings` block must be provided, even if it's empty. API uses sensible defaults for collection configuration, but these can be overridden using properties in the `settings` block. See [Collection Settings](#collection-settings) for details.
+* `fields`: must contain at least one field specification. See [Collection Fields](#api/collection-fields) for the format of fields.
+* `settings`: a `settings` block must be provided, even if it's empty. API uses sensible defaults for collection configuration, but these can be overridden using properties in the `settings` block. See [Collection Settings](#api/collection-settings) for details.
 
 **A skeleton collection specification**
 
@@ -461,7 +461,7 @@ Each field in a collection is defined using the following format. The only requi
 
 ### Field Types
 
-Every field in a collection must be one of the following types. All documents sent to API are validated against a collection's field type to ensure that data will be stored in the format intended. See the section on [Validation](#validation) for more details.
+Every field in a collection must be one of the following types. All documents sent to API are validated against a collection's field type to ensure that data will be stored in the format intended. See the section on [Validation](#api/validation) for more details.
 
 | Type | Description | Example 
 |:--|:--|:--
@@ -471,7 +471,7 @@ Every field in a collection must be one of the following types. All documents se
 | Object | Accepts single JSON documents or an array of documents | `{ "firstName": "Steve" }`
 | Mixed | Can accept any of the above types: String, Number, Boolean or Object | 
 | ObjectID | **Deprecated** Accepts MongoDB ObjectIds | `560a5baf320039f7d6a78d3b`
-| Reference | Used for linking documents in the same collection or a different collection, solving the problem of storing subdocuments in documents. See [Document Composition (reference fields)](#document-composition) for further information. | the ID of another document as a String: `"560a5baf320039f7d6a78d3b"` 
+| Reference | Used for linking documents in the same collection or a different collection, solving the problem of storing subdocuments in documents. See [Document Composition (reference fields)](#api/document-composition) for further information. | the ID of another document as a String: `"560a5baf320039f7d6a78d3b"` 
 
 
 ### Collection Settings
@@ -516,7 +516,7 @@ Each collection specification must contain a `settings` block, even if it is emp
 
 ### Collection Configuration Endpoints
 
-Every collection in your API has an additional configuration route available. To use it, append `/config` to one of your collection endpoints, for example: http://api.somedomain.tech/1.0/libray/books/config. 
+Every collection in your API has an additional configuration route available. To use it, append `/config` to one of your collection endpoints, for example: https://api.somedomain.tech/1.0/libray/books/config. 
 
 If the collection already exists (that is, a collection specification is located at `workspace/collections/1.0/library/collection.books.json`), making a GET request to the collection's configuration endpoint returns the collection schema:
 
@@ -1175,11 +1175,11 @@ Endpoint specifications exist as Javascript files within a `version` folder as m
 
 With the above folder and file hierarchy an endpoint's URL uses the following format:
 
-`http://api.somedomain.tech/{version}/{endpoint name}`
+`https://api.somedomain.tech/{version}/{endpoint name}`
 
 In actual use this might look like the following:
 
-`http://api.somedomain.tech/1.0/booksByAuthor`
+`https://api.somedomain.tech/1.0/booksByAuthor`
 
 #### The Endpoint file
 
@@ -1202,8 +1202,8 @@ Each function receives the following three arguments:
 
 `(request, response, next)`
 
-1. `request` is an instance of Node's [http.IncomingMessage](http://nodejs.org/api/http.html#http_http_incomingmessage)
-2. `response` is an instance of Node's [http.ServerResponse](http://nodejs.org/api/http.html#http_class_http_serverresponse)
+1. `request` is an instance of Node's [http.IncomingMessage](https://nodejs.org/api/http.html#http_http_incomingmessage)
+2. `response` is an instance of Node's [http.ServerResponse](https://nodejs.org/api/http.html#http_class_http_serverresponse)
 3. `next` is a function that can be passed an error or called if this endpoint has nothing to do.  Passing an error, e.g. `next(err)` will result in an HTTP 500 response. Calling `next()` will respond with an HTTP 404.
 
 **Example, HTTP 200 response**
@@ -1280,13 +1280,13 @@ module.exports.config = function () {
 This route will now respond to requests such as
 
 ```
-http://api.somedomain.tech/1.0/books/55bb8f688d76f74b1303a137
+https://api.somedomain.tech/1.0/books/55bb8f688d76f74b1303a137
 ```
 
 Without this custom route, the same could be achieved by requesting the default route with a querystring parameter.
 
 ```
-http://api.somedomain.tech/1.0/books?id=55bb8f688d76f74b1303a137
+https://api.somedomain.tech/1.0/books?id=55bb8f688d76f74b1303a137
 ```
 
 #### Authentication
