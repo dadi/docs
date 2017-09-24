@@ -72,8 +72,6 @@ my-api/
 
 ## Configuration
 
-xxxx
-
 ## Authentication
 
 DADI API provides a full-featured authentication layer based on the [Client Credentials flow of oAuth 2.0](http://oauthbible.com/#oauth-2-two-legged). By default all requests to collection endpoints in API require a user to have first been authenticated. Read the following to learn what's involved in authenticating against your DADI API.
