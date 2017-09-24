@@ -905,6 +905,75 @@ This property accepts an array of filenames to remove from URLs. Useful for when
 ### Adding engines
 ### Error pages
 
+## Sessions
+
+DADI Web uses the [express-session](https://github.com/expressjs/session) library to handle sessions. Visit that project's homepage for more detailed information regarding session configuration.
+
+ * [Configuration](#web/session-configuration)
+ * [Configuration Properties](#web/session-configuration-properties)
+ * [Using the session](#web/using-the-session)
+
+### Session Configuration
+
+**Note:** Sessions are disabled by default. To enable them in your application, add the following to your configuration file:
+
+```js
+"sessions": {
+  "enabled": true
+}
+```
+
+A full configuration block for sessions contains the following properties:
+
+```js
+"sessions": {
+  "enabled": true,
+  "name": "dadiweb.sid",
+  "secret": "dadiwebsecretsquirrel",
+  "resave": false,
+  "saveUninitialized": false,
+  "store": "",
+  "cookie": {
+    "maxAge": 60000,
+    "secure": false
+  }
+}
+```
+
+### Session Configuration Properties
+
+Property      | Description        |  Default                                  
+---------------|--------------------|-------------------------------------------
+enabled  | If `true`, sessions are enabled. | false
+name | The session cookie name. | "dadiweb.sid"
+secret | The secret used to sign the session ID cookie. This can be either a string for a single secret, or an array of multiple secrets. If an array of secrets is provided, only the first element will be used to sign the session ID cookie, while all the elements will be considered when verifying the signature in requests. | "dadiwebsecretsquirrel"
+resave | Forces the session to be saved back to the session store, even if the session was never modified during the request. | false
+saveUninitialized | Forces a session that is "uninitialized" to be saved to the store. A session is uninitialized when it is new but not modified. Choosing false is useful for implementing login sessions, reducing server storage usage, or complying with laws that require permission before setting a cookie. Choosing false will also help with race conditions where a client makes multiple parallel requests without a session. | false
+store | The session store instance, defaults to a new MemoryStore instance. | The default is an empty string, which uses a new MemoryStore instance. To use MongoDB as the session store, specify a MongoDB connection string such as `"mongodb://host:port/databaseName"` or `"mongodb://username:password@host:port/databaseName"` if your database requires authentication. To use Redis, specify a Redis server's address and port number: `"redis://127.0.0.1:6379"`.
+cookie  | |
+cookie.maxAge | Set the cookie’s expiration as an interval of seconds in the future, relative to the time the browser received the cookie. `null` means no 'expires' parameter is set so the cookie becomes a browser-session cookie. When the user closes the browser the cookie (and session) will be removed. | 60000
+cookie.secure | HTTPS is necessary for secure cookies. If `secure` is `true` and you access your site over HTTP, the cookie will not be set. | false
+
+
+### Using the session
+
+Session data can easily be accessed from an [event](#web/events) or custom [middleware](#web/middleware).
+
+```js
+const Event = (req, res, data, callback) => {
+  if (req.session) {
+    req.session.someProperty = "some value"
+    req.session.save(function (err) {
+      // session saved
+    })
+
+    data.session_id = req.session.id
+  }
+
+  callback(null, data)
+}
+```
+
 
 ## Adding data
 ### Datasource files
@@ -1008,7 +1077,116 @@ NB. `_path` will exclude the datasource `source.path`.
 #### RSS
 
 ## Adding logic
+
 ### Events
+
+Events are server side JavaScript functions that can add additional functionality to a page. Events can serve as a useful way to implement logic to a logic-less template.
+
+```
+my-web/
+  workspace/
+    datasources/      
+    events/           
+      addAuthorInformation.js      # an Event file
+    pages/            
+```
+
+#### Global Events
+
+In the main configuration file:
+
+```js
+globalEvents: [
+  "eventName"
+]
+```
+
+#### Preload Events
+
+In a page specification file:
+
+```js
+"preloadEvents": [
+  "preloadevent-one"
+]
+```
+
+#### Filter Events
+
+In a datasource specification file:
+
+```js
+"filterEvent": "filterevent-one"
+```
+
+Use case:
+A developer would like count how many people clicked on a 'plus' button.
+
+To achieve this he has to create a new event and attach it to the page where he has the 'plus' button.
+
+The developer then implements a code in the event which will look for specific event (i.e. POST buttonpressed) and inside this he will increase a counter stored in a text file.
+
+The developer then returns the updated counter number from the event which is made accessible within the Dust template.
+
+Events are added to pages in the page specification.
+
+```json
+{
+  "page": {
+    "name": "Book Reviews",
+    "description": "A collection of book reviews.",
+    "language": "en"
+  },
+  "settings": {
+    "cache": true
+  },
+  "route": "/reviews",
+  "template": "book-reviews.dust",
+  "datasources": [
+    "books"
+  ],
+  "events": [
+    "addAuthorInformation"
+  ]
+}
+```
+
+#### Sample event file
+
+```js
+/**
+ * <Event Description>
+ *
+ * @param {IncomingMessage} req -
+ * @param {ServerResponse} res -
+ * @param {object} data - contains the data already loaded by the page's datasources and any previous events that have fired
+ * @param {function} callback - call back to the controller with two arguments, `err` and the result of the event processing
+ */
+const Event = (req, res, data, callback) => {
+  let result = {}
+
+  if (data.books && data.books.results) {
+    result = {
+      title: data.books.results[0].title
+    }
+  }
+  else {
+    result = {
+      title: "Not found"
+    }
+  }
+
+  // return a null error and the result
+  callback(null, result)
+}
+
+module.exports = function (req, res, data, callback) {
+  return new Event(req, res, data, callback)
+}
+
+module.exports.Event = Event
+```
+
 ### Middleware
 
 ## Performance
