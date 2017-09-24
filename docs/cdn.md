@@ -1022,14 +1022,9 @@ To desaturate (convert to black and white), use `0` or any number below 0.
 ```http
 https://cdn.somedomain.tech/samples/beach.jpeg?saturate=0
 ```
-
-**Saturate amount = 0 (B&W)**
-
-![Saturate 0](https://cdn.somedomain.tech/samples/beach.jpeg?sat=0 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Saturate amount = 1**
-
-![Saturate 1](https://cdn.somedomain.tech/samples/beach.jpeg?sat=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+| **Saturate amount = 0 (B&W)**  |   **Saturate amount = 1**
+|:--|:--
+| ![Saturate 0](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sat=0 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)") | ![Saturate 1](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sat=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 
 ### sharpen: sharpen an image
@@ -1045,18 +1040,9 @@ The `sharpen` parameter adds sharpness to an image.
 ```http
 https://cdn.somedomain.tech/samples/beach.jpeg?sharpen=10
 ```
-
-**Default amount = 1**
-
-![Sharpen 5](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Sharpen amount = 10**
-
-![Sharpen 20](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=10 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-**Sharpen amount = 80**
-
-![Sharpen 80](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=80 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+| **Default amount = 1** | **Sharpen amount = 10** | **Sharpen amount = 80**
+|:--|:--|:--
+| ![Sharpen 5](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)") | ![Sharpen 20](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=10 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)") | ![Sharpen 80](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=80 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
 ### width: set image width
 
