@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Documentation for DADI microservices & tools",
   "dependencies": {
-    "@dadi/web": "4.0.x",
+    "@dadi/web": "dadi/web.git#release-4.0.2",
     "cheerio": "^1.0.0-rc.2",
     "dustjs-linkedin": "^2.7.5",
     "highlight.js": "^9.12.0",
