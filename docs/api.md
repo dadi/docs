@@ -70,16 +70,9 @@ my-api/
     endpoints/         # custom JavaScript endpoints
 ```
 
-## First use
-
-
 ## Configuration
 
 xxxx
-
-### Choosing a Data Store
-
-xxx
 
 ## Authentication
 
@@ -501,8 +494,8 @@ Each collection specification must contain a `settings` block, even if it is emp
 | count | The number of results to return when querying the collection | `50` | `100`
 | sort | The field to sort results by | `"_id"`  | `"title"`
 | sortOrder | The sort direction to sort results by | `1`  | `1` = ascending, `-1` = descending
-| storeRevisions | x | x | x
-| revisionCollection | x | x | x
+| storeRevisions | If true, every change to a document will cause the previous version to be saved to a revision/history collection | `true` | `false`
+| revisionCollection | The name of the collection used to hold revision documents | The collection name with "History" appended | `"authorsHistory"`
 | callback | x | x | x
 | defaultFilters | Specifies a default query for the collection. A `filter` parameter passed in the querystring will extend these filters.  | `{}` | `{ "published": true }`
 | fieldLimiters | Specifies a list of fields for inclusion/exclusion in the response. Fields can be included or excluded, but not both. See [Returning Data](#xxx) for more detail. | `{}` | `{ "title": 1, "author": 1 }`, `{ "dob": 0, "state": 0 }`
