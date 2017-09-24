@@ -1573,3 +1573,214 @@ Sample repository at https://github.com/dadi/api-connector-template.
 ### Data connectors
 
 ### Auto generate documentation
+
+The `@dadi/apidoc` package provides a set of auto-generated documentation for your API installation, reading information from the collection schemas and custom endpoints to describe the available HTTP methods and parameters required to interact with the API.
+
+* [Generating Code Snippets](#generating-code-snippets)
+* [Documenting custom endpoints](#documenting-custom-endpoints)
+* [Showing useful example values](#showing-useful-example-values)
+* [Excluding Collections, Endpoints and Fields](#excluding-collections-endpoints-and-fields)
+
+#### Installation steps
+
+1. Inside your API installation directory, run the following:
+
+```console
+$ npm install @dadi/apidoc --save
+```
+
+2. The configuration file for API must be modified to enable the documentation middleware. Add an `apidoc` section to the configuration file:
+
+```js
+"apidoc": {
+  "title": "<Project Name> Content API",
+  "description": "This is the _Content API_ for [Example](http://www.example.com).",
+  "markdown": false,
+  "path": "docs",
+  "generateCodeSnippets": false,
+  "themeVariables": "default",
+  "themeTemplate": "triple",
+  "themeStyle": "default",
+  "themeCondenseNav":	true,
+  "themeFullWidth": false
+}
+```
+
+3. Initialise the middleware from the main API entry point (such as the `main.js` or `index.js` file:
+
+```js
+const server = require('@dadi/api')
+const config = require('@dadi/api').Config
+const log = require('@dadi/api').Log
+
+server.start(function() {
+  log.get().info('API Started')
+})
+
+// enable the documentation route
+require('@dadi/apidoc').init(server, config)
+```
+
+#### Browse the documentation
+
+The documentation can be accessed using the route `/api/1.0/docs`, for example `https://api.somedomain.tech/api/1.0/docs`.
+
+#### Generating Code Snippets
+
+If you want to generate code snippets (made possible by the configuration option
+  `generateCodeSnippets`) you'll need to ensure sure your system has the following:
+
+1. Ruby, and the Ruby gem `awesome_print`:
+
+```console
+$ gem install awesome_print
+```
+
+2. The `httpsnippet` package:
+
+```console
+$ npm install httpsnippet -g
+```
+
+#### Documenting custom endpoints
+
+API collections are automatically documented using values from with the collection specification files. To have your documentation include useful information about custom endpoints, add [JSDoc](http://usejsdoc.org/) comments to the endpoint files:
+
+```js
+/**
+ * Adds two numbers together.
+ *
+ * ```js
+ * let result = add(1, 2);
+ * ```
+ *
+ * @param {int} `num1` The first number.
+ * @param {int} `num2` The second number.
+ * @returns {int} The sum of the two numbers.
+ * @api public
+ */
+```
+
+#### Showing useful example values
+
+To show example data in the documentation that isn't simply the default of "Hello World!", you can add properties to fields in the API collection specification file. The following properties can be added to fields:
+
+**`example`**: the `example` property is a static value that will be the same every time you view the documentation:
+
+```json
+"platform": {
+  "type": "String",
+  "required": true,
+  "example": "twitter",
+  "validation": {
+    "regex": {
+      "pattern": "twitter|facebook|instagram"
+    }
+  }
+}
+```
+
+**`testDataFormat`**: the `testDataFormat` property allows you to specify any type from the [faker](https://github.com/FotoVerite/Faker.js) package, which will insert a random value of the selected type each time the documentation is viewed:
+
+```json
+"email": {
+  "type": "String",
+  "required": true,
+  "testDataFormat": "{{internet.email}}"
+  "validation": {
+    "regex": {
+      "pattern": ".+@.+"
+    }
+  }
+}
+```
+
+See a list of available options [here](https://github.com/FotoVerite/Faker.js).
+
+
+#### Excluding Collections, Endpoints and Fields
+
+Often an API contains collections and collection fields that are meant for
+internal use and including them in the API documentation is undesirable.
+
+To exclude collections and fields from your generated documentation, see the following sections.
+
+##### Excluding Collections
+
+Add a `private` property to the collection specification's `settings` section:
+
+```json
+{
+  "fields": {
+    "title": {
+      "type": "String",
+      "required": true
+    },
+    "author": {
+      "type": "Reference",
+      "settings": {
+        "collection": "people"
+      }
+    }
+  },
+  "settings": {
+    "cache": true,
+    "count": 40,
+    "sort": "title",
+    "sortOrder": 1,
+    "private": true
+  }
+}
+```
+
+##### Excluding Endpoints
+
+Add a `private` property to the endpoint file's `model.settings` section:
+
+```js
+module.exports.get = function (req, res, next) {
+  res.setHeader('content-type', 'application/json')
+  res.statusCode = 200
+  res.end(JSON.stringify({message: 'Hello World'}))
+}
+
+module.exports.model = {
+  "settings": {
+    "cache": true,
+    "authenticate": false,
+    "private": true
+  }
+}
+```
+
+##### Excluding Fields
+
+Add a `private` property to the field specification:
+
+```json
+{
+  "fields": {
+    "title": {
+      "type": "String",
+      "required": true
+    },
+    "internalId": {
+      "type": "Number",
+      "required": true,
+      "private": true
+    }
+  },
+  "settings": {
+    "cache": true,
+    "count": 40,
+    "sort": "title",
+    "sortOrder": 1
+  }
+}
+```
+
+#### Sample interfaces
+[TODO] link these to api.somedomain.tech
+![Authentication](templates/authentication.png)
+![GET Request](templates/get.png)
+![POST Request](templates/post.png)
