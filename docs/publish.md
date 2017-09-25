@@ -323,7 +323,7 @@ If an enire collection needs to be hidden, add **hidden** to the collections **s
 **Example hidden collection settings**
 ```json
 {
-  "fields: {
+  "fields": {
     "fieldName": {
       "type": "String",
       "required": true,
