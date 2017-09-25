@@ -1776,9 +1776,3 @@ Add a `private` property to the field specification:
   }
 }
 ```
-
-#### Sample interfaces
-[TODO] link these to api.somedomain.tech
-![Authentication](templates/authentication.png)
-![GET Request](templates/get.png)
-![POST Request](templates/post.png)
