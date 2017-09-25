@@ -21,22 +21,73 @@ $ npm install --save @dadi/publish
 ```
 
 ## Application Anatomy
-### Pages
-### Fields
-### Filters
+
+{To-Do}
+
+### App
+
+{To-Do}
 ### Components
+
+{To-Do}
+#### Views
+
+{To-Do}
+#### Containers
+
+{To-Do}
+#### Components
+
+{To-Do}
 
 ## Configuration
 
-## First use
-### Connecting to API
-### Connecting to CDN
+{To-Do}
 
-## ACL
+## First use
+
+Before running Publish, you will need:
+- At least one running API.
+- An auth API with the [required auth hook and collection](#authentication) (can be the same as one of your other APIs). 
+- An admin user. (See [Creating a user](#create-a-user))
+
+### Connecting to API
+
+To connect to an API, make sure your @dadi/api install is running, then add one or more APIs to your environment config
+
+```json
+"apis": [
+  {
+    "name": "My API",
+    "host": "https://api.somedomain.tech",
+    "port": 443,
+    "database": "my-api",
+    "version": "1.0",
+    "credentials": {
+      "clientId": "testClient",
+      "secret": "secretSquirrel"
+    }
+  }
+]
+ ```
+
 ### Managing users
+
+Users are currently managed in API. To add a user, send the user credentials to the users collection. See [Creating a user](#creating-a-user) how-to guide.
+
+> **Note**
+> 
+> You must have the required hooks and collection in order to insert and authorise users.
+> -- warning
+
 ### Password recovery
 
+{To-Do}
+
 ## Security
+
+{To-do}
+
 ### SSL
 SSL is currently disabled by default. 
 
@@ -61,10 +112,27 @@ When SSL is enabled, the port defined in environment config is ignored in favour
 > When SSL is enabled, all connected APIs must also run over SSL. Any insecure APIs will not be available in Publish.
 > -- warning
 
-### Authentication
-### Storing user data
-
 ## How-to guides
+
+{To-do}
+
+### Authentication
+
+Authentication is currently handled with a hook and collection in the current connected api. To install these required files, run the following from your publish directory
+
+```shell
+NODE_ENV=development npm explore publish -- npm run api-install --configDir=/path/to/config/directory
+```
+
+> **Note**
+> 
+> If the api does not contain these required files it will not be able to handle authentication. 
+> -- warning
+
+### Creating a user
+
+{To-do}
+
 ### Creating a document
 Publish interacts directly with any number of instances of [dadi/api](https://github.com/dadi/api). 
 
@@ -100,14 +168,44 @@ Validation is also checked once more as a document is saved.
 If an invalid field is not part of the current selected tab (_see [tabs](#tabs) below_), a warning icon will appear on each tab containing one or more validation errors.
 
 ### Filtering documents
-### Document actions
-### Pagination
+
+{To-do}
+
+### Document selection
+
+For individual document selection a checkbox to the left of the document can be toggled. To toggle select on an entire page, click the checkbox in the table header, to the far left. 
+
+Document selection is retained even during [Pagination](#document-pagination). This means that [Batch actions](#batch-document-actions) will be applied to documents that aren't currently in view.
+
+### Batch Document actions
+
+Some basic document tasks can be performed on the list view. By default, **Delete** is the only option.
+
+> **Note**
+> 
+> Other batch actions will be made available soon. These will include actions for _Boolean_ fields, and other types that can be updated without input.
+> -- advice
+
+### Document Pagination
+
+If a collection contains more than the pagination limit (20 by default), page buttons will appear under the document list. 
 
 ## Collaborative editing
 
+The first component of collaborative editing is already availble. This will show you other editors that are currently viewing the same document.
+
+> **Note**
+> 
+> Future collaborative features include _multi-user editing_, _in-document messaging_ and _revision history_.
+> -- advice
+
 ## Performance
 
+Publish is a web-app. This means that after the first page load, all subsequent pages are rendered in the browser, and the only requests to the server are for data and images.
+
 ## Customisation
+
+The Publish app can be customised to optomize user experience, and add a personal touch to your organisation.
 
 ### Document sections
 
@@ -200,13 +298,55 @@ If a large number of menu entries becomes difficult to read, or two connected AP
 ]
 ```
 ### Hidden fields
+
+To hide a field from either **list** or **edit** view, add each property to a **publish.display** block in the field schema.
+
+**Example hidden field settings**
+```json
+"fieldName": {
+  "type": "String",
+  "required": true,
+  "label": "Title",
+  "publish": {
+    "display": {
+      "edit": true,
+      "list": false
+    }
+  }
+}
+```
+
 ### Hidden collections
 
-## Extendibility
-### Theming
-### Custom fields
-### App extensions
+If an enire collection needs to be hidden, add **hidden** to the collections **settings.publish** block.
+
+**Example hidden collection settings**
+```json
+{
+  "fields: {
+    "fieldName": {
+      "type": "String",
+      "required": true,
+      "label": "Title",
+      "publish": {
+        "display": {
+          "edit": true,
+          "list": false
+        }
+      }
+    }
+  },
+  "settings": {
+    "publish": {
+      "hidden": true
+    }
+  }
+}
+```
+
 ### Build process
+
+When you install the Publish app directly from npm, a _post-install_ script runs automatically, and builds the **bundle.js**, and **main.css** required to run the app. This process only needs to happen when the app installs or is updated.
 
 
 
