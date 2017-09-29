@@ -1373,7 +1373,7 @@ var dust = require('dustjs-linkedin')
 require('@dadi/dustjs-helpers')(dust)
 ```
 
-### Dealing with form data & Sendgrid
+### Dealing with form data and Sendgrid
 
 This is an example of an event which uses [SendGrid](https://sendgrid.com/) to send a message from an HTML form.
 
