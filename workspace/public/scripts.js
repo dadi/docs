@@ -91,9 +91,6 @@
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function() {
-      // Reset nav
-      initNav();
-
       if (xmlhttp.readyState == XMLHttpRequest.DONE) {
         if (xmlhttp.status == 200) {
           var results = JSON.parse(xmlhttp.responseText);
@@ -119,6 +116,9 @@
           pagesLoaded++;
         }
       }
+
+      // Reset nav
+      initNav();
     };
 
     xmlhttp.open('GET', '/ajax?page=' + (pagesLoaded + 1), true);
