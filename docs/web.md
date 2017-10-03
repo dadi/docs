@@ -247,7 +247,7 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 
 In version 3.0 and above, _Web_ can handle multiple template engines, the default being a [Dust.js interface](https://www.npmjs.com/package/@dadi/web-dustjs). You can pass configuration options to these adaptors in this block.
 
-Please see Templates later for more information.
+Please see [Views](#web/views) later for more information.
 
 ### headers
 
@@ -900,10 +900,36 @@ This property accepts an array of filenames to remove from URLs. Useful for when
 ```
 
 ## Views
-### Templates
+
 ### Engines
-### Adding engines
+
+You can use a variety of template engines with _Web_. We maintain a few such as [Dust](https://www.npmjs.com/package/@dadi/web-dustjs), [Pug](https://www.npmjs.com/package/@dadi/web-pugjs) and [Handlebars](https://www.npmjs.com/package/@dadi/web-handlebars). You can find more on [NPM](https://www.npmjs.com/browse/keyword/dadi-web-engine).
+
+#### Install a new engine
+
+Each package lists it's own install instructions, but they all follow the same pattern:
+
+Install the interface you want:
+
+`npm install @dadi/web-handlebars --save`
+
+Edit your app entry file (by default this is `server.js`):
+
+```js
+require('@dadi/web')({
+  engines: [
+    require('@dadi/web-handlebars')
+  ]
+})
+```
+
+#### Creating your own engine
+
+Full instructions for this are available in our [Web sample engine](https://github.com/dadi/web-sample-engine) repo.
+
 ### Error pages
+
+DADI Web has default error pages, but it will look for templates in the `pages` folder which match the error code needing to be expressed e.g., `404.dust`.
 
 ## Sessions
 
