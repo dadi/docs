@@ -6,17 +6,12 @@
   "cluster": false,
   "allowJsonView": true,
   "debug": true,
-  "caching": {
-    "directory": {
-      "enabled": false,
-      "path": "./cache"
-    },
-    "redis": {
-      "enabled": false
-    }
-  },
   "virtualDirectories": [{
     "path": "sandbox",
     "index": "index.html"
-  }]
+  }],
+  "rewrites": {
+    "forceTrailingSlash": true,
+    "path": "./workspace/routes/rewrites.txt"
+  }
 }
