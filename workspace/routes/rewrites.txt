@@ -1,4 +1,4 @@
-\/web\/getting-started\/v3-migration\/index.html /#web/migrating-from-version-2x-to-3x
+\/web\/getting-started\/v3-migration\/index.html /#web/migrating-from-version-2x-to-3x [R=302,NC,L]
 \/web/(.*)$ /#web [R=302,NC,L]
 \/api/(.*)$ /#api [R=302,NC,L]
 \/cdn/(.*)$ /#cdn [R=302,NC,L]
