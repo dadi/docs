@@ -210,10 +210,10 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 
 | Property | Type | Default | Description | Example |
 |:--|:--|:--|:--|:--|
-| tokenUrl | String | `/token` | The endpoint to use when requesting Bearer tokens from the DADI API | `anotherapi.example.com/token` |
+| tokenUrl | String | `/token` | The endpoint to use when requesting Bearer tokens from DADI API | `anotherapi.example.com/token` |
 | protocol | String | `http` | The protocol to use when connecting to the `tokenUrl` | `https`
-| clientId | String | `testClient` | Should reflect what you used when you setup your DAI API | `my-user`
-| secret | String | `superSecret` | The corresponding password | `my-secret` |
+| clientId | String | `your-client-key` | Should reflect what you used when you setup your DADI API | `my-user`
+| secret | String | `your-client-secret` | The corresponding password | `my-secret` |
 
 ### caching
 
