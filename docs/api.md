@@ -57,7 +57,7 @@ DADI CLI will install the latest version of API and copy a set of files to your 
 
 ## Application Anatomy
 
-When CLI finishes creating your API, the application directory will contain the basic requirements for launching your API. The following directories and files have been created for you: 
+When CLI finishes creating your API, the application directory will contain the basic requirements for launching your API. The following directories and files have been created for you:
 
 ```console
 my-api/
@@ -91,7 +91,7 @@ Each client record consists of a `clientId`, `secret` and `accessType`.
 }
 ```
 
-The `accessType` property accepts one of two values: `admin` or `user`. An `admin` client is able to perform configuration and maintenance on the API using internal REST endpoints and the REST collection endpoints. A `user` client is, with no other access controls in place, simply able to read and write data using the REST collection endpoints. 
+The `accessType` property accepts one of two values: `admin` or `user`. An `admin` client is able to perform configuration and maintenance on the API using internal REST endpoints and the REST collection endpoints. A `user` client is, with no other access controls in place, simply able to read and write data using the REST collection endpoints.
 
 > **Setting strong client secrets**
 >
@@ -99,7 +99,7 @@ The `accessType` property accepts one of two values: `admin` or `user`. An `admi
 >
 > -- advice
 
-Once you have client records in the database, you can request an access token for to continue communicating with the API. See [Obtaining an Access Token](#api/obtaining-an-access-token). 
+Once you have client records in the database, you can request an access token for to continue communicating with the API. See [Obtaining an Access Token](#api/obtaining-an-access-token).
 
 ### Adding Clients
 
@@ -126,12 +126,12 @@ Each [collection specification](#x) contains a "settings" block which modifies c
 
 To specify that authentication for the collection is:
 
-* *always* required, use `"authenticate": true` 
-* *not* required, use `"authenticate": false` 
-* *required only for certain HTTP methods*, use an array of HTTP methods such as `"authenticate": ["POST"]` 
+* *always* required, use `"authenticate": true`
+* *not* required, use `"authenticate": false`
+* *required only for certain HTTP methods*, use an array of HTTP methods such as `"authenticate": ["POST"]`
 
 The following configuration for a collection will allow all GET requests to proceed without authentication, while POST, PUT and DELETE requests will require authentication.
- 
+
 ```json
 "settings": {
   "authenticate": ["POST", "PUT", "DELETE"]
@@ -159,7 +159,7 @@ Content-Length: 65
 }
 ```
 
-With a request like the above, you should expect a response containing an access token, as below: 
+With a request like the above, you should expect a response containing an access token, as below:
 
 ```http
 HTTP/1.1 200 OK
@@ -188,7 +188,7 @@ Connection: close
 
 ### Access Token Expiry
 
-The response returned when requesting an access token contains a property `expiresIn` which is set to the number of seconds the access token is valid for. When this period has elapsed API automatically invalidates the access token and a subsequent request to API using that access token will return an invalid token error (see below). 
+The response returned when requesting an access token contains a property `expiresIn` which is set to the number of seconds the access token is valid for. When this period has elapsed API automatically invalidates the access token and a subsequent request to API using that access token will return an invalid token error (see below).
 
 The consumer application must request a new access token to continue communicating with the API.   
 
@@ -234,7 +234,7 @@ DADI API allows controlling access to endpoints by extending the client record w
 Add a permissions block containing an array of the collections and/or an array of the endpoints that the client should have access to.
 
 * to give access to a collection, use the collection name for the `path` property
-* to give access to an endpoint, use the final part of the endpoint's URL for the `path` property 
+* to give access to an endpoint, use the final part of the endpoint's URL for the `path` property
 
 ```json
 {
@@ -273,9 +273,9 @@ It is also possible to restrict access to versions of your API (see [API Version
 ```    
 
 > **Warning!**
-> 
+>
 > Adding permissions to a client record will result in that client being able to access only those collections and endpoints they have been given permissions to.
-> 
+>
 > -- warning
 
 ### Authorisation Errors
@@ -402,7 +402,7 @@ The JSON file must contain a `fields` property and a `settings` property.
 
 ### Collection Fields
 
-Each field in a collection is defined using the following format. The only required property is `type` which tells API what data types the field can contain. 
+Each field in a collection is defined using the following format. The only required property is `type` which tells API what data types the field can contain.
 
 **A basic field specification**
 
@@ -454,15 +454,15 @@ Each field in a collection is defined using the following format. The only requi
 
 Every field in a collection must be one of the following types. All documents sent to API are validated against a collection's field type to ensure that data will be stored in the format intended. See the section on [Validation](#api/validation) for more details.
 
-| Type | Description | Example 
+| Type | Description | Example
 |:--|:--|:--
 | String | The most basic field type, used for text data. Will also accept arrays of Strings. | `"The quick brown fox"`,  `["The", "quick", "brown", "fox"]`
-| Number | Accepts numeric data types including whole integers and floats | `5`, `5.01` 
-| Boolean | Accepts only two possible values: `true` or `false` | `true` 
+| Number | Accepts numeric data types including whole integers and floats | `5`, `5.01`
+| Boolean | Accepts only two possible values: `true` or `false` | `true`
 | Object | Accepts single JSON documents or an array of documents | `{ "firstName": "Steve" }`
-| Mixed | Can accept any of the above types: String, Number, Boolean or Object | 
+| Mixed | Can accept any of the above types: String, Number, Boolean or Object |
 | ObjectID | **Deprecated** Accepts MongoDB ObjectIds | `560a5baf320039f7d6a78d3b`
-| Reference | Used for linking documents in the same collection or a different collection, solving the problem of storing subdocuments in documents. See [Document Composition (reference fields)](#api/document-composition) for further information. | the ID of another document as a String: `"560a5baf320039f7d6a78d3b"` 
+| Reference | Used for linking documents in the same collection or a different collection, solving the problem of storing subdocuments in documents. See [Document Composition (reference fields)](#api/document-composition) for further information. | the ID of another document as a String: `"560a5baf320039f7d6a78d3b"`
 
 
 ### Collection Settings
@@ -500,14 +500,14 @@ Each collection specification must contain a `settings` block, even if it is emp
 | index | Specifies a set of indexes that should be created for the collection. See [Creating Database Indexes](#api/creating-database-indexes) for more detail. | `[]`  | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
 
 > **Overriding configuration using querystring parameters**
-> 
+>
 > It is possible to override some of these values when requesting data from the endpoint, by using querystring parameters. See [Querying a collection](#querying) for detailed documentation.
 >
 > -- advice
 
 ### Collection Configuration Endpoints
 
-Every collection in your API has an additional configuration route available. To use it, append `/config` to one of your collection endpoints, for example: https://api.somedomain.tech/1.0/libray/books/config. 
+Every collection in your API has an additional configuration route available. To use it, append `/config` to one of your collection endpoints, for example: https://api.somedomain.tech/1.0/libray/books/config.
 
 If the collection already exists (that is, a collection specification is located at `workspace/collections/1.0/library/collection.books.json`), making a GET request to the collection's configuration endpoint returns the collection schema:
 
@@ -580,9 +580,9 @@ Content-Length: 57
 ```
 
 > **Note**
-> 
+>
 > To create or edit collection specifications using the configuration endpoints, you must use an access token obtained by using credentials for a client with an `accessType` of "admin". See the [Authentication](#api/authentication) section for more detail.
-> 
+>
 > If your access token was not obtained using a set of "admin" credentials, API responds with HTTP 401 Unauthorized.
 >
 > ```http
@@ -675,7 +675,7 @@ books.find({ title: 'Harry Potter 2' }, { compose: true }, (err, result) => {
 
 ### Validation
 
-Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema. 
+Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema.
 
 Several means of data validation are supported in API, including [type validation](#api/type-validation), [mandatory field validation](#api/mandatory-field-validation), [length validation](#api/length-validation) and [regular expression validation](#api/regular-expression-validation).
 
@@ -812,7 +812,7 @@ Indexes provide high performance read operations for frequently used queries and
 Database indexes can be automatically created for a collection by specifying the fields to be indexed in the `settings` block.
 An index will be created on the collection using the fields specified in the `keys` property.
 
-An index block such as `{ "keys": { "fieldName": 1 }` will create an index for the field `fieldName` using an ascending order. 
+An index block such as `{ "keys": { "fieldName": 1 }` will create an index for the field `fieldName` using an ascending order.
 The order will be reversed if the `1` is replaced with `-1`. Specifying multiple fields will create a compound index.
 
 ```json
@@ -1776,3 +1776,70 @@ Add a `private` property to the field specification:
   }
 }
 ```
+
+## Errors
+
+### API-0001
+
+#### Missing Index Key
+
+You received an error similar to this:
+
+```json
+{
+  "code": "API-0001",
+  "title": "Missing Index Key",
+  "details": "'name' is specified as the primary sort field, but is missing from the index key collection."
+}
+```
+
+
+### API-0002
+
+#### Hook Error
+
+You received an error similar to this:
+
+```json
+{
+  "success": false,
+  "errors": [
+    {
+      "code": "API-0002",
+      "title": "Hook Error",
+      "details": "The hook 'myHook' failed: 'ReferenceError: title is not defined'"
+    }
+  ]
+}
+```
+
+### API-0003
+
+#### Cache Path Missing
+
+To flush the cache, a path that matches a collection resource must be specified in the request body:
+
+```http
+POST /api/flush HTTP/1.1
+Host: api.example.com
+Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6
+Content-Type: application/json
+
+{ "path": "/1.0/library/books" }
+```
+
+This command will flush all cache files that match the collection path specified.
+
+A successful cache flush returns a HTTP 200 response:
+
+```json
+{
+  "result": "success",
+  "message": "Cache flush successful"
+}
+```
+
+##### Flush all files
+
+To flush all cache files, send `{ path: "*" }`
+
