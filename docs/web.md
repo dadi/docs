@@ -1513,5 +1513,8 @@ module.exports = function (req, res, data, callback) {
 };
 ```
 
+## Errors
 
+### WEB-0004
 
+Datasource not found
