@@ -471,6 +471,14 @@ To make the books page reachable via a different URL, simply add (or modify) the
 
 > For detailed documentation of routing, see [Routing](#web/routing-rewrites-and-redirects).
 
+### Content Type
+
+The default content type is `text/html`. This can be overridden by defining the `contentType` in the root of the page config.
+
+```js
+"contentType": "application/xhtml+xml"
+```
+
 ### Templates
 
 Template files are stored in the same folder as the page specifications and by default share the same filename as the `page.json`. Unless the page specification contains an explicit `template` property, the template name should match the page specification name.
