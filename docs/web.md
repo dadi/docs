@@ -1047,10 +1047,6 @@ my-web/
 
 ##### Datasource Configuration
 
-#### Property Description
-
-##### Section: `datasource`
-
  Property  |     | Description                 | Default value  |  Example
 :----------|:-----|:----------------------------|:---------------|:--------------
 key       |    | Short identifier of the datasource. This value is used in the page specification files to attach a datasource   |               | `"books"`
@@ -1062,23 +1058,23 @@ filter      |     | A JSON object containing a MongoDB query  |               | 
 filterEvent |          | An event file to execute which will generate the filter to use for this datasource. The event must exist in the configured events path  |               | `"getBookFilter"`
 fields   |        | Limits the fields to return in the result set   |               | `{ "title": 1, "author": 1 }`
 requestParams       |    | An array of parameters the datasource can accept from the querystring. See [Passing Parameters](#web/passing-parameters) for more.   |               | `[ { "param": "author", "field": "author_id" } ]`
-source | | | |
-| | type           | (optional) Determines whether the data is from a remote endpoint or local, static data   | `"remote"`              | `"remote"`, `"static"`       
-| | protocol           | (optional) The protocol portion of an endpoint URI   | `"http"`              | `"http"`, `"https"`
-| | host           | (optional) The host portion of an endpoint URL   | The main config value `api.host`              | `"api.somedomain.tech"`
-| | port           | (optional) The port portion of an endpoint URL   | The main config value `api.port`  | `3001`
-| | endpoint           | The path to the endpoint which contains the data for this datasource   |               | `"/1.0/news/articles"`       
-caching | | | |
-| | enabled           | Sets caching enabled or disabled   | `false`              | `true`
-| | ttl           |    |               |        
-| | directory           | The directory to use for storing cache files, relative to the root of the application   |               | "./cache"
-| | extension           | The file extension to use for cache files   |               |  "json"
-auth | | | |
-| | type           |    |               | `"bearer"`
-| | host           |    |               | `"api.somedomain.tech"`       
-| | port           |    |               | `3000`
-| | tokenUrl           |    |               |     `"/token"`   
-| | credentials           |    |               |        `{ "clientId": "your-client-key", "secret": "your-client-secret" }`
+source | | | 
+ | type           | (optional) Determines whether the data is from a remote endpoint or local, static data   | `"remote"`              | `"remote"`, `"static"`       
+ | protocol           | (optional) The protocol portion of an endpoint URI   | `"http"`              | `"http"`, `"https"`
+ | host           | (optional) The host portion of an endpoint URL   | The main config value `api.host`              | `"api.somedomain.tech"`
+ | port           | (optional) The port portion of an endpoint URL   | The main config value `api.port`  | `3001`
+ | endpoint           | The path to the endpoint which contains the data for this datasource   |               | `"/1.0/news/articles"`       
+caching | | | 
+ | enabled           | Sets caching enabled or disabled   | `false`              | `true`
+ | ttl           |    |               |        
+ | directory           | The directory to use for storing cache files, relative to the root of the application   |               | "./cache"
+ | extension           | The file extension to use for cache files   |               |  "json"
+auth | | | 
+ | type           |    |               | `"bearer"`
+ | host           |    |               | `"api.somedomain.tech"`       
+ | port           |    |               | `3000`
+ | tokenUrl           |    |               |     `"/token"`   
+ | credentials           |    |               |        `{ "clientId": "your-client-key", "secret": "your-client-secret" }`
 
 #### Passing parameters
 
