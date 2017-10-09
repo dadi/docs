@@ -1174,6 +1174,115 @@ Specifying a `field` and a `param` causes DADI Web to generate a filter for this
 { "_id": 1234567890 }
 ```
 
+#### Filter Replacement
+
+Filter Replacement allows more advanced filtering and can inject a query into an existing datasource filter.
+
+Using the `query` property, Web extracts the specified value from the primary datasource (using the path from `param`) and injects it into the query where `{param}` has been left as a placeholder.
+
+Next, Web takes the updated value of the `query` property and injects the whole thing into the current datasource's `filter` where it finds a placeholder matching the key of the chained datasource (in the example below, `"{books}"` is the placeholder).
+
+```js
+"filter": ["{books}",{"$group":{"_id":{"genre":"$genre"}}}],
+"chained": {
+  "datasource": "books",
+  "outputParam": {
+    "param": "results.0.genre_id",
+    "type": "Number",
+    "query": {"$match":{"genre_id": "{param}"}}
+  }
+}
+```
+
+#### Chained datasource configuration
+
+| Property |  | Description | Example | 
+|--|--|--
+| datasource | | Should match the `key` property of the primary datasource. |
+| outputParam | | |
+| | param | The `param` value specifies where to locate the output value in the results returned by the primary datasource. | `"results.0._id"` |
+| | field | The `field` value should match the MongoDB field to be queried. | `"id"` |
+| | type | The `type` value indicates how the `param` value should be treated (currently only "Number" is supported). | `"Number"` |
+| | query | The `query` property allows more advanced filtering, see below for more detail.   | {} |
+
+#### Chained datasource full example
+
+On a page that displays a car make and all it's associated models, we have two datasources querying two collections, __makes__ and __models__.
+
+** Collections **
+
+* __makes__ has the fields `_id` and `name`
+* __models__ has the fields `_id`, `makeId` and `name`
+
+** Datasources **
+
+* The primary datasource, `makes` (some properties removed for brevity)
+
+```
+{
+  "datasource": {
+     "key": "makes",
+     "source": {
+       "endpoint": "1.0/car-data/makes"
+     },
+     filter: { "name": "Ford" }
+   }
+}
+```
+
+The result of this datasource will be:
+
+```
+{
+  "results": [
+    {
+      "_id": "5596048644713e80a10e0290",
+      "name": "Ford"
+    }
+  ]
+}
+```
+
+To query the models collection based on the above data being returned, add a `chained` property to the models datasource specifying `makes` as the primary datasource:
+
+```
+{
+  "datasource": {
+     "key": "models",
+     "source": {
+       "endpoint": "1.0/car-data/models"
+     },
+      "chained": {
+        "datasource": "makes",
+        "outputParam": {
+          "param": "results.0._id",
+          "field": "makeId"
+        }
+      }
+   }
+}
+```
+In this scenario the **models** collection will be queried using the value of `_id` from the first document of the `results` array returned by the **makes** datasource.
+
+If your query parameter must be passed to the endpoint as an integer, add a `type` property to the `outputParam` specifying `"Number"`.
+```
+{
+  "datasource": {
+     "key": "models",
+     "source": {
+       "endpoint": "1.0/car-data/models"
+     },
+     "chained": {
+        "datasource": "makes",
+        "outputParam": {
+          "param": "results.0._id",
+          "type": "Number",
+          "field": "makeId"
+        }
+      }
+   }
+}
+```
 
 
 ### Filter events
