@@ -1013,6 +1013,59 @@ const Event = (req, res, data, callback) => {
 ### Datasource files
 ### Chained datasources
 ### Filter events
+
+Filter Events are just like regular Events but are designed to build a filter to be passed
+from a datasource to it's underlying source. This could be useful when needing to specify a filter
+for a datasource that relies on parameters that can't be determined from the request parameters (that is, `req.params`).
+
+Any filter already specified by the datasource specification will be extended with the result of the Filter Event.
+
+A "filter event" can be attached to a datasource specification using the property `filterEvent`:
+
+**workspace/datasources/books.json**
+```json
+{
+  "datasource": {
+    "key": "books",
+    "source": {
+      "type": "dadiapi",
+      "endpoint": "1.0/library/books"
+    },
+    "count": 10,
+    "sort": {},
+    "filter": {
+      "borrowed": true
+    },
+    "filterEvent": "injectTodaysDate",
+    "fields": [
+      "title",
+      "author"
+    ]
+  }
+}
+```
+
+**workspace/events/injectTodaysDate.js**
+```js
+const Event = function (req, res, data, callback) {
+  const filter = { date: Date.now() }
+  callback(filter)
+}
+
+module.exports = function (req, res, data, callback) {
+  return new Event(req, res, data, callback)
+}
+```
+
+With the above examples, the datasource instance will be modified as follows. The `filter`
+property will be extended to add a `date` property (from the filter event), and a new `filterEventResult`
+property is added which contains the result of executing the filter event:
+
+```
+filter: { borrowed: true, date: 1507566199527 },
+filterEventResult: { date: 1507566199527 }
+```
+
 ### Preload data
 ### Routing
 ### Providers
