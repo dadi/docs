@@ -1115,7 +1115,7 @@ See [Routing](#web/routing) for detailed routing documentation.
 
 #### Building filters
 
-Filter Events can be used to generate filters for datasources. They are like regular  [Events](#web/events) but are designed to return a filter before the datasource is executed. See  [Filter Events](#web/filer-events) for more information.
+Filter Events can be used to generate filters for datasources. They are like regular  [Events](#web/events) but are designed to return a filter before the datasource is executed. See  [Filter Events](#web/filter-events) for more information.
 
 
 ### Chained datasources
