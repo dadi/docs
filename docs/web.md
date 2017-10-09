@@ -55,9 +55,9 @@ $ npm install --save @dadi/web
 
 This will create `config` & `workspace` folders and `server.js` which will serve as the entry point to your app.
 
-## Configration
+## Configuration
 
-All the core platform services are configured using enviroment specific configuration.json files, the default being `development`. For more advanced users this can also load based on the `hostname` i.e., it will also look for `config." + req.headers.host + ".json`
+All the core platform services are configured using environment specific configuration.json files, the default being `development`. For more advanced users this can also load based on the `hostname` i.e., it will also look for `config." + req.headers.host + ".json`
 
 The minimal `config.development.json` file looks like this:
 
@@ -1010,8 +1010,172 @@ const Event = (req, res, data, callback) => {
 
 
 ## Adding data
-### Datasource files
+
+### Datasources
+
+Web's Datasources are used to connect to both internal and external data providers
+to load data for rendering pages.
+
+```
+my-web/
+  app/
+    datasources/      
+      books.json      # a datasource specification
+    events/           
+    pages/            
+```
+
+#### Datasource Specification File
+
+```json
+{
+  "datasource": {
+    "key": "books",
+    "name": "Books datasource",
+    "source": {
+      "type": "dadiapi",
+      "endpoint": "1.0/library/books"
+    },
+    "paginate": true,
+    "count": 5,
+    "sort": { "name": 1 },
+    "filter": {},
+    "fields": {}
+  }
+}
+```
+
+##### Datasource Configuration
+
+#### Property Description
+
+##### Section: `datasource`
+
+ Property  |     | Description                 | Default value  |  Example
+:----------|:-----|:----------------------------|:---------------|:--------------
+key       |    | Short identifier of the datasource. This value is used in the page specification files to attach a datasource   |               | `"books"`
+name      |     | This is the name of the datasource, commonly used as a description for developers   |               | `"Books"`
+paginate    |       |    | true              | true
+count       |    | Number of items to return from the endpoint per page. If set to '0' then all results will be returned    | 20              | 5
+sort        |   | A JSON object with fields to order the result set by | `{}` // unsorted     | `{ "title": 1 } // sort by title ascending`, `{ "title": -1 } // sort by title descending`
+filter      |     | A JSON object containing a MongoDB query  |               | `{ "SaleDate" : { "$ne" : null} }`
+filterEvent |          | An event file to execute which will generate the filter to use for this datasource. The event must exist in the configured events path  |               | `"getBookFilter"`
+fields   |        | Limits the fields to return in the result set   |               | `{ "title": 1, "author": 1 }`
+requestParams       |    | An array of parameters the datasource can accept from the querystring. See [Passing Parameters](#web/passing-parameters) for more.   |               | `[ { "param": "author", "field": "author_id" } ]`
+source | | | |
+| | type           | (optional) Determines whether the data is from a remote endpoint or local, static data   | `"remote"`              | `"remote"`, `"static"`       
+| | protocol           | (optional) The protocol portion of an endpoint URI   | `"http"`              | `"http"`, `"https"`
+| | host           | (optional) The host portion of an endpoint URL   | The main config value `api.host`              | `"api.somedomain.tech"`
+| | port           | (optional) The port portion of an endpoint URL   | The main config value `api.port`  | `3001`
+| | endpoint           | The path to the endpoint which contains the data for this datasource   |               | `"/1.0/news/articles"`       
+caching | | | |
+| | enabled           | Sets caching enabled or disabled   | `false`              | `true`
+| | ttl           |    |               |        
+| | directory           | The directory to use for storing cache files, relative to the root of the application   |               | "./cache"
+| | extension           | The file extension to use for cache files   |               |  "json"
+auth | | | |
+| | type           |    |               | `"bearer"`
+| | host           |    |               | `"api.somedomain.tech"`       
+| | port           |    |               | `3000`
+| | tokenUrl           |    |               |     `"/token"`   
+| | credentials           |    |               |        `{ "clientId": "your-client-key", "secret": "your-client-secret" }`
+
+#### Passing parameters
+
+`requestParams` is an array of parameters that the datasource can accept from the querystring. Used in conjunction with `route` properties from a page specification, this allows filters to be generated for querying data.
+
+**Page specification**
+
+```json
+"routes": [{
+  "path": "/books/:title"
+}]
+```
+
+**Datasource specification**
+
+```json
+"source": {
+  "endpoint": "1.0/library/books"
+},
+"requestParams": [
+  { "field": "title", "param": "title" }
+]
+```
+
+field | param
+:--|:---
+The field to filter on | The request parameter to use as the value for the filter. Must match a named parameter in the page specification's `routes` property
+
+##### For example, given a collection `books` with the fields `_id`, `title`
+
+With the page route `/books/:title` and the above datasource configuration, DADI Web will extract the `:title` parameter from the URL and use it to query the `books` collection using the field `title`.
+
+With a request to http://www.somedomain.tech/books/sisters-brothers, the named parameter `:title` is `sisters-brothers`. A filter query is constructed for the datasource using this value.
+
+The resulting query passed to the underlying datastore is: `{ "title" : "sisters-brothers" }`
+
+See [Routing](#web/routing) for detailed routing documentation.
+
 ### Chained datasources
+
+It is often a requirement to query a datasource using data already loaded by another datasource. DADI Web supports this through the use of "chained" datasources. Chained datasources are executed after all non-chained datasources, ensuring the data they rely on has already been fetched.
+
+Add a `chained` property to a datasource to make it reliant on data loaded by another datasource. The following datasource won't be executed until data from the `books` datasource is a available:
+
+```js
+{
+  "datasource": {
+    "key": "books-by-author",
+    "source": {
+      "type": "dadiapi",
+      "endpoint": "1.0/library/authors"
+    },  
+    "chained": {
+      "datasource": "books" // the primary (non-chained) datasource that this datasource relies on
+    }
+  }
+}
+```
+
+There are two ways to use query a chained datasource using previously-fetched data. One is _[Filter Generation](#web/filter-generation)_ and the other is _[Filter Replacement](#web/filter-replacement)_.
+
+#### Filter Generation
+
+Filter Generation is used when the chained datasource currently has no filter, and it is relying on the primary datasource to provide its values.
+
+```js
+"chained": {
+  "datasource": "books",
+  "outputParam": {
+    "field": "_id", // the filter key to use for this datasource
+    "param": "results.0.author_id" // the path to the value this datasource will use in it's filter
+  }
+}
+```
+
+Specifying a `field` and a `param` causes DADI Web to generate a filter for this datasource using values from the primary datasource. For example:
+
+**Results from primary datasource**
+```json
+{
+  "results": [
+    {
+      "fullName": "Ernest Hemingway",
+      "author_id": 1234567890
+    }
+  ]
+}
+```
+
+**Generated filter for chained datasource**
+
+```js
+{ "_id": 1234567890 }
+```
+
+
+
 ### Filter events
 
 Filter Events are just like regular Events but are designed to build a filter to be passed
