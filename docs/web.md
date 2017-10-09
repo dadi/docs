@@ -1103,7 +1103,7 @@ field | param
 :--|:---
 The field to filter on | The request parameter to use as the value for the filter. Must match a named parameter in the page specification's `routes` property
 
-##### For example, given a collection `books` with the fields `_id`, `title`
+**For example, given a collection `books` with the fields `_id`, `title`**
 
 With the page route `/books/:title` and the above datasource configuration, DADI Web will extract the `:title` parameter from the URL and use it to query the `books` collection using the field `title`.
 
@@ -1112,6 +1112,11 @@ With a request to http://www.somedomain.tech/books/sisters-brothers, the named p
 The resulting query passed to the underlying datastore is: `{ "title" : "sisters-brothers" }`
 
 See [Routing](#web/routing) for detailed routing documentation.
+
+#### Building filters
+
+Filter Events can be used to generate filters for datasources. They are like regular  [Events](#web/events) but are designed to return a filter before the datasource is executed. See  [Filter Events](#web/filer-events) for more information.
+
 
 ### Chained datasources
 
@@ -1280,61 +1285,6 @@ If your query parameter must be passed to the endpoint as an integer, add a `typ
 }
 ```
 
-
-### Filter events
-
-Filter Events are just like regular Events but are designed to build a filter to be passed
-from a datasource to it's underlying source. This could be useful when needing to specify a filter
-for a datasource that relies on parameters that can't be determined from the request parameters (that is, `req.params`).
-
-Any filter already specified by the datasource specification will be extended with the result of the Filter Event.
-
-A "filter event" can be attached to a datasource specification using the property `filterEvent`:
-
-**workspace/datasources/books.json**
-```json
-{
-  "datasource": {
-    "key": "books",
-    "source": {
-      "type": "dadiapi",
-      "endpoint": "1.0/library/books"
-    },
-    "count": 10,
-    "sort": {},
-    "filter": {
-      "borrowed": true
-    },
-    "filterEvent": "injectTodaysDate",
-    "fields": [
-      "title",
-      "author"
-    ]
-  }
-}
-```
-
-**workspace/events/injectTodaysDate.js**
-```js
-const Event = function (req, res, data, callback) {
-  const filter = { date: Date.now() }
-  callback(filter)
-}
-
-module.exports = function (req, res, data, callback) {
-  return new Event(req, res, data, callback)
-}
-```
-
-With the above examples, the datasource instance will be modified as follows. The `filter`
-property will be extended to add a `date` property (from the filter event), and a new `filterEventResult`
-property is added which contains the result of executing the filter event:
-
-```
-filter: { borrowed: true, date: 1507566199527 },
-filterEventResult: { date: 1507566199527 }
-```
-
 ### Preload data
 ### Routing
 ### Providers
@@ -1382,7 +1332,7 @@ Connect to a miscellaneous API via HTTP or HTTPS. See the following file as an e
 
 #### Markdown
 
-Serve content from a local folder containing text files. You can specify also specify the extension to grab. Web will process any Markdown formatting (with [Marked](https://github.com/chjj/marked)) it finds automatically as well as any [Jekyll-style front matter](https://jekyllrb.com/docs/frontmatter/) found. Any dates/times found will be processed through JavasScript’s `Date()` function.
+Serve content from a local folder containing text files. You can also specify the extension to grab. Web will process any Markdown formatting (with [Marked](https://github.com/chjj/marked)) it finds automatically as well as any [Jekyll-style front matter](https://jekyllrb.com/docs/frontmatter/) found. Any dates/times found will be processed through JavasScript’s `Date()` function.
 
 ```JSON
 {
@@ -1436,7 +1386,7 @@ NB. `_path` will exclude the datasource `source.path`.
 
 ### Events
 
-Events are server side JavaScript functions that can add additional functionality to a page. Events can serve as a useful way to implement logic to a logic-less template.
+Events are server side JavaScript functions that can add additional functionality to a page. Events can serve as a useful way to implement logic in a logic-less template.
 
 ```
 my-web/
@@ -1469,79 +1419,51 @@ In a page specification file:
 
 #### Filter Events
 
-In a datasource specification file:
+Filter Events can be used to generate filters for datasources. They are like regular  Events but are designed to return a filter to the datasource so it can query it's underlying source. This could be useful when needing to specify a filter
+for a datasource that relies on parameters that can't be determined from the request parameters (that is, `req.params`).
 
-```js
-"filterEvent": "filterevent-one"
-```
+Any filter already specified by the datasource specification will be extended with the result of the filter event.
 
-Use case:
-A developer would like count how many people clicked on a 'plus' button.
+A filter event can be attached to a datasource specification using the property `filterEvent`. That value must match the filename of an existing event file, without it's extension:
 
-To achieve this he has to create a new event and attach it to the page where he has the 'plus' button.
-
-The developer then implements a code in the event which will look for specific event (i.e. POST buttonpressed) and inside this he will increase a counter stored in a text file.
-
-The developer then returns the updated counter number from the event which is made accessible within the Dust template.
-
-Events are added to pages in the page specification.
-
+**workspace/datasources/books.json**
 ```json
 {
-  "page": {
-    "name": "Book Reviews",
-    "description": "A collection of book reviews.",
-    "language": "en"
-  },
-  "settings": {
-    "cache": true
-  },
-  "route": "/reviews",
-  "template": "book-reviews.dust",
-  "datasources": [
-    "books"
-  ],
-  "events": [
-    "addAuthorInformation"
-  ]
+  "datasource": {
+    "key": "books",
+    "source": {
+      "type": "dadiapi",
+      "endpoint": "1.0/library/books"
+    },
+    "count": 10,
+    "sort": {},
+    "filter": {"borrowed": true},
+    "filterEvent": "injectCurrentDate",
+    "fields": ["title", "author"]
+  }
 }
 ```
 
-#### Sample event file
-
+**workspace/events/injectCurrentDate.js**
 ```js
-/**
- * <Event Description>
- *
- * @param {IncomingMessage} req -
- * @param {ServerResponse} res -
- * @param {object} data - contains the data already loaded by the page's datasources and any previous events that have fired
- * @param {function} callback - call back to the controller with two arguments, `err` and the result of the event processing
- */
-const Event = (req, res, data, callback) => {
-  let result = {}
-
-  if (data.books && data.books.results) {
-    result = {
-      title: data.books.results[0].title
-    }
-  }
-  else {
-    result = {
-      title: "Not found"
-    }
-  }
-
-  // return a null error and the result
-  callback(null, result)
+const Event = function (req, res, data, callback) {
+  const filter = { date: Date.now() }
+  callback(filter)
 }
 
 module.exports = function (req, res, data, callback) {
   return new Event(req, res, data, callback)
 }
-
-module.exports.Event = Event
 ```
+
+With the above examples, the datasource instance will be modified as follows. The `filter`
+property will be extended to add a `date` property (from the filter event), and a new `filterEventResult` property is added which contains the result of executing the filter event:
+
+```
+filter: { borrowed: true, date: 1507566199527 },
+filterEventResult: { date: 1507566199527 }
+```
+
 
 ### Middleware
 
