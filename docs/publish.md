@@ -132,7 +132,21 @@ NODE_ENV=development npm explore @dadi/publish -- npm run api-install --configDi
 
 ### Creating a user
 
-{To-do}
+The eaisest way to create your first user is by sending a POST request to the API connected to your Publish installation.
+
+```http
+POST /1.0/publish/users HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 1aaf758d-0e3d-4d16-b7ae-b75977dc5223
+Host: api.somedomain.tech
+
+{
+  "first_name": "First",
+  "last_name": "User",
+  "email": "you@domain.co",
+  "password": "something-tricky"
+}
+```
 
 ### Creating a document
 Publish interacts directly with any number of instances of [dadi/api](https://github.com/dadi/api). 
