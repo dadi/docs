@@ -1290,7 +1290,24 @@ If your query parameter must be passed to the endpoint as an integer, add a `typ
 }
 ```
 
-### Preload data
+### Preloading data
+
+Web can be configured to preload data before each request. Add a block to the main configuration file like the example below, using your datasource names in place of "channels":
+
+```json
+"data": {
+  "preload": [
+    "channels"
+  ]
+}
+```
+
+#### Accessing preloaded data
+
+```javascript
+const Preload = require('@dadi/web').Preload
+const data = Preload().get('key')
+
 ### Routing
 ### Providers
 #### DADI API
