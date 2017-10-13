@@ -1148,6 +1148,8 @@ There are two ways to use query a chained datasource using previously-fetched da
 
 Filter Generation is used when the chained datasource currently has no filter, and it is relying on the primary datasource to provide its values.
 
+**Example: ** query the "authors" datasource, using the `_id` from the "books" datasource 
+
 ```js
 "chained": {
   "datasource": "books",
