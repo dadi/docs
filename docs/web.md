@@ -1139,6 +1139,9 @@ Add a `chained` property to a datasource to make it reliant on data loaded by an
 }
 ```
 
+> Chained datasources are not automatically added to the page. You must still include the datasource in the datasources block of your page config.
+> -- advice
+
 There are two ways to use query a chained datasource using previously-fetched data. One is _[Filter Generation](#web/filter-generation)_ and the other is _[Filter Replacement](#web/filter-replacement)_.
 
 #### Filter Generation
