@@ -1627,7 +1627,7 @@ Response JSON:
 
 ## Dealing with pixel ratios
 
-When dealing with mulitiple device pixel ratios, you can 'multiply' the outputted size of the image by adding the parameter `devicePixelRatio` to your query. `devicePixelRatio` can be anywhere from 0 to 4. Supplying this parameter will inform the CDN to multiply the output dimensions by that factor.
+When dealing with mulitiple device pixel ratios, you can 'multiply' the outputted size of the image by adding the parameter `devicePixelRatio` to your query. `devicePixelRatio` can be anywhere from 1 to 3. Supplying this parameter will inform the CDN to multiply the output dimensions by that factor.
 
 For example a `100px x 100px` image with the variable `devicePixelRatio=2` will return an image of `200px x 200px` in size. You can then scale down the image in your front-end output e.g.,
 
@@ -1651,14 +1651,12 @@ and then enlarge it to `300px x 300px`:
 
 ![300x300](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&devicePixelRatio=2)
 
-or even better, to `600px x 600px` for HDPI displays:
-
-and then enlarge it to `300px x 300px`:
+It is also possible to set the width, height, or both width & height explicitly, if we wanted an image of 600x600 for a HDPI display, etc:
 
 ```html
-<img src="https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&devicePixelRatio=4" width="300">
+<img src="https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=600" width="300">
 ```
 
-![300x300](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&devicePixelRatio=4)
+![600x600](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=600)
 
 Read more about [Cropping Images](#cdn/cropping-images).
