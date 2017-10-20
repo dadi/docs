@@ -811,7 +811,37 @@ By specifying only the top left corner of the crop rectangle, CDN works out the 
 
 ### Crop Rectangle
 
-resize=crop&crop=0,10,100,200
+It is also possible to supply both the top left and the bottom right co-ordinates of a crop rectangle: `resize=crop&crop=0,0,100,100` etc. This allows you to selectively crop an exact area out of an image.
+
+Let's take a look at some examples. We'll use our `400x400` pixel image, which has squares marked at `x, y (size)`: `0,0 (25 px)`, `25,25 (25px)`, `50,50 (50px)`, `100,100 (100px)`, `200,200 (200px)`: 
+
+![](https://cdn.somedomain.tech/samples/measure.png)
+
+We can crop the second and third boxes by supplying a top left of `50,50`, and a bottom right of `200,200`, giving us a `150x150` pixel image:
+
+`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200`
+
+![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200)
+
+We're also able to change the size of the image we get back. Let's change it to `100` pixels wide. In this case, the height will be inferred from the width. The same goes if we only supply a height.
+
+`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=100`
+
+![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=100)
+
+If you really want to get creative, you can supply a cropping rectangle along with both a width and height, which will allow you to completely resize an image after cropping. Let's take the above image and squash it.
+
+`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=400&height=100`
+
+![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=400&height=100)
+
+Another way of resizing our crops, if we don't want to be as specific, is to provide the `devicePixelRatio` ratio.
+
+`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&devicePixelRatio=2`
+
+![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&&devicePixelRatio=2)
+
+Read more about [dealing with pixel ratios](#cdn/dealing-with-pixel-ratios).
 
 ### Entropy
 
