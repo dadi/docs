@@ -437,7 +437,7 @@ Here is an example page specification, with all options specified.
   ],
   "preloadEvents": [
     "geolocate"
-  ],
+  ]
 }
 ```
 
@@ -505,7 +505,7 @@ Allows specifying an array of datasources that must return data for the page to 
 ```js
 "requiredDatasources": [
   "datasource-one",
-  …
+  ...
 ]
 ```
 
@@ -516,7 +516,7 @@ An array containing events that should be executed after the page's datasources 
 ```js
 "events": [
   "event-one",
-  …
+  ...
 ]
 ```
 
@@ -531,7 +531,7 @@ Preload events are loaded from the filesystem in the same way as a page's regula
 ```js
 "preloadEvents": [
   "preloadevent-one",
-  …
+  ...
 ]
 ```
 
@@ -962,8 +962,8 @@ A full configuration block for sessions contains the following properties:
 ```js
 "sessions": {
   "enabled": true,
-  "name": "dadiweb.sid",
-  "secret": "dadiwebsecretsquirrel",
+  "name": "your-cookie-name
+  "secret": "your-secret-key",
   "resave": false,
   "saveUninitialized": false,
   "store": "",
@@ -1410,18 +1410,101 @@ NB. `_path` will exclude the datasource `source.path`.
 
 Events are server side JavaScript functions that can add additional functionality to a page. Events can serve as a useful way to implement logic in a logic-less template.
 
+A simple use case for Events is counting how many users have clicked on a 'Like' button. To achieve this an Event file needs to be attached to the page which contains the 'Like' button. The Event file would check the POST request body contains expected values and then perhaps increase a counter stored in a database. 
+
+> The [How To Guides](#web/how-to-guides) contains an example of an Event being used to send email via SendGrid in response to user interaction.
+> -- advice
+
+#### The Event system
+
+The Event system in DADI Web provides developers with a way to perform tasks related to the current request, end the current request or extend the data context that is passed to the rendering engine.
+
+* Events are executed in sequence after a page's datasources have all returned, and they have access to the data loaded by all the datasources
+* Events are attached to pages in the [page specification file](#web/adding-pages), using the `"events"` array
+
 ```
 my-web/
   workspace/
     datasources/      
     events/           
       addAuthorInformation.js      # an Event file
-    pages/            
+    pages/
+      books.json            
+```
+
+**workspace/pages/books.json**
+
+```js
+"events": [
+  "addAuthorInformation"
+]
+```
+
+An Event is declared in the following way, receiving the original HTTP request, the response, the data context and a callback function to return control back to the controller that called it:
+
+**workspace/events/example.js**
+
+```js
+const Event = function (req, res, data, callback) {
+  callback(null)
+}
+
+module.exports = function (req, res, data, callback) {
+  return new Event(req, res, data, callback)
+}
+```
+
+#### The data context 
+
+The `data` argument that an Event receives is JSON which  is eventually passed to the template rendering engine once all the Datasources and Events have finished running. `data` may contain some or all of the following:
+
+* metadata about the current page
+* request parameters
+* data loaded by all datasources that have been run before the Events started executing
+* data added by previous Events
+* global configuration settings
+
+#### Sample Event file
+
+**workspace/events/full-example.js**
+
+```js
+/**
+ * <Event Description>
+ *
+ * @param {IncomingMessage} req - the original HTTP request
+ * @param {ServerResponse} res - the HTTP response
+ * @param {object} data - contains the data already loaded by the page's datasources and any previous events that have fired
+ * @param {function} callback - call back to the controller with two arguments, `err` and the result of the event processing
+ */
+const Event = (req, res, data, callback) => {
+  let result = {}
+
+  if (data.hasResults('books')) {
+    result = {
+      title: data.books.results[0].title
+    }
+  }
+  else {
+    result = {
+      title: "Not found"
+    }
+  }
+
+  // return a null error and the result
+  callback(null, result)
+}
+
+module.exports = function (req, res, data, callback) {
+  return new Event(req, res, data, callback)
+}
+
+module.exports.Event = Event
 ```
 
 #### Global Events
 
-In the main configuration file:
+In addition to attaching Events to specific pages in the application, it is possible to declare "global events" that are fired for every page. Global Events are fired at the beginning of the request cycle, before datasources and other page Events. Add a "globalEvents" section to the main configuration file:
 
 ```js
 globalEvents: [
@@ -1431,7 +1514,7 @@ globalEvents: [
 
 #### Preload Events
 
-In a page specification file:
+Preload Events are similar to Global Events, in that they are fired at the beginning of the request cycle, before any data is loaded from datasources. To attach a Preload Event to a page, add a "preloadEvents" block to the page specification file:
 
 ```js
 "preloadEvents": [
@@ -1441,8 +1524,7 @@ In a page specification file:
 
 #### Filter Events
 
-Filter Events can be used to generate filters for datasources. They are like regular  Events but are designed to return a filter to the datasource so it can query it's underlying source. This could be useful when needing to specify a filter
-for a datasource that relies on parameters that can't be determined from the request parameters (that is, `req.params`).
+Filter Events can be used to generate filters for datasources. They are like regular Events but are designed to return a filter to the datasource so it can query it's underlying source. This could be useful when needing to specify a filter for a datasource that relies on parameters that can't be determined from the request parameters (that is, `req.params`).
 
 Any filter already specified by the datasource specification will be extended with the result of the filter event.
 
@@ -1568,9 +1650,6 @@ Once enabled, the variable `csrfToken` will be injected into the viewModel. You 
 If the CSRF token provided is incorrect, or one isn't provided, then a `403 forbidden` error will occur.
 
 A working example can be found here: [dadi-web-csrf-test](https://github.com/adamkdean/dadi-web-csrf-test).
-
-### SSL
-### SSL with a load balancer
 
 ## How-to guides
 
