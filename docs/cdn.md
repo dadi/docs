@@ -815,8 +815,9 @@ resize=crop&crop=0,10,100,200
 
 ### Entropy
 
-resize=entropy
+Using `resize=entropy` crops the image using a technique that determines the most important areas.
 
+Read more about [entropy](#cdn/entropy).
 
 ## Image Parameters
 
