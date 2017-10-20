@@ -770,18 +770,18 @@ Used in combination with width and height parameters, `entropy` crops the image 
 
 #### crop
 
-| crop-x | Integer | Default: 0. X position of crop area |
-| crop-y | Integer | Default: 0. Y position of crop area |
-
-When `resize=crop` an additional `crop` parameter must be used to specify the coordinates of the crop rectangle. There are two ways to pass the crop rectangle coordinates:
+When `crop` is used as the resize style then an additional parameter must be used to specify the coordinates of the crop rectangle. There are two ways to pass the crop rectangle coordinates:
 
 **Specify only the top left corner of the rectangle**
 
-`?resize=crop&crop=10,15`
+`?resizeStyle=crop&crop=10,15`
 
 **Specify the top left corner and the bottom right corner of the rectangle**
 
-`?resize=crop&crop=10,15,200,300`
+`?resizeStyle=crop&crop=10,15,200,300`
+
+> Note: when using the legacy Path URL Schema, parameters for `crop-x` and `crop-y` are passed instead. `crop-x` and `crop-y` are used in the same way as the two-coordinate crop above - that is, they specify the top left corner of the crop rectangle.
+> -- advice
 
 #### gravity
 
@@ -793,17 +793,29 @@ Used to position the crop area. Available options (case sensitive): `northwest`,
 
 ![](https://cdn.somedomain.tech/samples/med.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
-> In each example, the output image is 400 x 300 pixels.
-
-`https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=North`
-`https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=Center`
-`https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=South`
-
-| x | x | x
+| g=west | g=center | g=east
 |:--|:--|:--
-| ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=North "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=North** | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=Center "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=Center** | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfit&g=South "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=South**
+| ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfill&g=west "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=west** | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfill&g=center "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=center** | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfill&g=east "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=east**
 
 ## Cropping Images
+
+For more control over the output image than available when using the standard resize style options `aspectFit`, `aspectFill`, `fit` and `fill`, you can specify three different ways to crop your images.
+
+### Top & Left Crop
+
+By specifying only the top left corner of the crop rectangle, CDN works out the full crop rectangle size by using the specified width and height parameters. To obtain an image that is 300 wide and 400 high, but cropped from 100 pixels from the top edge:
+
+`https://cdn.somedomain.tech/samples/med.jpeg?resize=crop&crop=0,10&width=300&height=400`
+
+![](https://cdn.somedomain.tech/samples/med.jpeg?resize=crop&crop=0,10&width=300&height=400 "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+
+### Crop Rectangle
+
+resize=crop&crop=0,10,100,200
+
+### Entropy
+
+resize=entropy
 
 
 ## Image Parameters
@@ -858,23 +870,9 @@ The `flip` parameter flips images horizontally, vertically or both. A horizontal
 - **Default:** 0
 - **Alias:** `fl`
 
-**Horizontal flip**
-
-`https://cdn.somedomain.tech/samples/dog.jpeg?flip=x`
-
-![Dog flipped on the X axis](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=x "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
-**Vertical flip**
-
-`https://cdn.somedomain.tech/samples/dog.jpeg?flip=y`
-
-![Dog flipped on the Y axis](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=y "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
-
-**Horizontal and vertical flip**
-
-`https://cdn.somedomain.tech/samples/dog.jpeg?flip=xy`
-
-![Dog flipped on both axes](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=xy "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
+| **Horizontal flip: ?flip=x**  | **Vertical flip: ?flip=y**  | **Horizontal and vertical flip: ?flip=xy**  
+|:--|:--|:--
+| ![Dog flipped on the X axis](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=x "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") | ![Dog flipped on the Y axis](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=y "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") | ![Dog flipped on both axes](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=xy "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
 ### format: converting images
 
