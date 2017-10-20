@@ -1627,7 +1627,7 @@ Response JSON:
 
 ## Dealing with pixel ratios
 
-When dealing with mulitiple device pixel ratios, you can 'multiply' the outputted size of the image by adding the parameter `devicePixelRatio` to your query. `devicePixelRatio` can be anywhere from 1 to 3. Supplying this parameter will inform the CDN to multiply the output dimensions by that factor.
+When dealing with multiple device pixel ratios, you can 'multiply' the outputted size of the image by adding the parameter `devicePixelRatio` to your query. `devicePixelRatio` can be anywhere from 1 to 3. Supplying this parameter will inform the CDN to multiply the output dimensions by that factor.
 
 For example a `100px x 100px` image with the variable `devicePixelRatio=2` will return an image of `200px x 200px` in size. You can then scale down the image in your front-end output e.g.,
 
