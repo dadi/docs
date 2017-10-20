@@ -1752,11 +1752,11 @@ var dust = require('dustjs-linkedin')
 require('@dadi/dustjs-helpers')(dust)
 ```
 
-### Dealing with form data and Sendgrid
+### Dealing with form data and SendGrid
 
-This is an example of an event which uses [SendGrid](https://sendgrid.com/) to send a message from an HTML form.
+This is an example of an Event which uses [SendGrid](https://sendgrid.com/) to send a message from an HTML form.
 
-**`workspace/pages/contact.dust`**
+**workspace/pages/contact.dust**
 
 ```dust.js
 {?mailResult}<p>{mailResult}</p>{/mailResult}
@@ -1784,27 +1784,30 @@ This is an example of an event which uses [SendGrid](https://sendgrid.com/) to s
 </form>
 ```
 
-**`workspace/events/contact.js`**
+You need an API key from SendGrid to use this Event in your application. Once you have obtained an API key from [SendGrid.com](http://sendgrid.com), DADI Web should be started with an environment variable containing the API key. You will also need to whitelist your IP address within the SendGrid dashboard.
 
-You need a Sendgrid.com API key for this script to work DADI Web should be started with an ENV variable for the SendGrid API key. The IP address of the box it is hosted on also needs to be whitelisted within SendGrid's dashboard.
+> You could hardcode your API key, but be careful not to commit the code to a publicly accessible GitHub repo.
+> -- warning
 
-Optionally you could hardcode your API key, but be careful not to commit the code to a publically acessible GitHub repo.
+**Starting DADI Web with an environment variable**
+```
+$ SENDGRID_API=71713987-9f01-4dea-b3d4-8d0bcd9d53ed node index.js
+```
 
-```JAVASCRIPT
-var sg = require('sendgrid')(process.env['SENDGRID_API'])
+**workspace/events/contact.js**
 
-var Event = function (req, res, data, callback) {
+```js
+const sendgrid = require('sendgrid')(process.env['SENDGRID_API'])
 
+const Event = function (req, res, data, callback) {
   // On form post
   switch (req.method.toLowerCase()) {
     case 'post':
-
-      // Validate out inputs
+      // Validate the inputs
       if (req.body.email && isEmail(req.body.email) && req.body.message) {
+        const message = "Name: " +req.body.name + "\n\nEmail: " + req.body.email + "\n\nPhone: " + req.body.phone + "\n\nMessage:\n\n" + req.body.message
 
-        var message = "Name: "+req.body.name+"\n\nEmail: "+req.body.email+"\n\nPhone: "+req.body.phone+"\n\nMessage:\n\n"+req.body.message
-
-        var request = sg.emptyRequest({
+        var request = sendgrid.emptyRequest({
           method: 'POST',
           path: '/v3/mail/send',
           body: {
@@ -1820,11 +1823,11 @@ var Event = function (req, res, data, callback) {
             content: [{
               type: 'text/plain',
               value: message,
-            }],
+            }]
           }
         })
 
-        sg.API(request, function(error, response) {
+        sendgrid.API(request, (error, response) => {
           if (error) {
             data.mailResult = 'There was a problem sending the email.'
           } else {
@@ -1833,7 +1836,6 @@ var Event = function (req, res, data, callback) {
 
           callback()
         })
-
       } else {
         data.mailResult = 'All fields are required.'
         callback()
@@ -1848,14 +1850,14 @@ var Event = function (req, res, data, callback) {
 
 // Taken from: http://stackoverflow.com/a/46181/306059
 function isEmail(email) {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
   return re.test(email)
 }
 
 module.exports = function (req, res, data, callback) {
   return new Event(req, res, data, callback)
-};
+}
 ```
 
 ## Errors
