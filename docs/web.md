@@ -1139,11 +1139,16 @@ Add a `chained` property to a datasource to make it reliant on data loaded by an
 }
 ```
 
+> Chained datasources are not automatically added to the page. You must still include the datasource in the datasources block of your page config.
+> -- advice
+
 There are two ways to use query a chained datasource using previously-fetched data. One is _[Filter Generation](#web/filter-generation)_ and the other is _[Filter Replacement](#web/filter-replacement)_.
 
 #### Filter Generation
 
 Filter Generation is used when the chained datasource currently has no filter, and it is relying on the primary datasource to provide its values.
+
+**Example: ** query the "authors" datasource, using the `_id` from the "books" datasource 
 
 ```js
 "chained": {
@@ -1285,7 +1290,24 @@ If your query parameter must be passed to the endpoint as an integer, add a `typ
 }
 ```
 
-### Preload data
+### Preloading data
+
+Web can be configured to preload data before each request. Add a block to the main configuration file like the example below, using your datasource names in place of "channels":
+
+```json
+"data": {
+  "preload": [
+    "channels"
+  ]
+}
+```
+
+#### Accessing preloaded data
+
+```javascript
+const Preload = require('@dadi/web').Preload
+const data = Preload().get('key')
+
 ### Routing
 ### Providers
 #### DADI API

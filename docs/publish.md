@@ -49,8 +49,8 @@ $ npm install --save @dadi/publish
 
 Before running Publish, you will need:
 - At least one running API.
-- An auth API with the [required auth hook and collection](#authentication) (can be the same as one of your other APIs). 
-- An admin user. (See [Creating a user](#create-a-user))
+- An auth API with the [required auth hook and collection](#publish/authentication) (can be the same as one of your other APIs). 
+- An admin user. (See [Creating a user](#publish/creating-a-user))
 
 ### Connecting to API
 
@@ -74,7 +74,7 @@ To connect to an API, make sure your @dadi/api install is running, then add one 
 
 ### Managing users
 
-Users are currently managed in API. To add a user, send the user credentials to the users collection. See [Creating a user](#creating-a-user) how-to guide.
+Users are currently managed in API. To add a user, send the user credentials to the users collection. See [Creating a user](#publish/creating-a-user) how-to guide.
 
 > **Note**
 > 
@@ -122,7 +122,7 @@ When SSL is enabled, the port defined in environment config is ignored in favour
 Authentication is currently handled with a hook and collection in the current connected api. To install these required files, run the following from your publish directory
 
 ```shell
-NODE_ENV=development npm explore publish -- npm run api-install --configDir=/path/to/config/directory
+NODE_ENV=development npm explore @dadi/publish -- npm run api-install --configDir=/path/to/config/directory
 ```
 
 > **Note**
@@ -132,7 +132,21 @@ NODE_ENV=development npm explore publish -- npm run api-install --configDir=/pat
 
 ### Creating a user
 
-{To-do}
+The eaisest way to create your first user is by sending a POST request to the API connected to your Publish installation.
+
+```http
+POST /1.0/publish/users HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer 1aaf758d-0e3d-4d16-b7ae-b75977dc5223
+Host: api.somedomain.tech
+
+{
+  "first_name": "First",
+  "last_name": "User",
+  "email": "you@domain.co",
+  "password": "something-tricky"
+}
+```
 
 ### Creating a document
 Publish interacts directly with any number of instances of [dadi/api](https://github.com/dadi/api). 
@@ -166,7 +180,7 @@ As you edit each field, Publish will identify any validation errors and display 
 
 Validation is also checked once more as a document is saved. 
 
-If an invalid field is not part of the current selected tab (_see [tabs](#tabs) below_), a warning icon will appear on each tab containing one or more validation errors.
+If an invalid field is not part of the current selected tab (_see [tabs](#publish/tabs) below_), a warning icon will appear on each tab containing one or more validation errors.
 
 ### Filtering documents
 
@@ -176,7 +190,7 @@ If an invalid field is not part of the current selected tab (_see [tabs](#tabs) 
 
 For individual document selection a checkbox to the left of the document can be toggled. To toggle select on an entire page, click the checkbox in the table header, to the far left. 
 
-Document selection is retained even during [Pagination](#document-pagination). This means that [Batch actions](#batch-document-actions) will be applied to documents that aren't currently in view.
+Document selection is retained even during [Pagination](#publish/document-pagination). This means that [Batch actions](#publish/batch-document-actions) will be applied to documents that aren't currently in view.
 
 ### Batch Document actions
 
