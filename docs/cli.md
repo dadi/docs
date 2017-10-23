@@ -72,7 +72,7 @@ dadi web routes:list        Lists initialised routes
 dadi web new                Creates a new instance of DADI
                             Web
 
----
+--
 
 Type dadi help <command> to learn more about a specific command.
 ```
@@ -101,7 +101,7 @@ clients:add                 Creates a new client
 new                         Creates a new instance of DADI
                             API
 
----
+--
 
 Type dadi help api <command> to learn more about a specific command.
 ```
@@ -196,7 +196,7 @@ new                         Creates a new instance of DADI
 setup                       Launches an interactive setup
                             wizard
 
----
+--
 
 Type dadi help cdn <command> to learn more about a specific command.
 
@@ -293,7 +293,7 @@ Available commands:
 new                         Creates a new instance of DADI
                             Web
 
----
+--
 
 Type dadi help web <command> to learn more about a specific command.
 
