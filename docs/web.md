@@ -1058,18 +1058,18 @@ filter      |     | A JSON object containing a MongoDB query  |               | 
 filterEvent |          | An event file to execute which will generate the filter to use for this datasource. The event must exist in the configured events path  |               | `"getBookFilter"`
 fields   |        | Limits the fields to return in the result set   |               | `{ "title": 1, "author": 1 }`
 requestParams       |    | An array of parameters the datasource can accept from the querystring. See [Passing Parameters](#web/passing-parameters) for more.   |               | `[ { "param": "author", "field": "author_id" } ]`
-source | | | 
+source | | |
  | type           | (optional) Determines whether the data is from a remote endpoint or local, static data   | `"remote"`              | `"remote"`, `"static"`       
  | protocol           | (optional) The protocol portion of an endpoint URI   | `"http"`              | `"http"`, `"https"`
  | host           | (optional) The host portion of an endpoint URL   | The main config value `api.host`              | `"api.somedomain.tech"`
  | port           | (optional) The port portion of an endpoint URL   | The main config value `api.port`  | `3001`
  | endpoint           | The path to the endpoint which contains the data for this datasource   |               | `"/1.0/news/articles"`       
-caching | | | 
+caching | | |
  | enabled           | Sets caching enabled or disabled   | `false`              | `true`
  | ttl           |    |               |        
  | directory           | The directory to use for storing cache files, relative to the root of the application   |               | "./cache"
  | extension           | The file extension to use for cache files   |               |  "json"
-auth | | | 
+auth | | |
  | type           |    |               | `"bearer"`
  | host           |    |               | `"api.somedomain.tech"`       
  | port           |    |               | `3000`
@@ -1148,7 +1148,7 @@ There are two ways to use query a chained datasource using previously-fetched da
 
 Filter Generation is used when the chained datasource currently has no filter, and it is relying on the primary datasource to provide its values.
 
-**Example: ** query the "authors" datasource, using the `_id` from the "books" datasource 
+**Example: ** query the "authors" datasource, using the `_id` from the "books" datasource
 
 ```js
 "chained": {
@@ -1202,7 +1202,7 @@ Next, Web takes the updated value of the `query` property and injects the whole 
 
 #### Chained datasource configuration
 
-| Property |  | Description | Example | 
+| Property |  | Description | Example |
 |--|--|--
 | datasource | | Should match the `key` property of the primary datasource. |
 | outputParam | | |
@@ -1307,9 +1307,22 @@ Web can be configured to preload data before each request. Add a block to the ma
 ```javascript
 const Preload = require('@dadi/web').Preload
 const data = Preload().get('key')
+```
 
 ### Routing
-### Providers
+
+### Data Providers
+
+Loading data into the context for rendering requires a datasource. Each datasource specifies what data provider to use and any additional parameters that the data provider needs to retrieve the data.
+
+Built-in data providers include:
+
+  * [DADI API](#web/dadi-api): retrieve data from an existing DADI API
+  * [Remote](#web/remote): retrieve data from miscellaneous REST APIs, such as Instagram
+  * [Markdown](#web/markdown): load data from a folder of [Markdown](https://en.wikipedia.org/wiki/Markdown) files
+  * [Twitter](#web/twitter): retrive data from the Twitter API
+  * [Wordpress](#web/wordpress): retrive data from a Wordpress API
+
 #### DADI API
 
 Previous to 2.0 the datasource source type for connecting to a [DADI API](https://github.com/dadi/api) was called `remote`. This was changed to `dadiapi` to ensure clarity with the updated and repurposed [Remote provider](#web/remote).
@@ -1410,7 +1423,7 @@ NB. `_path` will exclude the datasource `source.path`.
 
 Events are server side JavaScript functions that can add additional functionality to a page. Events can serve as a useful way to implement logic in a logic-less template.
 
-A simple use case for Events is counting how many users have clicked on a 'Like' button. To achieve this an Event file needs to be attached to the page which contains the 'Like' button. The Event file would check the POST request body contains expected values and then perhaps increase a counter stored in a database. 
+A simple use case for Events is counting how many users have clicked on a 'Like' button. To achieve this an Event file needs to be attached to the page which contains the 'Like' button. The Event file would check the POST request body contains expected values and then perhaps increase a counter stored in a database.
 
 > The [How To Guides](#web/how-to-guides) contains an example of an Event being used to send email via SendGrid in response to user interaction.
 > -- advice
@@ -1454,7 +1467,7 @@ module.exports = function (req, res, data, callback) {
 }
 ```
 
-#### The data context 
+#### The data context
 
 The `data` argument that an Event receives is JSON which  is eventually passed to the template rendering engine once all the Datasources and Events have finished running. `data` may contain some or all of the following:
 
