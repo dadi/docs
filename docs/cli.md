@@ -290,7 +290,6 @@ $ dadi web <command>
 
 Available commands:
 
-routes:list                 Lists initialised routes
 new                         Creates a new instance of DADI
                             Web
 
@@ -348,7 +347,4 @@ $ dadi web new my-new-website --engine=@dadi/web-dustjs --engine=@dadi/web-pugjs
 ```
 
 If this parameter is not supplied, CLI will go into interactive mode and ask the user to choose which engines to install from a list of available engines, pulled from NPM.
-
-
-### `web routes:list` command
 
