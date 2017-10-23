@@ -34,8 +34,28 @@ To add blockquotes that stand out, for tips/tricks/warnings, use the following f
 
 ```
 > **Security Note**
-> 
+>
 > We **strongly** recommend creating an Amazon IAM account specifically for accessing your S3 buckets.
 > -- warning
 ```
 
+### Hiding documentation for future product versions
+
+To hide documentation that should be available for future releases of products,
+wrap it in a div with an attribute indicating which product and version it is for:
+
+```html
+<div data-cdn-version="2.25">
+### Title
+
+Body
+Body
+Body
+</div>
+```
+
+Possible attributes:
+
+* `data-api-version`
+* `data-cdn-version`
+* `data-web-version`
