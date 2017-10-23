@@ -10,15 +10,27 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+@media handheld, only screen and (max-width: 650px) {
+	body {
+		font-size: 12px;
+		line-height: 1.2em;
+	}
+}
+
 main {
 	margin-left: 20%;
 	padding-left: 60px;
 	padding-bottom: 500px;
 }
+
 @media handheld, only screen and (max-width: 650px) {
-	main {
+	/*main {
 		margin-left: 0;
 		padding-left: 5%;
+	}*/
+	main {
+		margin-left: 10px;
+		padding-left: 30%;
 	}
 }
 
@@ -46,7 +58,7 @@ h2 {
 	font-size: 36px;
 	line-height: 1.1em;
 	margin-bottom: 30px;
-    margin-top: 60px;
+	margin-top: 60px;
 }
 h3 {
 	font-size: 26px;
@@ -72,6 +84,18 @@ p {
 .medium { font-size: 22px; line-height: 28px; }
 .normal	{ font-size: 19px; line-height: 27px; }
 .small 	{ font-size: 15px; line-height: 20px; }
+
+@media handheld, only screen and (max-width: 650px) {
+	.normal {
+		font-size: 16px;
+		line-height: 22px;
+	}
+
+	.medium {
+		font-size: 16px;
+		line-height: 24px;
+	}
+}
 
 /*
 	Buttons
@@ -172,6 +196,15 @@ footer a {
 	font-weight: bold;
 }
 
+@media handheld, only screen and (max-width: 650px) {
+	footer {
+		padding: 15px 10px;
+		font-size: 10px;
+		line-height: 14px;
+	}
+}
+
+
 /*
 	Search
 */
@@ -182,8 +215,8 @@ footer a {
 }
 .search input {
 	background: #f9f9f9 url(icon-search.svg) no-repeat 60px 50%;
-    width: 100%;
-    border: none;
+	width: 100%;
+	border: none;
 	padding: 25px 60px 25px 90px;
 	display: block;
 	outline: none;
@@ -211,24 +244,23 @@ nav {
 	-webkit-overflow-scrolling: touch;
 }
 
-@media handheld, only screen and (max-width: 650px) {
-	nav {display: none}
-}
-
 nav > ul {
 	padding: 0;
 	margin: 0;
 	font-size: 15px;
 }
+
 nav > ul > li {
 	padding: 20px;
 	border-bottom: 1px solid #2C3139;
 }
+
 nav > ul > li > a {
 	margin: -20px -20px -20px -20px;
 	padding: 20px;
 	display: block;
 }
+
 nav li {
 	list-style: none;
 }
@@ -247,6 +279,7 @@ nav > ul > li > ul > li.expanded > ul  {
 	opacity: 1;
 	user-select: auto;
 }
+
 nav .active {
 	color: #2c85e5;
 }
@@ -254,20 +287,25 @@ nav .active {
 nav a:hover {
 	text-decoration: underline;
 }
+
 nav ul ul {
 	padding-left: 13px !important;
 }
+
 nav > ul > li > ul {
 	padding-left: 0 !important;
 }
+
 nav > ul > li > ul > li {
 	padding: 8px 0 0 0;
 }
+
 nav > ul > li > a,
 nav > ul > li > p > a {
 	font-weight: bold;
 	font-size: 17px;
 }
+
 nav > ul > li.expanded {
 	background-color: rgba(0,0,0,0.3) !important;
 	text-decoration: none;
@@ -280,6 +318,51 @@ nav > ul > li > ul > li > a {
 	font-size: 14px;
 	display: block;
 	line-height: 18px;
+}
+
+@media handheld, only screen and (max-width: 650px) {
+	/*nav {display: none}*/
+	nav {
+		width: 30%;
+	}
+
+	nav > ul {
+		font-size: 10px;
+	}
+
+	nav > ul > li {
+		padding: 10px;
+	}
+
+	nav > ul > li > ul > li > a {
+		font-size: 10px;
+		line-height: 10px;
+	}
+
+	nav ul ul {
+		padding-left: 8px !important;
+	}
+
+	h2 {
+		font-size: 26px;
+		line-height: 1.1em;
+		margin-bottom: 16px;
+		margin-top: 38px;
+	}
+
+	h3 {
+		font-size: 18px;
+		line-height: 18px;
+		margin-bottom: 20px;
+		margin-top: 36px;
+	}
+
+	h4 {
+		color: #666;
+		font-size: 14px;
+		margin-bottom: 16px;
+		margin-top: 2.5em;
+	}
 }
 
 /*
@@ -315,6 +398,12 @@ nav > ul > li > ul > li > a {
 	color: #999;
 }
 
+@media handheld, only screen and (max-width: 650px) {
+	.intro__feat div {
+		padding-left: 44px;
+	}
+}
+
 /*
 	Styles for docs
 */
@@ -324,11 +413,6 @@ nav > ul > li > ul > li > a {
 	padding-top: 40px;
 	margin-top: 80px;
 	padding-right: 60px;
-}
-@media handheld, only screen and (max-width: 650px) {
-	.docs {
-		padding-right: 5%
-	}
 }
 
 .docs blockquote.advice,
@@ -405,6 +489,17 @@ nav > ul > li > ul > li > a {
 	border-radius: 5px;
 	box-shadow: 5px 5px 10px #ddd;
 	border: 3px solid #fff;
+}
+
+@media handheld, only screen and (max-width: 650px) {
+	.docs {
+		padding-right: 5%
+	}
+
+  .docs code {
+		font-size: 10px;
+		line-height: 15px;
+  }
 }
 
 /*
@@ -528,4 +623,31 @@ pre code {
 .docs--cli ::-moz-selection {
 	background: #e7461f;
 	color: #fff;
+}
+
+@media handheld, only screen and (max-width: 650px) {
+  #nav--api {
+  	background: url(https://dadi.tech/assets/products/dadi-api.png) no-repeat 90% 8px;
+  	background-size: auto 18px;
+  }
+
+  #nav--cdn {
+    background: url(https://dadi.tech/assets/products/dadi-cdn.png) no-repeat 90% 8px;
+    background-size: auto 18px;
+  }
+
+  #nav--web {
+    background: url(https://dadi.tech/assets/products/dadi-web.png) no-repeat 90% 8px;
+    background-size: auto 18px;
+  }
+
+  #nav--publish {
+    background: url(https://dadi.tech/assets/products/dadi-publish.png) no-repeat 90% 8px;
+    background-size: auto 18px;
+  }
+
+  #nav--cli {
+    background: url(/assets/dadi-cli.png) no-repeat 90% 8px;
+    background-size: auto 18px;
+  }
 }
