@@ -229,7 +229,7 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 |:--|:--|:--|:--|:--|
 | enabled | Boolean | `true` | If enabled, cache files will be saved to the filesystem | `false` |
 | path | String | `./cache/web` | Where to store the cache files | `./tmp` |
-| extension | String | `html` | The default file extension for cache files. N.B. _Web_ will override this if compression is enabled | `json` |
+| extension | String | `html` | The default file extension for cache files. Note that Web will override this if compression is enabled | `json` |
 
 #### redis
 
@@ -245,7 +245,7 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 
 ### engines
 
-In version 3.0 and above, _Web_ can handle multiple template engines, the default being a [Dust.js interface](https://www.npmjs.com/package/@dadi/web-dustjs). You can pass configuration options to these adaptors in this block.
+In version 3.0 and above, DADI Web can handle multiple template engines, the default being a [Dust.js interface](https://www.npmjs.com/package/@dadi/web-dustjs). You can pass configuration options to these adaptors in this block.
 
 Please see [Views](#web/views) later for more information.
 
@@ -360,7 +360,7 @@ For example:
 
 > See [debugging](#web/debugging)
 
-If set to `true`, _Web_ logs more information about routing, caching etc. Caching is also **disabled**.
+If set to `true`, Web logs more information about routing, caching etc. Caching is also **disabled**.
 
 ### allowJsonView
 
@@ -685,7 +685,7 @@ In this case it is possible to provide DADI Web with some rules for determining 
 
 #### Preloaded data (`preload`)
 
-To validate parameters against preloaded data, you first need to configure Web to preload some data. Add a block to the [main configuration](configuration.md) file like the example below, using your datasource names in place of "channels":
+To validate parameters against preloaded data, you first need to configure Web to preload some data. Add a block to the [main configuration](#web/configuration) file like the example below, using your datasource names in place of "channels":
 
 ```json
 {
@@ -865,14 +865,14 @@ var url = page.toPath({ id: '1234' });
 
 ### Using Request Parameters
 
-See [Datasource Specification](datasource_specification.md) for more information regarding the use of named parameters in datasource queries.
+See [Datasource Specification](#web/datasource-specification-file) for more information regarding the use of named parameters in datasource queries.
 
 
 ### URL Rewriting and Redirects
 
 #### forceLowerCase
 
-With this property set to true, Web converts incoming URLs to lowercase and sends a 301 Redirect response to the browser with the lowercased version of the URL.
+With this property set to `true`, Web converts incoming URLs to lowercase and sends a 301 Redirect to the browser with the lowercased version of the URL.
 
 ```js
 {
@@ -882,7 +882,7 @@ With this property set to true, Web converts incoming URLs to lowercase and send
 
 #### forceTrailingSlash
 
-With this property set to true, Web adds a trailing slash to incoming URLs and sends a 301 Redirect response to the browser with the new version of the URL.
+With this property set to `true`, Web adds a trailing slash to incoming URLs and sends a 301 Redirect to the browser with the new version of the URL.
 
 ```js
 {
@@ -901,17 +901,75 @@ This property accepts an array of filenames to remove from URLs. Useful for when
 }
 ```
 
-#### URL Rewrites File
+#### URL Rewriting
+
+URL rewriting support in DADI Web is similar to Apache's *mod_rewrite* module. To setup, add your rewrite rules to a text file, one rule per line, and update the Web configuration with the path to your file:
+
+**main configuration file**
+```
+"rewrites": {
+  "path": "workspace/routes/rewrites.txt"
+}
+```
+
+##### Rewrite Rules
+
+Each rewrite rule consists of three sections: a match, a replacement and a set of flags. The "match" section allows for regular expression matching of request URLs. If a match is found, the request is modified to use the contents of the "replacement" section. The "flags" modify the behaviour of the match or the final request.
+
+###### Defined parameters
+
+Defined parameters can be wrapped with `()` and then accessed in the replacement with `$n`. For example, if migrating to a new URL structure that no longer has the "blog/" portion, it is possible to redirect all legacy URLs to the new structure using the following rule. The only defined parameter is "everything" following the "blog/" part of the URL, and we're asking Web to use only the contents of that parameter as the replacement:
+
+```
+^/blog/(.*)$ /$1 [L]
+```
+
+Will redirect `/blog/2017/06/10/xyz` to `/2017/06/10/xyz`
+```
+^/blog/(.*)$ /$1 [L]
+```
+
+
+
+**Examples**
+
+Sends a HTTP 301 redirect from `/books/hemingway` to `/books?author=hemingway`
+```
+^/books/(.*)$ /books?author=$1 [R=301,L]
+```
+
 ```
 ^(.*[^/])$ $1/ [R=301,L]
-^/books/(.*)$ /books?authorId=$1 [R=301,L]
+```
+
+###### Flags
+
+Flags modify the behaviour of the URL rewriting system. Put the required flags within `[]` and separate them with commas.
+
+* Last `[L]`: if a path matches, any subsequent rewrite rules will be disregarded
+* Proxy `[P]`: proxy your requests `^/test/proxy/(.*)$ http://nodejs.org/$1 [P]`
+* Redirect `[R]`, [R=301]`: issue a redirect for the request
+* Nocase `[NC]`: regex match will be case-insensitive
+* Forbidden `[F]`: issue a HTTP 403 Forbidden response
+* Gone `[G]`: issue a HTTP 410 Gone response
+* Type `[T=*]`: sets the content-type to the specified one (replace * with mime-type)
+* Host `[H]`, `[H=*]`: matches on the request host header (replace * with a regular expression that matches a hostname)
+
+For more info about available flags, please see the [Apache](http://httpd.apache.org/docs/current/rewrite/flags.html) page.
+
+##### Redirecting domains
+
+To redirect from one domain to another, for example to remove `www.` from requests and redirect them to the root domain, add a rule similar to the following. The Host flag is used, specifying the request host header that this rule should match. The "match" section specifies a single defined parameter which is used in the "replacement" section, appended to the hardcoded new domain.
+
+```
+\/(.*)$ https://dadi.tech/$1 [H=www\.dadi\.tech, R=302,NC,L]
 ```
 
 ## Views
 
 ### Engines
 
-You can use a variety of template engines with _Web_. We maintain a few such as [Dust](https://www.npmjs.com/package/@dadi/web-dustjs), [Pug](https://www.npmjs.com/package/@dadi/web-pugjs) and [Handlebars](https://www.npmjs.com/package/@dadi/web-handlebars). You can find more on [NPM](https://www.npmjs.com/browse/keyword/dadi-web-engine).
+You can use a variety of template engines with DADI Web. We maintain several template engines, such as [Dust](https://www.npmjs.com/package/@dadi/web-dustjs), [Pug](https://www.npmjs.com/package/@dadi/web-pugjs) and [Handlebars](https://www.npmjs.com/package/@dadi/web-handlebars). You can find more on [NPM](https://www.npmjs.com/browse/keyword/dadi-web-engine).
 
 #### Install a new engine
 
@@ -962,7 +1020,7 @@ A full configuration block for sessions contains the following properties:
 ```js
 "sessions": {
   "enabled": true,
-  "name": "your-cookie-name
+  "name": "your-cookie-name"
   "secret": "your-secret-key",
   "resave": false,
   "saveUninitialized": false,
@@ -1013,8 +1071,7 @@ const Event = (req, res, data, callback) => {
 
 ### Datasources
 
-Web's Datasources are used to connect to both internal and external data providers
-to load data for rendering pages.
+Datasources are used to connect to both internal and external data providers to load data for rendering pages.
 
 ```
 my-web/
@@ -1111,12 +1168,11 @@ With a request to http://www.somedomain.tech/books/sisters-brothers, the named p
 
 The resulting query passed to the underlying datastore is: `{ "title" : "sisters-brothers" }`
 
-See [Routing](#web/routing) for detailed routing documentation.
+See [Routing](#web/routing-rewrites-and-redirects) for detailed routing documentation.
 
 #### Building filters
 
 Filter Events can be used to generate filters for datasources. They are like regular  [Events](#web/events) but are designed to return a filter before the datasource is executed. See  [Filter Events](#web/filter-events) for more information.
-
 
 ### Chained datasources
 
@@ -1308,8 +1364,6 @@ Web can be configured to preload data before each request. Add a block to the ma
 const Preload = require('@dadi/web').Preload
 const data = Preload().get('key')
 ```
-
-### Routing
 
 ### Data Providers
 
