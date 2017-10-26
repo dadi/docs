@@ -625,6 +625,24 @@ pre code {
 	color: #fff;
 }
 
+.docs--queue h2,
+#nav--queue .active { color: #8773dd;}
+.docs--queue a {
+	border-bottom: 1px solid #8773dd;
+	font-weight: bold;
+}
+#nav--queue {
+	background: url(/assets/dadi-queue.png) no-repeat 90% 22px;
+	background-size: auto 22px;
+}
+.docs--queue ::selection {
+	background: #8773dd;
+	color: #fff;
+}
+.docs--queue ::-moz-selection {
+	background: #8773dd;
+	color: #fff;
+}
 @media handheld, only screen and (max-width: 650px) {
   #nav--api {
   	background: url(https://dadi.tech/assets/products/dadi-api.png) no-repeat 90% 8px;
