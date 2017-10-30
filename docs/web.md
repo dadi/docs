@@ -929,15 +929,14 @@ Will redirect `/blog/2017/06/10/xyz` to `/2017/06/10/xyz`
 ^/blog/(.*)$ /$1 [L]
 ```
 
-
-
 **Examples**
 
-Sends a HTTP 301 redirect from `/books/hemingway` to `/books?author=hemingway`
+1) Send a HTTP 301 redirect from `/books/hemingway` to `/books?author=hemingway`
 ```
 ^/books/(.*)$ /books?author=$1 [R=301,L]
 ```
 
+2) Add a trailing slash to any URL if it doesn't have one already, sending a HTTP 301 redirect with the new URL
 ```
 ^(.*[^/])$ $1/ [R=301,L]
 ```
@@ -1932,6 +1931,10 @@ Once enabled, the variable `csrfToken` will be injected into the viewModel. You 
 If the CSRF token provided is incorrect, or one isn't provided, then a `403 forbidden` error will occur.
 
 A working example can be found here: [dadi-web-csrf-test](https://github.com/adamkdean/dadi-web-csrf-test).
+
+### SSL
+
+
 
 ## How-to guides
 
