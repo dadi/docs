@@ -57,12 +57,12 @@ See the [Why do I need a task queue?](#queue/why-do-i-need-a-task-queue) section
   * **retries**: (*number; default = 10*) The number of times a message will be retried after failing
   * **timeout**: (*number; default = 30*) The number of seconds until a message is placed back on the queue
   * **throttle**
-  * * **workers**: (*number; default = 5*) The number of workers that should execute concurrently
-  * * **queue**
-  * * * **unit**: (*string; default = 'second'; options=['second', 'minute', 'hour', 'day']*) The unit of measurement used for queue throttling
-  * * * **value**: (*number; default = 0*) The value used for queue throttling. The rate will be limited to value/unit. Zero implies no limit.
-  * * * **discard**: (*boolean: default = false*) Whether or not to discard throttled messages
-  * * **messages** (*array; default = []) Message specific rate limiting, see below for specific format.
+    * **workers**: (*number; default = 5*) The number of workers that should execute concurrently
+    * **queue**
+      * **unit**: (*string; default = 'second'; options=['second', 'minute', 'hour', 'day']*) The unit of measurement used for queue throttling
+      * **value**: (*number; default = 0*) The value used for queue throttling. The rate will be limited to value/unit. Zero implies no limit.
+      * **discard**: (*boolean: default = false*) Whether or not to discard throttled messages
+    * **messages** (*array; default = []) Message specific rate limiting, see below for specific format.
 * **workers**
   * **path**: (*string; default = './workers'*) The absolute or relative path to the directory for worker modules
 * **logging**
