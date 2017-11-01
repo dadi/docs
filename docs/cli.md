@@ -1,13 +1,14 @@
 ---
 title: CLI
 order: 5
+published: true
 ---
 
-# Overview
+## Overview
 
 DADI CLI is a command-line tool to help with the installation and customisation of the various products of the DADI platform.
 
-## Automatic updates
+### Automatic updates
 
 To ensure CLI works with the latest versions of the various DADI products, which are released quite often, we built an auto-update system. CLI will periodically check if there's an update available and, if so, will get it automatically.
 
@@ -19,13 +20,13 @@ ERROR: DADI CLI needs a manual update.
 Please run npm update @dadi/cli -g to update it.
 ```
 
-## Programmatic vs. interactive mode
+### Programmatic vs. interactive mode
 
 Each command requires its own set of parameters – for example, a command for installing a new version of DADI Web will need to know which template engines to install, whereas creating a new API client requires a client ID and a secret.
 
 To provide an optimal experience for both programmatic uses, where a command is executed as part of an automated script, and for actual people running commands in their terminal, CLI applies this principle to every command: there is a flag accepted by the command for every parameter required, which when absent will be prompted to the user using an interactive mode.
 
-# Installation
+## Installation
 
 DADI CLI is installed with npm, as a global module.
 
@@ -41,7 +42,7 @@ If you don't mind using the super-user to install global npm modules, you need t
 npm install @dadi/cli -g --unsafe-perm
 ```
 
-# Usage
+## Usage
 
 Running `dadi help` displays a usage summary:
 
@@ -79,7 +80,7 @@ Type dadi help <command> to learn more about a specific command.
 
 Commands begin with the name of the DADI application they apply to. For example, `dadi api new` will install a new instance of API, whilst its CDN counterpart is `dadi cdn new`.
 
-## API commands
+### API commands
 
 Running `dadi help api` will show a list of all the API-related commands:
 
@@ -106,7 +107,7 @@ new                         Creates a new instance of DADI
 Type dadi help api <command> to learn more about a specific command.
 ```
 
-### `api clients:add` command
+#### `api clients:add`
 
 Running `dadi help api clients:add` will show the following details for the command:
 
@@ -132,7 +133,7 @@ secret                      the client secret
 
 This command will create a new oAuth client. It requires two parameters: the client ID and secret, which can be passed using the `--id` and `--secret` flags or using the interactive mode.
 
-### `api new` command
+#### `api new`
 
 Running `dadi help api new` will show the following details for the command:
 
@@ -173,7 +174,7 @@ If the `version` parameter is supplied, its value defines the version of CDN tha
 ✖ 8.3 is not a valid version. Available versions: 1.5.x, 2.2.x
 ```
 
-## CDN commands
+### CDN commands
 
 Running `dadi help api` will show a list of all the API-related commands:
 
@@ -202,7 +203,7 @@ Type dadi help cdn <command> to learn more about a specific command.
 
 ```
 
-### `cdn new` command
+#### `cdn new`
 
 Running `dadi help cdn new` will show the following details for the command:
 
@@ -242,7 +243,7 @@ If the `version` parameter is supplied, its value defines the version of CDN tha
 
 By default, this command is succeeded by an interactive setup wizard, where the user is guided through a series of questions used to generate a configuration file. This step can be skipped by appending the `--skip-setup` parameter to the command.
 
-### `cdn setup` command
+#### `cdn setup`
 
 This command will launch an interactive setup wizard, which guides users through a series of questions to form a configuration file.
 
@@ -272,7 +273,7 @@ Time to configure the sources that CDN will use to retrieve images. (18% complet
 
 ```
 
-## Web commands
+### Web commands
 
 Running `dadi help web` will show a list of all the API-related commands:
 
@@ -299,7 +300,7 @@ Type dadi help web <command> to learn more about a specific command.
 
 ```
 
-### `web new` command
+#### `web new`
 
 Running `dadi help web new` will show the following details for the command:
 
