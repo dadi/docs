@@ -4,7 +4,9 @@ order: 4
 published: true
 ---
 
-## Requirements
+## Installation
+
+### Requirements
 
 Microservices in the DADI platform are built on Node.js, a JavaScript runtime built on Google Chrome's V8 JavaScript engine. Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.
 
@@ -12,7 +14,9 @@ DADI follows the Node.js LTS (Long Term Support) release schedule, and as such t
 
 * **[Node.js](https://www.nodejs.org/)** (current LTS version)
 
-Installing DADI Publish directly from NPM
+#### Create new Publish installation
+
+### NPM
 
 All DADI platform microservices are also available from NPM. To add Publish to an existing project as a dependency:
 
@@ -21,29 +25,142 @@ $ cd my-existing-node-app
 $ npm install --save @dadi/publish
 ```
 
-## Application Anatomy
-
-{To-Do}
-
-### App
-
-{To-Do}
-### Components
-
-{To-Do}
-#### Views
-
-{To-Do}
-#### Containers
-
-{To-Do}
-#### Components
-
-{To-Do}
-
 ## Configuration
 
-{To-Do}
+All the core platform services are configured using environment specific configuration.json files, the default being `development`. For more advanced users this can also load based on the `hostname` i.e., it will also look for `config." + req.headers.host + ".json`
+
+The minimal `config.development.json` file looks like this:
+
+```json
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 3001
+  },
+  "auth": {
+    "enabled": false
+  }
+}
+```
+
+### Example Configuration File
+
+```json
+
+{
+  "app": {
+    "name": "DADI Publish",
+    "publisher": "Publisher Name"
+  },
+  "publicUrl": {
+      "host": "publish.somedomain.tech",
+      "port": 80,
+      "protocol": "http"
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 80
+  },
+  "apis": [
+    {
+      "name": "Publish Demo API",
+      "host": "http://api.somedomain.tech",
+      "port": 3000,
+      "database": "publish",
+      "version": "1.0",
+      "credentials": {
+        "clientId": "my-client-id",
+        "secret": "my-client-secret"
+      },
+      "menu": [
+        {
+          "title": "Content",
+          "collections": [
+            "articles",
+            "products"
+          ]
+        },
+        "books"
+      ]
+    }
+  ],
+  "auth": {
+    "enabled": true,
+    "host": "http://api.somedomain.tech",
+    "port": 3000,
+    "collection": "users",
+    "database": "publish",
+    "version": "1.0",
+    "credentials": {
+      "clientId": "my-client-id",
+      "secret": "my-client-secret"
+    }
+  }
+}
+
+```
+
+You can see all the config options in [`config-schema.js`](https://github.com/dadi/publish/blob/master/app/config-schema.js).
+
+#### app
+
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| name | String | `DADI Publish (Repo Default)` | The name of your application, used for the boot message | `My project` |
+| publisher | String | `DADI Publisher` | The name of the publisher. | `DADI Magazine` |
+
+#### publicUrl
+
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| host | String | `0.0.0.0` | The publicly available hostname or IP address of your Publish app  | `publish.somedomain.tech` |
+| port | Number | `8080` | The publicly available port of your Publish app | `80` |
+| protocol | String | `http` | The protocol the publicly available Publish application will use | `https` |
+
+#### server
+
+| Property | Type | Default | Description | Example |
+|:--|:--|:--|:--|:--|
+| host | String | `0.0.0.0` | The hostname or IP address to use when starting the Publisher server | `127.0.0.1` |
+| port | Number | `8080` | The port to bind to when starting the Publisher server | `80` |
+
+{to-do: Add apis and auth properties}
+
+## Launching Publish
+
+For your app to run, you'll need an app entry file. 
+
+**Example app entry file server.js**
+
+```js
+
+const publish = require('@dadi/publish')
+
+publish.run()
+```
+
+Once you've saved this file in the root of your Publish app directory, add a _start_ command to you package.json
+
+**Example package.json**
+
+```json
+{
+  "name": "my-publish-app",
+  "version": "1.0.0",
+  "description": "My Publish app",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development node server.js"
+  },
+  "author": "DADI <team@dadi.tech>",
+  "license": "MIT",
+  "dependencies": {
+    "@dadi/publish": "^1.0.3-beta"
+  }
+}
+```
+
+Now run `npm start` to launch the app.
 
 ## First use
 
@@ -71,6 +188,18 @@ To connect to an API, make sure your @dadi/api install is running, then add one 
   }
 ]
  ```
+
+## Application Anatomy
+
+{To-Do}
+### App
+{To-Do}
+#### Views
+{To-Do}
+#### Containers
+{To-Do}
+#### Components
+{To-Do}
 
 ### Managing users
 
