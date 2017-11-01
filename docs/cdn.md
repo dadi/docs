@@ -615,11 +615,9 @@ We’ll show a basic example, then it's over to you to experiment with the param
 
 For this example we're going to imagine you have a magazine-style website with a list of articles on the homepage and an article page. We'll start with the following image, which your editor wants to use as the main article image.
 
-`https://cdn.somedomain.tech/samples/beach.jpeg`
-
 **Original image, 5616 × 3744 px, 4MB**
 
-![Original image, 5616 × 3744 px, 4MB](https://cdn.somedomain.tech/samples/beach.jpeg "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+`https://cdn.somedomain.tech/samples/beach.jpeg`
 
 This is a large image, and it's not going to fit easily into the two spaces we have available for it. Unfortunately, no one in the department knows how to use Adobe Photoshop to make appropriately sized images. Fortunately, CDN can handle this task for you.
 
@@ -791,7 +789,7 @@ Used to position the crop area. Available options (case sensitive): `northwest`,
 
 **Original image**
 
-![](https://cdn.somedomain.tech/samples/med.jpeg "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+`https://cdn.somedomain.tech/samples/med.jpeg`
 
 | g=west | g=center | g=east
 |:--|:--|:--
@@ -1011,16 +1009,14 @@ The best results for quality and file size can be found around 40-60, where we'v
 
 The original image and all quality variations below are 2048 × 1024 pixels.
 
-`https://cdn.somedomain.tech/samples/vegetables.jpg?q=50`
-
 **Original image, 4.7MB**
 
-![Original JPG](https://cdn.somedomain.tech/samples/vegetables.jpg)
+`https://cdn.somedomain.tech/samples/vegetables.jpg`
 
 |   |   
 |:--|:--
-| ![Quality 100](https://cdn.somedomain.tech/samples/vegetables.jpg?q=100 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 100, 1.3MB** | ![Quality 75](https://cdn.somedomain.tech/samples/vegetables.jpg?q=75 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 75, 180kB**
-| ![Quality 50](https://cdn.somedomain.tech/samples/vegetables.jpg?q=50 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 50, 119kB** | ![Quality 25](https://cdn.somedomain.tech/samples/vegetables.jpg?q=25 "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 25, 82kB**
+| ![Quality 100](https://cdn.somedomain.tech/samples/vegetables.jpg?q=100&w=300&resize=aspectfit "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 100, 1.3MB** | ![Quality 75](https://cdn.somedomain.tech/samples/vegetables.jpg?q=75&w=300&resize=aspectfit "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 75, 180kB**
+| ![Quality 50](https://cdn.somedomain.tech/samples/vegetables.jpg?q=50&w=300&resize=aspectfit "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 50, 119kB** | ![Quality 25](https://cdn.somedomain.tech/samples/vegetables.jpg?q=25&w=300&resize=aspectfit "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 25, 82kB**
 
 ### ratio: resize to aspect ratio
 
@@ -1621,9 +1617,10 @@ Response JSON:
  }
  ```
 
-![input image](/assets/cdn/palette-source.jpg)
 
-![generated palette](/assets/cdn/palette-output.png)
+|![input image](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resize=aspectfit)|<img src="/assets/cdn/palette-output.png" alt="generated palette" width="400">|
+|---|---|
+
 
 ## Dealing with pixel ratios
 

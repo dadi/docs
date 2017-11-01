@@ -12,7 +12,15 @@
     }
   };
 
-  window.addEventListener('scroll', throttle(updateNav, 200));
+  var timer = null;
+  window.addEventListener('scroll', function() {
+    if(timer !== null) {
+      clearTimeout(timer);        
+    }
+    timer = setTimeout(function() {
+      updateNav();
+    }, 500);
+  }, false);
 
   function initNav() {
     // Update scroll
