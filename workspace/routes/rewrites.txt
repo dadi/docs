@@ -2,3 +2,6 @@
 \/web(.*)$ /#web [R=302,NC,L]
 \/api(.*)$ /#api [R=302,NC,L]
 \/cdn(.*)$ /#cdn [R=302,NC,L]
+\/publish(.*)$ /#publish [R=302,NC,L]
+\/cli(.*)$ /#cli [R=302,NC,L]
+\/queue(.*)$ /#queue [R=302,NC,L]
