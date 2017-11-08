@@ -1863,6 +1863,21 @@ module.exports.Middleware = Middleware
 ### Virtual directories
 
 ## Debugging
+
+### Log formatting
+
+You can format the logs for easier readability by using [Bunyan](https://www.npmjs.com/package/bunyan):
+
+```
+npm install -g bunyan
+```
+
+Then start the app:
+
+```
+npm start | bunyan -o short
+```
+
 ### JSON view
 
 When the [config option](#web/allowjsonview) is set to `true` you can append `?json=true` to any DADI Web URL and you will see the JSON data which helps construct that page.
