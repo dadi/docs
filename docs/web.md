@@ -1618,7 +1618,9 @@ A filter event can be attached to a datasource specification using the property 
 ```js
 const Event = function (req, res, data, callback) {
   const filter = { date: Date.now() }
-  callback(filter)
+
+  // call the callback function, passing null in the error positon 
+  callback(null, filter)
 }
 
 module.exports = function (req, res, data, callback) {
