@@ -496,7 +496,7 @@ Each collection specification must contain a `settings` block, even if it is emp
 | revisionCollection | The name of the collection used to hold revision documents | The collection name with "History" appended | `"authorsHistory"`
 | callback | x | x | x
 | defaultFilters | Specifies a default query for the collection. A `filter` parameter passed in the querystring will extend these filters.  | `{}` | `{ "published": true }`
-| fieldLimiters | Specifies a list of fields for inclusion/exclusion in the response. Fields can be included or excluded, but not both. See [Returning Data](#xxx) for more detail. | `{}` | `{ "title": 1, "author": 1 }`, `{ "dob": 0, "state": 0 }`
+| fieldLimiters | Specifies a list of fields for inclusion/exclusion in the response. Fields can be included or excluded, but not both. See [Retrieving data](#api/retrieving-data) for more detail. | `{}` | `{ "title": 1, "author": 1 }`, `{ "dob": 0, "state": 0 }`
 | index | Specifies a set of indexes that should be created for the collection. See [Creating Database Indexes](#api/creating-database-indexes) for more detail. | `[]`  | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
 
 > **Overriding configuration using querystring parameters**
@@ -636,13 +636,261 @@ Connection: close
 
 ## The REST API
 
+The primary way of interacting with DADI API is via REST endpoints that are automatically generated for each of the [collections](https://docs.dadi.tech/#api/collections) added to the application. Each REST endpoint allows you to insert, update, delete and query data stored in the underlying database.
+
+### REST endpoint format
+
+`http(s)://api.somedomain.tech/{version}/{database}/{collection}`
+
+The REST endpoints follow the above format, where `{version}` is the current version of the API collections (not the installed version of API), `{database}` is the database that holds the specified collection and `{collection}` is the actual collection to interact with. See [Collections directory](/#api/collections-directory) for more detail.
+
+Example endpoints for each of the supported HTTP verbs:
+
+```
+# Insert documents
+POST /1.0/my-database/my-collection
+
+# Update documents
+PUT /1.0/my-database/my-collection
+
+# Delete documents
+DELETE /1.0/my-database/my-collection
+
+# Get documents
+GET /1.0/my-database/my-collection
+```
+
+### Content-type header
+
+In almost all cases, the `Content-Type` header should be `application/json`. API contains some internal endpoints which allow `text/plain` but all interaction using the above endpoints you should use `application/json`.
+
+### Authorization header
+
+Unless a collection has authentication disabled, every request using the above REST endpoints will require an Authorization header containing an access token. See [Obtaining an Access Token](/#api/obtaining-an-access-token) for more detail.
+
 ## Working with data
 
 ### Inserting data
 
-#### Using REST API
+Inserting data involves sending a POST request to the endpoint for the collection that will store the data. If the data passes [validation rules](https://docs.dadi.tech/#api/validation) imposed by the collection, it is inserted into the collection with a set of internal fields added.
 
-#### Using a Model directly
+#### Request
+
+**Format:** `POST http://api.somedomain.tech/1.0/library/books`
+
+```http
+POST /1.0/library/books HTTP/1.1
+Authorization: Bearer afd4368e-f312-4b14-bd93-30f35a4b4814
+Content-Type: application/json
+Host: api.somedomain.tech
+
+{
+  "title": "The Old Man and the Sea"
+}
+```
+
+#### Response
+
+```json
+{
+  "title": "The Old Man and the Sea",
+  "_apiVersion": "1.0",
+  "_createdAt": 1511875141,
+  "_createdBy": "your-client-id",
+  "_version": 1
+}
+```
+
+#### Common validation errors
+
+In addition to failures caused by validation rules in collection field specifications, you may also receive an `HTTP 400 Bad Request` error if either required fields are missing or extra fields are sent that don't exist in the collection:
+
+```
+HTTP/1.1 400 Bad Request
+content-type: application/json
+content-length: 681
+Date: Mon, 18 Sep 2017 18:21:04 GMT
+Connection: close
+
+{
+  "success": false,
+  "errors": [
+    {
+      "field": "description",
+      "message": "can't be blank"
+    },
+    {
+      "field": "extra_field",
+      "message": "doesn't exist in the collection schema"
+    }
+  ]
+}
+```
+
+#### Batch inserting documents
+
+It is possible to insert multiple documents in a single POST request by sending an array to the endpoint:
+
+```http
+POST /1.0/library/books HTTP/1.1
+Authorization: Bearer afd4368e-f312-4b14-bd93-30f35a4b4814
+Content-Type: application/json
+Host: api.somedomain.tech
+
+[
+  {
+    "title": "The Old Man and the Sea"
+  },
+  {
+    "title": "For Whom the Bell Tolls"
+  }
+]
+```
+
+### Updating data
+
+Updating data with API involves sending a PUT request to the endpoint for the collection that holds the data.
+
+There are two types of update operation: one where a single document is to be updated and it's identifier is known; and the other where one or many documents matching a query should be updated.
+
+In both cases, the request body must contain the required update specified as JSON.
+
+If the data passes [validation rules](https://docs.dadi.tech/#api/validation) imposed by the collection, it is updated using the specified update, and the internal fields `_lastModifiedAt`, `_lastModifiedBy` and `_version` are updated.
+
+#### Update an existing resource
+
+To update a document with a known identifier, add the identifier to the REST endpoint for the collection.
+
+##### Request
+
+**Format:** `PUT http://api.somedomain.tech/1.0/library/books/{ID}`
+
+```http
+PUT /1.0/library/books/560a44b33a4d7de29f168ce4 HTTP/1.1
+Authorization: Bearer afd4368e-f312-4b14-bd93-30f35a4b4814
+Content-Type: application/json
+Host: api.somedomain.tech
+
+{
+  "update": {
+    "title": "For Whom the Bell Tolls (Kindle Edition)"
+  }
+}
+```
+
+Updates the document with the identifier of `{ID}` in the specified collection (in this example `"books"`). Applies the values from the `update` block specified in the request body.
+
+##### Response
+xxx
+
+#### Update all documents matching a query
+
+Useful for batch updating documents that have a common property. Include the query in the request body, along with the required update.
+
+##### Request
+
+**Format:** `PUT http://api.somedomain.tech/1.0/library/books`
+
+```http
+PUT /1.0/library/books HTTP/1.1
+Authorization: Bearer afd4368e-f312-4b14-bd93-30f35a4b4814
+Content-Type: application/json
+Host: api.somedomain.tech
+
+{
+  "query": {
+    "title": "For Whom the Bell Tolls"
+  },
+  "update": {
+    "available": false
+  }
+}
+```
+
+Updates all documents that match the results of the `query` in the specified collection (in this example `"books"`). Applies the values from the `update` block specified in the request body.
+
+##### Response
+x
+
+### Deleting data
+
+Sending a request using the DELETE method instructs API to perform a delete operation on the documents that match the supplied parameters.
+
+There are two types of delete operation: one where a single document is to be deleted and it's identifier is known; and the other where one or many documents matching a query should be deleted.
+
+#### Delete an existing resource
+
+To delete a document with a known identifier, add the identifier to the REST endpoint for the collection.
+
+##### Request
+
+**Format:** `DELETE http://api.somedomain.tech/1.0/library/books/{ID}`
+
+```http
+DELETE /1.0/library/books/560a44b33a4d7de29f168ce4 HTTP/1.1
+Authorization: Bearer afd4368e-f312-4b14-bd93-30f35a4b4814
+Content-Type: application/json
+Host: api.somedomain.tech
+```
+
+Deletes the document with the identifier of `{ID}` from the specified collection (in this example `"books"`).
+
+#### Delete all documents matching a query
+
+Useful for batch deleting documents that have a common property. Include the query in the request body.
+
+##### Request
+
+**Format:** `DELETE http://api.somedomain.tech/1.0/library/books`
+
+```http
+DELETE /1.0/library/books HTTP/1.1
+Authorization: Bearer afd4368e-f312-4b14-bd93-30f35a4b4814
+Content-Type: application/json
+Host: api.somedomain.tech
+
+{
+  "query": {
+    "title": "The Old Man and the Sea"
+  }
+}
+```
+
+Deletes all documents that match the results of the `query` from the specified collection (in this example `"books"`).
+
+#### DELETE Response
+
+The response returned for a DELETE request depends on the configuration setting for `feedback`.
+
+The default setting is `false`, in which case API returns an `HTTP 204 No Content` after a successful delete operation.
+
+If the setting is `true`, that is, the main configuration file contains the following setting:
+
+`"feedback": true`
+
+then a JSON object similar to the following is returned:
+
+```json
+{
+  status: 'success',
+  message: 'Documents deleted successfully',
+  deleted: 1, // number of documents deleted
+  totalCount: 99 // remaining documents in the collection
+}
+```
+
+> In versions of API prior to 3.0, only the `status` and `message` fields are returned in the response.
+> -- warning
+
+### Retrieving data
+
+[TODO]
+
+
+
+### Using Models directly
+
+When creating [custom Javacript endpoints](/#api/endpoints) it is possible to interact with the data model directly, without using the REST API.
 
 ```js
 // require the Model component from API
@@ -651,27 +899,14 @@ const Model = require('@dadi/api').Model
 // get a reference to the "books" collection via the Model
 const books = Model('books')
 
-// call a method on the collection, for e.g. find(), insert(), update()
-books.find({ title: 'Harry Potter 2' }, { compose: true }, (err, result) => {
-  // do something with result
+// call a method on the collection, for e.g. find(), insert(), update(), delete()
+books.find({ title: 'Harry Potter 2' }, { compose: true }, (err, results) => {
+  if (err) console.log(err)
+  
+  // do something with the results
 })
 ```
 
-### Updating data
-
-#### Using REST API
-
-#### Using a Model directly
-
-### Retrieving data
-
-#### Using REST API
-
-#### Using a Model directly
-
-#### Filtering
-
-#### Pagination
 
 ### Validation
 
@@ -681,7 +916,7 @@ Several means of data validation are supported in API, including [type validatio
 
 While API can return default error messages when data fails validation, it is possible to customise the error messages for each field individually. See [Error Messages](#api/error-messages) below for more detail.
 
-##### Type Validation
+#### Type Validation
 
 A field can be validated by type. DADI API will check that the value supplied for the field is the correct type as specified in the schema. Only the following JavaScript primitives are considered for type validation: `String`, `Number`, `Boolean`
 
@@ -694,7 +929,7 @@ A field can be validated by type. DADI API will check that the value supplied fo
 }
 ```
 
-##### Mandatory Field Validation
+#### Mandatory Field Validation
 
 Fields can be made mandatory by setting their `required` property to `true`. DADI API will check that a value has been supplied for the field when creating new documents. Validation for update requests is more relaxed and mandatory fields are not validated as they would have already been populated with data when the document was first created.
 
@@ -707,7 +942,7 @@ Fields can be made mandatory by setting their `required` property to `true`. DAD
 }
 ```
 
-##### Length Validation
+#### Length Validation
 
 A field's length can be controlled by using the `minLength` and `maxLength` properties. Validation will fail if the length of the string is greater or less than the specified length limits.
 
@@ -730,7 +965,7 @@ A field's length can be controlled by using the `minLength` and `maxLength` prop
 }
 ```
 
-##### Regular Expression Validation
+#### Regular Expression Validation
 
 A regular expression pattern can be specified for a field, which may help enforcing business rules.
 
@@ -1136,8 +1371,6 @@ An example response:
 
 
 ## Adding application logic
-
-While
 
 ### Endpoints
 
