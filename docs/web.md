@@ -248,7 +248,7 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 
 In version 3.0 and above, DADI Web can handle multiple template engines, the default being a [Dust.js interface](https://www.npmjs.com/package/@dadi/web-dustjs). You can pass configuration options to these adaptors in this block.
 
-Please see [Views](#web/views) later for more information.
+Please see [Views](/web#views) later for more information.
 
 ### headers
 
@@ -299,7 +299,7 @@ In addition, a `cacheControl` header can be used for a 301/302 redirect by addin
 
 | Property | Type | Default | Description | Example |
 |:--|:--|:--|:--|:--|
-| datasource | String | - | The name of a datasource used to query the database for redirect records matching the current URL. [More info](#web/routing-rewrites-and-redirects) | `redirects` |
+| datasource | String | - | The name of a datasource used to query the database for redirect records matching the current URL. [More info](/web#routing-rewrites-and-redirects) | `redirects` |
 | path | String | - | The path to a file containing rewrite rules | `workspace/routes/rewrites.txt` |
 | forceLowerCase | Boolean | `false` | If true, converts URLs to lowercase before redirecting | `true` |
 | forceTrailingSlash | Boolean | `false` | If `true`, adds a trailing slash to URLs before redirecting | `true` |
@@ -328,7 +328,7 @@ In the above example `baseUrl` would be available to a page template and could b
 
 ### globalEvents
 
-[Events](#web/events-1) to be loaded on every request.
+[Events](/web#events-1) to be loaded on every request.
 
 ### paths
 
@@ -351,21 +351,21 @@ For example:
 
 ### twitter
 
-> See [twitter data provider](#web/twitter).
+> See [twitter data provider](/web#twitter).
 
 ### wordpress
 
-> See [wordpress data provider](#web/wordpress).
+> See [wordpress data provider](/web#wordpress).
 
 ### debug
 
-> See [debugging](#web/debugging)
+> See [debugging](/web#debugging)
 
 If set to `true`, Web logs more information about routing, caching etc. Caching is also **disabled**.
 
 ### allowJsonView
 
-> See [JSON view](#web/json-view)
+> See [JSON view](/web#json-view)
 
 If set to `true`, allows page data to be viewable by appending the querystring `?json=true` to the end of any URL.
 
@@ -470,7 +470,7 @@ To make the books page reachable via a different URL, simply add (or modify) the
 ]
 ```
 
-> For detailed documentation of routing, see [Routing](#web/routing-rewrites-and-redirects).
+> For detailed documentation of routing, see [Routing](/web#routing-rewrites-and-redirects).
 
 ### Content Type
 
@@ -484,7 +484,7 @@ The default content type is `text/html`. This can be overridden by defining the 
 
 Template files are stored in the same folder as the page specifications and by default share the same filename as the `page.json`. Unless the page specification contains an explicit `template` property, the template name should match the page specification name.
 
-> See [Views](#web/views) for further documentation.
+> See [Views](/web#views) for further documentation.
 
 ### Datasources
 
@@ -546,7 +546,7 @@ If true the output of the page will be cached using cache settings in the main c
 }
 ```
 
-> For detailed documentation of page caching, see [Caching](#web/caching-1).
+> For detailed documentation of page caching, see [Caching](/web#caching-1).
 
 ## Routing, rewrites and redirects
 
@@ -686,7 +686,7 @@ In this case it is possible to provide DADI Web with some rules for determining 
 
 #### Preloaded data (`preload`)
 
-To validate parameters against preloaded data, you first need to configure Web to preload some data. Add a block to the [main configuration](#web/configuration) file like the example below, using your datasource names in place of "channels":
+To validate parameters against preloaded data, you first need to configure Web to preload some data. Add a block to the [main configuration](/web#configuration) file like the example below, using your datasource names in place of "channels":
 
 ```json
 {
@@ -866,7 +866,7 @@ var url = page.toPath({ id: '1234' });
 
 ### Using Request Parameters
 
-See [Datasource Specification](#web/datasource-specification-file) for more information regarding the use of named parameters in datasource queries.
+See [Datasource Specification](/web#datasource-specification-file) for more information regarding the use of named parameters in datasource queries.
 
 
 ### URL Rewriting and Redirects
@@ -1001,9 +1001,9 @@ DADI Web has default error pages, but it will look for templates in the `pages` 
 
 DADI Web uses the [express-session](https://github.com/expressjs/session) library to handle sessions. Visit that project's homepage for more detailed information regarding session configuration.
 
- * [Configuration](#web/session-configuration)
- * [Configuration Properties](#web/session-configuration-properties)
- * [Using the session](#web/using-the-session)
+ * [Configuration](/web#session-configuration)
+ * [Configuration Properties](/web#session-configuration-properties)
+ * [Using the session](/web#using-the-session)
 
 ### Session Configuration
 
@@ -1049,7 +1049,7 @@ cookie.secure | HTTPS is necessary for secure cookies. If `secure` is `true` and
 
 ### Using the session
 
-Session data can easily be accessed from an [event](#web/events) or custom [middleware](#web/middleware).
+Session data can easily be accessed from an [event](/web#events) or custom [middleware](/web#middleware).
 
 ```js
 const Event = (req, res, data, callback) => {
@@ -1114,7 +1114,7 @@ sort        |   | A JSON object with fields to order the result set by | `{}` //
 filter      |     | A JSON object containing a MongoDB query  |               | `{ "SaleDate" : { "$ne" : null} }`
 filterEvent |          | An event file to execute which will generate the filter to use for this datasource. The event must exist in the configured events path  |               | `"getBookFilter"`
 fields   |        | Limits the fields to return in the result set   |               | `{ "title": 1, "author": 1 }`
-requestParams       |    | An array of parameters the datasource can accept from the querystring. See [Passing Parameters](#web/passing-parameters) for more.   |               | `[ { "param": "author", "field": "author_id" } ]`
+requestParams       |    | An array of parameters the datasource can accept from the querystring. See [Passing Parameters](/web#passing-parameters) for more.   |               | `[ { "param": "author", "field": "author_id" } ]`
 source | | |
  | type           | (optional) Determines whether the data is from a remote endpoint or local, static data   | `"remote"`              | `"remote"`, `"static"`       
  | protocol           | (optional) The protocol portion of an endpoint URI   | `"http"`              | `"http"`, `"https"`
@@ -1168,11 +1168,11 @@ With a request to http://www.somedomain.tech/books/sisters-brothers, the named p
 
 The resulting query passed to the underlying datastore is: `{ "title" : "sisters-brothers" }`
 
-See [Routing](#web/routing-rewrites-and-redirects) for detailed routing documentation.
+See [Routing](/web#routing-rewrites-and-redirects) for detailed routing documentation.
 
 #### Building filters
 
-Filter Events can be used to generate filters for datasources. They are like regular  [Events](#web/events) but are designed to return a filter before the datasource is executed. See  [Filter Events](#web/filter-events) for more information.
+Filter Events can be used to generate filters for datasources. They are like regular  [Events](/web#events) but are designed to return a filter before the datasource is executed. See  [Filter Events](/web#filter-events) for more information.
 
 ### Chained datasources
 
@@ -1198,7 +1198,7 @@ Add a `chained` property to a datasource to make it reliant on data loaded by an
 > Chained datasources are not automatically added to the page. You must still include the datasource in the datasources block of your page config.
 > -- advice
 
-There are two ways to use query a chained datasource using previously-fetched data. One is _[Filter Generation](#web/filter-generation)_ and the other is _[Filter Replacement](#web/filter-replacement)_.
+There are two ways to use query a chained datasource using previously-fetched data. One is _[Filter Generation](/web#filter-generation)_ and the other is _[Filter Replacement](/web#filter-replacement)_.
 
 #### Filter Generation
 
@@ -1371,15 +1371,15 @@ Loading data into the context for rendering requires a datasource. Each datasour
 
 Built-in data providers include:
 
-  * [DADI API](#web/dadi-api): retrieve data from an existing DADI API
-  * [Remote](#web/remote): retrieve data from miscellaneous REST APIs, such as Instagram
-  * [Markdown](#web/markdown): load data from a folder of [Markdown](https://en.wikipedia.org/wiki/Markdown) files
-  * [Twitter](#web/twitter): retrive data from the Twitter API
-  * [Wordpress](#web/wordpress): retrive data from a Wordpress API
+  * [DADI API](/web#dadi-api): retrieve data from an existing DADI API
+  * [Remote](/web#remote): retrieve data from miscellaneous REST APIs, such as Instagram
+  * [Markdown](/web#markdown): load data from a folder of [Markdown](https://en.wikipedia.org/wiki/Markdown) files
+  * [Twitter](/web#twitter): retrive data from the Twitter API
+  * [Wordpress](/web#wordpress): retrive data from a Wordpress API
 
 #### DADI API
 
-Previous to 2.0 the datasource source type for connecting to a [DADI API](https://github.com/dadi/api) was called `remote`. This was changed to `dadiapi` to ensure clarity with the updated and repurposed [Remote provider](#web/remote).
+Previous to 2.0 the datasource source type for connecting to a [DADI API](https://github.com/dadi/api) was called `remote`. This was changed to `dadiapi` to ensure clarity with the updated and repurposed [Remote provider](/web#remote).
 
 A typical datasource specification file would now contain the following:
 
@@ -1479,7 +1479,7 @@ Events are server side JavaScript functions that can add additional functionalit
 
 A simple use case for Events is counting how many users have clicked on a 'Like' button. To achieve this an Event file needs to be attached to the page which contains the 'Like' button. The Event file would check the POST request body contains expected values and then perhaps increase a counter stored in a database.
 
-> The [How To Guides](#web/how-to-guides) contains an example of an Event being used to send email via SendGrid in response to user interaction.
+> The [How To Guides](/web#how-to-guides) contains an example of an Event being used to send email via SendGrid in response to user interaction.
 > -- advice
 
 #### The Event system
@@ -1487,7 +1487,7 @@ A simple use case for Events is counting how many users have clicked on a 'Like'
 The Event system in DADI Web provides developers with a way to perform tasks related to the current request, end the current request or extend the data context that is passed to the rendering engine.
 
 * Events are executed in sequence after a page's datasources have all returned, and they have access to the data loaded by all the datasources
-* Events are attached to pages in the [page specification file](#web/adding-pages), using the `"events"` array
+* Events are attached to pages in the [page specification file](/web#adding-pages), using the `"events"` array
 
 ```
 my-web/
@@ -1883,7 +1883,7 @@ npm start | bunyan -o short
 
 ### JSON view
 
-When the [config option](#web/allowjsonview) is set to `true` you can append `?json=true` to any DADI Web URL and you will see the JSON data which helps construct that page.
+When the [config option](/web#allowjsonview) is set to `true` you can append `?json=true` to any DADI Web URL and you will see the JSON data which helps construct that page.
 
 This will look similar to the following:
 

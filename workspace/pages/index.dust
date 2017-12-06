@@ -15,11 +15,11 @@
     <link rel="stylesheet" type="text/css" href="/nprogress.css">
 
     <script>
-      var re = /\/#(.*)\/(.*)$/;
+      var re = /\/#([a-z]*)\/?(.*)$/;
       var match = re.exec(window.location.href);
 
       if (match) {
-        var newURL = window.location.protocol + "//" + window.location.host + "/" + match[1] + '/#' + match[2];
+        var newURL = window.location.protocol + "//" + window.location.host + "/" + match[1] + '/' + (match[2] ? '#' + match[2] : '');
 
         window.location.replace(newURL);
       }
@@ -59,7 +59,10 @@
   {^product_doc.results}
     {>"partials/intro"/}
   {/product_doc.results}
-  {>"partials/doc"/}
+
+  {?product_doc.results}
+    {>"partials/doc"/}
+  {/product_doc.results}
 </main>
 
 </body>
