@@ -51,8 +51,8 @@ a {
 
 h1 {
 	margin: 0;
-	font-size: 22px;
-	color: #000;
+	font-size: 42px;
+	/*color: #000;*/
 }
 h2 {
 	font-size: 36px;
@@ -409,9 +409,9 @@ nav > ul > li > ul > li > a {
 */
 
 .docs {
-	border-top: 1px solid #e3e3e3;
+	/*border-top: 1px solid #e3e3e3;*/
 	padding-top: 40px;
-	margin-top: 80px;
+	/*margin-top: 80px;*/
 	padding-right: 60px;
 }
 
@@ -441,7 +441,7 @@ nav > ul > li > ul > li > a {
 }
 
 .docs h1 {
-	color: #8F8F8F;
+	/*color: #8F8F8F;*/
 }
 .docs code {
 	font-size: 13px;
@@ -530,7 +530,7 @@ pre code {
 */
 
 
-.docs--api h2,
+.docs--api h1, .docs--api h2,
 #nav--api .active { color: #0ba6dd;}
 .docs--api a {
 	border-bottom: 1px solid #0ba6dd;
@@ -549,7 +549,7 @@ pre code {
 	color: #fff;
 }
 
-.docs--cdn h2,
+.docs--cdn h1, .docs--cdn h2,
 #nav--cdn .active { color: #e02975;}
 .docs--cdn a {
 	border-bottom: 1px solid #e02975;
@@ -568,7 +568,7 @@ pre code {
 	color: #fff;
 }
 
-.docs--publish h2,
+.docs--publish h1, .docs--publish h2,
 #nav--publish .active { color: #ffbf0d;}
 .docs--publish a {
 	border-bottom: 1px solid #ffbf0d;
@@ -587,7 +587,7 @@ pre code {
 	color: #000;
 }
 
-.docs--web h2,
+.docs--web h1, .docs--web h2,
 #nav--web .active { color: #e42918;}
 .docs--web a {
 	border-bottom: 1px solid #e42918;
@@ -606,7 +606,7 @@ pre code {
 	color: #fff;
 }
 
-.docs--cli h2,
+.docs--cli h1, .docs--cli h2,
 #nav--cli .active { color: #e7461f;}
 .docs--cli a {
 	border-bottom: 1px solid #e7461f;
@@ -625,7 +625,7 @@ pre code {
 	color: #fff;
 }
 
-.docs--queue h2,
+.docs--queue h1, .docs--queue h2,
 #nav--queue .active { color: #8773dd;}
 .docs--queue a {
 	border-bottom: 1px solid #8773dd;

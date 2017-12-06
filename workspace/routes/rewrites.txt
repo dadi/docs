@@ -1,7 +1,1 @@
-\/web\/getting-started\/v3-migration\/index.html /#web/migrating-from-version-2x-to-3x [R=302,NC,L]
-\/web(.*)$ /#web [R=302,NC,L]
-\/api(.*)$ /#api [R=302,NC,L]
-\/cdn(.*)$ /#cdn [R=302,NC,L]
-\/publish(.*)$ /#publish [R=302,NC,L]
-\/cli(.*)$ /#cli [R=302,NC,L]
-\/queue(.*)$ /#queue [R=302,NC,L]
+\/web\/getting-started\/v3-migration(.*)$ /web/#migrating-from-version-2x-to-3x [R=302,NC,L]
