@@ -1,6 +1,6 @@
 {#navigation}
   <li id="nav--{id}">
-    <a href="#{id}">{name}</a>
+    <a href="/{id}">{name}</a>
     {@markdown}{map|s}{/markdown}
   </li>
 {/navigation}

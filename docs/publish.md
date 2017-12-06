@@ -2,6 +2,7 @@
 title: Publish
 order: 4
 published: true
+product: publish
 ---
 
 ## Installation

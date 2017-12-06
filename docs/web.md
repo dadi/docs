@@ -2,6 +2,7 @@
 title: Web
 order: 2
 published: true
+product: web
 ---
 
 ## Installation

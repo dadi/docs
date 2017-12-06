@@ -2,6 +2,7 @@
 title: CDN
 order: 3
 published: true
+product: cdn
 ---
 
 ## Installation
