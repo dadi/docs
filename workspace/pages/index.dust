@@ -14,14 +14,21 @@
     <link rel="stylesheet" type="text/css" href="/styles.css">
     <link rel="stylesheet" type="text/css" href="/nprogress.css">
 
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono" rel="stylesheet" type="text/css">
+
     <script>
-      var re = /\/#([a-z]*)\/?(.*)$/;
-      var match = re.exec(window.location.href);
+      var loc = window.location;
+      var href = loc.pathname + loc.hash;
+      var re = /^\/#([a-z]*)\/?(.*)$/;
+      var match = re.exec(href);
 
       if (match) {
-        var newURL = window.location.protocol + "//" + window.location.host + "/" + match[1] + '/' + (match[2] ? '#' + match[2] : '');
+        var newURL = window.location.protocol + "//" + window.location.host + "/" + match[1] + "/";
+        if (match[2]) {
+          newURL += "#" + match[2];
+        }
 
-        window.location.replace(newURL);
+        window.location.replace(location);
       }
     </script>
 

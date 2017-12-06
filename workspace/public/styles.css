@@ -1,8 +1,8 @@
 body {
 	background: #f9f9f9;
-	font-family: Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+	font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	color: #000;
-	font-size: 17px;
+	font-size: 15px;
 	line-height: 1.55em;
 	margin: 0 auto;
 
@@ -27,7 +27,7 @@ main {
 */
 
 h1,h2,h3,h4,h5,h6 {
-	font-family: Gilroy, Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+	font-family: 'Source Sans Pro', Gilroy, Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	font-weight: normal;
 	word-wrap: break-word;
 }
@@ -43,19 +43,19 @@ h1 {
 	/*color: #000;*/
 }
 h2 {
-	font-size: 36px;
+	font-size: 30px;
 	line-height: 1.1em;
 	margin-bottom: 30px;
-    margin-top: 60px;
+  margin-top: 60px;
 }
 h3 {
-	font-size: 26px;
+	font-size: 22px;
 	margin-bottom: 25px;
 	margin-top: 40px;
 }
 h4 {
 	color: #666;
-	font-size: 22px;
+	font-size: 20px;
 	margin-bottom: 30px;
 	margin-top: 2em;
 }
@@ -360,7 +360,7 @@ nav > ul > li > ul > li > a {
 	/*color: #8F8F8F;*/
 }
 .docs code {
-	font-size: 13px;
+	font-size: 11px;
 	line-height: 20px;
 }
 .docs table {
@@ -411,6 +411,11 @@ nav > ul > li > ul > li > a {
 	Code highlighting
 */
 
+a code {
+	border-radius: 0px;
+	background: none;
+}
+
 code {
 	display: inline-block;
 	background: #FFFFFF;
@@ -421,6 +426,7 @@ code {
 	margin-bottom: -1px;
 	font-family: Menlo, "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
 }
+
 pre code {
 	padding: 15px;
 	margin-bottom: 20px;
@@ -429,6 +435,7 @@ pre code {
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
 }
+
 
 /*
 	App overrides
