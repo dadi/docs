@@ -332,7 +332,7 @@ Specific versions of your API are represented by "version" folders within the co
 
 Collection documents may be stored in separate databases in the underlying data store, represented by the name of the "database" directory.
 
-> **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](api#collection-specific-databases) for more information.
+> **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](/api#collection-specific-databases) for more information.
 
 **Collection specification file**
 
