@@ -13,7 +13,18 @@
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     <link rel="stylesheet" type="text/css" href="/styles.css">
     <link rel="stylesheet" type="text/css" href="/nprogress.css">
-    
+
+    <script>
+      var re = /\/#(.*)\/(.*)$/;
+      var match = re.exec(window.location.href);
+
+      if (match) {
+        var newURL = window.location.protocol + "//" + window.location.host + "/" + match[1] + '/#' + match[2];
+
+        window.location.replace(newURL);
+      }
+    </script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42395806-3"></script>
     <script>
@@ -23,16 +34,15 @@
 
       gtag('config', 'UA-42395806-3');
     </script>
-    
-    <script>var totalPages = {docs.metadata.totalPages}</script>
+
+    <script>var totalPages = 0; //{docs.metadata.totalPages}</script>
     <script src="/nprogress.js"></script>
     <script src="/scripts.js?v=2"></script>
   </head>
 <body>
-
 <nav>
   <ul>
-    <li class="expanded"><a class="active" href="#introduction">Introduction</a></li>
+    <li class="expanded"><a class="active" href="/">Introduction</a></li>
   </ul>
   <ul id="nav">
     {>"partials/nav"/}
@@ -46,7 +56,9 @@
 
 <main id="main">
   {>"partials/header"/}
-  {>"partials/intro"/}
+  {^product_doc.results}
+    {>"partials/intro"/}
+  {/product_doc.results}
   {>"partials/doc"/}
 </main>
 
