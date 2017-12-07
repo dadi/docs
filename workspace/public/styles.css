@@ -661,7 +661,7 @@ pre code {
 	font-weight: bold;
 }
 #nav--cli {
-	background: url(/assets/dadi-cli.png) no-repeat 90% 22px;
+	background: url(/assets/dadi-cli-mark.png) no-repeat 90% 22px;
 	background-size: auto 22px;
 }
 .docs--cli ::selection {
@@ -713,7 +713,7 @@ pre code {
   }
 
   #nav--cli {
-    background: url(/assets/dadi-cli.png) no-repeat 90% 8px;
+    background: url(/assets/dadi-cli-mark.png) no-repeat 90% 8px;
     background-size: auto 18px;
   }
 
