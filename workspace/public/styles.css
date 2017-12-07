@@ -290,8 +290,19 @@ nav > ul > li > ul > li > a {
 	min-height: 80vh;
 	background: url(illo.png) no-repeat 100% 100%;
 	background-size: 250px auto;
+	font-family: Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	padding-right: 20px;
 }
+
+.intro h1,
+.intro h2,
+.intro h3,
+.intro h4,
+.intro h5,
+.intro h6 {
+	font-family: Gilroy, Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+}
+
 .intro h2 {
 	color: #e5462c;
 	margin-top: 40px;
