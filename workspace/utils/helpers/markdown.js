@@ -22,11 +22,11 @@ var toc = require('markdown-toc')
 /*
 * Returns the markdown content formatted as HTML
 */
-dust.helpers.markdown = function(chunk, context, bodies, params) {
+dust.helpers.markdown = function (chunk, context, bodies, params) {
   var headings = []
 
   if (bodies.block) {
-    return chunk.capture(bodies.block, context, function(string, chunk) {
+    return chunk.capture(bodies.block, context, function (string, chunk) {
       var renderer = new marked.Renderer()
 
       renderer.heading = function (text, level) {
@@ -44,8 +44,8 @@ dust.helpers.markdown = function(chunk, context, bodies, params) {
           duplicateText = escapedText + '-' + headings[duplicateIndex].count
         }
 
-        let id = params.app + '\/'
-        let href = params.app + '\/'
+        let id = '' // params.app + '\/'
+        let href = '' // params.app + '\/'
 
         // let parent = findParent(headings, (duplicateText || escapedText), level)
         //

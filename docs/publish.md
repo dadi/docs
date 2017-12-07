@@ -2,6 +2,7 @@
 title: Publish
 order: 4
 published: true
+product: publish
 ---
 
 ## Installation
@@ -166,8 +167,8 @@ Now run `npm start` to launch the app.
 
 Before running Publish, you will need:
 - At least one running API.
-- An auth API with the [required auth hook and collection](#publish/authentication) (can be the same as one of your other APIs). 
-- An admin user. (See [Creating a user](#publish/creating-a-user))
+- An auth API with the [required auth hook and collection](/publish#authentication) (can be the same as one of your other APIs). 
+- An admin user. (See [Creating a user](/publish#creating-a-user))
 
 ### Connecting to API
 
@@ -203,7 +204,7 @@ To connect to an API, make sure your @dadi/api install is running, then add one 
 
 ### Managing users
 
-Users are currently managed in API. To add a user, send the user credentials to the users collection. See [Creating a user](#publish/creating-a-user) how-to guide.
+Users are currently managed in API. To add a user, send the user credentials to the users collection. See [Creating a user](/publish#creating-a-user) how-to guide.
 
 > **Note**
 > 
@@ -309,7 +310,7 @@ As you edit each field, Publish will identify any validation errors and display 
 
 Validation is also checked once more as a document is saved. 
 
-If an invalid field is not part of the current selected tab (_see [tabs](#publish/tabs) below_), a warning icon will appear on each tab containing one or more validation errors.
+If an invalid field is not part of the current selected tab (_see [tabs](/publish#tabs) below_), a warning icon will appear on each tab containing one or more validation errors.
 
 ### Filtering documents
 
@@ -319,7 +320,7 @@ If an invalid field is not part of the current selected tab (_see [tabs](#publis
 
 For individual document selection a checkbox to the left of the document can be toggled. To toggle select on an entire page, click the checkbox in the table header, to the far left. 
 
-Document selection is retained even during [Pagination](#publish/document-pagination). This means that [Batch actions](#publish/batch-document-actions) will be applied to documents that aren't currently in view.
+Document selection is retained even during [Pagination](/publish#document-pagination). This means that [Batch actions](/publish#batch-document-actions) will be applied to documents that aren't currently in view.
 
 ### Batch Document actions
 

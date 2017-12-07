@@ -2,6 +2,7 @@
 title: API
 order: 1
 published: true
+product: api
 ---
 
 ## Requirements
@@ -15,7 +16,7 @@ DADI follows the Node.js LTS (Long Term Support) release schedule, and as such t
 
 ## Creating an API
 
-The easiest way to install API is using DADI CLI. CLI is a command line application that can be used to create and maintain installations of DADI products. Follow the simple instructions below, or see [more detailed documentation for DADI CLI](#cli).
+The easiest way to install API is using DADI CLI. CLI is a command line application that can be used to create and maintain installations of DADI products. Follow the simple instructions below, or see [more detailed documentation for DADI CLI](/cli).
 
 ### Install DADI CLI
 
@@ -99,11 +100,11 @@ The `accessType` property accepts one of two values: `admin` or `user`. An `admi
 >
 > -- advice
 
-Once you have client records in the database, you can request an access token for to continue communicating with the API. See [Obtaining an Access Token](#api/obtaining-an-access-token).
+Once you have client records in the database, you can request an access token for to continue communicating with the API. See [Obtaining an Access Token](/api#obtaining-an-access-token).
 
 ### Adding Clients
 
-If you've installed [DADI CLI](#cli) you can use that to create a new client in the database. See instructions for [Adding Clients with CLI](#x).
+If you've installed [DADI CLI](/cli) you can use that to create a new client in the database. See instructions for [Adding Clients with CLI](#x).
 
 Alternatively, use the built in NPM script to start the Client Record Generator which will present you with a series of questions about the new client and insert a record into the configured database.
 
@@ -254,7 +255,7 @@ Add a permissions block containing an array of the collections and/or an array o
 
 #### API Version Access Control
 
-It is also possible to restrict access to versions of your API (see [API Versioning](#api-versioning) for more information). Add an `apiVersion` property to the collection or endpoint permission:
+It is also possible to restrict access to versions of your API (see [API Versioning](/api#api-versioning) for more information). Add an `apiVersion` property to the collection or endpoint permission:
 
 ```json
 {
@@ -331,7 +332,7 @@ Specific versions of your API are represented by "version" folders within the co
 
 Collection documents may be stored in separate databases in the underlying data store, represented by the name of the "database" directory.
 
-> **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](#api/collection-specific-databases) for more information.
+> **Note** This feature is disabled by default. To enable separate databases in your API the configuration setting `database.enableCollectionDatabases` must be `true`. See [Collection-specific Databases](/api#collection-specific-databases) for more information.
 
 **Collection specification file**
 
@@ -383,8 +384,8 @@ Collection specification files can be created and edited in any text editor, the
 
 The JSON file must contain a `fields` property and a `settings` property.
 
-* `fields`: must contain at least one field specification. See [Collection Fields](#api/collection-fields) for the format of fields.
-* `settings`: a `settings` block must be provided, even if it's empty. API uses sensible defaults for collection configuration, but these can be overridden using properties in the `settings` block. See [Collection Settings](#api/collection-settings) for details.
+* `fields`: must contain at least one field specification. See [Collection Fields](api#collection-fields) for the format of fields.
+* `settings`: a `settings` block must be provided, even if it's empty. API uses sensible defaults for collection configuration, but these can be overridden using properties in the `settings` block. See [Collection Settings](/api#collection-settings) for details.
 
 **A skeleton collection specification**
 
@@ -452,7 +453,7 @@ Each field in a collection is defined using the following format. The only requi
 
 ### Field Types
 
-Every field in a collection must be one of the following types. All documents sent to API are validated against a collection's field type to ensure that data will be stored in the format intended. See the section on [Validation](#api/validation) for more details.
+Every field in a collection must be one of the following types. All documents sent to API are validated against a collection's field type to ensure that data will be stored in the format intended. See the section on [Validation](/api#validation) for more details.
 
 | Type | Description | Example
 |:--|:--|:--
@@ -462,7 +463,7 @@ Every field in a collection must be one of the following types. All documents se
 | Object | Accepts single JSON documents or an array of documents | `{ "firstName": "Steve" }`
 | Mixed | Can accept any of the above types: String, Number, Boolean or Object |
 | ObjectID | **Deprecated** Accepts MongoDB ObjectIds | `560a5baf320039f7d6a78d3b`
-| Reference | Used for linking documents in the same collection or a different collection, solving the problem of storing subdocuments in documents. See [Document Composition (reference fields)](#api/document-composition) for further information. | the ID of another document as a String: `"560a5baf320039f7d6a78d3b"`
+| Reference | Used for linking documents in the same collection or a different collection, solving the problem of storing subdocuments in documents. See [Document Composition (reference fields)](api#document-composition) for further information. | the ID of another document as a String: `"560a5baf320039f7d6a78d3b"`
 
 
 ### Collection Settings
@@ -496,12 +497,12 @@ Each collection specification must contain a `settings` block, even if it is emp
 | revisionCollection | The name of the collection used to hold revision documents | The collection name with "History" appended | `"authorsHistory"`
 | callback | x | x | x
 | defaultFilters | Specifies a default query for the collection. A `filter` parameter passed in the querystring will extend these filters.  | `{}` | `{ "published": true }`
-| fieldLimiters | Specifies a list of fields for inclusion/exclusion in the response. Fields can be included or excluded, but not both. See [Retrieving data](#api/retrieving-data) for more detail. | `{}` | `{ "title": 1, "author": 1 }`, `{ "dob": 0, "state": 0 }`
-| index | Specifies a set of indexes that should be created for the collection. See [Creating Database Indexes](#api/creating-database-indexes) for more detail. | `[]`  | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
+| fieldLimiters | Specifies a list of fields for inclusion/exclusion in the response. Fields can be included or excluded, but not both. See [Retrieving data](/api#retrieving-data) for more detail. | `{}` | `{ "title": 1, "author": 1 }`, `{ "dob": 0, "state": 0 }`
+| index | Specifies a set of indexes that should be created for the collection. See [Creating Database Indexes](/api#creating-database-indexes) for more detail. | `[]`  | `{ "keys": { "username": 1 }, "options": { "unique": true } }`
 
 > **Overriding configuration using querystring parameters**
 >
-> It is possible to override some of these values when requesting data from the endpoint, by using querystring parameters. See [Querying a collection](#querying) for detailed documentation.
+> It is possible to override some of these values when requesting data from the endpoint, by using querystring parameters. See [Querying a collection](/api#querying) for detailed documentation.
 >
 > -- advice
 
@@ -581,7 +582,7 @@ Content-Length: 57
 
 > **Note**
 >
-> To create or edit collection specifications using the configuration endpoints, you must use an access token obtained by using credentials for a client with an `accessType` of "admin". See the [Authentication](#api/authentication) section for more detail.
+> To create or edit collection specifications using the configuration endpoints, you must use an access token obtained by using credentials for a client with an `accessType` of "admin". See the [Authentication](/api#authentication) section for more detail.
 >
 > If your access token was not obtained using a set of "admin" credentials, API responds with HTTP 401 Unauthorized.
 >
@@ -636,13 +637,13 @@ Connection: close
 
 ## The REST API
 
-The primary way of interacting with DADI API is via REST endpoints that are automatically generated for each of the [collections](https://docs.dadi.tech/#api/collections) added to the application. Each REST endpoint allows you to insert, update, delete and query data stored in the underlying database.
+The primary way of interacting with DADI API is via REST endpoints that are automatically generated for each of the [collections](https://docs.dadi.tech/api/#collections) added to the application. Each REST endpoint allows you to insert, update, delete and query data stored in the underlying database.
 
 ### REST endpoint format
 
 `http(s)://api.somedomain.tech/{version}/{database}/{collection}`
 
-The REST endpoints follow the above format, where `{version}` is the current version of the API collections (not the installed version of API), `{database}` is the database that holds the specified collection and `{collection}` is the actual collection to interact with. See [Collections directory](/#api/collections-directory) for more detail.
+The REST endpoints follow the above format, where `{version}` is the current version of the API collections (not the installed version of API), `{database}` is the database that holds the specified collection and `{collection}` is the actual collection to interact with. See [Collections directory](/api/#collections-directory) for more detail.
 
 Example endpoints for each of the supported HTTP verbs:
 
@@ -666,13 +667,13 @@ In almost all cases, the `Content-Type` header should be `application/json`. API
 
 ### Authorization header
 
-Unless a collection has authentication disabled, every request using the above REST endpoints will require an Authorization header containing an access token. See [Obtaining an Access Token](/#api/obtaining-an-access-token) for more detail.
+Unless a collection has authentication disabled, every request using the above REST endpoints will require an Authorization header containing an access token. See [Obtaining an Access Token](/api/#obtaining-an-access-token) for more detail.
 
 ## Working with data
 
 ### Inserting data
 
-Inserting data involves sending a POST request to the endpoint for the collection that will store the data. If the data passes [validation rules](https://docs.dadi.tech/#api/validation) imposed by the collection, it is inserted into the collection with a set of internal fields added.
+Inserting data involves sending a POST request to the endpoint for the collection that will store the data. If the data passes [validation rules](https://docs.dadi.tech/api/#validation) imposed by the collection, it is inserted into the collection with a set of internal fields added.
 
 #### Request
 
@@ -755,7 +756,7 @@ There are two types of update operation: one where a single document is to be up
 
 In both cases, the request body must contain the required update specified as JSON.
 
-If the data passes [validation rules](https://docs.dadi.tech/#api/validation) imposed by the collection, it is updated using the specified update, and the internal fields `_lastModifiedAt`, `_lastModifiedBy` and `_version` are updated.
+If the data passes [validation rules](https://docs.dadi.tech/api/#validation) imposed by the collection, it is updated using the specified update, and the internal fields `_lastModifiedAt`, `_lastModifiedBy` and `_version` are updated.
 
 #### Update an existing resource
 
@@ -890,7 +891,7 @@ then a JSON object similar to the following is returned:
 
 ### Using Models directly
 
-When creating [custom Javacript endpoints](/#api/endpoints) it is possible to interact with the data model directly, without using the REST API.
+When creating [custom Javacript endpoints](/api/#endpoints) it is possible to interact with the data model directly, without using the REST API.
 
 ```js
 // require the Model component from API
@@ -912,9 +913,9 @@ books.find({ title: 'Harry Potter 2' }, { compose: true }, (err, results) => {
 
 Documents sent to the API with POST and PUT requests are validated at field level based on rules defined in the collection schema.
 
-Several means of data validation are supported in API, including [type validation](#api/type-validation), [mandatory field validation](#api/mandatory-field-validation), [length validation](#api/length-validation) and [regular expression validation](#api/regular-expression-validation).
+Several means of data validation are supported in API, including [type validation](/api#type-validation), [mandatory field validation](/api#mandatory-field-validation), [length validation](/api#length-validation) and [regular expression validation](/api#regular-expression-validation).
 
-While API can return default error messages when data fails validation, it is possible to customise the error messages for each field individually. See [Error Messages](#api/error-messages) below for more detail.
+While API can return default error messages when data fails validation, it is possible to customise the error messages for each field individually. See [Error Messages](/api#error-messages) below for more detail.
 
 #### Type Validation
 
@@ -1807,10 +1808,10 @@ Sample repository at https://github.com/dadi/api-connector-template.
 
 The `@dadi/apidoc` package provides a set of auto-generated documentation for your API installation, reading information from the collection schemas and custom endpoints to describe the available HTTP methods and parameters required to interact with the API.
 
-* [Generating Code Snippets](#generating-code-snippets)
-* [Documenting custom endpoints](#documenting-custom-endpoints)
-* [Showing useful example values](#showing-useful-example-values)
-* [Excluding Collections, Endpoints and Fields](#excluding-collections-endpoints-and-fields)
+* [Generating Code Snippets](/api#generating-code-snippets)
+* [Documenting custom endpoints](/api#documenting-custom-endpoints)
+* [Showing useful example values](/api#showing-useful-example-values)
+* [Excluding Collections, Endpoints and Fields](/api#excluding-collections-endpoints-and-fields)
 
 #### Installation steps
 

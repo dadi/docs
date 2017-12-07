@@ -13,7 +13,26 @@
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     <link rel="stylesheet" type="text/css" href="/styles.css">
     <link rel="stylesheet" type="text/css" href="/nprogress.css">
-    
+
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <script>
+      var loc = window.location;
+      var href = loc.pathname + loc.hash;
+      var re = /^\/#([a-z]*)\/?(.*)$/;
+      var match = re.exec(href);
+
+      if (match) {
+        var newURL = window.location.protocol + "//" + window.location.host + "/" + match[1] + "/";
+        if (match[2]) {
+          newURL += "#" + match[2];
+        }
+
+        window.location.replace(location);
+      }
+    </script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42395806-3"></script>
     <script>
@@ -23,16 +42,15 @@
 
       gtag('config', 'UA-42395806-3');
     </script>
-    
-    <script>var totalPages = {docs.metadata.totalPages}</script>
+
+    <script>var totalPages = 0; //{docs.metadata.totalPages}</script>
     <script src="/nprogress.js"></script>
     <script src="/scripts.js?v=2"></script>
   </head>
 <body>
-
 <nav>
   <ul>
-    <li class="expanded"><a class="active" href="#introduction">Introduction</a></li>
+    <li class="expanded"><a class="active" href="/">Introduction</a></li>
   </ul>
   <ul id="nav">
     {>"partials/nav"/}
@@ -46,8 +64,13 @@
 
 <main id="main">
   {>"partials/header"/}
-  {>"partials/intro"/}
-  {>"partials/doc"/}
+  {^product_doc.results}
+    {>"partials/intro"/}
+  {/product_doc.results}
+
+  {?product_doc.results}
+    {>"partials/doc"/}
+  {/product_doc.results}
 </main>
 
 </body>

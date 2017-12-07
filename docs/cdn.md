@@ -2,6 +2,7 @@
 title: CDN
 order: 3
 published: true
+product: cdn
 ---
 
 ## Installation
@@ -194,15 +195,15 @@ A very basic `config.development.json` file looks like this:
 
 Before you can serve assets or images you need to tell CDN where your files are located. CDN can serve your files from three types of source:
 
-* [Amazon S3](#cdn/amazon-s3) - retrieve files from existing Amazon S3 buckets
-* [Remote server](#cdn/remote-server) - retrieve files from a remote web server
-* [Local filesystem](#cdn/local-filesystem) - retrieve files from the same server as CDN
+* [Amazon S3](/cdn#amazon-s3) - retrieve files from existing Amazon S3 buckets
+* [Remote server](/cdn#remote-server) - retrieve files from a remote web server
+* [Local filesystem](/cdn#local-filesystem) - retrieve files from the same server as CDN
 
-You’re not limited to choosing one source, either. If you’ve elected to use the [Querystring URL Scheme](#cdn/querystring-url-scheme) then you can use all configured sources at the same time.
+You’re not limited to choosing one source, either. If you’ve elected to use the [Querystring URL Scheme](/cdn#querystring-url-scheme) then you can use all configured sources at the same time.
 
 > **Using the legacy path scheme**
 > 
-> If you're _not_ using the [Querystring URL Scheme](#cdn/querystring-url-scheme), that is, you're using the legacy [Path URL Scheme](#cdn/path-url-scheme), then *only one source* can be configured at a time.
+> If you're _not_ using the [Querystring URL Scheme](/cdn#querystring-url-scheme), that is, you're using the legacy [Path URL Scheme](/cdn#path-url-scheme), then *only one source* can be configured at a time.
 > -- advice
 
 ## Configuring sources
@@ -216,9 +217,9 @@ You’re not limited to choosing one source, either. If you’ve elected to use 
 
 #### Using the configuration file
 
-The [configuration file](#cdn/configuration) contains two sections for configuring an Amazon S3 source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different Amazon credentials for each one.
+The [configuration file](/cdn#configuration) contains two sections for configuring an Amazon S3 source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different Amazon credentials for each one.
 
-> **Security Note:** We **strongly** recommend that Amazon credentials **are not** stored in your configuration file if that file could be viewed by the public (for example, committed to a public GitHub repository). A better solution is to use [Environment Variables](#cdn/using-environment-variables) when configuring an Amazon S3 source.
+> **Security Note:** We **strongly** recommend that Amazon credentials **are not** stored in your configuration file if that file could be viewed by the public (for example, committed to a public GitHub repository). A better solution is to use [Environment Variables](/cdn#using-environment-variables) when configuring an Amazon S3 source.
 
 **Configuration for an Amazon S3 image source**
 ```js
@@ -267,7 +268,7 @@ The [configuration file](#cdn/configuration) contains two sections for configuri
 }
 ```
 
-It was mentioned earlier that if using the [Querystring URL Scheme](#cdn/querystring-url-scheme) then you can use all configured sources at the same time, regardless of the value of the `enabled` property.
+It was mentioned earlier that if using the [Querystring URL Scheme](/cdn#querystring-url-scheme) then you can use all configured sources at the same time, regardless of the value of the `enabled` property.
 
 ##### Using environment variables
 
@@ -283,7 +284,7 @@ See the documentation for your operating system for details on setting environme
 
 The Remote Server source connects CDN to any publicly available URL where you are hosting your assets and images.
 
-The [configuration file](#cdn/configuration) contains two sections for configuring a Remote Server source. One section is for images and the other is for assets. This makes it possible to store your images and assets in different locations on a remote server, or even use different servers for each.
+The [configuration file](/cdn#configuration) contains two sections for configuring a Remote Server source. One section is for images and the other is for assets. This makes it possible to store your images and assets in different locations on a remote server, or even use different servers for each.
 
 **Configuration for a Remote Server image source**
 ```js
@@ -325,7 +326,7 @@ The [configuration file](#cdn/configuration) contains two sections for configuri
 
 ### Local filesystem
 
-The [configuration file](#cdn/configuration) contains two sections for configuring a Local Filesystem source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different filesystem locations for each one.
+The [configuration file](/cdn#configuration) contains two sections for configuring a Local Filesystem source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different filesystem locations for each one.
 
 **Configuration for a Local Filesystem image source**
 ```js
@@ -367,7 +368,7 @@ The [configuration file](#cdn/configuration) contains two sections for configuri
 
 ## Serving Images and Assets
 
-With your [sources](#cdn/defining-sources) configured so that CDN knows where to find them, you can start sending requests for your assets and images.
+With your [sources](/cdn#defining-sources) configured so that CDN knows where to find them, you can start sending requests for your assets and images.
 
 CDN currently responds to two types of URL scheme. One, the Path URL scheme, is a legacy format and exists for backwards compatibility with early-adoption client applications. The other, the Querystring URL Scheme, is succinct, flexible and robust.
 
@@ -375,9 +376,9 @@ CDN currently responds to two types of URL scheme. One, the Path URL scheme, is 
 
 ### The URL Schemes
 
-While the Querystring URL Scheme is preferred for new applications, both are documented here. If you don't need details about the Path URL Scheme, [jump right to the Querystring URL Scheme](#cdn/querystring-url-scheme).
+While the Querystring URL Scheme is preferred for new applications, both are documented here. If you don't need details about the Path URL Scheme, [jump right to the Querystring URL Scheme](/cdn#querystring-url-scheme).
 
-> For a complete guide to the image manipulation parameters, see the [Image Parameters](#cdn/image-parameters).
+> For a complete guide to the image manipulation parameters, see the [Image Parameters](/cdn#image-parameters).
 
 
 #### Path URL Scheme
@@ -448,7 +449,7 @@ https://cdn.somedomain.tech/styles/main.css?compress=0
 
 ### Locating Files
 
-There is one common piece to the URL schemes: the `path` segment that CDN uses to locate the file to be served. In the Path URL Scheme it comes after all the parameters and in the Querystring URL Scheme it's between the [dynamic source parameter](#dynamic-sources) (if used) and the querystring.
+There is one common piece to the URL schemes: the `path` segment that CDN uses to locate the file to be served. In the Path URL Scheme it comes after all the parameters and in the Querystring URL Scheme it's between the [dynamic source parameter](/cdn#dynamic-sources) (if used) and the querystring.
 
 Ignoring the parameters for a moment, the following sections explain how CDN locates your files for each source.
 
@@ -511,7 +512,7 @@ When you add a `source` parameter CDN reads the standard configuration block for
 > Sources can only be specified in the URL if using the Querystring URL Scheme. When using the Path URL Scheme a single source can be configured for use at any one time.
 > -- warning
 
-For each of the below source types, refer to the [Locating Files](#cdn/locating-files) section above to understand how CDN interprets the path to your files.
+For each of the below source types, refer to the [Locating Files](/cdn#locating-files) section above to understand how CDN interprets the path to your files.
 
 #### Specifying an Amazon S3 source in the URL
 
@@ -607,9 +608,9 @@ https://cdn.somedomain.tech/fonts/site/museo-sans.ttf
 
 ## Applying Parameters to Images
 
-Now that you have your [sources](#cdn/defining-sources) configured and have decided on the URL scheme you're going to use, you can start applying parameters to manipulate your images.
+Now that you have your [sources](/cdn#defining-sources) configured and have decided on the URL scheme you're going to use, you can start applying parameters to manipulate your images.
 
-We’ll show a basic example, then it's over to you to experiment with the parameters to match your requirements. For a full list of available parameters, see the [Image Parameters](#cdn/image-parameters) section.
+We’ll show a basic example, then it's over to you to experiment with the parameters to match your requirements. For a full list of available parameters, see the [Image Parameters](/cdn#image-parameters) section.
 
 ### Basic Parameter Example
 
@@ -631,7 +632,7 @@ To adjust the image we need to specify the new width and height, as well as tell
 
 * `width=500&height=300`: Sets the width and height to fit the container.
 
-* `resize=entropy`: Tells CDN how to determine the crop area. [Entropy](#cdn/entropy) is a smart cropping feature that adjusts the crop area to ensure the important part of your image is retained. It uses areas of high contrast to set the crop area.
+* `resize=entropy`: Tells CDN how to determine the crop area. [Entropy](/cdn#entropy) is a smart cropping feature that adjusts the crop area to ensure the important part of your image is retained. It uses areas of high contrast to set the crop area.
 
 **Resized image, 500 × 300 px, 98kB**
 
@@ -719,7 +720,7 @@ To ensure the output image retains the aspect ratio of the original image, you c
 
 ### Maintaining aspect ratio
 
-Images can be resized to a specified aspect ratio by providing a width or height in combination with the `ratio` parameter. CDN will respect any [resizeStyle](#cdn/specifying-a-resizestyle) specified.
+Images can be resized to a specified aspect ratio by providing a width or height in combination with the `ratio` parameter. CDN will respect any [resizeStyle](/cdn#specifying-a-resizestyle) specified.
 
 ```
 https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9
@@ -839,13 +840,13 @@ Another way of resizing our crops, if we don't want to be as specific, is to pro
 
 ![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&&devicePixelRatio=2)
 
-Read more about [dealing with pixel ratios](#cdn/dealing-with-pixel-ratios).
+Read more about [dealing with pixel ratios](/cdn#dealing-with-pixel-ratios).
 
 ### Entropy
 
 Using `resize=entropy` crops the image using a technique that determines the most important areas.
 
-Read more about [entropy](#cdn/entropy).
+Read more about [entropy](/cdn#entropy).
 
 ## Image Parameters
 
@@ -1285,7 +1286,7 @@ For example:
 
 Delivery Routes allow you to let CDN choose the appropriate recipe based on device, network, location or language.
 
-Routes allow CDN to make a decision about which [Delivery Recipe](#cdn/delivery-recipes) to use for the current request, based on a set of configurable conditions.
+Routes allow CDN to make a decision about which [Delivery Recipe](/cdn#delivery-recipes) to use for the current request, based on a set of configurable conditions.
 
 Conditions can include the type of device being used, the network type, user location and language.
 
@@ -1342,7 +1343,7 @@ At a minimum, a route must take the following form. The `branches` array below c
 
 Each branch within the `branches` array should contain two properties, `recipe` and `condition`.
 
-* `recipe` (string) - the name of the [Delivery Recipe](#cdn/delivery-recipes) to use when all specified conditions are met
+* `recipe` (string) - the name of the [Delivery Recipe](/cdn#delivery-recipes) to use when all specified conditions are met
 
 * `condition` (object) - contains properties that correspond to test types
 
@@ -1656,4 +1657,4 @@ It is also possible to set the width, height, or both width & height explicitly,
 
 ![600x600](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=600)
 
-Read more about [Cropping Images](#cdn/cropping-images).
+Read more about [Cropping Images](/cdn#cropping-images).

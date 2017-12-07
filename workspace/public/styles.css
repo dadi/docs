@@ -1,8 +1,8 @@
 body {
 	background: #f9f9f9;
-	font-family: Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+	font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	color: #000;
-	font-size: 17px;
+	font-size: 15px;
 	line-height: 1.55em;
 	margin: 0 auto;
 
@@ -10,15 +10,44 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+i.fa-github {
+	display: none;
+}
+
+header#introduction ul li a span {
+	display: block;
+}
+
+@media handheld, only screen and (max-width: 650px) {
+	body {
+		font-size: 12px;
+		line-height: 1.2em;
+	}
+
+	i.fa-github {
+		display: block;
+		font-size: 24px;
+	}
+
+	header#introduction ul li a span {
+		display: none;
+	}
+}
+
 main {
 	margin-left: 20%;
 	padding-left: 60px;
 	padding-bottom: 500px;
 }
+
 @media handheld, only screen and (max-width: 650px) {
-	main {
+	/*main {
 		margin-left: 0;
 		padding-left: 5%;
+	}*/
+	main {
+		margin-left: 10px;
+		padding-left: 30%;
 	}
 }
 
@@ -27,7 +56,7 @@ main {
 */
 
 h1,h2,h3,h4,h5,h6 {
-	font-family: Gilroy, Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+	font-family: 'Source Sans Pro', Gilroy, Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	font-weight: normal;
 	word-wrap: break-word;
 }
@@ -39,23 +68,23 @@ a {
 
 h1 {
 	margin: 0;
-	font-size: 22px;
-	color: #000;
+	font-size: 42px;
+	/*color: #000;*/
 }
 h2 {
-	font-size: 36px;
+	font-size: 30px;
 	line-height: 1.1em;
 	margin-bottom: 30px;
-    margin-top: 60px;
+	margin-top: 60px;
 }
 h3 {
-	font-size: 26px;
+	font-size: 22px;
 	margin-bottom: 25px;
 	margin-top: 40px;
 }
 h4 {
 	color: #666;
-	font-size: 22px;
+	font-size: 20px;
 	margin-bottom: 30px;
 	margin-top: 2em;
 }
@@ -72,6 +101,18 @@ p {
 .medium { font-size: 22px; line-height: 28px; }
 .normal	{ font-size: 19px; line-height: 27px; }
 .small 	{ font-size: 15px; line-height: 20px; }
+
+@media handheld, only screen and (max-width: 650px) {
+	.normal {
+		font-size: 16px;
+		line-height: 22px;
+	}
+
+	.medium {
+		font-size: 16px;
+		line-height: 24px;
+	}
+}
 
 /*
 	Buttons
@@ -172,6 +213,15 @@ footer a {
 	font-weight: bold;
 }
 
+@media handheld, only screen and (max-width: 650px) {
+	footer {
+		padding: 15px 10px;
+		font-size: 10px;
+		line-height: 14px;
+	}
+}
+
+
 /*
 	Search
 */
@@ -182,8 +232,8 @@ footer a {
 }
 .search input {
 	background: #f9f9f9 url(icon-search.svg) no-repeat 60px 50%;
-    width: 100%;
-    border: none;
+	width: 100%;
+	border: none;
 	padding: 25px 60px 25px 90px;
 	display: block;
 	outline: none;
@@ -212,7 +262,7 @@ nav {
 }
 
 @media handheld, only screen and (max-width: 650px) {
-	nav {display: none}
+	nav {display: /*none*/}
 }
 
 nav > ul {
@@ -220,15 +270,18 @@ nav > ul {
 	margin: 0;
 	font-size: 15px;
 }
+
 nav > ul > li {
 	padding: 20px;
 	border-bottom: 1px solid #2C3139;
 }
+
 nav > ul > li > a {
 	margin: -20px -20px -20px -20px;
 	padding: 20px;
 	display: block;
 }
+
 nav li {
 	list-style: none;
 }
@@ -247,6 +300,7 @@ nav > ul > li > ul > li.expanded > ul  {
 	opacity: 1;
 	user-select: auto;
 }
+
 nav .active {
 	color: #2c85e5;
 }
@@ -254,20 +308,25 @@ nav .active {
 nav a:hover {
 	text-decoration: underline;
 }
+
 nav ul ul {
 	padding-left: 13px !important;
 }
+
 nav > ul > li > ul {
 	padding-left: 0 !important;
 }
+
 nav > ul > li > ul > li {
 	padding: 8px 0 0 0;
 }
+
 nav > ul > li > a,
 nav > ul > li > p > a {
 	font-weight: bold;
 	font-size: 17px;
 }
+
 nav > ul > li.expanded {
 	background-color: rgba(0,0,0,0.3) !important;
 	text-decoration: none;
@@ -282,6 +341,51 @@ nav > ul > li > ul > li > a {
 	line-height: 18px;
 }
 
+@media handheld, only screen and (max-width: 650px) {
+	/*nav {display: none}*/
+	nav {
+		width: 30%;
+	}
+
+	nav > ul {
+		font-size: 10px;
+	}
+
+	nav > ul > li {
+		padding: 10px;
+	}
+
+	nav > ul > li > ul > li > a {
+		font-size: 10px;
+		line-height: 10px;
+	}
+
+	nav ul ul {
+		padding-left: 8px !important;
+	}
+
+	h2 {
+		font-size: 18px;
+		line-height: 1em;
+		margin-bottom: 16px;
+		margin-top: 26px;
+	}
+
+	h3 {
+		font-size: 14px;
+		line-height: 14px;
+		margin-bottom: 20px;
+		margin-top: 30px;
+	}
+
+	h4 {
+		color: #666;
+		font-size: 12px;
+		margin-bottom: 16px;
+		margin-top: 2em;
+	}
+}
+
 /*
 	Introduction
 */
@@ -290,8 +394,19 @@ nav > ul > li > ul > li > a {
 	min-height: 80vh;
 	background: url(illo.png) no-repeat 100% 100%;
 	background-size: 250px auto;
+	font-family: Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	padding-right: 20px;
 }
+
+.intro h1,
+.intro h2,
+.intro h3,
+.intro h4,
+.intro h5,
+.intro h6 {
+	font-family: Gilroy, Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+}
+
 .intro h2 {
 	color: #e5462c;
 	margin-top: 40px;
@@ -315,14 +430,20 @@ nav > ul > li > ul > li > a {
 	color: #999;
 }
 
+@media handheld, only screen and (max-width: 650px) {
+	.intro__feat div {
+		padding-left: 44px;
+	}
+}
+
 /*
 	Styles for docs
 */
 
 .docs {
-	border-top: 1px solid #e3e3e3;
+	/*border-top: 1px solid #e3e3e3;*/
 	padding-top: 40px;
-	margin-top: 80px;
+	/*margin-top: 80px;*/
 	padding-right: 60px;
 }
 @media handheld, only screen and (max-width: 650px) {
@@ -357,10 +478,10 @@ nav > ul > li > ul > li > a {
 }
 
 .docs h1 {
-	color: #8F8F8F;
+	/*color: #8F8F8F;*/
 }
 .docs code {
-	font-size: 13px;
+	font-size: 11px;
 	line-height: 20px;
 }
 .docs table {
@@ -407,9 +528,29 @@ nav > ul > li > ul > li > a {
 	border: 3px solid #fff;
 }
 
+@media handheld, only screen and (max-width: 650px) {
+	.docs {
+		padding-right: 5%
+	}
+
+  .docs code {
+		font-size: 10px;
+		line-height: 15px;
+  }
+
+  .docs table {
+  	font-size: 12px;
+  }
+}
+
 /*
 	Code highlighting
 */
+
+a code {
+	border-radius: 0px;
+	background: none;
+}
 
 code {
 	display: inline-block;
@@ -421,6 +562,7 @@ code {
 	margin-bottom: -1px;
 	font-family: Menlo, "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
 }
+
 pre code {
 	padding: 15px;
 	margin-bottom: 20px;
@@ -430,12 +572,13 @@ pre code {
 	-webkit-overflow-scrolling: touch;
 }
 
+
 /*
 	App overrides
 */
 
 
-.docs--api h2,
+.docs--api h1, .docs--api h2,
 #nav--api .active { color: #0ba6dd;}
 .docs--api a {
 	border-bottom: 1px solid #0ba6dd;
@@ -454,7 +597,7 @@ pre code {
 	color: #fff;
 }
 
-.docs--cdn h2,
+.docs--cdn h1, .docs--cdn h2,
 #nav--cdn .active { color: #e02975;}
 .docs--cdn a {
 	border-bottom: 1px solid #e02975;
@@ -473,7 +616,7 @@ pre code {
 	color: #fff;
 }
 
-.docs--publish h2,
+.docs--publish h1, .docs--publish h2,
 #nav--publish .active { color: #ffbf0d;}
 .docs--publish a {
 	border-bottom: 1px solid #ffbf0d;
@@ -492,7 +635,7 @@ pre code {
 	color: #000;
 }
 
-.docs--web h2,
+.docs--web h1, .docs--web h2,
 #nav--web .active { color: #e42918;}
 .docs--web a {
 	border-bottom: 1px solid #e42918;
@@ -511,14 +654,14 @@ pre code {
 	color: #fff;
 }
 
-.docs--cli h2,
+.docs--cli h1, .docs--cli h2,
 #nav--cli .active { color: #e7461f;}
 .docs--cli a {
 	border-bottom: 1px solid #e7461f;
 	font-weight: bold;
 }
 #nav--cli {
-	background: url(/assets/dadi-cli.png) no-repeat 90% 22px;
+	background: url(/assets/dadi-cli-mark.png) no-repeat 90% 22px;
 	background-size: auto 22px;
 }
 .docs--cli ::selection {
@@ -530,7 +673,7 @@ pre code {
 	color: #fff;
 }
 
-.docs--queue h2,
+.docs--queue h1, .docs--queue h2,
 #nav--queue .active { color: #8773dd;}
 .docs--queue a {
 	border-bottom: 1px solid #8773dd;
@@ -547,4 +690,35 @@ pre code {
 .docs--queue ::-moz-selection {
 	background: #8773dd;
 	color: #fff;
+}
+@media handheld, only screen and (max-width: 650px) {
+  #nav--api {
+  	background: url(https://dadi.tech/assets/products/dadi-api.png) no-repeat 90% 8px;
+  	background-size: auto 18px;
+  }
+
+  #nav--cdn {
+    background: url(https://dadi.tech/assets/products/dadi-cdn.png) no-repeat 90% 8px;
+    background-size: auto 18px;
+  }
+
+  #nav--web {
+    background: url(https://dadi.tech/assets/products/dadi-web.png) no-repeat 90% 8px;
+    background-size: auto 18px;
+  }
+
+  #nav--publish {
+    background: url(https://dadi.tech/assets/products/dadi-publish.png) no-repeat 90% 8px;
+    background-size: auto 18px;
+  }
+
+  #nav--cli {
+    background: url(/assets/dadi-cli-mark.png) no-repeat 90% 8px;
+    background-size: auto 18px;
+  }
+
+  #nav--queue {
+    background: url(/assets/dadi-queue.png) no-repeat 90% 8px;
+    background-size: auto 18px;
+  }
 }

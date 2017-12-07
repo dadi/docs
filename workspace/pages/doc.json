@@ -1,0 +1,21 @@
+{
+  "page": {
+    "name": "index"
+  },
+  "settings": {
+    "passFilters": true
+  },
+  "routes": [
+    {
+      "path": "/:product"
+    }
+  ],
+  "template": "index.dust",
+  "events": [
+    "navigation"
+  ],
+  "datasources": [
+    "docs",
+    "product_doc"
+  ]
+}

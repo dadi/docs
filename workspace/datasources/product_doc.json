@@ -1,11 +1,11 @@
 {
   "datasource": {
-    "key": "docs",
+    "key": "product_doc",
     "source": {
       "type": "markdown",
       "path": "./docs"
     },
-    "count": 10,
+    "count": 1,
     "paginate": true,
     "sort": {
       "order": 1
@@ -16,6 +16,13 @@
     "fields": [
       "attributes",
       "contentText"
+    ],
+    "requestParams": [
+      {
+        "field": "product",
+        "param": "product",
+        "target": "filter"
+      }
     ]
   }
 }
