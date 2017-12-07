@@ -490,7 +490,7 @@ Template files are stored in the same folder as the page specifications and by d
 
 An array containing datasources that should be executed to load data for the page.
 
-> For detailed documentation of datasources, see [Datasources](/web/concepts/datasources)
+> For detailed documentation of datasources, see [Datasources](/web#datasources)
 
 ```js
 "datasources": [
@@ -521,7 +521,7 @@ An array containing events that should be executed after the page's datasources 
 ]
 ```
 
-> For detailed documentation of events, see [Events](/web/concepts/events)
+> For detailed documentation of events, see [Events](/web#events)
 
 ### Preload Events
 
