@@ -6,9 +6,9 @@
   <ul class="small">
     <li>
       {^product_doc.results}
-      <a href="https://github.com/dadi/">Find us on Github</a>
+      <a href="https://github.com/dadi/"><span>Find us on GitHub</span><i class="fa fa-github" aria-hidden="true"></i></a>
       {:else}
-      <a href="https://github.com/dadi/{#product_doc.results}{attributes._id}{/product_doc.results}">Find us on Github</a>
+      <a href="https://github.com/dadi/{#product_doc.results}{attributes._id}{/product_doc.results}"><span>Find us on GitHub</span><i class="fa fa-github" aria-hidden="true"></i></a>
       {/product_doc.results}
     </li>
     <li>

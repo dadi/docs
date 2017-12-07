@@ -10,10 +10,27 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+i.fa-github {
+	display: none;
+}
+
+header#introduction ul li a span {
+	display: block;
+}
+
 @media handheld, only screen and (max-width: 650px) {
 	body {
 		font-size: 12px;
 		line-height: 1.2em;
+	}
+
+	i.fa-github {
+		display: block;
+		font-size: 24px;
+	}
+
+	header#introduction ul li a span {
+		display: none;
 	}
 }
 
@@ -245,7 +262,7 @@ nav {
 }
 
 @media handheld, only screen and (max-width: 650px) {
-	nav {display: none}
+	nav {display: /*none*/}
 }
 
 nav > ul {
@@ -348,24 +365,24 @@ nav > ul > li > ul > li > a {
 	}
 
 	h2 {
-		font-size: 26px;
-		line-height: 1.1em;
+		font-size: 18px;
+		line-height: 1em;
 		margin-bottom: 16px;
-		margin-top: 38px;
+		margin-top: 26px;
 	}
 
 	h3 {
-		font-size: 18px;
-		line-height: 18px;
+		font-size: 14px;
+		line-height: 14px;
 		margin-bottom: 20px;
-		margin-top: 36px;
+		margin-top: 30px;
 	}
 
 	h4 {
 		color: #666;
-		font-size: 14px;
+		font-size: 12px;
 		margin-bottom: 16px;
-		margin-top: 2.5em;
+		margin-top: 2em;
 	}
 }
 
@@ -519,6 +536,10 @@ nav > ul > li > ul > li > a {
   .docs code {
 		font-size: 10px;
 		line-height: 15px;
+  }
+
+  .docs table {
+  	font-size: 12px;
   }
 }
 
@@ -693,6 +714,11 @@ pre code {
 
   #nav--cli {
     background: url(/assets/dadi-cli.png) no-repeat 90% 8px;
+    background-size: auto 18px;
+  }
+
+  #nav--queue {
+    background: url(/assets/dadi-queue.png) no-repeat 90% 8px;
     background-size: auto 18px;
   }
 }
