@@ -2077,3 +2077,177 @@ A successful cache flush returns a HTTP 200 response:
 
 To flush all cache files, send `{ path: "*" }`
 
+
+## How-to guides
+
+### Migrating from version 2.x to 3.x
+
+API 3.0 comes with various performance and flexibility enhancements, some of which introduce breaking changes. This document is an overview of the changes that are required to make your application ready for the upgrade. 
+
+#### Configuring a database and data connector
+
+Whilst API 2.0 requires a MongoDB database to run, version 3.0 is capable of working with virtually any database engine, as long as there is a [data connector module](https://www.npmjs.com/search?q=dadi-api-connector&page=1&ranking=optimal) for it.
+
+When migrating from 2.0, we need to explicitly specify MongoDB as our database engine by adding `@dadi/api-mongodb` as a project dependency:
+    
+```bash
+$ npm install @dadi/api-mongodb --save
+```
+
+API requires each data connector to have its own configuration file located in the same directory as API's main configuration files. Just like API, you'll need one for each environment you run the application in.
+
+For example, if you currently have a `config.development.json` and `config.production.json` configuration files, you'll need to place `mongodb.development.json` and `mongodb.production.json` in the same directory.
+
+```bash
+api-app/
+  config/              # contains environment-specific configuration files
+    config.development.json
+    config.production.json
+    mongodb.development.json
+    mongodb.production.json
+  package.json
+  workspace/
+    collections/       
+    endpoints/         
+```
+
+##### Automatic migration script
+
+We've added a migration script which can backup your existing API 2.0 configuration files and generate new API 3.0-compatible files automatically.
+
+To use it, run the following command from your existing API directory:
+
+```bash
+$ curl https://raw.githubusercontent.com/dadi/registry/master/api/migration-scripts/v2-v3.js | node
+```
+
+##### Manual configuration
+
+If you're configuring this manually, follow these steps:
+
+1. Remove the contents of the `database` property from each of your API configuration files, and paste it into the corresponding MongoDB configuration file, so that it looks similar to the following:
+
+    ```json
+    {
+      "hosts": [
+        {
+          "host": "123.456.78.9",
+          "port": 27017
+        }
+      ],
+      "username": "",
+      "password": "",
+      "testdb": {
+        "hosts": [
+          {
+            "host": "111.222.33.4",
+            "port": 27017
+          }
+        ]
+      }
+    }
+    ```
+
+2. Each block of database overrides should now be namespaced under a `databases` block. Using the above as our example, it should now be similar to the following. Notice how we've moved the `"testdb"` database configuration _inside_ the new `"databases"` block:
+      
+
+    ```json
+    {
+      "hosts": [
+        {
+          "host": "123.456.78.9",
+          "port": 27017
+        }
+      ],
+      "username": "",
+      "password": "",
+      "databases": {
+        "testdb": {
+          "hosts": [
+            {
+              "host": "111.222.33.4",
+              "port": 27017
+            }
+          ]
+        }
+      }
+    }
+    ```
+
+3. In the API configuration files, add a new property `"datastore"` where the `"database"` property was. It should have the value `"@dadi/api-mongodb"`:
+
+
+    ```json
+    {
+      "server": {
+        "host": "127.0.0.1",
+        "port": 8000
+      },
+      "datastore": "@dadi/api-mongodb",
+      "caching": {
+        
+      }
+    }
+    ```
+
+4. Your API configuration files should have an `"auth"` containing a `"database"` block. Change this to simply the name of the database you want to use for authentication, and add a `"datastore"` property with the value `"@dadi/api-mongodb"`.
+
+    *Before (`config.development.json`)*
+    
+    ```json
+    {
+      "auth": {
+        "tokenUrl": "/token",
+        "tokenTtl": 1800,
+        "clientCollection": "clientStore",
+        "tokenCollection": "tokenStore",
+        "database": {
+          "hosts": [
+            {
+              "host": "127.0.0.1",
+              "port": 27017
+            }
+          ],
+          "username": "",
+          "password": "",
+          "database": "dadiapiauth"
+        }
+      }
+    }
+    ```
+    *After (`config.development.json`)*
+    ```json
+    {
+      "auth": {
+        "tokenUrl": "/token",
+        "tokenTtl": 1800,
+        "clientCollection": "clientStore",
+        "tokenCollection": "tokenStore",
+        "datastore": "@dadi/api-mongodb",
+        "database": "dadiapiauth"
+      },
+    }
+    ```
+
+5. If your chosen authentication database (e.g. `"dadiapiauth"`) has different hosts to the default you must  ensure an entry exists for it in the `"databases"` block in `mongodb.development.json`:
+
+    *`mongodb.development.json`*
+    ```json
+    {
+      "databases": {
+        "dadiapiauth": {
+          "hosts": [
+            {
+              "host": "222.333.44.5",
+              "port": 27017
+            }
+          ]
+        }
+      }  
+    }
+    ```
+
+#### What's next?
+
+While the above configuration changes should be enough to get the application started, there are several more changes you should know about. They can be found in detail in the release notes for [API Vesion 3.0](https://github.com/dadi/api/releases/tag/v3.0.0).
+
