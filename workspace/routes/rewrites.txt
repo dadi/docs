@@ -1,2 +1,3 @@
 \/web\/getting-started\/v3-migration(.*)$ /web/#migrating-from-version-2x-to-3x [R=302,NC,L]
+\/web\/getting-started\/configuration\/?$ /web/#configuration [R=302,NC,L]
 \/sandbox\/cdn(.*) /sandbox/dadi-cdn$1 [R=302,NC,L]
