@@ -761,11 +761,11 @@ Ignores the aspect ratio of the original image and generates an output image wit
 
 Used in combination with width and height parameters, `entropy` crops the image using a technique that determines the most important areas. Areas of higher contrast are considered more important, and images are often cropped to remove large areas of static colour.
 
-`https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=entropy`
+`https://cdn.somedomain.tech/samples/med.jpeg?w=250&h=300&resize=entropy`
 
 | **Original image** | **Entropy crop**
 |:--|:--
-| ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300 "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=entropy "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+| ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300 "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=250&h=300&resize=entropy "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
 
 #### crop
 
