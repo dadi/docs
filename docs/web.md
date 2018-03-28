@@ -203,7 +203,46 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 | host | String | `0.0.0.0` | The hostname or IP address of the [DADI API](https://dadi.tech/api) instance to connect to | `api.example.com` |
 | protocol | String | `http` | The protocol to use | `https` |
 | port | Number | `8080` | The port of the API instance to connect to | `3001`
-| enabled | Boolean | `true` | If false, the web server runs in stand-alone mode | `false`
+
+Alternatively you can specify an _object of configuration objects_ if you intend to use multiple [data provider](#data-providers) configurations. For example:
+
+```json
+"api": { 
+    "main": {
+        "host": "127.0.0.1",
+        "port": 3000,
+        "auth": {
+            "tokenUrl": "/token",
+            "clientId": "your-client-id",
+            "secret": "your-secret"
+        }
+    },
+    "secondary":  {
+        "host": "127.0.0.1",
+        "port": 3000,
+        "auth": {
+            "tokenUrl": "/token",
+            "clientId": "your-client-id",
+            "secret": "your-secret"
+        }
+    }
+}
+```
+
+You can then reference the `api` config in your [datasource specification](#datasource-specification-file):
+
+```json
+{
+  "datasource": {
+      "key": "articles",
+      "source": {
+          "api": "main",
+          "endpoint": "1.0/cloud/articles"
+      },
+      "count": 12,
+      "paginate": false
+}
+```
 
 ### auth
 
@@ -1418,6 +1457,49 @@ Connect to a miscellaneous API via HTTP or HTTPS. See the following file as an e
   }
 }
 ```
+
+### Rest API
+
+Connect to any RestAPI, including one which requires authentication:
+
+```
+{
+  "datasource": {
+    "key": "twitter",
+    "source": {
+      "type": "restapi",
+      "provider": "twitter",
+      "endpoint": "statuses/show",
+      "auth": {
+        "oauth": {
+          "consumer_key": "xxx",
+          "consumer_secret": "xxx",
+          "token": "xxx",
+          "token_secret": "xxx"
+        }
+      }
+    },
+    "fields": {
+      "text": 1,
+      "user.screen_name": 1
+    },
+    "requestParams": [
+      {
+        "param": "tweetid",
+        "field": "id",
+        "target": "query"
+      }
+    ]
+  }
+}
+```
+
+`provider` can be any of the [@purest/providers](https://github.com/simov/purest-providers/blob/master/config/providers.json). For example `Facebook`, `google`, `twitter`.
+
+>
+> The `source` section can be partly defined in the main config `api` block to save repetition if needed.
+>
+> -- advice
 
 #### Markdown
 
