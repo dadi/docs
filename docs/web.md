@@ -1411,8 +1411,9 @@ Loading data into the context for rendering requires a datasource. Each datasour
 Built-in data providers include:
 
   * [DADI API](/web#dadi-api): retrieve data from an existing DADI API
-  * [Remote](/web#remote): retrieve data from miscellaneous REST APIs, such as Instagram
-  * [Markdown](/web#markdown): load data from a folder of [Markdown](https://en.wikipedia.org/wiki/Markdown) files
+  * [Rest API](/web#rest-api): retrieve data from miscellaneous REST APIs requiring authentication
+  * [Remote](/web#remote): retrieve data from miscellaneous REST APIs
+  *  [Markdown](/web#markdown): load data from a folder of [Markdown](https://en.wikipedia.org/wiki/Markdown) files (or any other text file type)
   * [Twitter](/web#twitter): retrive data from the Twitter API
   * [Wordpress](/web#wordpress): retrive data from a Wordpress API
 
@@ -1458,7 +1459,7 @@ Connect to a miscellaneous API via HTTP or HTTPS. See the following file as an e
 }
 ```
 
-### Rest API
+#### Rest API
 
 Connect to any RestAPI, including one which requires authentication:
 
@@ -1496,7 +1497,6 @@ Connect to any RestAPI, including one which requires authentication:
 
 `provider` can be any of the [@purest/providers](https://github.com/simov/purest-providers/blob/master/config/providers.json). For example `Facebook`, `google`, `twitter`.
 
->
 > The `source` section can be partly defined in the main config `api` block to save repetition if needed.
 >
 > -- advice

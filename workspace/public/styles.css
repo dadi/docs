@@ -404,6 +404,7 @@ nav > ul > li > ul > li > a {
 .intro h4,
 .intro h5,
 .intro h6 {
+	font-weight: normal;
 	font-family: Gilroy, Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 }
 
