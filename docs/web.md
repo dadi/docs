@@ -244,9 +244,17 @@ You can then reference the `api` config in your [datasource specification](#data
 }
 ```
 
+The defaults order for finding API information is:
+
+* The `api` and `auth` blocks
+* Or an `api` configuration defined with "type": "dadiapi"
+* Or an api with no defined type
+* Or the api in position `api[0]`
+* Or settings in the source of the datasource itself
+
 ### auth
 
-> This block is used in conjunction with the `api` block above.
+> This block is used in conjunction with the `api` block above, but is also used in calls to the status and cache flush endpoints.
 
 | Property | Type | Default | Description | Example |
 |:--|:--|:--|:--|:--|
@@ -387,14 +395,6 @@ For example:
   "routes": "workspace/routes"
 }
 ```
-
-### twitter
-
-> See [twitter data provider](/web#twitter).
-
-### wordpress
-
-> See [wordpress data provider](/web#wordpress).
 
 ### debug
 
