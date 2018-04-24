@@ -63,12 +63,10 @@ const Event = function (req, res, data, callback) {
 }
 
 function isRequestedProduct (product, currentDocument) {
-  console.log(currentDocument.attributes.product, product.attributes.product)
   return currentDocument.attributes.product === product.attributes.product
 }
 
 function isRequestedVersion (product, currentDocument) {
-  console.log(currentDocument.attributes.version, product.attributes.version)
   return currentDocument.attributes.version === product.attributes.version
 }
 
