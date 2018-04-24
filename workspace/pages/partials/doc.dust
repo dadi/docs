@@ -1,8 +1,9 @@
-{#docs.results}
+{#product_doc.results}
   {?contentText}
+    Version: <ul>{#versions}<li><a href="/{attributes.product}/{.}">{.}</li>{/versions}</ul>
     <div class="docs docs--{attributes._id}">
-      <h1><a id="{attributes._id}" class="anchor" href="/{attributes._id}">Link here</a>{attributes.title}</h1>
+      <h1><a id="{attributes._id}" class="anchor" href="/{attributes.product}/{attributes.version}">Link here</a>{attributes.title}</h1>
       {@markdown highlight="true" app=attributes._id}{contentText|s}{/markdown}
     </div>
   {/contentText}
-{/docs.results}
+{/product_doc.results}

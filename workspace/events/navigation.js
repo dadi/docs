@@ -1,36 +1,75 @@
-var toc = require('markdown-toc')
+const toc = require('markdown-toc')
 
-var Event = function (req, res, data, callback) {
+const Event = function (req, res, data, callback) {
   data.navigation = []
 
+  // Group document versions by product
+  let versions = data.docs.results.reduce((r, a) => {
+    r[a.attributes.product] = r[a.attributes.product] || []
+    r[a.attributes.product].push(a.attributes.version || 'latest')
+    return r
+  }, Object.create(null))
+
   data.docs.results.forEach((doc, index) => {
-    var options = {
+    let options = {
       maxdepth: 6
     }
 
     // Add the app id to the links e.g., #api/...
     let docObj = {
       name: doc.attributes.title,
-      id: doc.attributes._id
+      product: doc.attributes.product,
+      version: doc.attributes.version,
+      id: doc.attributes._id,
+      order: doc.attributes.order
     }
 
-    if (data.product_doc) {
-      if (doc.attributes._id === data.product_doc.results[0].attributes._id) {
-        var map = toc(doc.contentText, options).content
+    if (data.product_doc && data.product_doc.results[0]) {
+      let productDocument = data.product_doc.results[0]
+
+      if (isRequestedProduct(doc, productDocument) &&
+        isRequestedVersion(doc, productDocument)) {
+        productDocument.versions = versions[productDocument.attributes.product]
+
+        let map = toc(doc.contentText, options).content
           .replace(/]\(\#/gmi, '](' + '' + '#')
           .replace(/`/gmi, '')
 
-        docObj.map = map
+        data.tocMap = map
       } else {
         delete doc.contentText
         delete doc.contentHtml
       }
     }
 
-    data.navigation.push(docObj)
+    // Only add latest version to navigation
+    if (!doc.attributes.version || doc.attributes.version === 'latest') {
+      data.navigation.push(docObj)
+    }
+  })
+
+  // Sort by the order property
+  data.navigation.sort((a, b) => {
+    if (a.order > b.order) {
+      return 1
+    } else if (b.order > a.order) {
+      return -1
+    } else {
+      return 0
+    }
   })
 
   callback()
+}
+
+function isRequestedProduct (product, currentDocument) {
+  console.log(currentDocument.attributes.product, product.attributes.product)
+  return currentDocument.attributes.product === product.attributes.product
+}
+
+function isRequestedVersion (product, currentDocument) {
+  console.log(currentDocument.attributes.version, product.attributes.version)
+  return currentDocument.attributes.version === product.attributes.version
 }
 
 module.exports = function (req, res, data, callback) {
