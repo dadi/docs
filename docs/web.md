@@ -170,7 +170,7 @@ The minimal `config.development.json` file looks like this:
 	    "timestamp"
     ],
     "debug": true,
-    "allowJsonView": true
+    "allowDebugView": true
 }
 ```
 
@@ -203,11 +203,58 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 | host | String | `0.0.0.0` | The hostname or IP address of the [DADI API](https://dadi.tech/api) instance to connect to | `api.example.com` |
 | protocol | String | `http` | The protocol to use | `https` |
 | port | Number | `8080` | The port of the API instance to connect to | `3001`
-| enabled | Boolean | `true` | If false, the web server runs in stand-alone mode | `false`
+
+Alternatively you can specify an _object of configuration objects_ if you intend to use multiple [data provider](#data-providers) configurations. For example:
+
+```json
+"api": { 
+    "main": {
+        "host": "127.0.0.1",
+        "port": 3000,
+        "auth": {
+            "tokenUrl": "/token",
+            "clientId": "your-client-id",
+            "secret": "your-secret"
+        }
+    },
+    "secondary":  {
+        "host": "127.0.0.1",
+        "port": 3000,
+        "auth": {
+            "tokenUrl": "/token",
+            "clientId": "your-client-id",
+            "secret": "your-secret"
+        }
+    }
+}
+```
+
+You can then reference the `api` config in your [datasource specification](#datasource-specification-file):
+
+```json
+{
+  "datasource": {
+      "key": "articles",
+      "source": {
+          "api": "main",
+          "endpoint": "1.0/cloud/articles"
+      },
+      "count": 12,
+      "paginate": false
+}
+```
+
+The defaults order for finding API information is:
+
+* The `api` and `auth` blocks
+* Or an `api` configuration defined with "type": "dadiapi"
+* Or an api with no defined type
+* Or the api in position `api[0]`
+* Or settings in the source of the datasource itself
 
 ### auth
 
-> This block is used in conjunction with the `api` block above.
+> This block is used in conjunction with the `api` block above, but is also used in calls to the status and cache flush endpoints.
 
 | Property | Type | Default | Description | Example |
 |:--|:--|:--|:--|:--|
@@ -349,25 +396,17 @@ For example:
 }
 ```
 
-### twitter
-
-> See [twitter data provider](/web#twitter).
-
-### wordpress
-
-> See [wordpress data provider](/web#wordpress).
-
 ### debug
 
 > See [debugging](/web#debugging)
 
 If set to `true`, Web logs more information about routing, caching etc. Caching is also **disabled**.
 
-### allowJsonView
+### allowDebugView
 
-> See [JSON view](/web#json-view)
+> See [Debug view](/web#debug-view)
 
-If set to `true`, allows page data to be viewable by appending the querystring `?json=true` to the end of any URL.
+If set, enabled the page debug view to be accessible by appending the querystring `?debug` to the end of any URL.
 
 ### Environmental variables
 
@@ -1372,8 +1411,9 @@ Loading data into the context for rendering requires a datasource. Each datasour
 Built-in data providers include:
 
   * [DADI API](/web#dadi-api): retrieve data from an existing DADI API
-  * [Remote](/web#remote): retrieve data from miscellaneous REST APIs, such as Instagram
-  * [Markdown](/web#markdown): load data from a folder of [Markdown](https://en.wikipedia.org/wiki/Markdown) files
+  * [Rest API](/web#rest-api): retrieve data from miscellaneous REST APIs requiring authentication
+  * [Remote](/web#remote): retrieve data from miscellaneous REST APIs
+  *  [Markdown](/web#markdown): load data from a folder of [Markdown](https://en.wikipedia.org/wiki/Markdown) files (or any other text file type)
   * [Twitter](/web#twitter): retrive data from the Twitter API
   * [Wordpress](/web#wordpress): retrive data from a Wordpress API
 
@@ -1418,6 +1458,48 @@ Connect to a miscellaneous API via HTTP or HTTPS. See the following file as an e
   }
 }
 ```
+
+#### Rest API
+
+Connect to any RestAPI, including one which requires authentication:
+
+```
+{
+  "datasource": {
+    "key": "twitter",
+    "source": {
+      "type": "restapi",
+      "provider": "twitter",
+      "endpoint": "statuses/show",
+      "auth": {
+        "oauth": {
+          "consumer_key": "xxx",
+          "consumer_secret": "xxx",
+          "token": "xxx",
+          "token_secret": "xxx"
+        }
+      }
+    },
+    "fields": {
+      "text": 1,
+      "user.screen_name": 1
+    },
+    "requestParams": [
+      {
+        "param": "tweetid",
+        "field": "id",
+        "target": "query"
+      }
+    ]
+  }
+}
+```
+
+`provider` can be any of the [@purest/providers](https://github.com/simov/purest-providers/blob/master/config/providers.json). For example `Facebook`, `google`, `twitter`.
+
+> The `source` section can be partly defined in the main config `api` block to save repetition if needed.
+>
+> -- advice
 
 #### Markdown
 
@@ -1467,9 +1549,27 @@ When loaded becomes the following data:
 
 NB. `_path` will exclude the datasource `source.path`.
 
-#### Twitter
-#### Wordpress
 #### RSS
+
+You can grab an XML feed and access it in your templates like any other JSON source. For example:
+
+```json
+  {
+    "datasource": {
+      "key": "rss",
+      "name": "RSS",
+      "source": {
+        "type": "rss",
+        "endpoint": "https://github.com/dadi/web/releases.atom"
+      },
+      "count": 1,
+      "fields": {
+        "description": 1,
+        "pubDate": 1
+      }
+    }
+  }
+```
 
 ## Adding logic
 
@@ -1756,7 +1856,7 @@ DADI Web has some built-in middleware functions, which in some cases can be turn
 
 | Type | Description
 |: --- | :---
-| Body parser | parses the body of an incoming request and makes the data available as the property `req.body`
+| Body parser | parses the body of an incoming request and makes the data available as the property `req.body` 
 | Caching | determines if the current request can be handled by a previously cached response
 | Compression | compresses the response before sending
 | Request logging | logs every request to a file
@@ -1856,14 +1956,55 @@ module.exports.Middleware = Middleware
 ```
 
 ## Performance
+
 ### Caching
+
+Caching is enabled by default, but disabled when `”debug”: true`. You can configure the [cache headers](#headers) for each MIME type, or disable the cache entirely in your config:
+
+```json
+"caching" {
+    "directory": {
+        "enabled: false
+    }
+}
+```
+
 ### Compression
-### Headers
-### App cache
+
+Web supports `gzip` and `br` ([Brotli](https://github.com/google/brotli)) compression and is on for all supported file-types by default. You can disable it globally:
+
+```json
+"headers" {
+    "useCompression": {
+        "enabled: false
+    }
+}
+```
 
 ## Serving static assets and content
 ### Public folder
+
+The public folder is where you can store any static files you may need to serve to a browser (e.g., CSS, JavaScript, video files etc), the [path can be configured](#paths) to any location you like.
+
+Content in this folder obeys your [`useCompression`](#headers) and [`cacheControl`](#headers) settings.
+
 ### Virtual directories
+
+Virtual directories a similar to the public folder but are particularly geared to serving static content. You can list as many as you require in your config as an array:
+
+```json
+"virtualDirectories": [
+    {
+        "path": "data/legacy_features",
+        "index": "default.html",
+        "forceTrailingSlash": false
+    }
+]
+```
+
+`index` is a similar function to a traditional web server where hitting the root of a folder will serve that document without a URI e.g., `/legacy_features/` will serve `/legacy_features/default.html` to the browser.
+
+`index` and `forceTrailingSlash` are both optional.
 
 ## Debugging
 
@@ -1881,42 +2022,13 @@ Then start the app:
 npm start | bunyan -o short
 ```
 
-### JSON view
+### Debug view
 
-When the [config option](/web#allowjsonview) is set to `true` you can append `?json=true` to any DADI Web URL and you will see the JSON data which helps construct that page.
+When the [config option](/web#allowdebugview) is set to `true` you can append `?debug` to any DADI Web URL and you will see how Web constructed that page.
 
 This will look similar to the following:
 
-```JSON
-{
-  "query": {
-
-  },
-  "params": {
-
-  },
-  "pathname": "/",
-  "host": "127.0.0.1:3001",
-  "page": {
-    "name": "index",
-    "description": "An introduction to DADI Web."
-  },
-  "title": "index",
-  "global": {
-    "site": "Your site name",
-    "description": "An exciting beginning.",
-    "timestamp": 1503406193245
-  },
-  "debug": true,
-  "json": true,
-  "checkValue": "a0af3ffe22e0961aeaddddc6fff2eb25",
-  "posts": {
-    "results": [
-      ...
-    ]
-  }
-}
-```
+![DADI Web debug view](/assets/web/dadi-web-debug-view.png)
 
 From here you can see how to construct you templates to output specific variable or loop over particular objects. It is also useful for seeing the output of any Events you have which may output values into the page.
 
@@ -1952,7 +2064,20 @@ A working example can be found here: [dadi-web-csrf-test](https://github.com/ada
 
 ### SSL
 
+To use SSL you first need to generate the necessary certificates. This will vary depending on your platform. Digital Ocean has a [useful introduction](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs) that may assist.
 
+After that you need to tell Web where to find your SSL files and enable `http` in your `config.json` file.
+
+```
+"server": {
+  "host": "127.0.0.1",
+  "port": 443,
+  "protocol": "https",
+  "sslPassphrase": "superSecretPassphrase",
+  "sslPrivateKeyPath": "keys/server.key",    
+  "sslCertificatePath": "keys/server.crt"
+}
+```
 
 ## How-to guides
 
@@ -2162,9 +2287,3 @@ module.exports = function (req, res, data, callback) {
   return new Event(req, res, data, callback)
 }
 ```
-
-## Errors
-
-### WEB-0004
-
-Datasource not found
