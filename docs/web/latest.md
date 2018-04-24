@@ -3,6 +3,7 @@ title: Web
 order: 2
 published: true
 product: web
+version: latest
 ---
 
 ## Installation

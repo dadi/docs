@@ -3,6 +3,7 @@ title: API
 order: 1
 published: true
 product: api
+version: latest
 ---
 
 ## Requirements

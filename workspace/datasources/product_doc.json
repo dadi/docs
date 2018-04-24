@@ -22,6 +22,11 @@
         "field": "product",
         "param": "product",
         "target": "filter"
+      },
+      {
+        "field": "version",
+        "param": "version",
+        "target": "filter"
       }
     ]
   }
