@@ -9,6 +9,11 @@
     if (document.readyState === 'complete') {
       // getPages();
       initNav()
+
+      var versionSelector = document.querySelector('#versions')
+      versionSelector.addEventListener('change', function (event) {
+        window.location.href = event.target.options[event.target.selectedIndex].value
+      })
     }
   }
 

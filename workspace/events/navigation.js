@@ -29,7 +29,7 @@ const Event = function (req, res, data, callback) {
 
       if (isRequestedProduct(doc, productDocument) &&
         isRequestedVersion(doc, productDocument)) {
-        productDocument.versions = versions[productDocument.attributes.product]
+        productDocument.versions = versions[productDocument.attributes.product].sort()
 
         let map = toc(doc.contentText, options).content
           .replace(/]\(\#/gmi, '](' + '' + '#')
