@@ -510,7 +510,7 @@ Each field in a collection is defined using the following format. The only requi
 | Property  | Description |  Default | Example | Required?
 |:--|:--|:--|:--|:--
 | fieldName | The name of the field | | `"title"` | Yes
-| type | The type of the field. Possible values `"String"`, `"Number"`, `"Boolean"`, `"Mixed"`, `"Object"`, `"ObjectID"`, `"Reference"`  |  N/A  | `"String"` | Yes
+| type | The type of the field. Possible values `"String"`, `"Number"`, `"DateTime"`, `"Boolean"`, `"Mixed"`, `"Object"`, `"Reference"`  |  N/A  | `"String"` | Yes
 | label | The label for the field | `""` | `"Title"` | No
 | comments | The description of the field | `""` | `"The article title"` | No
 | example | An example value for the field | `""` | `"War and Peace"` | No
@@ -522,6 +522,7 @@ Each field in a collection is defined using the following format. The only requi
 | message | The message to return if field validation fails.| `"is invalid"` | `"must contain uppercase letters only"` | No
 | default | An optional value to use as a default if no value is supplied for this field | | `"0"` | No
 | matchType | Specify the type of query that is performed when using this field. If "exact" then API will attempt to match the query value exactly, otherwise it will performa a case-insensitive query. | | `"exact"` | No
+| format | Used by some fields (e.g. `DateTime`) to specify the expected format for input/output | `null` | `"YYYY-MM-DD"` | No
 
 ### Field Types
 
@@ -531,10 +532,10 @@ Every field in a collection must be one of the following types. All documents se
 |:--|:--|:--
 | String | The most basic field type, used for text data. Will also accept arrays of Strings. | `"The quick brown fox"`,  `["The", "quick", "brown", "fox"]`
 | Number | Accepts numeric data types including whole integers and floats | `5`, `5.01`
+| DateTime | Stores dates/times. Accepts numeric values (Unix timestamp), strings in the ISO 8601 format or in any format supported by [Moment.js](https://momentjs.com/) as long as the pattern is defined in the `format` property of the field schema. Internally, values are *always* stored as Unix timestamps. | `"2018-04-27T13:18:15.608Z"`, `1524835111068`
 | Boolean | Accepts only two possible values: `true` or `false` | `true`
 | Object | Accepts single JSON documents or an array of documents | `{ "firstName": "Steve" }`
 | Mixed | Can accept any of the above types: String, Number, Boolean or Object |
-| ObjectID | **Deprecated** Accepts MongoDB ObjectIds | `560a5baf320039f7d6a78d3b`
 | Reference | Used for linking documents in the same collection or a different collection, solving the problem of storing subdocuments in documents. See [Document Composition (reference fields)](#document-composition) for further information. | the ID of another document as a String: `"560a5baf320039f7d6a78d3b"`
 
 
@@ -801,12 +802,13 @@ DADI API uses a MongoDB-style format for querying objects, introducing a series 
 
 | Syntax | Description | Example
 |:--|:--|:--
-| `{field: value}` | Strict comparison. Matches documents where the value of `field` is exactly `value` | `{"first_name":"John"}`
-| `{field: {"$regex": value}}` | Matches documents where the value of `field` matches a regular expression defined as `/value/i` | `{"first_name":{"$regex":John"}}`
-| `{field: {"$in":[value1,value2]}}` | Matches documents where the value of `field` is one of `value1` and `value2` | `{"last_name":{"$in":["Doe","Spencer","Appleseed"]}}`
-| `{field: {"$containsAny":[value1,value2]}}` | Matches documents where the value of `field` (an array) contains one of `value1` and `value2` | `{"tags":{"$containsAny":["dadi","dadi-api","restful"]}}`
-| `{field: {"$gt": value}}` | Matches documents where the value of `field` is greater than `value` | `{"height":{"gt":175}}`
-| `{field: {"$lt": value}}` | Matches documents where the value of `field` is less than `value` | `{"weight":{"lt":85}}`
+| `{field:value}` | Strict comparison. Matches documents where the value of `field` is exactly `value` | `{"first_name":"John"}`
+| `{field:{"$regex": value}}` | Matches documents where the value of `field` matches a regular expression defined as `/value/i` | `{"first_name":{"$regex":John"}}`
+| `{field:{"$in":[value1,value2]}}` | Matches documents where the value of `field` is one of `value1` and `value2` | `{"last_name":{"$in":["Doe","Spencer","Appleseed"]}}`
+| `{field:{"$containsAny":[value1,value2]}}` | Matches documents where the value of `field` (an array) contains one of `value1` and `value2` | `{"tags":{"$containsAny":["dadi","dadi-api","restful"]}}`
+| `{field:{"$gt": value}}` | Matches documents where the value of `field` is greater than `value` | `{"height":{"$gt":175}}`
+| `{field:{"$lt": value}}` | Matches documents where the value of `field` is less than `value` | `{"weight":{"$lt":85}}`
+| `{field:"$now"}`, `{field:{"$lt":"$now"}}`, etc. | **(DateTime fields only)** Matches documents comparing the value of `field` against the current date | `{"publishDate":{"$lt":"$now"}}`
 
 ### Inserting data
 
@@ -1094,19 +1096,326 @@ Where `deletedCount` is the number of documents deleted and `totalCount` the num
 
 When creating [custom Javacript endpoints](#endpoints) or [collection hooks](#hooks) it may be useful to consume or create data, in which case it's possible to interact with the data model directly, as opposed to using the REST API, which would mean issuing an HTTP request.
 
+The `@dadi/api` NPM module exports a factory function, named `Model`, which receives the name of the collection and returns a model instance with the following methods available.
+
+- [count()](#count)
+- [create()](#create)
+- [createIndex()](#createindex)
+- [delete()](#delete)
+- [find()](#find)
+- [get()](#get)
+- [getIndexes()](#getindexes)
+- [revisions()](#revisions)
+- [stats()](#stats)
+- [update()](#update)
+
+> **Note**
+>
+> API 3.1 introduced a new model API, using Promises instead of callbacks and a few other changes. The [legacy version](/api/3.0.0/#using-models-directly) is still supported, but it is now deprecated and developers are encouraged to update their code.
+>
+> -- warning
+
+#### count
+
+Searches for documents and returns a count.
+
+***Receives*** *(named parameters):*
+
+- `query` (type: `Object`): Query to match documents against
+- `options` (type: `Object`, optional): Options object for narrowing down the result set (e.g. `{page: 3}`)
+
+***Returns:***
+
+`Promise` with:
+
+- `results` (`Object`): Metadata block with document count
+
+***Example:***
+
 ```js
-// Require the Model component from API.
 const Model = require('@dadi/api').Model
 
-// Get a reference to the "books" collection via the Model.
-let books = Model('books')
+Model('books').count({
+  query: {
+    title: 'Harry Potter'
+  }
+}).then(results) => {
+  console.log(results)
+)
+```
 
-// Call a method on the collection.
-books.find({ title: 'Harry Potter 2' }, { compose: true }, (err, results) => {
-  if (err) console.log(err)
-  
-  // Do something with `results`
-  yourFunctionToProcessResults(results)
+#### create
+
+Creates documents in the database. Runs any `beforeCreate` and `afterCreate` hooks configured in the collection.
+
+***Receives*** *(named parameters):*
+
+- `compose` (type: `Boolean`, default: `true`): Whether to resolved referenced documents in the output payload
+- `documents` (type: `Object` or `Array`): The document (object) or documents (array of objects) to create
+- `internals` (type: `Object`, optional): A set of internal properties to add to each document (note: `_id` is generated automatically)
+- `callback` (type: `Function`): Callback to process results
+- `rawOutput` (type: `Boolean`, optional): By default, results suffer a series of transformations before being sent back to the consumer. The raw output can be obtained by setting this property to `true`
+- `req` (type: `Object`, optional): The instance of [http.IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) that originated the request
+
+***Returns:***
+
+`Promise` with:
+
+- `{results}` (type: `Object`): Object with a `results` property containing an array of created documents
+
+***Example:***
+
+```js
+const Model = require('@dadi/api').Model
+
+Model('books').create({
+  documents: [
+    { title: 'Harry Potter' },
+    { title: 'Harry Potter 2' }
+  ],
+  internals: { _createdBy: 'johnDoe' },
+  req
+}).then(({results}) => {
+  console.log(results)
+})
+```
+
+#### createIndex
+
+Creates all the indexes defined in the `settings.index` property of the collection schema.
+
+***Receives:***
+
+*N/A*
+
+***Returns:***
+
+`Promise` with:
+
+- `indexes` (type: `Array`): Array of indexes created, with each element being an object with a `collection` and `index` properties, which represent the name of the collection and the name of the field, respectively
+
+***Example:***
+
+```js
+const Model = require('@dadi/api').Model
+
+Model('books').createIndex().then(indexes => {
+  indexes.forEach(({collection, index}) => {
+    console.log(`Created index ${index} in collectino ${collection}.`)
+  })
+})
+```
+
+#### delete
+
+Deletes documents from the database. Runs any `beforeDelete` and `afterDelete` hooks configured in the collection.
+
+***Receives*** *(named parameters):*
+
+- `query` (type: `Object`): Query to match documents against
+- `req` (type: `Object`, optional): The instance of [http.IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) that originated the request
+
+***Returns:***
+
+`Promise` with:
+
+- `{deletedCount, totalCount}` (`Object`): Object indicating the number of documents that were deleted and the number of documents remaining in the collection after the operation
+
+***Example:***
+
+```js
+const Model = require('@dadi/api').Model
+
+Model('books').delete({
+  query: {
+    title: 'Harry Potter'
+  },
+  req
+}).then(({deletedCount, totalCount}) => {
+  console.log(`Deleted ${deletedCount} documents, ${totalCount} remaining.`)
+})
+```
+
+#### find
+
+Retrieves documents from the database.
+
+***Receives*** *(named parameters):*
+
+- `query` (type: `Object`): Query to match documents against
+- `options` (type: `Object`, optional): Options object for narrowing down the result set (e.g. `{page: 3}`)
+
+***Returns:***
+
+`Promise` with:
+
+- `{metadata, results}` (`Object`): Object representing the documents retrieved (`results`) as well as a metadata block indicating various types of metrics about the result set (`metadata`)
+
+***Example:***
+
+```js
+const Model = require('@dadi/api').Model
+
+Model('books').find({
+  options: {
+    limit: 10,
+    skip: 5
+  }
+  query: {
+    title: 'Harry Potter'
+  }
+}).then(({metadata, results}) => {
+  console.log(results)
+})
+```
+
+#### get
+
+Retrieves documents from the database. Unlike [find](#find), it runs any `beforeGet` and `afterGet` hooks configured in the collection.
+
+***Receives*** *(named parameters):*
+
+- `query` (type: `Object`): Query to match documents against
+- `options` (type: `Object`, optional): Options object for narrowing down the result set (e.g. `{page: 3}`)
+- `req` (type: `Object`, optional): The instance of [http.IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) that originated the request
+
+***Returns:***
+
+`Promise` with:
+
+- `{metadata, results}` (`Object`): Object representing the documents retrieved (`results`) as well as a metadata block indicating various types of metrics about the result set (`metadata`)
+
+***Example:***
+
+```js
+const Model = require('@dadi/api').Model
+
+Model('books').get({
+  options: {
+    limit: 10,
+    skip: 5
+  }
+  query: {
+    title: 'Harry Potter'
+  },
+  req
+}).then(({metadata, results}) => {
+  console.log(results)
+})
+```
+
+#### getIndexes
+
+Retrieves all indexed fields.
+
+***Receives:***
+
+*N/A*
+
+***Returns:***
+
+`Promise` with:
+
+- `indexes` (`Array`): An array of index objects, each with a name property
+
+***Example:***
+
+```js
+const Model = require('@dadi/api').Model
+
+Model('books').getIndexes().then(indexes => {
+  console.log(indexes)
+})
+```
+
+#### getRevisions
+
+Retrieves revisions for a given document.
+
+***Receives*** *(named parameters):*
+
+- `id` (type: `String`): ID of the document
+- `{historyFilters}` (type: `Object`, optional): Object with a `historyFilters` property specifying a set of filters to match revision documents against
+
+***Returns:***
+
+`Promise` with:
+
+- `results` (`Array`): The revision documents
+
+***Example:***
+
+```js
+const Model = require('@dadi/api').Model
+
+Model('books').getRevisions({
+  id: '560a44b33a4d7de29f168ce4'
+}).then(results => {
+  console.log(results)
+})
+```
+
+#### getStats
+
+Retrieves statistics about a given collection.
+
+***Receives*** *(named parameters):*
+
+- `options` (type: `Object`, optional): Options object for narrowing down the result set
+
+***Returns:***
+
+`Promise` with:
+
+- `stats` (`Object`): Collection statistics
+
+***Example:***
+
+```js
+const Model = require('@dadi/api').Model
+
+Model('books').getStats().then(stats => {
+  console.log(stats)
+})
+```
+
+#### update
+
+Updates documents in the database. Runs any `beforeUpdate` and `afterUpdate` hooks configured in the collection.
+
+***Receives*** *(named parameters):*
+
+- `compose` (type: `Boolean`, default: `true`): Whether to resolved referenced documents in the output payload
+- `query` (type: `Object`): Query to match documents against
+- `update` (type: `Object`): Set of properties and values to update the documents affected by the query
+- `internals` (type: `Object`): A set of internal properties to add to each document
+- `rawOutput` (type: `Boolean`, default: `false`): By default, results suffer a series of transformations before being sent back to the consumer. The raw output can be obtained by setting this property to `true`
+- `req` (type: `Object`, optional): The instance of [http.IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) that originated the request
+
+***Returns:***
+
+`Promise` with:
+
+- `{results}` (`Object`): Object with a `results` property containing the array of updated documents with their new state
+
+***Example:***
+
+```js
+const Model = require('@dadi/api').Model
+
+Model('books').update({
+  internals: {
+    _lastModifiedBy: 'johnDoe'
+  },
+  query: {
+    title: 'Harry Potter'
+  },
+  req,
+  update: {
+    author: 'J K Rowling'
+  }
+}).then(({results}) => {
+  console.log(results)
 })
 ```
 
