@@ -27,8 +27,10 @@ const Event = function (req, res, data, callback) {
     if (data.product_doc && data.product_doc.results[0]) {
       let productDocument = data.product_doc.results[0]
 
-      if (isRequestedProduct(doc, productDocument) &&
-        isRequestedVersion(doc, productDocument)) {
+      if (
+        isRequestedProduct(doc, productDocument) &&
+        isRequestedVersion(doc, productDocument)
+      ) {
         productDocument.versions = versions[productDocument.attributes.product].sort()
 
         let map = toc(doc.contentText, options).content
