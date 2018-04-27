@@ -192,7 +192,7 @@ $ npm explore @dadi/api -- npm run create-client
 
 ### Collection Authentication
 
-Each [collection specification](#the-json-file) contains a "settings" block which modifies certain aspects of the collection. The [`settings.authenticate`](#collection-settings) property can be used in the following ways.
+Each [collection specification](#the-json-file) contains an optional "settings" block which modifies certain aspects of the collection. The [`settings.authenticate`](#collection-settings) property can be used in the following ways.
 
 To specify that authentication for the collection is:
 
@@ -454,10 +454,10 @@ Collection specification files can be created and edited in any text editor, the
 
 #### Minimum Requirements
 
-The JSON file must contain a `fields` property and a `settings` property.
+The JSON file must contain a `fields` property and, optionally, a `settings` property.
 
 * `fields`: must contain at least one field specification. See [Collection Fields](#collection-fields) for the format of fields.
-* `settings`: a `settings` block must be provided, even if it's empty. API uses sensible defaults for collection configuration, but these can be overridden using properties in the `settings` block. See [Collection Settings](#collection-settings) for details.
+* `settings`: API uses sensible defaults for collection configuration, but these can be overridden using properties in the `settings` block. See [Collection Settings](#collection-settings) for details.
 
 **A skeleton collection specification**
 
@@ -540,7 +540,7 @@ Every field in a collection must be one of the following types. All documents se
 
 ### Collection Settings
 
-Each collection specification must contain a `settings` block, even if it is empty. API applies sensible defaults to collections, all of which can be overridden using properties in the `settings` block. Collection configuration is controlled in the following way:
+Each collection specification can contain a `settings`. API applies sensible defaults to collections, all of which can be overridden using properties in the `settings` block. Collection configuration is controlled in the following way:
 
 ```json
 {
