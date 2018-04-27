@@ -71,6 +71,76 @@ my-api/
 
 ## Configuration
 
+API reads a series of configuration parameters to define its behaviour and to adapt to each environment it runs on. These parameters are defined in JSON files placed inside the `config/` directory, named as `config.{ENVIRONMENT}.json`, where `{ENVIRONMENT}` is the value of the `NODE_ENV` environment variable. In practice, this allows you to have different configuration parameters for when API is running in development, production and any staging, QA or anything in between, as per the requirements of your development workflow.
+
+Some configuration parameters also have corresponding environment variables, which will override whatever value is set in the configuration file.
+
+The following table shows a list of all the available configuration parameters.
+
+| Path | Description | Environment variable | Default | Format
+|:--|:--|:--|:--|:--
+| `app.name` | The applicaton name | *N/A* | `DADI API Repo Default` | String
+| `publicUrl.host` | The host of the URL where the API instance can be publicly accessed at | `URL_HOST` | `` | *
+| `publicUrl.port` | The port of the URL where the API instance can be publicly accessed at | `URL_PORT` | `` | *
+| `publicUrl.protocol` | The protocol of the URL where the API instance can be publicly accessed at | `URL_PROTOCOL` | `http` | String
+| `server.host` | Accept connections on the specified address. If the host is omitted, the server will accept connections on any IPv6 address (::) when IPv6 is available, or any IPv4 address (0.0.0.0) otherwise. | `HOST` | `` | *
+| `server.port` | Accept connections on the specified port. A value of zero will assign a random port. | `PORT` | `8081` | Number
+| `server.redirectPort` | Port to redirect http connections to https from | `REDIRECT_PORT` | `` | port
+| `server.protocol` | The protocol the web application will use | `PROTOCOL` | `http` | String
+| `server.sslPassphrase` | The passphrase of the SSL private key | `SSL_PRIVATE_KEY_PASSPHRASE` | `` | String
+| `server.sslPrivateKeyPath` | The filename of the SSL private key | `SSL_PRIVATE_KEY_PATH` | `` | String
+| `server.sslCertificatePath` | The filename of the SSL certificate | `SSL_CERTIFICATE_PATH` | `` | String
+| `server.sslIntermediateCertificatePath` | The filename of an SSL intermediate certificate, if any | `SSL_INTERMEDIATE_CERTIFICATE_PATH` | `` | String
+| `server.sslIntermediateCertificatePaths` | The filenames of SSL intermediate certificates, overrides sslIntermediateCertificate (singular) | `SSL_INTERMEDIATE_CERTIFICATE_PATHS` | `` | Array
+| `datastore` | The name of the NPM module to use as a data connector for collection data | *N/A* | `@dadi/api-mongodb` | String
+| `auth.tokenUrl` | The endpoint for bearer token generation | *N/A* | `/token` | String
+| `auth.tokenTtl` | Number of seconds that bearer tokens are valid for | *N/A* | `1800` | Number
+| `auth.clientCollection` | Name of the collection where clientId/secret pairs are stored | *N/A* | `clientStore` | String
+| `auth.tokenCollection` | Name of the collection where bearer tokens are stored | *N/A* | `tokenStore` | String
+| `auth.datastore` | The name of the NPM module to use as a data connector for authentication data | *N/A* | `@dadi/api-mongodb` | String
+| `auth.database` | The name of the database to use for authentication | `DB_AUTH_NAME` | `test` | String
+| `auth.cleanupInterval` | The interval (in seconds) at which the token store will delete expired tokens from the database | *N/A* | `3600` | Number
+| `caching.ttl` | Number of seconds that cached items are valid for | *N/A* | `300` | Number
+| `caching.directory.enabled` | If enabled, cache files will be saved to the filesystem | *N/A* | `true` | Boolean
+| `caching.directory.path` | The relative path to the cache directory | *N/A* | `./cache/api` | String
+| `caching.directory.extension` | The extension to use for cache files | *N/A* | `json` | String
+| `caching.directory.autoFlush` | If true, cached files that are older than the specified TTL setting will be automatically deleted | *N/A* | `true` | Boolean
+| `caching.directory.autoFlushInterval` | Interval to run the automatic flush mechanism, if enabled in `autoFlush` | *N/A* | `60` | Number
+| `caching.redis.enabled` | If enabled, cache files will be saved to the specified Redis server | `REDIS_ENABLED` | `` | Boolean
+| `caching.redis.host` | The Redis server host | `REDIS_HOST` | `127.0.0.1` | String
+| `caching.redis.port` | The port for the Redis server | `REDIS_PORT` | `6379` | port
+| `caching.redis.password` | The password for the Redis server | `REDIS_PASSWORD` | `` | String
+| `logging.enabled` | If true, logging is enabled using the following settings. | *N/A* | `true` | Boolean
+| `logging.level` | Sets the logging level. | *N/A* | `info` | `debug` or `info` or `warn` or `error` or `trace`
+| `logging.path` | The absolute or relative path to the directory for log files. | *N/A* | `./log` | String
+| `logging.filename` | The name to use for the log file, without extension. | *N/A* | `api` | String
+| `logging.extension` | The extension to use for the log file. | *N/A* | `log` | String
+| `logging.accessLog.enabled` | If true, HTTP access logging is enabled. The log file name is similar to the setting used for normal logging, with the addition of \"access\". For example `api.access.log`. | *N/A* | `true` | Boolean
+| `logging.accessLog.kinesisStream` | An AWS Kinesis stream to write to log records to. | `KINESIS_STREAM` | `` | String
+| `paths.collections` | The relative or absolute path to collection specification files | *N/A* | `workspace/collections` | String
+| `paths.endpoints` | The relative or absolute path to custom endpoint files | *N/A* | `workspace/endpoints` | String
+| `paths.hooks` | The relative or absolute path to hook specification files | *N/A* | `workspace/hooks` | String
+| `feedback` | If true, responses to DELETE requests will include a count of deleted and remaining documents, as opposed to an empty response body | *N/A* | `` | Boolean
+| `status.enabled` | If true, status endpoint is enabled. | *N/A* | `` | Boolean
+| `status.routes` | An array of routes to test. Each route object must contain properties `route` and `expectedResponseTime`. | *N/A* | `` | Array
+| `query.useVersionFilter` | If true, the API version parameter is extracted from the request URL and passed to the database query | *N/A* | `` | Boolean
+| `media.defaultBucket` | The name of the default media bucket | *N/A* | `mediaStore` | String
+| `media.buckets` | The names of media buckets to be used | *N/A* | `` | Array
+| `media.tokenSecret` | The secret key used to sign and verify tokens when uploading media | *N/A* | `catboat-beatific-drizzle` | String
+| `media.tokenExpiresIn` | The duration a signed token is valid for. Expressed in seconds or a string describing a time span (https://github.com/zeit/ms). Eg: 60, \"2 days\", \"10h\", \"7d\" | *N/A* | `1h` | *
+| `media.storage` | Determines the storage type for uploads | *N/A* | `disk` | `disk` or `s3`
+| `media.basePath` | Sets the root directory for uploads | *N/A* | `workspace/media` | String
+| `media.pathFormat` | Determines the format for the generation of subdirectories to store uploads | *N/A* | `date` | `none` or `date` or `datetime` or `sha1/4` or `sha1/5` or `sha1/8`
+| `media.s3.accessKey` | The AWS access key used to connect to S3 | `AWS_S3_ACCESS_KEY` | `` | String
+| `media.s3.secretKey` | The AWS secret key used to connect to S3 | `AWS_S3_SECRET_KEY` | `` | String
+| `media.s3.bucketName` | The name of the S3 bucket in which to store uploads | `AWS_S3_BUCKET_NAME` | `` | String
+| `media.s3.region` | The AWS region | `AWS_S3_REGION` | `` | String
+| `env` | The applicaton environment. | `NODE_ENV` | `development` | String
+| `cluster` | If true, API runs in cluster mode, starting a worker for each CPU core | *N/A* | `` | Boolean
+| `cors` | If true, responses will include headers for cross-domain resource sharing | *N/A* | `` | Boolean
+| `internalFieldsPrefix` | The character to be used for prefixing internal fields | *N/A* | `_` | String
+| `databaseConnection.maxRetries` | The maximum number of times to reconnection attempts after a database fails | *N/A* | `10` | Number
+
 ## Authentication
 
 DADI API provides a full-featured authentication layer based on the [Client Credentials flow of oAuth 2.0](http://oauthbible.com/#oauth-2-two-legged). By default all requests to collection endpoints in API require a user to have first been authenticated. Read the following to learn what's involved in authenticating against your DADI API.
@@ -254,7 +324,7 @@ Add a permissions block containing an array of the collections and/or an array o
 
 #### API Version Access Control
 
-It is also possible to restrict access to versions of your API (see [API Versioning](#api-versioning) for more information). Add an `apiVersion` property to the collection or endpoint permission:
+It is also possible to restrict access to versions of your API (see [API Versioning](#collections-directory) for more information). Add an `apiVersion` property to the collection or endpoint permission:
 
 ```json
 {
