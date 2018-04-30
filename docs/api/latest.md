@@ -2554,21 +2554,22 @@ $ npm install httpsnippet -g
 
 #### Documenting custom endpoints
 
-API collections are automatically documented using values from with the collection specification files. To have your documentation include useful information about custom endpoints, add [JSDoc](http://usejsdoc.org/) comments to the endpoint files:
+API collections are automatically documented using values from within the collection specification files. To have your documentation include useful information about custom endpoints, add [JSDoc](http://usejsdoc.org/) comments to the endpoint files:
 
-```js
+````js
 /**
  * Adds two numbers together.
  *
  * ```js
  * let result = add(1, 2);
+ * ```
  *
  * @param {int} `num1` The first number.
  * @param {int} `num2` The second number.
  * @returns {int} The sum of the two numbers.
  * @api public
  */
-```
+````
 
 #### Showing useful example values
 
