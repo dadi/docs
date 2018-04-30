@@ -788,7 +788,7 @@ When querying a collection, the following options can be supplied as URL paramet
 
 | Property | Description | Default | Example
 |:--|:--|:--|:--
-| `compose` | Whether to resolve referenced documents | The value of `settings.compose` in the collection schema | `compose=true`
+| `compose` | Whether to resolve referenced documents (see the possible values of the [`compose` parameter](#enabling-composition)) | The value of `settings.compose` in the collection schema | `compose=true`
 | `count` | The maximum number of documents to be retrieved in one page | The value of `settings.count` in the collection schema | `count=30`
 | `fields` | The list of fields to include or exclude from the response. Takes an object mapping field names to either `1` or `0`, which will include or exclude the field, respectively. | The value of `settings.compose` in the collection schema | `fields={"first_name":1,"l_name":1}`
 | `filter` | A query to filter results by. See [filtering documents](#filtering-documents) for more detail. | The value of `settings.compose` in the collection schema | `fields={"first_name":1,"l_name":1}`
@@ -1651,19 +1651,19 @@ Two revision documents stored in the revision collection — one created at the 
 
 ## Document Composition
 
-To reduce data duplication caused by embedding subdocuments, DADI API allows the use of "Reference" fields which can best be described as pointers to other documents. The referenced document could be in the same collection, another collection in the same database or a collection in a different database.
+To reduce data duplication caused by embedding sub-documents, DADI API allows the use of *Reference* fields which can best be described as pointers to other documents, which could be in the same collection, another collection in the same database or a collection in a different database.
 
 **Reference Field Settings**
 
 | Property       | Description        |   Example
 |:----------------|:-------------------|:-------
-| database | The name of the database that holds the reference data. Can be omitted if the field references data in the same **database** as the referring document. | `"library"`
-| collection | The name of the collection that holds the reference data. Can be omitted if the field references data in the same **collection** as the referring document. | `"people"`
+| database | The name of the database that holds the reference data. Can be omitted if the field references data in the same database as the referring document. | `"library"`
+| collection | The name of the collection that holds the reference data. Can be omitted if the field references data in the same collection as the referring document, or if the field references documents from multiple collections. | `"people"`
 | fields  | An array of fields to return for each referenced document.   | `["firstName", "lastName"]`
 
-### Example
+### A simple example
 
-Consider the following two collections, `books` and `people`. `books` contains a Reference field `author` which is capable of loading documents from the `people` collection. By creating a `book` document and setting the `author` field to the `_id` value of a document from the `people` collection, API is able to resolve the reference and return the `author` as a subdocument within the response for a `books` query.
+Consider the following two collections: `books` and `people`. `books` contains a *Reference* field `author` which is capable of loading documents from the `people` collection. By creating a `book` document and setting the `author` field to the `_id` value of a document from the `people` collection, API is able to resolve the reference and return the `author` as a subdocument within the response for a `books` query.
 
 **Books `(collection.books.json)`**
 
@@ -1671,25 +1671,14 @@ Consider the following two collections, `books` and `people`. `books` contains a
 {
   "fields": {
     "title": {
-      "type": "String",
-      "required": true
+      "type": "String"
     },
     "author": {
       "type": "Reference",
       "settings": {
-        "collection": "people",
-        "fields": ["firstName", "lastName"]
+        "collection": "people"
       }
-    },
-    "booksInSeries": {
-      "type": "Reference"
     }
-  },
-  "settings": {
-    "cache": true,
-    "count": 40,
-    "sort": "title",
-    "sortOrder": 1
   }
 }
 ```
@@ -1700,159 +1689,452 @@ Consider the following two collections, `books` and `people`. `books` contains a
 {
   "fields": {
     "name": {
-      "type": "String",
-      "required": true
-    },
-    "occupation": {
-      "type": "String",
-      "required": false
-    },
-    "nationality": {
-      "type": "String",
-      "required": false
-    },
-    "education": {
-      "type": "String",
-      "required": false
-    },
-    "spouse": {
-      "type": "Reference"
+      "type": "String"
     }
-  },
-  "settings": {
-    "cache": true,
-    "count": 40,
-    "sort": "name",
-    "sortOrder": 1
   }
 }
 ```
 
+**Request**
 
-### Composed
+```http
+POST /1.0/library/books HTTP/1.1
+Host: api.somedomain.tech
+Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6
+Content-Type: application/json
 
-An additional `composed` property is added to the `book` document when it is returned, indicating which fields have been expanded. The property contains the original `_id` value used for the reference field lookup.  
-
-#### Enabling Composition
-
-> N.B. Composition is disabled by default.
-
-To return a document with resolved Reference fields at the top level, you may send a parameter either in the querystring of your request or provide it as an option to the collection's `find()` method:
-
-```
-GET /1.0/library/books?filter={"_id":"560a5baf320039f7d6a78d3b"}&compose=true
+{ "title": "For Whom The Bell Tolls", "author": "560a5baf320039f7d6a78d4a" }
 ```
 
-```js
-let books = model('books')
+**Response**
 
-books.find({ title: 'Harry Potter 2' }, { compose: true }, (err, result) => {
-  // do something with `result`
-})
+```json
+{
+  "results": [
+    {
+      "_id": "560a5baf320039f1a3b68d4c",
+      "_composed": {
+        "author": "560a5baf320039f7d6a78d4a"
+      },
+      "author": {
+        "_id": "560a5baf320039f7d6a78d4a",
+        "name": "Ernest Hemingway"
+      }
+    }
+  ]
+}
 ```
 
-This setting will allow the first level of Reference fields to be resolved. To allow Reference fields to resolve which are nested further within the document, add a `compose` property to the collection specification's settings block:
+### Enabling composition
+
+> **Note**
+>
+> By default, referenced documents will **not** be resolved and the raw document IDs will be shown in the response. This is by design, since resolving documents adds additional load to the processing of a request and therefore it's important that developers actively enable it only when necessary.
+>
+> -- warning
+
+Composition is the feature that allows API to resolve referenced documents before the response is delivered to the consumer. It means transforming document IDs into the actual content of the documents being referenced, and it can take place recursively for any number of levels – e.g. `{"author": "X"}` resolves to a document from the `people` collection, which in its turn may resolve `{"country": "Y"}` to a document from the `countries` collection, and so on.
+
+API will resolve a referenced document for a particular level if the referenced collection has `settings.compose: true` in its schema file *or* if there is a `compose` URL parameter that overrides that behaviour.
+
+The value of `compose` can be:
+
+- `false`: Stops any referenced documents from being resolved
+- `true`: Resolves all referenced documents for the current level; behaviour for nested levels depends on the value of `settings.compose` of the respective collections
+- a number (e.g. `compose=N`): Resolves all referenced documents for `N` number of levels, including the current one
+- `all`: Resolves all referenced documents for all levels
+
+### The `_composed` property
+
+When a document ID is resolved into a referenced document, the raw value of the *Reference* field is added to a `_composed` internal property. This allows consumers to determine that the result of a given field differs from its actual internal representation, which can still be accessed via the `_composed` property, if needed.
+
+### Referencing one or multiple documents
+
+Reference fields can link to one or multiple documents, depending on whether the input data is an ID or an array of IDs. The input format is respected in the composed response.
+
+**Request**
+
+```http
+POST /1.0/library/books HTTP/1.1
+Host: api.somedomain.tech
+Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6
+Content-Type: application/json
+
+[
+  { "title": "For Whom The Bell Tolls", "author": "560a5baf320039f7d6a78d4a" },
+  { "title": "Nightfall", "author": [ "560a5baf320039f7d6a78d1a", "560a5baf320039f7d6a78d1a" ] }
+]
+```
+
+**Response**
+
+```json
+{
+  "results": [
+    {
+      "_id": "560a5baf320039f1a3b68d4c",
+      "_composed": {
+        "author": "560a5baf320039f7d6a78d4a"
+      },
+      "title": "For Whom The Bell Tolls",
+      "author": {
+        "_id": "560a5baf320039f7d6a78d4a",
+        "name": "Ernest Hemingway"
+      }
+    },
+    {
+      "_id": "560a5baf320039f1a3b68d4d",
+      "_composed": {
+        "author": [
+          "560a5baf320039f7d6a78d1a",
+          "560a5baf320039f7d6a78d1a" 
+        ]
+      }
+      "title": "Nightfall",
+      "author": [
+        {
+          "_id": "560a5baf320039f7d6a78d1a",
+          "name": "Jake Halpern"
+        },
+        {
+          "_id": "560a5baf320039f7d6a78d1b",
+          "name": "Peter Kujawinski"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Multi-collection references
+
+Rather than referencing documents from a collection that is pre-defined in the `settings.collection` property of the field schema, a single field can reference documents from multiple collections. If the input data is an object (or array of objects) with a `_collection` and `_data` properties, then the corresponding values will be used to determine the collection and ID of each referenced document.
+
+**Movies `(collection.movies.json)`**
 
 ```json
 {
   "fields": {
-  },
-  "settings": {
-    "compose": true
+    "title": {
+      "type": "String"
+    },
+    "crew": {
+      "type": "Reference"
+    }
   }
 }
 ```
 
-
-**A `book` document**
-
-```json
-[
-  {
-    "_id": "daf35614-918f-11e5-8994-feff819cdc9f",
-    "title": "Harry Potter and the Philosopher's Stone",
-    "author": "7602d576-9190-11e5-8994-feff819cdc9f",
-    "booksInSeries": [
-      "daf35998-918f-11e5-8994-feff819cdc9f",
-      "daf35b82-918f-11e5-8994-feff819cdc9f",
-      "daf35f88-918f-11e5-8994-feff819cdc9f",
-      "daf36172-918f-11e5-8994-feff819cdc9f",
-      "daf363c0-918f-11e5-8994-feff819cdc9f",
-      "daf3658c-918f-11e5-8994-feff819cdc9f"
-    ]
-  }
-]
-```
-
-**A `people` document**
-
-```json
-[
-  {
-    "_id": "7602d576-9190-11e5-8994-feff819cdc9f",
-    "name": "J. K. Rowling",
-    "occupation": "Novelist",
-    "nationality": "British",
-    "education": "Bachelor of Arts",
-    "spouse": "7602d472-9190-11e5-8994-feff819cdc9f"
-  },
-  {
-    "_id": "7602d472-9190-11e5-8994-feff819cdc9f",
-    "name": "Neil Murray"
-  }
-]
-```
-
-
-**Query result: The result of a query for the above `book` document**
+**Directors `(collection.directors.json)`**, **Producers `(collection.producers.json)`** and **Writers `(collection.writers.json)`**:
 
 ```json
 {
-  "_id": "daf35614-918f-11e5-8994-feff819cdc9f",
-  "title": "Harry Potter and the Philosopher's Stone",
-  "author": {
-    "_id": "7602d576-9190-11e5-8994-feff819cdc9f",
-    "name": "J. K. Rowling",
-    "occupation": "Novelist",
-    "nationality": "British",
-    "education": "Bachelor of Arts",
-    "spouse": {
-      "_id": "7602d472-9190-11e5-8994-feff819cdc9f",
-      "name": "Neil Murray"
-    },
-    "composed": {
-      "spouse": "7602d472-9190-11e5-8994-feff819cdc9f"
+  "fields": {
+    "name": {
+      "type": "String"
     }
-  },
-  "booksInSeries": [
-    {
-      "_id": "daf35998-918f-11e5-8994-feff819cdc9f",
-      "title": "Harry Potter and the Chamber of Secrets",
-      "author": {
-        "_id": "7602d576-9190-11e5-8994-feff819cdc9f",
-        "name": "J. K. Rowling",
-        "occupation": "Novelist",
-        "nationality": "British",
-        "education": "Bachelor of Arts",
-        "spouse": {
-          "_id": "7602d472-9190-11e5-8994-feff819cdc9f",
-          "name": "Neil Murray"
-        },
-        "composed": {
-          "spouse": "7602d472-9190-11e5-8994-feff819cdc9f"
-        }
-      }
-    }
-  ],
-  "composed": {
-    "author": "7602d576-9190-11e5-8994-feff819cdc9f",
-    "booksInSeries": [
-      "daf35998-918f-11e5-8994-feff819cdc9f"
-    ]
   }
 }
 ```
 
+**Request**
+
+```http
+POST /1.0/library/movies HTTP/1.1
+Host: api.somedomain.tech
+Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6
+Content-Type: application/json
+
+{
+  "title": "Casablanca",
+  "crew": [
+    {
+      "_collection": "writers",
+      "_data": "5ac16b70bd0d9b7724b24a41"
+    },
+    {
+      "_collection": "directors",
+      "_data": "5ac16b70bd0d9b7724b24a42"
+    },
+    {
+      "_collection": "producers",
+      "_data": "5ac16b70bd0d9b7724b24a43"
+    }
+  ]
+}
+```
+
+**Response**
+
+```json
+{
+  "results": [
+    {
+      "_id": "560a5baf320039f1a1b68d4c",
+      "_composed": {
+        "crew": [
+          "5ac16b70bd0d9b7724b24a41",
+          "5ac16b70bd0d9b7724b24a42",
+          "5ac16b70bd0d9b7724b24a43"
+        ]
+      },
+      "_refCrew": {
+        "5ac16b70bd0d9b7724b24a41": "writers",
+        "5ac16b70bd0d9b7724b24a42": "directors",
+        "5ac16b70bd0d9b7724b24a43": "producers"
+      },
+      "title": "Casablanca",
+      "crew": [
+        {
+          "_id": "5ac16b70bd0d9b7724b24a41",
+          "name": "Julius J. Epstein"
+        },
+        {
+          "_id": "5ac16b70bd0d9b7724b24a42",
+          "name": "Michael Curtiz"
+        },
+        {
+          "_id": "5ac16b70bd0d9b7724b24a43",
+          "name": "Hal B. Wallis"
+        }
+      ]
+    }
+}
+```
+
+Note the presence of `_refCrew` in the response. This is an internal field that maps document IDs to the names of the collections they belong to, as that information is not possible to extract from the resolved documents.
+
+### Pre-composed documents
+
+Setting the content of a Reference field to one or multiple document IDs is the simplest way of referencing documents, but it creates some complexity for consumer apps that wish to insert multiple levels of referenced documents.
+
+For example, imagine that you want to create a book *and* its author. You would:
+
+1. Create the author document
+1. Grab the document ID from step 1 and add it to the `author` property of a new book
+1. Create the book document
+
+You can see how this would get increasingly complex if you wanted to insert more levels. To address that, and as an alternative to receiving just document IDs, API is capable of processing a pre-composed set of documents and figure out what to do with the data, including creating and updating documents, as well as populating Reference fields with the right document IDs.
+
+#### Creating documents
+
+When the content of a Reference field is an object *without* an ID, a corresponding document is created in the collection defined by the `settings.collection` property of the field schema. If an array is sent, multiple documents will be created.
+
+**Request**
+
+```http
+POST /1.0/library/books HTTP/1.1
+Host: api.somedomain.tech
+Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6
+Content-Type: application/json
+
+[
+  {
+    "title": "For Whom The Bell Tolls",
+    "author": { "name": "Ernest Hemingway" }
+  },
+  {
+    "title": "Nightfall",
+    "author": [
+      { "name": "Jake Halpern" },
+      { "name": "Peter Kujawinski" }
+    ]
+  }
+]
+```
+
+**Response**
+
+```json
+{
+  "results": [
+    {
+      "_id": "560a5baf320039f1a3b68d4c",
+      "_composed": {
+        "author": "560a5baf320039f7d6a78d4a"
+      },
+      "title": "For Whom The Bell Tolls",
+      "author": {
+        "_id": "560a5baf320039f7d6a78d4a",
+        "name": "Ernest Hemingway"
+      }
+    },
+    {
+      "_id": "560a5baf320039f1a3b68d4d",
+      "_composed": {
+        "author": [
+          "560a5baf320039f7d6a78d1a",
+          "560a5baf320039f7d6a78d1b"
+        ]
+      },
+      "title": "Nightfall",
+      "author": [
+        {
+          "_id": "560a5baf320039f7d6a78d1a",
+          "name": "Jake Halpern"
+        },
+        {
+          "_id": "560a5baf320039f7d6a78d1b",
+          "name": "Peter Kujawinski"
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Updating documents
+
+When the content of a Reference field is an object *with* an ID, API updates the document referenced by that ID with the new sub-document.
+
+The example below creates a new book and sets an existing document (`560a5baf320039f7d6a78d4a`) as its author, but it also makes an update to the referenced document – in this case, `name` is changed to `"Ernest Miller Hemingway"`.
+
+**Request**
+
+```http
+POST /1.0/library/books HTTP/1.1
+Host: api.somedomain.tech
+Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6
+Content-Type: application/json
+
+[
+  {
+    "title": "For Whom The Bell Tolls",
+    "author": {
+      "_id": "560a5baf320039f7d6a78d4a",
+      "name": "Ernest Miller Hemingway"
+    }
+  }
+]
+```
+
+**Response**
+
+```json
+{
+  "results": [
+    {
+      "_id": "560a5baf320039f1a3b68d4c",
+      "_composed": {
+        "author": "560a5baf320039f7d6a78d4a"
+      },
+      "title": "For Whom The Bell Tolls",
+      "author": {
+        "_id": "560a5baf320039f7d6a78d4a",
+        "name": "Ernest Miller Hemingway"
+      }
+    }
+  ]
+}
+```
+
+#### Multi-collection references
+
+It's possible to insert pre-composed documents that use the multi-collection reference syntax, as long as the pre-composed documents are inside the `_data` property of the outermost object in the Reference field value.
+
+The example below shows how the various scenarios can be mixed and matched: the first element of `crew` is a new document to be created in the `writers` collection (no ID); the second item is a document ID, which will be stored as is in the `directors` collection; the third item references an existing document from the `producers` collection, whose `name` will be updated to a new value.
+
+**Request**
+
+```http
+POST /1.0/library/movies HTTP/1.1
+Host: api.somedomain.tech
+Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6
+Content-Type: application/json
+
+{
+  "title": "Casablanca",
+  "crew": [
+    {
+      "_collection": "writers",
+      "_data": {
+        "name": "Julius J. Epstein"
+      }
+    },
+    {
+      "_collection": "directors",
+      "_data": "5ac16b70bd0d9b7724b24a42"
+    },
+    {
+      "_collection": "producers",
+      "_data": {
+        "_id": "5ac16b70bd0d9b7724b24a43",
+        "name": "Hal Brent Wallis"
+      }
+    }
+  ]
+}
+```
+
+**Response**
+
+```json
+{
+  "results": [
+    {
+      "_id": "560a5baf320039f1a1b68d4c",
+      "_composed": {
+        "crew": [
+          "5ac16b70bd0d9b7724b24a41",
+          "5ac16b70bd0d9b7724b24a42",
+          "5ac16b70bd0d9b7724b24a43"
+        ]
+      },
+      "_refCrew": {
+        "5ac16b70bd0d9b7724b24a41": "writers",
+        "5ac16b70bd0d9b7724b24a42": "directors",
+        "5ac16b70bd0d9b7724b24a43": "producers"
+      },
+      "title": "Casablanca",
+      "crew": [
+        {
+          "_id": "5ac16b70bd0d9b7724b24a41",
+          "name": "Julius J. Epstein"
+        },
+        {
+          "_id": "5ac16b70bd0d9b7724b24a42",
+          "name": "Michael Curtiz"
+        },
+        {
+          "_id": "5ac16b70bd0d9b7724b24a43",
+          "name": "Hal Brent Wallis"
+        }
+      ]
+    }
+}
+```
+
+### Limiting fields of referenced documents
+
+When a reference is resolved, the entire referenced document will be included by default, but it's possible to limit the fields that will be included in the composed response. You can do this by specifying a `fields` array within the `settings` block of the *Reference* field's schema.
+
+**Books `(collection.books.json)`**
+
+```json
+{
+  "fields": {
+    "title": {
+      "type": "String"
+    },
+    "author": {
+      "type": "Reference",
+      "settings": {
+        "collection": "people",
+        "fields": ["firstName", "lastName"]
+      }
+    }
+  }
+}
+```
+
+Alternatively, you can specify the fields to be retrieved for each *Reference* field using the `fields` URL parameter with dot-notation. The following request instructs API to get all books, limiting the fields returned to `title` and `author`, with the latter only showing the fields `name` and `occupation` from the referenced collection.
+
+```http
+GET /1.0/library/books?fields={"title":1,"author.name":1,"author.occupation":1} HTTP/1.1
+Host: api.somedomain.tech
+Authorization: Bearer 4172bbf1-0890-41c7-b0db-477095a288b6
+Content-Type: application/json
+```
 
 ## Collection Statistics
 
