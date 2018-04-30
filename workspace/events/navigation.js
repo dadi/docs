@@ -37,7 +37,7 @@ const Event = function (req, res, data, callback) {
           .replace(/]\(\#/gmi, '](' + '' + '#')
           .replace(/`/gmi, '')
 
-        data.tocMap = map
+        docObj.tocMap = map
       } else {
         delete doc.contentText
         delete doc.contentHtml
