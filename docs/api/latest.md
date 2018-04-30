@@ -2562,7 +2562,6 @@ API collections are automatically documented using values from with the collecti
  *
  * ```js
  * let result = add(1, 2);
- * ```
  *
  * @param {int} `num1` The first number.
  * @param {int} `num2` The second number.
