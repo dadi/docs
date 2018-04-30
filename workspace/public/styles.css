@@ -1,6 +1,6 @@
 body {
 	background: #f9f9f9;
-	font-family: 'Source Sans Pro', "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+	font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	color: #000;
 	font-size: 15px;
 	line-height: 1.55em;
@@ -56,7 +56,6 @@ main {
 */
 
 h1,h2,h3,h4,h5,h6 {
-	font-family: 'Source Sans Pro', Gilroy, Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	font-weight: bold;
 	word-wrap: break-word;
 }
@@ -394,18 +393,7 @@ nav > ul > li > ul > li > a {
 	min-height: 80vh;
 	background: url(illo.png) no-repeat 100% 100%;
 	background-size: 250px auto;
-	font-family: Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	padding-right: 20px;
-}
-
-.intro h1,
-.intro h2,
-.intro h3,
-.intro h4,
-.intro h5,
-.intro h6 {
-	font-weight: normal;
-	font-family: Gilroy, Karla, "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 }
 
 .intro h2 {
@@ -566,7 +554,7 @@ code {
 	border-radius: 9px;
 	padding: 0 5px;
 	margin-bottom: -1px;
-	font-family: Menlo, "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	font-family: "Roboto Mono", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
 }
 
 pre code {
