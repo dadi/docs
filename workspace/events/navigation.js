@@ -37,11 +37,13 @@ const Event = function (req, res, data, callback) {
           .replace(/]\(\#/gmi, '](' + '' + '#')
           .replace(/`/gmi, '')
 
-        docObj.tocMap = map
+        productDocument.tocMap = map
       } else {
         delete doc.contentText
         delete doc.contentHtml
       }
+
+      data.product_doc.results[0] = productDocument
     }
 
     // Only add latest version to navigation
