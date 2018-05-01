@@ -3,6 +3,7 @@ title: Publish
 order: 4
 published: true
 product: publish
+version: latest
 ---
 
 ## Installation

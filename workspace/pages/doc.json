@@ -7,7 +7,7 @@
   },
   "routes": [
     {
-      "path": "/:product"
+      "path": "/:product/:version"
     }
   ],
   "template": "index.dust",

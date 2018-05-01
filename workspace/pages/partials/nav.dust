@@ -1,6 +1,6 @@
 {#navigation}
-  <li id="nav--{id}">
-    <a href="/{id}">{name}</a>
-    {@markdown}{map|s}{/markdown}
+  <li id="nav--{product}">
+    <a href="/{product}/{version}">{name}</a>
+    {@markdown}{tocMap|s}{/markdown}
   </li>
 {/navigation}

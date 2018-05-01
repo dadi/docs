@@ -9,12 +9,11 @@
 
     <link rel="icon" type="image/png" href="/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="/fonts.css">
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     <link rel="stylesheet" type="text/css" href="/styles.css">
-    <link rel="stylesheet" type="text/css" href="/nprogress.css">
 
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono" rel="stylesheet" type="text/css">
+
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <script>
@@ -45,7 +44,7 @@
 
     <script>var totalPages = 0; //{docs.metadata.totalPages}</script>
     <script src="/nprogress.js"></script>
-    <script src="/scripts.js?v=2"></script>
+    <script src="/scripts.js?v=5"></script>
   </head>
 <body>
 <nav>
