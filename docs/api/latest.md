@@ -2138,9 +2138,7 @@ Content-Type: application/json
 
 ## Collection Statistics
 
-Collection statistics from MongoDB can be retrieved by sending a GET request to a collection's `/stats` endpoint.
-
-An example request:
+Collection statistics can be retrieved by sending a GET request to a collection's `/stats` endpoint:
 
 ```http
 GET /1.0/library/books/stats HTTP/1.1
@@ -2149,7 +2147,7 @@ Content-Type: application/json
 Cache-Control: no-cache
 ```
 
-An example response:
+An example response when using the MongoDB data connector:
 
 ```json
 {
@@ -2682,9 +2680,7 @@ Cache-Control: no-cache
 
 ### MongoDB Connector
 
-The MongoDB connector allows you to use MongoDB as the backend for API.
-
-Help improve the package at https://github.com/dadi/api-mongodb.
+The MongoDB connector allows you to use MongoDB as the backend for API. It was extracted from API core as part of the 3.0.0 release. The connector is available as an NPM package, with full source code available on GitHub. Help improve the package at https://github.com/dadi/api-mongodb.
 
 
 #### Installing
@@ -2695,11 +2691,197 @@ $ npm install --save @dadi/api-mongodb
 
 #### Configuring
 
-[TODO]
+As with any of the API data connectors, you need two configuration files. Details regarding the main configuration file can be found [elsewhere in this document](#configuration). Below are the configuration options for your MongoDB configuration file.
+
+These parameters are defined in JSON files placed inside the `config/` directory, named as `mongodb.{ENVIRONMENT}.json`, where `{ENVIRONMENT}` is the value of the `NODE_ENV` environment variable. In practice, this allows you to have different configuration parameters for when API is running in development, production and any staging, QA or anything in between.
+
+Some configuration parameters also have corresponding environment variables, which will override whatever value is set in the configuration file.
+
+The following table shows a list of all the available configuration parameters.
+
+| Path | Description | Environment variable | Default | Format
+|:--|:--|:--|:--|:--
+| `env` | The applicaton environment | `NODE_ENV` | `development` | `production` or `development` or `test` or `qa`
+| `hosts` | An array of MongoDB hosts to connect to. Each host entry must include a `host` and `port` as detailed below. | *N/A* | `` | Array
+| `hosts.host` | The host address of the MongoDB instance | *N/A* | `` | *
+| `hosts.port` | The port of the MongoDB instance | *N/A* | `` | Number
+| `username` | The username used to connect to the database (optional) | `DB_USERNAME` | `` | String
+| `password` | The password used to connect to the database (optional) | `DB_PASSWORD` | `` | String
+| `authMechanism` | If no authentication mechanism is specified or the mechanism DEFAULT is specified, the driver will attempt to authenticate using the SCRAM-SHA-1 authentication method if it is available on the MongoDB server. If the server does not support SCRAM-SHA-1 the driver will authenticate using MONGODB-CR. | `DB_AUTH_MECHANISM` | `DEFAULT` | String
+| `authDatabase` | The database to authenticate against when supplying a username and password | `DB_AUTH_SOURCE` | `admin` | String
+| `database` | The name of the database to connect to | `DB_NAME` | `` | String
+| `ssl` | If true, initiates the connection with TLS/SSL | *N/A* | `` | Boolean
+| `replicaSet` | Specifies the name of the replica set, if the mongod is a member of a replica set. When connecting to a replica set it is important to give a seed list of at least two mongod instances. If you only provide the connection point of a single mongod instance, and omit the replicaSet, the client will create a standalone connection. | *N/A* | `` | String
+| `readPreference` | Choose how MongoDB routes read operations to the members of a replica set - see https://docs.mongodb.com/manual/reference/read-preference/ | *N/A* | `secondaryPreferred` | `primary` or `primaryPreferred` or `secondary` or `secondaryPreferred` or `nearest`
+| `enableCollectionDatabases` | — | *N/A* | `` | Boolean
+
+```cson
+{
+  "hosts": [
+    {
+      "host": "127.0.0.1",
+      "port": 27017
+    }
+  ],
+  "username": "",
+  "password": "",
+  "database": "testdb",
+  "ssl": false,
+  "replicaSet": "",
+  "enableCollectionDatabases": true,
+  "databases": {
+    "testdb": {
+      "hosts": [
+        {
+          "host": "127.0.0.1",
+          "port": 27017
+        }
+      ]
+    }
+  }
+}
+```
 
 #### Using MongoLab
 
-[TODO]
+If you're unable to install MongoDB yourself, [MongoLab](https://mlab.com) provides a variety of plans to get you running with a MongoDB backend for API. They have a free Sandbox tier that is ideal to get a prototype online. Create an account at https://mlab.com/signup/, verify your email address, and we'll begin configuring API.
+
+##### Create new deployment
+
+Once your account is created with MongoLab you'll need to create a new "MongoDB Deployment". Follow the prompts to create a Sandbox deployment, then click Submit Order on the final screen to provision the service:
+
+![](/assets/api/mlab/2.png)
+
+![](/assets/api/mlab/6.png)
+
+![](/assets/api/mlab/7.png)
+
+##### View MongoDB details
+
+When the database is ready, click on it's name to see the details required for connecting to it.
+
+![](/assets/api/mlab/8.png)
+
+##### Creating a MongoLab database user
+
+MongoLab requires you to create a database user in order to connect:
+
+> A database user is required to connect to this database. To create one now, visit the 'Users' tab and click the 'Add database user' button.
+
+Complete the fields in the New User popup and keep a note of the username and password for the next step.
+
+![](/assets/api/mlab/9.png)
+
+
+##### Connecting from API
+
+To connect to a MongoDB database you require two configuration files: the first is the main API configuration file (config.development.json) and the second is the configuration file for the MongoDB data connector (mongodb.development.json).
+
+**config.development.json**
+
+The key settings in the main API configuration file are `datastore`, `auth.datastore` and `auth.database`. When using the MongoDB data connector, `datastore` must be set to `"@dadi/api-mongodb"`. If using MongoDB for API's authentication data, `auth.datastore` must also be set to `"@dadi/api-mongodb"`. The `auth` section also specifies the database to use for authentication data; in the example below it is set to the name of the database we created when setting up the MongoLab database.
+
+```json
+{
+  "app": {
+    "name": "MongoLab Test"
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 3000
+  },
+  "publicUrl": {
+    "host": "localhost",
+    "port": 3000
+  },
+  "datastore": "@dadi/api-mongodb",
+  "auth": {
+    "tokenUrl": "/token",
+    "tokenTtl": 18000,
+    "clientCollection": "clientStore",
+    "tokenCollection": "tokenStore",
+    "datastore": "@dadi/api-mongodb",
+    "database": "dadiapisandbox"
+  },
+  "paths": {
+    "collections": "workspace/collections",
+    "endpoints": "workspace/endpoints",
+    "hooks": "workspace/hooks"
+  }
+}
+```
+
+**mongodb.development.json**
+
+In addition to the main configuration file, API requires a configuration file specific to the data connector. The configuration file for the MongoDB connector must be located in the `config` directory along with the main configuration file. `mongodb.development.json` contains settings for connecting to a MongoDB database.
+
+The database detail page on MongoLab shows a couple of ways to connect to your MongoLab database. We'll take some parameters from the "mongo shell" option and use them in our configuration file:
+
+> To connect using the mongo shell:
+> mongo ds159509.mlab.com:59509/dadiapisandbox -u <dbuser> -p <dbpassword>
+
+
+```cson
+{
+  "hosts": [
+    {
+      "host": "ds159509.mlab.com",
+      "port": 59509
+    }
+  ],
+  "username": "dadiapi",  // username for database user created in MongoLab
+  "password": "ipaidad",  // password for database user created in MongoLab
+  "database": "dadiapisandbox",
+  "ssl": false,
+  "replicaSet": "",
+  "databases": {
+    "dadiapisandbox": {
+      "authDatabase": "dadiapisandbox",  // the name of the database to use for authenticating, required when specifying a username and password
+      "hosts": [
+        {
+          "host": "ds159509.mlab.com",
+          "port": 59509
+        }
+      ]
+    }
+  }
+}
+```
+
+##### Booting API
+
+When you start your API application it will attempt to connect to the MongoLab database using the specified settings. 
+
+```
+$ npm start
+```
+
+After API finishes booting, you can click on the "Collections" tab in the MongoLab website and see the collections that API has created from your workspace collection schemas.
+
+![](/assets/api/mlab/12.png)
+
+
+##### Creating an API user
+
+Before interacting with any of the API collections, it's useful to create a client record so you can obtain an access token. See the [Adding clients](#adding-clients) section for more details. After creating a client record you should be able to query the `clientStore` collection on the MongoLab website to see the new document.
+
+![](/assets/api/mlab/11.png)
+
+##### What's next?
+
+With API connected and a client record added to the database, you can begin using the REST API to store and retrieve data. See the sections [Obtaining an Access Token](#obtaining-an-access-token) and [Retrieving data](#retrieving-data) for more detail.
+
+The image below shows a "book" document added to the MongoLab database using the following requests:
+
+```console
+$ curl -X POST -H "Content-type: application/json" --data '{"clientId":"api-client", "secret": "client-secret"}' "http://127.0.0.1:3000/token"
+```
+
+```console
+$ curl -X POST -H "Content-type: application/json" -H "Authorization: Bearer 1e6624a9-324a-4d24-86c3-e4abd0921d9c"  --data '{"name":"Test Book", "authorId": "123456781234567812345678"}' "http://127.0.0.1:3000/vjoin/testdb/books"
+```
+
+![](/assets/api/mlab/13.png)
 
 ### CouchDB Connector
 
