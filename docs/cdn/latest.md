@@ -8,37 +8,43 @@ version: latest
 
 ## Installation
 
-### Sqwish CSS Compressor
+The easiest way to install CDN is using DADI CLI. CLI is a command line application that can be used to create and maintain installations of DADI products. Follow the simple instructions below, or see [more detailed documentation for DADI CLI](/cli).
 
-```bash
-$ sudo npm install -g sqwish
+### Install DADI CLI
+
+```console
+$ npm install @dadi/cli -g
 ```
 
-### Upgrade GCC++ Compiler
+### Create new CDN installation
 
-```bash
-$ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-$ sudo apt-get update -y
-$ sudo apt-get install gcc-4.9 g++-4.9
-$ sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
+There are two ways to create a new CDN with the CLI: either manually create a new directory for CDN or let CLI handle that for you. DADI CLI accepts an argument for `project-name` which it uses to create a directory for the installation.
+
+*Manual directory creation*
+
+```console
+$ mkdir my-cdn
+$ cd my-cdn
+$ dadi cdn new
 ```
 
-### NPM
+*Automatic directory creation*
 
-All our platform microservices are available from [NPM](https://www.npmjs.com/). To install *CDN*:
-
-``` console
-$ npm install @dadi/cdn
+```console
+$ dadi cdn new my-cdn
+$ cd my-cdn
 ```
 
-### Manual install
+DADI CLI will install the latest version of CDN and copy a set of files to your chosen directory so you can launch CDN almost immediately.
 
-If you do not want to use NPM, you can grab the latest [release](https://github.com/dadi/cdn/releases). Then you can install:
-
-``` console
-$ cd ./release-download-location/
-$ npm install
-```
+> **Installing DADI CDN directly from NPM**
+>
+> All DADI platform microservices are also available from [NPM](https://www.npmjs.com/). To add *CDN* to an existing project as a dependency:
+> ```console
+> $ cd my-existing-node-app
+> $ npm install --save @dadi/cdn
+> ```
+> -- advice
 
 ### Forever (optional)
 
@@ -68,7 +74,106 @@ $ [sudo] service cdn restart
 
 ## Configuration
 
-All the core platform services are configured using environment specific configuration files, the default being `development`. For more advanced users this can also load based on the `hostname` i.e., it will also look for `config." + req.headers.host + ".json`
+API reads a series of configuration parameters to define its behaviour and to adapt to each environment it runs on. These parameters are defined in JSON files placed inside the `config/` directory, named as `config.{ENVIRONMENT}.json`, where `{ENVIRONMENT}` is the value of the `NODE_ENV` environment variable. In practice, this allows you to have different configuration parameters for when API is running in development, production and any staging, QA or anything in between, as per the requirements of your development workflow. For more advanced users this can also load based on the `hostname` i.e., it will also look for `config." + req.headers.host + ".json`.
+
+Some configuration parameters also have corresponding environment variables, which will override whatever value is set in the configuration file.
+
+The following table shows a list of all the available configuration parameters.
+
+| Path | Description | Environment variable | Default | Format
+|:--|:--|:--|:--|:--
+| `server.host` | The IP address the application will run on | *N/A* | `"0.0.0.0"` | ipaddress
+| `server.port` | The port number the application will bind to | `PORT` | `8080` | port
+| `server.redirectPort` | Port to redirect http connections to https from | `REDIRECT_PORT` |  | port
+| `server.name` | Server name | *N/A* | `"DADI (CDN)"` | String
+| `server.protocol` | The protocol the web application will use | `PROTOCOL` | `"http"` | String
+| `server.sslPassphrase` | The passphrase of the SSL private key | `SSL_PRIVATE_KEY_PASSPHRASE` |  | String
+| `server.sslPrivateKeyPath` | The filename of the SSL private key | `SSL_PRIVATE_KEY_PATH` |  | String
+| `server.sslCertificatePath` | The filename of the SSL certificate | `SSL_CERTIFICATE_PATH` |  | String
+| `server.sslIntermediateCertificatePath` | The filename of an SSL intermediate certificate, if any | `SSL_INTERMEDIATE_CERTIFICATE_PATH` |  | String
+| `server.sslIntermediateCertificatePaths` | The filenames of SSL intermediate certificates, overrides sslIntermediateCertificate (singular) | `SSL_INTERMEDIATE_CERTIFICATE_PATHS` | `[]` | Array
+| `logging.enabled` | If true, logging is enabled using the following settings. | *N/A* |  | Boolean
+| `logging.level` | Sets the logging level. | *N/A* | `"info"` | `debug` or `info` or `warn` or `error` or `trace`
+| `logging.path` | The absolute or relative path to the directory for log files. | *N/A* | `"./log"` | String
+| `logging.filename` | The name to use for the log file, without extension. | *N/A* | `"cdn"` | String
+| `logging.extension` | The extension to use for the log file. | *N/A* | `"log"` | String
+| `logging.accessLog.enabled` | If true, HTTP access logging is enabled. The log file name is similar to the setting used for normal logging, with the addition of 'access'. For example `cdn.access.log`. | *N/A* | `true` | Boolean
+| `aws.accessKeyId` | — | `AWS_ACCESS_KEY` |  | String
+| `aws.secretAccessKey` | — | `AWS_SECRET_KEY` |  | String
+| `aws.region` | — | `AWS_REGION` |  | String
+| `notFound.statusCode` | If set, overrides the status code in the case of a 404 | *N/A* | `404` | Number
+| `notFound.images.enabled` | If true, returns a default image when request returns a 404 | *N/A* |  | Boolean
+| `notFound.images.path` | The path to the default image | *N/A* | `"./images/missing.png"` | String
+| `images.directory.enabled` | If true, image files will be loaded from the filesystem | *N/A* |  | Boolean
+| `images.directory.path` | The path to the image directory | *N/A* | `"./images"` | String
+| `images.s3.enabled` | If true, image files will be requested from Amazon S3 | *N/A* |  | Boolean
+| `images.s3.accessKey` | — | `AWS_S3_IMAGES_ACCESS_KEY` |  | String
+| `images.s3.secretKey` | — | `AWS_S3_IMAGES_SECRET_KEY` |  | String
+| `images.s3.bucketName` | — | `AWS_S3_IMAGES_BUCKET_NAME` |  | String
+| `images.s3.region` | — | `AWS_S3_IMAGES_REGION` |  | String
+| `images.remote.enabled` | If true, image files will be requested from a remote host | *N/A* |  | Boolean
+| `images.remote.path` | The remote host to request images from, for example http://media.example.com | *N/A* |  | String
+| `images.remote.allowFullURL` | If true, images can be loaded from any remote URL | *N/A* | `true` | Boolean
+| `assets.directory.enabled` | If true, asset files will be loaded from the filesystem | *N/A* |  | Boolean
+| `assets.directory.path` | — | *N/A* | `"./public"` | String
+| `assets.s3.enabled` | If true, asset files will be requested from Amazon S3 | *N/A* |  | Boolean
+| `assets.s3.accessKey` | — | `AWS_S3_ASSETS_ACCESS_KEY` |  | String
+| `assets.s3.secretKey` | — | `AWS_S3_ASSETS_SECRET_KEY` |  | String
+| `assets.s3.bucketName` | — | `AWS_S3_ASSETS_BUCKET_NAME` |  | String
+| `assets.s3.region` | — | `AWS_S3_ASSETS_REGION` |  | String
+| `assets.remote.enabled` | If true, asset files will be requested from a remote host | *N/A* |  | Boolean
+| `assets.remote.path` | The remote host to request assets from, for example http://media.example.com | *N/A* |  | String
+| `caching.ttl` | — | *N/A* | `3600` | Number
+| `caching.directory.enabled` | If true, cache files will be saved to the filesystem | `CACHE_ENABLE_DIRECTORY` | `true` | Boolean
+| `caching.directory.path` | The relative path to the cache directory | *N/A* | `"./cache/"` | String
+| `caching.redis.enabled` | If true, cache files will be saved to the specified Redis server | `CACHE_ENABLE_REDIS` |  | Boolean
+| `caching.redis.host` | The Redis server host | `REDIS_HOST` |  | String
+| `caching.redis.port` | The port for the Redis server | `REDIS_PORT` | `6379` | port
+| `caching.redis.password` | — | `REDIS_PASSWORD` |  | String
+| `status.enabled` | If true, status endpoint is enabled. | *N/A* | `true` | Boolean
+| `status.requireAuthentication` | If true, status endpoint requires authentication. | *N/A* | `true` | Boolean
+| `status.standalone` | If true, status endpoint will run on an standalone address/port. | *N/A* |  | Boolean
+| `status.port` | Accept connections on the specified port. A value of zero will assign a random port. | `STATUS_PORT` | `8003` | Number
+| `status.routes` | An array of routes to test. Each route object must contain properties `route` and `expectedResponseTime`. Note, `expectedResponseTime` is seconds. | *N/A* | `[{"route":"/test.jpg?format=png&quality=50&width=800&height=600","expectedResponseTime":0.025}]` | Array
+| `security.maxWidth` | — | *N/A* | `2048` | Number
+| `security.maxHeight` | — | *N/A* | `1024` | Number
+| `auth.tokenUrl` | — | *N/A* | `"/token"` | String
+| `auth.clientId` | — | `AUTH_TOKEN_ID` | `"1235488"` | String
+| `auth.secret` | — | `AUTH_TOKEN_SECRET` | `"asd544see68e52"` | String
+| `auth.tokenTtl` | — | `AUTH_TOKEN_TTL` | `1800` | Number
+| `cloudfront.enabled` | — | *N/A* |  | Boolean
+| `cloudfront.accessKey` | — | `CLOUDFRONT_ACCESS_KEY` |  | String
+| `cloudfront.secretKey` | — | `CLOUDFRONT_SECRET_KEY` |  | String
+| `cloudfront.distribution` | — | `CLOUDFRONT_DISTRIBUTION` |  | String
+| `cluster` | If true, CDN runs in cluster mode, starting a worker for each CPU core | *N/A* | `true` | Boolean
+| `paths` | — | *N/A* | `{"plugins":"/workspace/plugins","processors":"/workspace/processors","recipes":"/workspace/recipes","routes":"/workspace/routes"}` | Object
+| `gzip` | If true, uses gzip compression and adds a 'Content-Encoding:gzip' header to the response | *N/A* | `true` | Boolean
+| `headers.useGzipCompression` | If true, uses gzip compression and adds a 'Content-Encoding:gzip' header to the response. | *N/A* | `true` | Boolean
+| `headers.cacheControl` | A set of cache control headers based on specified mimetypes or paths | *N/A* | `{"default":"public, max-age=3600","paths":[],"mimetypes":[{"text/css":"public, max-age=86400"},{"text/javascript":"public, max-age=86400"},{"application/javascript":"public, max-age=86400"}]}` | Object
+| `upload.enabled` | If true, files can be uploaded to CDN with a POST request | *N/A* |  | Boolean
+| `upload.requireAuthentication` | If true, POST requests must include the authentication credentials specified in the `auth` property of the configuration file | *N/A* | `true` | Boolean
+| `upload.extractColours` | If true, extracts colour information from the uploaded image and returns as JSON along with the file upload result | *N/A* | `true` | Boolean
+| `upload.pathFormat` | Determines the format for subdirectories that are created to store uploads | *N/A* | `"date"` | `none` or `date` or `datetime` or `sha1/4` or `sha1/5` or `sha1/8`
+| `feedback` | — | *N/A* |  | Boolean
+| `robots` | The path to a robots.txt file | *N/A* |  | String
+| `env` | The applicaton environment. | `NODE_ENV` | `"development"` | String
+| `geolocation.enabled` | Enable geolocation | *N/A* |  | Boolean
+| `geolocation.method` | Method to use for geolocation | *N/A* | `"maxmind"` | `maxmind` or `remote`
+| `geolocation.maxmind.countryDbPath` | Path to Maxmind country database | *N/A* | `"/vendor/maxmind-country.mmdb"` | String
+| `geolocation.remote.url` | Remote URL to be used for geolocation. {key}, {secret} and {ip} will be replaced by the API key, secret and IP to locate, respectively | *N/A* |  | String
+| `geolocation.remote.key` | Key to be used with remote geolocation service | `GEOLOCATION_REMOTE_KEY` |  | String
+| `geolocation.remote.secret` | Secret to be used with remote geolocation service | `GEOLOCATION_REMOTE_SECRET` |  | String
+| `geolocation.remote.countryPath` | Path to the country code within the response object | *N/A* | `"location.country.isoCode"` | String
+| `network.url` | Remote URL to be used for network test service. {key}, {secret} and {ip} will be replaced by the API key, secret and IP to locate, respectively | *N/A* |  | String
+| `network.key` | Key to be used with network test service | `NETWORK_REMOTE_KEY` |  | String
+| `network.secret` | Secret to be used with network test service | `NETWORK_REMOTE_SECRET` |  | String
+| `network.path` | Path to the network type within the response object | *N/A* | `"speed.connectionType"` | String
+| `engines.sharp.kernel` | The kernel to use for image reduction | *N/A* | `"lanczos3"` | `nearest` or `cubic` or `lanczos2` or `lanczos3`
+| `engines.sharp.interpolator` | The interpolator to use for image enlargement | *N/A* | `"bicubic"` | `nearest` or `bilinear` or `vertexSplitQuadraticBasisSpline` or `bicubic` or `locallyBoundedBicubic` or `nohalo`
+| `engines.sharp.centreSampling` | Whether to use *magick centre sampling convention instead of corner sampling | *N/A* |  | Boolean
+| `experimental.jsTranspiling` | Whether to enable experimental support for on-demand JavaScript transpiling | `JSTRANSPILING` |  | Boolean
+
+### Example
 
 A very basic `config.development.json` file looks like this:
 
@@ -87,140 +192,27 @@ A very basic `config.development.json` file looks like this:
 }
 ```
 
-## Advanced configuration
+## Sources
 
-### Example Configuration File
+CDN is capable of pulling files from a variety of sources:
 
-```json
-{
-  "server": {
-    "host": "0.0.0.0",
-    "port": 8001
-  },
-  "logging": {
-    "enabled": true,
-    "level": "info",
-    "path": "./log",
-    "filename": "cdn",
-    "extension": "log"
-  },
-  "notFound": {
-    "statusCode": 410,
-    "images": {
-      "enabled": false,
-      "path": "./images/missing.png"
-    }
-  },
-  "images": {
-    "directory": {
-      "enabled": true,
-      "path": "./test/images"
-    },
-    "s3": {
-      "enabled": false,
-      "accessKey": "",
-      "secretKey": "",
-      "bucketName": "",
-      "region": ""
-    },
-    "remote": {
-      "enabled": false,
-      "path": ""
-    }
-  },
-  "assets": {
-    "directory": {
-      "enabled": true,
-      "path": "./public"
-    },
-    "s3": {
-      "enabled": false,
-      "accessKey": "",
-      "secretKey": "",
-      "bucketName": "",
-      "region": ""
-    },
-    "remote": {
-      "enabled": false,
-      "path": ""
-    }
-  },
-  "caching": {
-    "ttl": 3600,
-    "directory": {
-      "enabled": false,
-      "path": "./cache/"
-    },
-    "redis": {
-      "enabled": false,
-      "host": "127.0.0.1",
-      "port": 6379
-    }
-  },
-  "security": {
-    "maxWidth": 10048,
-    "maxHeight": 5024
-  },
-  "auth": {
-    "clientId":"webClient",
-    "secret":"secretSquirrel"
-  },
-  "upload": {
-    "enabled": true,
-    "requireAuthentication": true,
-    "pathFormat": "sha1/4"
-  },
-  "cloudfront": {
-    "accessKey": "",
-    "secretKey": "",
-    "distribution": ""
-  },
-  "headers": {
-    "useGzipCompression": true,
-    "cacheControl": {
-      "default": "public, max-age=3600",
-      "paths": [],
-      "mimetypes": [
-        { "image/jpeg": "public, max-age=86400" },
-        { "text/css": "public, max-age=86400" },
-        { "text/javascript": "public, max-age=86400" },
-        { "application/javascript": "public, max-age=86400" }
-      ]
-    }
-  }
-}
-```
-
-
-## Defining sources
-
-Before you can serve assets or images you need to tell CDN where your files are located. CDN can serve your files from three types of source:
-
-* [Amazon S3](/cdn#amazon-s3) - retrieve files from existing Amazon S3 buckets
-* [Remote server](/cdn#remote-server) - retrieve files from a remote web server
-* [Local filesystem](/cdn#local-filesystem) - retrieve files from the same server as CDN
-
-You’re not limited to choosing one source, either. If you’ve elected to use the [Querystring URL Scheme](/cdn#querystring-url-scheme) then you can use all configured sources at the same time.
-
-> **Using the legacy path scheme**
-> 
-> If you're _not_ using the [Querystring URL Scheme](/cdn#querystring-url-scheme), that is, you're using the legacy [Path URL Scheme](/cdn#path-url-scheme), then *only one source* can be configured at a time.
-> -- advice
-
-## Configuring sources
+* [Amazon S3](#amazon-s3): retrieve files from existing Amazon S3 buckets
+* [Remote server](#remote-server): retrieve files from a remote web server
+* [Local filesystem](#local-filesystem): retrieve files from the same server as CDN
 
 ### [Amazon S3](https://aws.amazon.com/s3/)
 
 > **Security Note**
 > 
 > We **strongly** recommend creating an Amazon IAM account specifically for accessing your S3 buckets.
+>
 > -- warning
 
 #### Using the configuration file
 
-The [configuration file](/cdn#configuration) contains two sections for configuring an Amazon S3 source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different Amazon credentials for each one.
+The [configuration file](#configuration) contains two sections for configuring an Amazon S3 source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different Amazon credentials for each one.
 
-> **Security Note:** We **strongly** recommend that Amazon credentials **are not** stored in your configuration file if that file could be viewed by the public (for example, committed to a public GitHub repository). A better solution is to use [Environment Variables](/cdn#using-environment-variables) when configuring an Amazon S3 source.
+> **Security Note:** We **strongly** recommend that Amazon credentials **are not** stored in your configuration file if that file could be viewed by the public (for example, committed to a public GitHub repository). A better solution is to use [Environment Variables](#using-environment-variables) when configuring an Amazon S3 source.
 
 **Configuration for an Amazon S3 image source**
 ```js
@@ -269,7 +261,7 @@ The [configuration file](/cdn#configuration) contains two sections for configuri
 }
 ```
 
-It was mentioned earlier that if using the [Querystring URL Scheme](/cdn#querystring-url-scheme) then you can use all configured sources at the same time, regardless of the value of the `enabled` property.
+It was mentioned earlier that if using the [Querystring URL Scheme](#querystring-url-scheme) then you can use all configured sources at the same time, regardless of the value of the `enabled` property.
 
 ##### Using environment variables
 
@@ -283,58 +275,68 @@ See the documentation for your operating system for details on setting environme
 
 ### Remote server
 
-The Remote Server source connects CDN to any publicly available URL where you are hosting your assets and images.
+The remote server source connects CDN to any publicly available URL where you are hosting your assets and images.
 
-The [configuration file](/cdn#configuration) contains two sections for configuring a Remote Server source. One section is for images and the other is for assets. This makes it possible to store your images and assets in different locations on a remote server, or even use different servers for each.
+The [configuration file](#configuration) contains two sections for configuring a remote server source. One section is for images and the other is for assets. This makes it possible to store your images and assets in different locations on a remote server, or even use different servers for each.
 
-**Configuration for a Remote Server image source**
+**Configuration for a remote server image source**
 ```js
 "images": {
   "remote": {
     "enabled": true,
-    "path": "http://media.example.com/public/images"
+    "path": "https://server1.somedomain.tech/images"
   }
 }
 ```
 
-**Configuration for a Remote Server asset source**
+**Configuration for a remote server asset source**
 ```js
 "assets": {
   "remote": {
     "enabled": true,
-    "path": "http://media.example.com/public/assets"
+    "path": "https://server2.somedomain.tech/assets"
   }
 }
 ```
 
-> Setting the `enabled` property is essential only when you're using the legacy Path URL scheme. In that case, only one of the source types can be configured for use at any one time, by setting it's `enabled` property to `true`.
+With the configuration above, accessing `https://your-cdn.somedomain.tech/test.jpg` would load an image from `https://server1.somedomain.tech/images/test.jpg`, whilst `https://your-cdn.somedomain.tech/main.js` would load the file from `https://server2.somedomain.tech/assets/main.js`.
 
-**A full Remote Server image source configuration, using the Path URL scheme**
+#### allowFullURL
+
+When the `allowFullURL` is set to `true` (defaults to `false`), users can specify a full URL for a file rather than just a relative path that will be appended to the base URI defined in the `path` property.
+
+**Configuration for a remote server image source allowing full URLs**
 ```js
 "images": {
-  "s3": {
-    "enabled": false
-  },
   "remote": {
     "enabled": true,
-    "path": "http://media.example.com/public/images"
-  },
-  "directory": {
-    "enabled": false
+    "path": "https://server1.somedomain.tech/images",
+    "allowFullURL": true
   }
+}
+```
+
+With the configuration above, accessing `https://your-cdn.somedomain.tech/test.jpg` would load an image from `https://server1.somedomain.tech/images/test.jpg`, whilst `https://your-cdn.somedomain.tech/https://some-other.domain.com/test.jpg` would load the file from `https://some-other.domain.com/test.jpg`.
+
+When `allowFullURL` is disabled and a request specifying a full URL is made, the following error message is delivered:
+
+```json
+{
+  "statusCode": 403,
+  "message": "Loading images from a full remote URL is not supported by this instance of DADI CDN"
 }
 ```
 
 ### Local filesystem
 
-The [configuration file](/cdn#configuration) contains two sections for configuring a Local Filesystem source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different filesystem locations for each one.
+The [configuration file](#configuration) contains two sections for configuring a Local Filesystem source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different filesystem locations for each one.
 
 **Configuration for a Local Filesystem image source**
 ```js
 "images": {
   "directory": {
     "enabled": true,
-    "path": "path/to/your/images"
+    "path": "relative/path/to/your/images"
   }
 }
 ```
@@ -344,183 +346,91 @@ The [configuration file](/cdn#configuration) contains two sections for configuri
 "assets": {
   "directory": {
     "enabled": true,
-    "path": "path/to/your/assets"
+    "path": "/Users/absolute/path/to/your/assets"
   }
 }
 ```
 
-> Setting the `enabled` property is essential only when you're using the legacy Path URL scheme. In that case, only one of the source types can be configured for use at any one time, by setting it's `enabled` property to `true`.
+With the configuration above, accessing `https://your-cdn.somedomain.tech/test.jpg` would load an image from `{CDN-PATH}/relative/path/to/your/images/test.jpg`, where `{CDN-PATH}` is the path to your CDN installation, whilst `https://your-cdn.somedomain.tech/main.js` would load the file from `/Users/absolute/path/to/your/assets/main.js`.
 
-**A full Local Filesystem image source configuration, using the Path URL scheme**
-```js
-"images": {
-  "s3": {
-    "enabled": false
-  },
-  "remote": {
-    "enabled": false
-  },
-  "directory": {
-    "enabled": true,
-    "path": "path/to/your/images"
-  }
-}
-```
+## Serving files
 
-## Serving Images and Assets
-
-With your [sources](/cdn#defining-sources) configured so that CDN knows where to find them, you can start sending requests for your assets and images.
-
-CDN currently responds to two types of URL scheme. One, the Path URL scheme, is a legacy format and exists for backwards compatibility with early-adoption client applications. The other, the Querystring URL Scheme, is succinct, flexible and robust.
-
-> The Querystring URL Scheme is the preferred format and is where future development efforts will be focused. In the event that new image manipulation parameters are added to CDN, the Querystring URL Scheme will be the only format that supports them.  
-
-### The URL Schemes
-
-While the Querystring URL Scheme is preferred for new applications, both are documented here. If you don't need details about the Path URL Scheme, [jump right to the Querystring URL Scheme](/cdn#querystring-url-scheme).
-
-> For a complete guide to the image manipulation parameters, see the [Image Parameters](/cdn#image-parameters).
-
-
-#### Path URL Scheme
-
-Version 1.0.0-Beta of CDN used the URL path for specifying parameters. In this scheme, there are 17 parameters that can be used to manipulate images and 1 parameter for assets. All parameters must be supplied - those that aren't required should be set to `0`.
-
-##### Serving Images via the Path URL Scheme
+CDN is capable of serving any type of file – images, CSS, JavaScript, PDFs or anything else. Requests for files have the following format:
 
 **Format**
 
 ```
-https://domain/format/quality/trim/trimFuzz/width/height/crop-x/crop-y/ratio/devicePixelRatio/crop/gravity/filter/blur/strip/rotate/flip/path
+https://{cdn-domain}/{path}
 ```
 
 **Example**
 
 ```
-https://cdn.somedomain.tech/jpg/80/0/0/640/480/10/10/16-9/1/aspectfill/North/lanczos/3/0/45/x/cars/aston-martin.jpg
+https://cdn.somedomain.tech/cars/aston-martin.jpg
 ```
 
-##### Serving Assets via the Path URL Scheme
-
-**Format**
-
-```
-https://cdn.somedomain.tech/css/0/styles/main.css
-```
-
-**Example**
-
-```
-https://domain/format/compress/path
-```
-
-#### Querystring URL Scheme
-
-Version 1.0.0 of CDN introduced this URL format for specifying parameters. You only need to supply the parameters you need to use, specifying as many or as few as you want.
-
-> **Note:** The differentiation between the Path and Querystring URL schemes is the inclusion of a querystring (i.e. everything following the `?` in the URL). If you need to serve an image in it's original, unmodified state, add a dummy querystring to the request to tell CDN you're using the Querystring URL Scheme. For example: `https://cdn.somedomain.tech/cars/aston-martin.jpg?v2`
-
-##### Serving Images via the Querystring URL Scheme
-
-**Format**
-
-```
-https://domain/path?querystring-parameters
-```
-
-**Example**
-
-```
-https://cdn.somedomain.tech/cars/aston-martin.jpg?w=600&h=400
-```
-
-##### Serving Assets via the Querystring URL Scheme
-
-**Format**
-
-```
-https://domain/path?querystring-parameters
-```
-
-**Example**
-
-```
-https://cdn.somedomain.tech/styles/main.css?compress=0
-```
+> **Legacy URL format**
+> 
+> There is an alternative URL syntax introduced in version 1.0 that is now deprecated and therefore omitted from this documentation page. You can see more details in the documentation pages for [version 1.x](/cdn/1.x/#path-url-scheme). If you're still using it, you're encouraged to upgrade your implementation as support for this format will be removed in a future version of CDN.
+>
+> -- warning
 
 ### Locating Files
 
-There is one common piece to the URL schemes: the `path` segment that CDN uses to locate the file to be served. In the Path URL Scheme it comes after all the parameters and in the Querystring URL Scheme it's between the [dynamic source parameter](/cdn#dynamic-sources) (if used) and the querystring.
-
-Ignoring the parameters for a moment, the following sections explain how CDN locates your files for each source.
+The `path` segment in the URL is used by CDN to locate the file to be served. The following sections described how the various source types use that parameter to determine the location of files.
 
 #### Amazon S3 source
 
-When you connect CDN to an Amazon S3 source, the `path` in the URL is used to locate the file within the S3 bucket you specified in the configuration file.
+When CDN is connected to an Amazon S3 source, the `path` in the URL is used to locate the file within the S3 bucket you specified in the configuration file.
 
 Depending on the region in your configuration, CDN might construct a URL similar to one the following:
 
-* region `us-east-1`: http://bucket.s3.amazonaws.com
-* any other region: http://bucket.s3-aws-region.amazonaws.com
+* Region `us-east-1`: http://bucket.s3.amazonaws.com
+* Any other region: http://bucket.s3-aws-region.amazonaws.com
 
-In the following example CDN will attempt to load the image from the `S3 URL` shown in the final column:
+The following table shows how CDN will try to load files given a request URL and a set of configuration parameters.
 
-```
-https://cdn.somedomain.tech/cars/aston-martin.jpg?w=400
-```
-
-|Bucket|Region|Path|S3 URL
+|URL|Configuration (`images.s3`)|S3 URL
 |:--|:--|:--
-|`my-images`|`eu-west-1`|`cars/aston-martin.jpg`|`http://my-images.s3-eu-west-1.amazonaws.com/cars/aston-martin.jpg`
+|`https://cdn.somedomain.tech/cars/aston-martin.jpg`|`{"region":"eu-west-1", "bucketName":"my-images1"}`|`http://my-images1.s3-eu-west-1.amazonaws.com/cars/aston-martin.jpg`
+|`https://cdn.somedomain.tech/cars/aston-martin.jpg`|`{"region":"us-east-1", "bucketName":"my-images2"}`|`http://my-images2.s3-us-east-1.amazonaws.com/cars/aston-martin.jpg`
 
-#### Remote Server source
+#### Remote server source
 
-When you connect CDN to a Remote Server source, the `path` in the URL is added to the `path` you specified in the configuration file, resulting in a remote URL (which must be publicly accessible).
+When CDN is connected to a remote server source, the value of `path` extracted from the URL is appended to the value of `remote.path` specified in the sources block of configuration file, resulting in a full remote URL. Optionally, if [`remote.allowFullURL`](#allowfullurl) is `true` and the `path` segment of the URL contains a full URL (i.e. starting with `http://` or `https://`), that is used instead as the final URL, ignoring the base path defined in `remote.path`.
 
-In the following example CDN will attempt to load the image from the `Remote Location` shown in the final column:
+The following table shows how CDN will try to load files given a request URL and a set of configuration parameters.
 
-```
-https://cdn.somedomain.tech/cars/aston-martin.jpg?w=400
-```
-
-|Configuration|Path|Remote Location
+|URL|Configuration (`images.remote`)|Remote URL
 |:--|:--|:--
-|`"path": "http://media.example.com/public/images"`|`cars/aston-martin.jpg`|`http://media.example.com/public/images/cars/aston-martin.jpg`
+|`https://cdn.somedomain.tech/cars/aston-martin.jpg`|`{"path":"https://source1.somedomain.tech/images"}`|`https://source1.somedomain.tech/images/cars/aston-martin.jpg`
+|`https://cdn.somedomain.tech/https://source2.somedomain.tech/cars/aston-martin.jpg`|`{"allowFullURL": true, "path":"https://source1.somedomain.tech/images"}`|`https://source2.somedomain.tech/cars/aston-martin.jpg`
 
-#### Local Filesystem source
+#### Local filesystem source
 
-When you connect CDN to a Local Filesystem source, the `path` in the URL is relative to the `path` you specified in the configuration file.
+When you connect CDN to a local filesystem source, the `path` in the URL is appended to the value of the `remote.path` configuration parameter in order to form the full path from where CDN will load the file. If `remote.path` is not a full path, one will be calculated by using the directory where CDN is installed as base.
 
-In the following example CDN will look in the `File Location` shown in the final column:
+The following table shows how CDN will try to load files given a request URL and a set of configuration parameters, assuming that CDN is installed on `/apps/cdn`.
 
-```
-https://cdn.somedomain.tech/cars/aston-martin.jpg?w=400
-```
-
-|Configuration|URL|File Location
+|URL|Configuration (`images.directory`)|Full path
 |:--|:--|:--
-|`"path": "/data/media/images"`|`cars/aston-martin.jpg`|`/data/media/images/cars/aston-martin.jpg`
-
+|`https://cdn.somedomain.tech/cars/aston-martin.jpg`|`{"path":"/Users/johndoe/images"}`|`/Users/johndoe/images/cars/aston-martin.jpg`
+|`https://cdn.somedomain.tech/cars/aston-martin.jpg`|`{"path":"images"}`|`/apps/cdn/images/cars/aston-martin.jpg`
 
 ### Dynamic Sources
 
-Adding a `source` parameter to the request URL allows you to specify which connected source CDN serves your asset or image from. This feature allows you to store assets and images in multiple places and serve them all from a single CDN installation.
+Adding a `source` parameter to the request URL allows you to specify which connected source CDN serves your asset or image from. This feature allows you to store files in multiple places and serve them all from a single CDN installation.
 
-When you add a `source` parameter CDN reads the standard configuration block for that source, but ignores the `enabled` property. By specifying it in the URL you're essentially saying "it's enabled".
+When you add a `source` parameter, CDN reads the standard configuration block for that source, regardless of whether the `enabled` property is set to `true`.
 
-> **Querystring URL Scheme Only**
-> 
-> Sources can only be specified in the URL if using the Querystring URL Scheme. When using the Path URL Scheme a single source can be configured for use at any one time.
-> -- warning
-
-For each of the below source types, refer to the [Locating Files](/cdn#locating-files) section above to understand how CDN interprets the path to your files.
+For each of the below source types, refer to the [Locating Files](#locating-files) section above to understand how CDN interprets the path to your files.
 
 #### Specifying an Amazon S3 source in the URL
 
 **Format**
 
 ```
-https://domain/s3/bucket-name/path?querystring-parameters
+https://{cdn-domain}/s3/{bucket-name}/{path}
 ```
 
 **Example**
@@ -534,7 +444,7 @@ https://cdn.somedomain.tech/s3/images/cars/aston-martin.jpg?width=600&height=400
 **Format**
 
 ```
-https://domain/http/path?querystring-parameters
+https://{cdn-domain}/http/{path}
 ```
 
 **Example**
@@ -548,7 +458,7 @@ https://cdn.somedomain.tech/http/cars/aston-martin.jpg?width=600&height=400
 **Format**
 
 ```
-https://domain/disk/path?querystring-parameters
+https://{cdn-domain}/disk/{path}
 ```
 
 **Example**
@@ -557,301 +467,27 @@ https://domain/disk/path?querystring-parameters
 https://cdn.somedomain.tech/disk/cars/aston-martin.jpg?width=600&height=400
 ```
 
+## Transforming images
 
-### Serving Assets
-
-Notice that in each of the examples below, the Querystring URL Scheme does not require the format to be specified, as it is inferred from the file extension.
-
-#### CSS
-
-**Formats**
-
-```
-https://domain/format/compress/path
-https://domain/path?querystring-parameters
-```
-
-**Example**
-
-```
-https://cdn.somedomain.tech/css/0/styles/main.css
-https://cdn.somedomain.tech/styles/main.css?compress=0
-```
-
-#### JavaScript
-
-**Formats**
-
-```
-https://domain/format/compress/path
-https://domain/path?querystring-parameters
-```
-
-**Example**
-
-```
-https://cdn.somedomain.tech/js/0/js/main.js
-https://cdn.somedomain.tech/js/main.js?compress=0
-```
-#### Fonts
+CDN includes a full-featured image processing engine that allows various types of image conversion and manipulation to be made in real-time, based on a set of optional URL parameters supplied in the request.
 
 **Format**
 
 ```
-https://domain/fonts/path
+https://{cdn-domain}/{path}{?parameters}
 ```
 
 **Example**
 
 ```
-https://cdn.somedomain.tech/fonts/site/museo-sans.ttf
+https://cdn.somedomain.tech/cars/aston-martin.jpg?width=600&height=400&format=png
 ```
 
-## Applying Parameters to Images
+The URL above loads a JPEG from `/cars/aston-martin.jpg` and specifies that the result should be 600x400 pixels in size and be converted to a PNG.
 
-Now that you have your [sources](/cdn#defining-sources) configured and have decided on the URL scheme you're going to use, you can start applying parameters to manipulate your images.
+### Parameters
 
-We’ll show a basic example, then it's over to you to experiment with the parameters to match your requirements. For a full list of available parameters, see the [Image Parameters](/cdn#image-parameters) section.
-
-### Basic Parameter Example
-
-For this example we're going to imagine you have a magazine-style website with a list of articles on the homepage and an article page. We'll start with the following image, which your editor wants to use as the main article image.
-
-**Original image, 5616 × 3744 px, 4MB**
-
-`https://cdn.somedomain.tech/samples/beach.jpeg`
-
-This is a large image, and it's not going to fit easily into the two spaces we have available for it. Unfortunately, no one in the department knows how to use Adobe Photoshop to make appropriately sized images. Fortunately, CDN can handle this task for you.
-
-#### Resizing and Cropping
-
-On the article page, let’s assume your main image spot is a 500×300 pixel container. It's an odd size, but illustrates this concept well. To fit the base image into that container, we’ll need to change the dimensions and crop some data from the top and bottom.
-
-To adjust the image we need to specify the new width and height, as well as tell CDN how we want to crop the image.
-
-`https://cdn.somedomain.tech/samples/beach.jpeg?w=500&h=300&resize=entropy`
-
-* `width=500&height=300`: Sets the width and height to fit the container.
-
-* `resize=entropy`: Tells CDN how to determine the crop area. [Entropy](/cdn#entropy) is a smart cropping feature that adjusts the crop area to ensure the important part of your image is retained. It uses areas of high contrast to set the crop area.
-
-**Resized image, 500 × 300 px, 98kB**
-
-![Resized image, 500 × 300 px, 98kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=500&h=300&resize=entropy "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-Now, on the homepage, let’s assume each feature article has an image container that is 200×200 pixels. With the main subject of the image so close to the right, we'll once again need to tell CDN how we want the image cropped.
-
-`https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200&resize=entropy`
-
-**Resized image, 200 × 200 px, 29kB**
-
-![Resized image, 200 × 200 px, 29kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200&resize=entropy "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-If we don't specify `entropy` as the `resize` parameter, CDN defaults to using `aspectfit` and our image would look a little different, with the main subject almost excluded from the image.
-
-`https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200`
-
-![Aspectfill, 200 × 200 px, 29kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
-
-## Resizing images
-
-Images can be easily resized using DADI CDN. Use the `resize` parameter with `width` and `height` to resize images, or specify `crop` along with crop coordinates for full control over the portion of the original image that is retained.
-
-There are several ways to resize an image, the simplest of which is to specify the dimensions of the output images. Use `width` and `height` parameters to specify the final dimensions of the output image.
-
-### Using the width parameter
-
-The `width` parameter (also `w`) specifies the width of the required output image in pixels. If only `width` is specified, the height dimension will be _set to the height of the original image_. If both width and height are omitted, the original image’s dimensions are used.
-
-> **Security Note:**
-> 
-> The maximum output image size can be specified in the configuration file.
-> 
-> The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
->
-> You should set this to the maximum size required for images in your application.
->
-> ```json
-> "security": {
->  "maxWidth": 2048,
->  "maxHeight": 1024
->}
->```
-> -- advice
-
-**Example**
-
-`https://cdn.somedomain.tech/samples/canoe.jpeg?w=400`
-
-To ensure the output image retains the aspect ratio of the original image, you can pass a `resizeStyle` parameter: `https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resizeStyle=aspectfit`.
-
-| **w=400** | **w=400&resize=aspectfit** 
-|:--|:--
-| ![Width 400](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Width 400, Aspect Fit](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
- 
-### Using the height parameter
-
-The `height` parameter (also `h`) specifies the height of the required output image in pixels. If only `height` is specified, the width dimension will be _set to the width of the original image_. If both width and height are omitted, the original image’s dimensions are used.
-
-> **Security Note:**
-> 
-> The maximum output image size can be specified in the configuration file.
-> 
-> The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
->
-> You should set this to the maximum size required for images in your application.
->
-> ```json
-> "security": {
->  "maxWidth": 2048,
->  "maxHeight": 1024
->}
->```
-> -- advice
-
-**Example**
-
-`https://cdn.somedomain.tech/samples/canoe.jpeg?h=400`
-
-To ensure the output image retains the aspect ratio of the original image, you can pass a `resizeStyle` parameter: `https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&resizeStyle=aspectfit`.
-
-| **h=400** | **h=400&resize=aspectfit** 
-|:--|:--
-| ![Height 400](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Height 400, Aspect Fit](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
-
-### Maintaining aspect ratio
-
-Images can be resized to a specified aspect ratio by providing a width or height in combination with the `ratio` parameter. CDN will respect any [resizeStyle](/cdn#specifying-a-resizestyle) specified.
-
-```
-https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9
-```
-
-![Height 400, Aspect Ratio 16-9](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
-
-
-### Specifying a resizeStyle
-
-The `resizeStyle` (also `resize`) parameter allows you to specify how CDN should fit your image into the specified dimensions.
-
-#### aspectfill
-
-Keeps the aspect ratio of the original image and generates an output image of the specified width and height. The output image may be cropped, however by specifying the `gravity` parameter you can tell CDN which part of the image should be retained.
-
-> The output image is 400 x 300 pixels.
-
-![](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=aspectfill "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
-
-#### aspectfit
-
-Keeps the aspect ratio of the original image and generates an output image with the maximum dimensions that fit inside the specified width and height.
-
-> The output image is 400 x 267 pixels.
-
-![](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
-
-#### fill
-
-Ignores the aspect ratio of the original image and generates an output image with specified width and height. The output image may appear squashed or stretched.
-
-> The output image is 400 x 300 pixels.
-
-![](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=fill "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
-
-#### entropy
-
-Used in combination with width and height parameters, `entropy` crops the image using a technique that determines the most important areas. Areas of higher contrast are considered more important, and images are often cropped to remove large areas of static colour.
-
-`https://cdn.somedomain.tech/samples/med.jpeg?w=250&h=300&resize=entropy`
-
-| **Original image** | **Entropy crop**
-|:--|:--
-| ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300 "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=250&h=300&resize=entropy "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
-
-#### crop
-
-When `crop` is used as the resize style then an additional parameter must be used to specify the coordinates of the crop rectangle. There are two ways to pass the crop rectangle coordinates:
-
-**Specify only the top left corner of the rectangle**
-
-`?resizeStyle=crop&crop=10,15`
-
-**Specify the top left corner and the bottom right corner of the rectangle**
-
-`?resizeStyle=crop&crop=10,15,200,300`
-
-> Note: when using the legacy Path URL Schema, parameters for `crop-x` and `crop-y` are passed instead. `crop-x` and `crop-y` are used in the same way as the two-coordinate crop above - that is, they specify the top left corner of the crop rectangle.
-> -- advice
-
-#### gravity
-
-Used to position the crop area. Available options (case sensitive): `northwest`, `north`, `northeast`, `west`, `center`, `east`, `southWest`, `south`, `southeast`, `none`
-
-**Example**
-
-**Original image**
-
-`https://cdn.somedomain.tech/samples/med.jpeg`
-
-| g=west | g=center | g=east
-|:--|:--|:--
-| ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfill&g=west "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=west** | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfill&g=center "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=center** | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfill&g=east "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") **g=east**
-
-## Cropping Images
-
-For more control over the output image than available when using the standard resize style options `aspectFit`, `aspectFill`, `fit` and `fill`, you can specify three different ways to crop your images.
-
-### Top & Left Crop
-
-By specifying only the top left corner of the crop rectangle, CDN works out the full crop rectangle size by using the specified width and height parameters. To obtain an image that is 300 wide and 400 high, but cropped from 100 pixels from the top edge:
-
-`https://cdn.somedomain.tech/samples/med.jpeg?resize=crop&crop=0,10&width=300&height=400`
-
-![](https://cdn.somedomain.tech/samples/med.jpeg?resize=crop&crop=0,10&width=300&height=400 "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
-
-### Crop Rectangle
-
-It is also possible to supply both the top left and the bottom right co-ordinates of a crop rectangle: `resize=crop&crop=0,0,100,100` etc. This allows you to selectively crop an exact area out of an image.
-
-Let's take a look at some examples. We'll use our `400x400` pixel image, which has squares marked at `x, y (size)`: `0,0 (25 px)`, `25,25 (25px)`, `50,50 (50px)`, `100,100 (100px)`, `200,200 (200px)`: 
-
-![](https://cdn.somedomain.tech/samples/measure.png)
-
-We can crop the second and third boxes by supplying a top left of `50,50`, and a bottom right of `200,200`, giving us a `150x150` pixel image:
-
-`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200`
-
-![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200)
-
-We're also able to change the size of the image we get back. Let's change it to `100` pixels wide. In this case, the height will be inferred from the width. The same goes if we only supply a height.
-
-`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=100`
-
-![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=100)
-
-If you really want to get creative, you can supply a cropping rectangle along with both a width and height, which will allow you to completely resize an image after cropping. Let's take the above image and squash it.
-
-`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=400&height=100`
-
-![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=400&height=100)
-
-Another way of resizing our crops, if we don't want to be as specific, is to provide the `devicePixelRatio` ratio.
-
-`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&devicePixelRatio=2`
-
-![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&&devicePixelRatio=2)
-
-Read more about [dealing with pixel ratios](/cdn#dealing-with-pixel-ratios).
-
-### Entropy
-
-Using `resize=entropy` crops the image using a technique that determines the most important areas.
-
-Read more about [entropy](/cdn#entropy).
-
-## Image Parameters
-
-### blur: adding blur to an image
+#### blur
 
 The `blur` parameter adds blur to an image, using any value above zero.
 
@@ -868,7 +504,7 @@ The `blur` parameter adds blur to an image, using any value above zero.
 | ![Original JPG](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600) **Original image** | ![Blur 1](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=1 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 1** | ![Blur 5](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=5 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 5**
 | ![Blur 10](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=10 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 10** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=20 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 20** | ![Blur 20](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&blur=100 "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") **Blur amount = 100**
 
-### filter: interpolation filter
+#### filter
 
 The `filter` parameter allows you to specify the interpolation method to use when resizing images. When reducing the size of an image (or downsampling), some image data is simply discarded. However when increasing image dimensions, the image is expanded and gaps must be "filled in". Each interpolation filter uses a different algorithm for determining how to fill the gaps.
 
@@ -882,18 +518,16 @@ The `filter` parameter allows you to specify the interpolation method to use whe
 https://cdn.somedomain.tech/samples/dog.jpeg?width=600&height=400&resize=aspectfill&filter=linear
 ```
 
-#### Filters
+The following filters are available:
 
-**nearest-neighbor:** The simplest approach to interpolation. Rather than calculating an average value by some weighting criteria or generating an intermediate value based on complicated rules, this method simply determines the "nearest" neighbouring pixel, and assumes the intensity value of it.
+| **Filter**  | **Description**  
+|:--|:--
+| `nearest-neighbor` | The simplest approach to interpolation. Rather than calculating an average value by some weighting criteria or generating an intermediate value based on complicated rules, this method simply determines the "nearest" neighbouring pixel, and assumes the intensity value of it.
+| `linear` | Considers the closest two pixels and takes a weighted average to arrive at its final interpolated value. Results in a much smoother image than `nearest-neighbor`.
+| `cubic` | Images resampled with cubic interpolation are smoother and have fewer interpolation artifacts, but processing is slower than with `linear` or `nearest-neighbor`.
+| `lanczos` | Tends to reduce aliasing artifacts and preserve sharp edges. [It has been considered the "best compromise"](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.116.7898) among several simple filters for this purpose.
 
-**linear:** Considers the closest two pixels and takes a weighted average to arrive at its final interpolated value. Results in a much smoother image than `nearest-neighbor`.
-
-**cubic:** Images resampled with cubic interpolation are smoother and have fewer interpolation artifacts, but processing is slower than with `linear` or `nearest-neighbor`.
-
-**lanczos:** Tends to reduce aliasing artifacts and preserve sharp edges. [It has been considered the "best compromise"](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.116.7898) among several simple filters for this purpose.
-
-
-### flip: flipping an image
+#### flip
 
 The `flip` parameter flips images horizontally, vertically or both. A horizontal flip can also be referred to as "mirroring".
 
@@ -905,7 +539,7 @@ The `flip` parameter flips images horizontally, vertically or both. A horizontal
 |:--|:--|:--
 | ![Dog flipped on the X axis](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=x "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") | ![Dog flipped on the Y axis](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=y "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)") | ![Dog flipped on both axes](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&flip=xy "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
-### format: converting images
+#### format
 
 Use the `format` parameter to specify the required output image format.
 
@@ -933,7 +567,7 @@ DADI CDN can currently convert the following:
 
 ![PNG](https://cdn.somedomain.tech/samples/dog.jpeg?resize=aspectfit&w=600&format=png "Image credit: Yamon Figurs (https://unsplash.com/@yamonf16)")
 
-#### from GIF
+##### from GIF
 
 **GIF to JPG**
 
@@ -947,7 +581,7 @@ DADI CDN can currently convert the following:
 
 ![PNG](https://cdn.somedomain.tech/samples/giphy.gif?w=400&resize=aspectfit&format=png)
 
-#### from PNG
+##### from PNG
 
 **Original PNG Image**
 
@@ -959,10 +593,30 @@ DADI CDN can currently convert the following:
 
 ![JPG](https://cdn.somedomain.tech/samples/mountain.png?w=400&resize=aspectfit&format=jpg)
 
+#### gravity
 
-### gravity: xx
+Used to position the crop area. Available options (case sensitive):
 
-### height: set image height
+- `northwest`
+- `north`
+- `northeast`
+- `west`
+- `center`
+- `east`
+- `southWest`
+- `south`
+- `southeast`
+- `none`
+
+**Original image**
+
+`https://cdn.somedomain.tech/samples/med.jpeg`
+
+| g=west | g=center | g=east
+|:--|:--|:--
+| ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfill&g=west "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfill&g=center "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300&resize=aspectfill&g=east "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+
+#### height
 
 The `height` parameter is used to specify the required height of the output image, in pixels.
 
@@ -997,7 +651,7 @@ If both width and height are omitted, the original image’s dimensions are used
 |:--|:--
 | ![Height 400](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Height 400, Aspect Fit](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
-### quality: image compression
+#### quality
 
 The `quality` parameter applies compression to an image, reducing it's file size.
 
@@ -1020,7 +674,7 @@ The original image and all quality variations below are 2048 × 1024 pixels.
 | ![Quality 100](https://cdn.somedomain.tech/samples/vegetables.jpg?q=100&w=300&resize=aspectfit "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 100, 1.3MB** | ![Quality 75](https://cdn.somedomain.tech/samples/vegetables.jpg?q=75&w=300&resize=aspectfit "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 75, 180kB**
 | ![Quality 50](https://cdn.somedomain.tech/samples/vegetables.jpg?q=50&w=300&resize=aspectfit "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 50, 119kB** | ![Quality 25](https://cdn.somedomain.tech/samples/vegetables.jpg?q=25&w=300&resize=aspectfit "Image credit: Webvilla (https://unsplash.com/@webvilla)") **Quality = 25, 82kB**
 
-### ratio: resize to aspect ratio
+#### ratio
 
 Use the `ratio` parameter in combination with width (`w`) or height (`h`) to crop the image to the specified aspect ratio. [Resize styles](/#cdn/specifying-a-resizestyle) are respected.
 
@@ -1028,14 +682,14 @@ Use the `ratio` parameter in combination with width (`w`) or height (`h`) to cro
 https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9
 ```
 
-### rotate: rotating an image
+#### rotate
 
 The `rotate` parameter rotates the image according to the value specified in degrees. The image will be zoomed so that it covers the entire area after rotation.
 
 - **Accepts:** any number from 0-359
 - **Default:** 0
 
-### saturate: adjust image saturation
+#### saturate
 
 The `saturate` parameter increases or reduces an image's colour saturation and can be used to convert it to black and white.
 
@@ -1053,8 +707,7 @@ https://cdn.somedomain.tech/samples/beach.jpeg?saturate=0
 |:--|:--
 | ![Saturate 0](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sat=0 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)") | ![Saturate 1](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sat=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
-
-### sharpen: sharpen an image
+#### sharpen
 
 The `sharpen` parameter adds sharpness to an image.
 
@@ -1071,7 +724,7 @@ https://cdn.somedomain.tech/samples/beach.jpeg?sharpen=10
 |:--|:--|:--
 | ![Sharpen 5](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=1 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)") | ![Sharpen 20](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=10 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)") | ![Sharpen 80](https://cdn.somedomain.tech/samples/beach.jpeg?w=400&resize=aspectfit&sharpen=80 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
 
-### width: set image width
+#### width
 
 The `width` parameter is used to specify the required width of the output image, in pixels.
 
@@ -1104,95 +757,371 @@ If both width and height are omitted, the original image’s dimensions are used
 
 | **w=400** | **w=400&resize=aspectfit** 
 |:--|:--
-| ![Width 400](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Width 400, Aspect Fit](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
+| ![Width 400](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") | ![Width 400, Aspect Fit](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
+### Resizing
 
-## Layout Processor
+Images can be easily resized using DADI CDN. Use the `resize` parameter with `width` and `height` to resize images, or specify `crop` along with crop coordinates for full control over the portion of the original image that is retained.
 
-The layout processor provides a way to generate a new image by combining colour tiles with existing images accessible by CDN.
+There are several ways to resize an image, the simplest of which is to specify the dimensions of the output images. Use `width` and `height` parameters to specify the final dimensions of the output image.
 
-A request to CDN specifying the processor name of "layout" and including a set of input images (or colour tiles) along with a size and position for each, will result in a new image being rendered as the response.
+#### Using the width parameter
 
-Each part of the request must be separated by a pipe character: `|`
+The `width` parameter (alias: `w`) specifies the width of the required output image in pixels. If only `width` is specified, the height dimension will be calculated automatically so that the original aspect ratio of the image is maintained given the new width. If both `width` and `height` are omitted, the original image’s dimensions are used.
 
-**Example request**
+> **Security Note:**
+> 
+> The maximum output image size can be specified in the configuration file.
+> 
+> The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
+>
+> You should set this to the maximum size required for images in your application.
+>
+> ```json
+> "security": {
+>  "maxWidth": 2048,
+>  "maxHeight": 1024
+>}
+>```
+>
+> -- advice
 
-The following request contains the following:
+**Example**
 
-* Inputs:
-  * the image `samples/dog.jpeg`, resized to 200 pixels wide by 300 pixels high, positioned at 0,0 in the output image
-  * a tile with the colour `#01EE88`, 200 pixels wide by 300 pixels high, positioned at 0,200 in the output image
-  * the image `samples/canoe.jpeg`, resized to 200 pixels wide by 300 pixels high, positioned at 0,400 in the output image
-* Output: an image 600 pixels wide by 300 pixels high, in JPEG format
+`https://cdn.somedomain.tech/samples/canoe.jpeg?w=400`
+ 
+#### Using the height parameter
+
+The `height` parameter (alias: `h`) specifies the height of the required output image in pixels. If only `height` is specified, the width dimension will be calculated automatically so that the original aspect ratio of the image is maintained given the new height. If both width and height are omitted, the original image’s dimensions are used.
+
+> **Security Note:**
+> 
+> The maximum output image size can be specified in the configuration file.
+> 
+> The `security` setting allows you to set a maximum width and height for generated images. This prevents the potential for a DOS attack based on the repeated generation of large images which could push your platform offline by exhausting CPU and/or available memory.
+>
+> You should set this to the maximum size required for images in your application.
+>
+> ```json
+> "security": {
+>  "maxWidth": 2048,
+>  "maxHeight": 1024
+>}
+>```
+>
+> -- advice
+
+**Example**
+
+`https://cdn.somedomain.tech/samples/canoe.jpeg?h=400`
+
+#### Specifying aspect ratio
+
+Images can be resized to a specified aspect ratio by providing a `width` or `height` in combination with the `ratio` parameter. CDN will respect any [resizeStyle](#specifying-a-resizestyle) specified.
 
 ```
-https://cdn.somedomain.tech/layout/i:samples/dog.jpeg,h_300,w_200,x_0,y_0%7Cc:01ee88,h_300,w_200,x_200,y_0%7Ci:samples/canoe.jpeg,h_300,w_200,x_400,y_0%7Co:output.jpg,h_300,w_600
+https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9
 ```
 
-![Output image](https://cdn.somedomain.tech/layout/i:samples/dog.jpeg,h_300,w_200,x_0,y_0%7Cc:01ee88,h_300,w_200,x_200,y_0%7Ci:samples/canoe.jpeg,h_300,w_200,x_400,y_0%7Co:output.jpg,h_300,w_600)
+![Height of 400, aspect ratio of 16-9](https://cdn.somedomain.tech/samples/canoe.jpeg?h=400&ratio=16-9 "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)") 
 
-### Input Images
+#### Specifying a resize style
 
-An input image is specified in the request using the format `i:IMAGE_URL,h_HEIGHT,w_WIDTH,x_HORIZONTAL,y_VERTICAL`
+The `resizeStyle` (alias: `resize`) parameter allows you to specify how CDN should fit your image into the specified dimensions.
 
-* `IMAGE_URL`: the path to an existing image accessible by the CDN
-* `h_HEIGHT`: the height the input image should be resized to, in pixels
-* `w_WIDTH`: the width the input image should be resized to, in pixels
+##### aspectfill
 
-`x_HORIZONTAL` and `y_VERTICAL` control the position of the input image inside the output image, specifying where the top left corner of the image should be placed.
+Keeps the aspect ratio of the original image and generates an output image of the specified width and height. The output image may be cropped, however by specifying the `gravity` parameter you can tell CDN which part of the image should be retained.
 
-**Example:** `i:path/to/image.jpg,w_640,h_480,x_0,y_0`
+> The output image is 400 x 300 pixels.
 
-### Colour tiles
+![Width of 400, height of 300, resize style of aspectfill](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=aspectfill "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
-A colour tile can be used as an input image by using the format `c:COLOUR,h_HEIGHT,w_WIDTH,x_HORIZONTAL,y_VERTICAL`
+##### aspectfit
 
-* `COLOUR`: a colour in hexadecimal format, for example `F3EACD`
-* `h_HEIGHT`: the height the tile should be on the output image, in pixels
-* `w_WIDTH`: the width the tile should be on the output image, in pixels
+Keeps the aspect ratio of the original image and generates an output image with the maximum dimensions that fit inside the specified width and height.
 
-`x_HORIZONTAL` and `y_VERTICAL` control the position of the tile inside the output image, specifying where the top left corner should be placed.
+> The output image is 400 x 267 pixels.
 
-**Example:** `c:F3EACD,w_320,h_480,x_320,y_0`
+![Width of 400, height of 300, resize style of aspectfit](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=aspectfit "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
 
-### Output Image
+##### crop
 
-The format and dimensions of the output image are controlled using the output image portion of the request, using the format `o:IMAGE_URL,h_HEIGHT,w_WIDTH`
+When `crop` is used as the resize style then an additional parameter must be used to specify the coordinates of the crop rectangle. There are two ways to pass the crop rectangle coordinates:
 
-* `IMAGE_URL`: an image name and extension - used to determine the output format. For example `output.jpg` will return an image encoded as JPEG.
-* `h_HEIGHT`: the desired height of the output image, in pixels
-* `w_WIDTH`:  the desired width of the output image, in pixels
+- Specify only the top left corner of the rectangle
 
-**Example:** `o:test.png,w_640,h_480`
+  `?resizeStyle=crop&crop=10,15`
 
+- Specify the top left and the bottom right corners of the rectangle
+
+  `?resizeStyle=crop&crop=10,15,200,300`
+
+##### entropy
+
+Used in combination with width and height parameters, `entropy` crops the image using a technique that determines the most important areas. Areas of higher contrast are considered more important, and images are often cropped to remove large areas of static colour.
+
+`https://cdn.somedomain.tech/samples/med.jpeg?w=250&h=300&resize=entropy`
+
+| **Original image** | **Entropy crop**
+|:--|:--
+| ![](https://cdn.somedomain.tech/samples/med.jpeg?w=400&h=300 "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)") | ![](https://cdn.somedomain.tech/samples/med.jpeg?w=250&h=300&resize=entropy "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+
+##### fill
+
+Generates an output image with the exact specified width and height dimensions, ignoring the aspect ratio of the original image. The output image may appear squashed or stretched.
+
+> The output image is 400 x 300 pixels.
+
+![Width of 400, height of 300, resize style of fill](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&h=300&resize=fill "Image credit: Roberto Nickson (https://unsplash.com/@rpnickson)")
+
+##### gravity
+
+Used to position the crop area. See [Parameters / gravity](#gravity) for details and examples.
+
+### Cropping
+
+For more control over the output image than available when using the standard resize style options `aspectFit`, `aspectFill`, `fit` and `fill`, you can specify three different ways to crop an image.
+
+#### Top-left crop
+
+By specifying only the top left corner of the crop rectangle, CDN works out the full crop rectangle size by using the specified `width` and `height` parameters. To obtain an image that is 300 wide and 400 high, but cropped from 100 pixels from the top edge:
+
+`https://cdn.somedomain.tech/samples/med.jpeg?resize=crop&crop=0,10&width=300&height=400`
+
+![](https://cdn.somedomain.tech/samples/med.jpeg?resize=crop&crop=0,10&width=300&height=400 "Image credit: Anthony DELANOIX (https://unsplash.com/@anthonydelanoix)")
+
+#### Crop rectangle
+
+It is also possible to supply both the top left and the bottom right coordinates of a crop rectangle (e.g. `resize=crop&crop=0,0,100,100`). This allows you to selectively crop an exact area out of an image.
+
+Let's take a look at some examples. We'll use our `400x400` pixel image, which has squares marked at `x, y (size)`: `0,0 (25 px)`, `25,25 (25px)`, `50,50 (50px)`, `100,100 (100px)`, `200,200 (200px)`: 
+
+![](https://cdn.somedomain.tech/samples/measure.png)
+
+We can crop the second and third boxes by supplying a top left of `50,50`, and a bottom right of `200,200`, giving us a `150x150` pixel image:
+
+`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200`
+
+![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200)
+
+We're also able to change the size of the image we get back. Let's change it to `100` pixels wide. In this case, the height will be inferred from the width. The same goes if we only supply a height.
+
+`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=100`
+
+![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=100)
+
+If you really want to get creative, you can supply a cropping rectangle along with both a width and height, which will allow you to completely resize an image after cropping. Let's take the above image and squash it.
+
+`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=400&height=100`
+
+![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=400&height=100)
+
+Another way of resizing our crops, if we don't want to be as specific, is to provide the `devicePixelRatio` ratio.
+
+`https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&devicePixelRatio=2`
+
+![](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&&devicePixelRatio=2)
+
+Read more about [dealing with pixel ratios](#dealing-with-pixel-ratios).
+
+#### Entropy
+
+Using `resize=entropy` crops the image using a technique that determines the most important areas.
+
+Read more about [entropy](#entropy).
+
+### Example use case
+
+For this example, we're going to imagine you have a magazine-style website with a list of articles on the homepage and an article page. We'll start with the following image, which your editor wants to use as the main article image.
+
+**Original image, 5616 × 3744 px, 4MB**
+
+`https://cdn.somedomain.tech/samples/beach.jpeg`
+
+This is a large image, and it's not going to fit easily into the two spaces we have available for it. Unfortunately, no one in the department knows how to use Adobe Photoshop to make appropriately sized images. Fortunately, CDN can handle this task for you.
+
+#### Resizing and cropping
+
+On the article page, let’s assume your main image spot is a 500×300 pixel container. It's an odd size, but illustrates this concept well. To fit the base image into that container, we’ll need to change the dimensions and crop some data from the top and bottom.
+
+To adjust the image we need to specify the new width and height, as well as tell CDN how we want to crop the image.
+
+`https://cdn.somedomain.tech/samples/beach.jpeg?w=500&h=300&resize=entropy`
+
+* `width=500&height=300`: Sets the width and height to fit the container.
+
+* `resize=entropy`: Tells CDN how to determine the crop area. [Entropy](#entropy) is a smart cropping feature that adjusts the crop area to ensure the important part of your image is retained. It uses areas of high contrast to set the crop area.
+
+**Resized image, 500 × 300 px, 98kB**
+
+![Resized image, 500 × 300 px, 98kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=500&h=300&resize=entropy "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+Now, on the homepage, let’s assume each feature article has an image container that is 200×200 pixels. With the main subject of the image so close to the right, we'll once again need to tell CDN how we want the image cropped.
+
+`https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200&resize=entropy`
+
+**Resized image, 200 × 200 px, 29kB**
+
+![Resized image, 200 × 200 px, 29kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200&resize=entropy "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+If we don't specify `entropy` as the `resize` parameter, CDN defaults to using `aspectfit` and our image would look a little different, with the main subject almost excluded from the image.
+
+`https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200`
+
+![Aspectfit, 200 × 200 px, 29kB](https://cdn.somedomain.tech/samples/beach.jpeg?w=200&h=200 "Image credit: Danielle MacInnes (https://unsplash.com/@dsmacinnes)")
+
+## Transforming CSS
+
+CDN is capable of processing CSS in real-time based on a set of optional URL parameters supplied in the request.
+
+**Format**
+
+```
+https://{cdn-domain}/{path}{?parameters}
+```
+
+**Example**
+
+```
+https://cdn.somedomain.tech/styles.css?compress=1
+```
+
+### Parameters
+
+#### compress
+
+Returns a compressed version of a style sheet by removing all unnecessary or redundant data without affecting how the resource is processed by the browser. It removes code comments, spaces and line breaks.
+
+**Example (input)**
+
+```css
+/* This comment will go away */
+p {
+  color: blue;
+  width: 1.2em;
+}
+
+/* This one will go too */
+h1 {
+  font-weight: bold;
+  line-height: 1.3;
+}
+```
+
+**Example (output)**
+
+```css
+p{color:#00f;width:1.2em}h1{font-weight:700;line-height:1.3}
+```
+
+## Transforming JavaScript
+
+CDN is capable of processing JavaScript in real-time based on a set of optional URL parameters supplied in the request.
+
+**Format**
+
+```
+https://{cdn-domain}/{path}{?parameters}
+```
+
+**Example**
+
+```
+https://cdn.somedomain.tech/script.js?compress=1&transform=1
+```
+
+### Parameters
+
+#### compress
+
+Returns a compressed (minified) version of the JavaScript file by removing all unnecessary or redundant data without affecting how the resource is processed by the browser.
+
+**Example (input)**
+
+```js
+let numbers = [1,2,3]
+
+numbers.forEach(number => {
+  console.log(`Hi, I'm number ${number}`)
+})
+```
+
+**Example (output)**
+
+```js
+let numbers=[1,2,3];numbers.forEach(a=>{console.log(`Hi, I'm number ${a}`)});
+```
+
+#### transform
+
+> **Experimental**
+> 
+> This feature is experimental and it should be considered unstable. To enable it, you must set the `experimental.jsTranspiling` configuration property or the `JSTRANSPILING` environment variable to `true`.
+>
+> -- warning
+
+Analyses the ECMAScript features used in the JavaScript file and makes any necessary translations (i.e. transpiling) so that the script is fully compatible with the requesting browser, using the `User-Agent` header to determine the capabilities of the client.
+
+It's a common practice to transpile JavaScript bundles at build time, creating an ES5-compatible script that will be delivered to all clients – even to the ones that fully support the original, modern and often times faster ES6 features. CDN offers an alternative approach to this, whereby transpiling scripts *on the edge* means that only the features that are not supported by the client will be modified, leaving the rest of the code untouched.
+
+**Example (input)**
+
+```js
+let numbers = [1,2,3]
+
+numbers.forEach(number => {
+  console.log(`Hi, I'm number ${number}`)
+})
+```
+
+**Example (output on IE8)**
+
+```js
+"use strict";
+
+var numbers = [1, 2, 3];
+
+numbers.forEach(function (number) {
+  console.log("Hi, I'm number " + number);
+});
+```
+
+**Example (output on Chrome 66)**
+
+```js
+let numbers = [1,2,3]
+
+numbers.forEach(number => {
+  console.log(`Hi, I'm number ${number}`)
+})
+```
 
 ## Pre-signed URLs
-> Allow access to 
 
 A pre-signed URL allows you to give one-off access to private S3 objects, useful for when users may not have direct access to the file. Pre-signing generates a valid URL signed with your S3 credentials that any user can access.
 
 ### Generating a pre-signed URL
 
-To generate a simple pre-signed URL that allows any user to view the contents of a private object in a bucket you own,
-you can use the following call to `getSignedUrl`:
+To generate a simple pre-signed URL that allows any user to view the contents of a private object in a bucket you own, you can use the following call to `getSignedUrl`:
 
 ```js
-var AWS = require('aws-sdk')
+const AWS = require('aws-sdk')
 
 AWS.config.update({
   accessKeyId: '<your-access-key-id>',
   secretAccessKey: '<your-secret-access-key>'
 })
 
-var params = {
+let params = {
   Bucket: '<your-bucket-name>',
   Key: '<your-filename>'
 }
 
-var s3 = new AWS.S3()
+let s3 = new AWS.S3()
 
-s3.getSignedUrl('getObject', params, function (err, url) {
-  console.log("The URL is", url)
+s3.getSignedUrl('getObject', params, (err, url) => {
+  console.log('The URL is', url)
 })
 ```
 
@@ -1202,14 +1131,14 @@ The above should result in a response similar to this:
 The URL is https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D
 ```
 
-### Controlling Expiry Time
+### Controlling expiry time
 
 The default `Expires` time is 15 minutes. This can be modified by passing a value in the
 params that are passed to the `getSignedUrl` method. The following example will cause the
 signed URL to expire after 60 seconds.
 
 ```js
-var params = {
+let params = {
   Bucket: 'myBucket',
   Key: 'myKey',
   Expires: 60 // expire time, in seconds
@@ -1224,14 +1153,14 @@ https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filen
 
 ### Adding image manipulation parameters
 
-When requesting images from external URLs it is possible they have an existing querystring. To
-add CDN image manipulation parameters to an external URL, they must be added to the existing querystring.
+When requesting images from external URLs it is possible they have an existing querystring. To add CDN image manipulation parameters to an external URL, they must be added to the existing querystring.
 
 The following example uses the above URL, adding `width` and `height` parameters.
 
 > Notice that we've added the parameters as part of the existing querystring by including an ampersand before the CDN querystring begins:
 >
 >...W6blQuGQ%3D**&?**width=300&height=300
+>
 > -- advice
 
 ```
@@ -1243,10 +1172,13 @@ https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filen
 If a pre-signed URL has already expired at the time of the request, a HTTP 403 Forbidden error will be returned:
 
 ```json
-{"statusCode":"403","message":"Forbidden: https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D"}
+{
+  "statusCode": "403",
+  "message": "Forbidden: https://cdn.somedomain.tech/https://your-bucket-name.s3.amazonaws.com/your-filename?AWSAccessKeyId=your-access-key-id&Expires=1490052681&Signature=VzHKnHucNgKPG7lDbnzW6blQuGQ%3D"
+}
 ```
 
-## Delivery Recipes
+## Delivery recipes
 
 A Delivery Recipe is a predefined set of image manipulation parameters stored in a JSON file and applied to images at the time of request.
 
@@ -1283,15 +1215,15 @@ For example:
 
 `https://cdn.somedomain.tech/thumbnail/image-filename.png`
 
-## Delivery Routes
+## Delivery routes
 
 Delivery Routes allow you to let CDN choose the appropriate recipe based on device, network, location or language.
 
-Routes allow CDN to make a decision about which [Delivery Recipe](/cdn#delivery-recipes) to use for the current request, based on a set of configurable conditions.
+Routes allow CDN to make a decision about which [Delivery Recipe](#delivery-recipes) to use for the current request, based on a set of configurable conditions.
 
 Conditions can include the type of device being used, the network type, user location and language.
 
-### Creating a Route
+### Creating a route
 
 A route is defined in JSON format and added to a directory in your CDN installation. The default location for route files is `workspace/routes`, but this is configurable.
 
@@ -1323,7 +1255,7 @@ Status Code | Description | Response
 400 | A route with the same name already exists | `{ success: false, errors: ['Route already exists'] }`
 400 | An error occurred when saving | `{ success: false, errors: ['Error when saving route'] }`
 
-### Route Basics
+### Route basics
 
 A route must contain a `name` property, as well as an array of `branches` which contain the conditions that must be true for CDN to select the route.
 
@@ -1344,7 +1276,7 @@ At a minimum, a route must take the following form. The `branches` array below c
 
 Each branch within the `branches` array should contain two properties, `recipe` and `condition`.
 
-* `recipe` (string) - the name of the [Delivery Recipe](/cdn#delivery-recipes) to use when all specified conditions are met
+* `recipe` (string) - the name of the [Delivery Recipe](#delivery-recipes) to use when all specified conditions are met
 
 * `condition` (object) - contains properties that correspond to test types
 
@@ -1365,7 +1297,7 @@ Each branch within the `branches` array should contain two properties, `recipe` 
 }
 ```
 
-### Branch Evaluation
+### Branch evaluation
 
 Branches are evaluated in the order they appear in the route. If a branch condition is not met, the branch is skipped and the next one evaluated.
 
@@ -1406,7 +1338,6 @@ The `device` condition can test against a single device type:
 ##### Default value
 
 If a device type is specified that doesn't match one of the possible values above, CDN uses `desktop` in its place.
-
 
 #### Location
 
@@ -1495,7 +1426,7 @@ Language detection has support for [quality values](https://tools.ietf.org/html/
 
 Specifying the `network` condition in a route performs a remote lookup on a network connectivity API to determine the type of connection being used.
 
-> **Note:** This condition tests for a *connection type* (e.g. `cable` or `mobile`) and not *connection speed*.
+> **Note:** This condition tests for a connection *type* (e.g. `cable` or `mobile`) and not connection *speed*.
 
 The condition can be specified as a single connection type:
 
@@ -1619,10 +1550,9 @@ Response JSON:
  }
  ```
 
-
+| Input image | Generated palette
+|:--|:--
 |![input image](https://cdn.somedomain.tech/samples/canoe.jpeg?w=400&resize=aspectfit)|<img src="/assets/cdn/palette-output.png" alt="generated palette" width="400">|
-|---|---|
-
 
 ## Dealing with pixel ratios
 
@@ -1658,4 +1588,215 @@ It is also possible to set the width, height, or both width & height explicitly,
 
 ![600x600](https://cdn.somedomain.tech/samples/measure.png?resize=crop&crop=50,50,200,200&width=600)
 
-Read more about [Cropping Images](/cdn#cropping-images).
+Read more about [Cropping Images](#cropping-images).
+
+## Plugins
+
+Plugins are modular pieces of user-defined logic with the power to extend the functionality of the core application, changing the normal course of an image request with custom behaviour.
+
+They are defined as JavaScript files that sit in the directory defined in the `paths.plugins` configuration parameters (defaults to `workspace/plugins`). There are three types of plugins triggered at different points in the lifecycle of a request ([pre-processing](#pre-processing-plugins), [post-processing](#post-processing-plugins) and [controller](#controller-plugins)), which are defined by the functions exported by the plugin file.
+
+<img src="/assets/cdn/cdn-plugin-diagram.png" alt="Diagram showing the flow of data in the three types of plugins" width="640">
+
+### Pre-processing plugins
+
+Pre-processing plugins are executed before any image processing begins. All they can do is change the set of manipulation options, which come from either the query parameters in the URL, from the `settings` block of a recipe, or both.
+
+In reality, a pre-processing plugin is similar to a recipe, as they both allow a group of manipulation options to be applied to an image, but whilst a recipe defines its parameters as a static JSON object, a plugin applies them dynamically using arbitrary code. As an example, this allows a parameter to be applied only if certain conditions are met.
+
+#### Reference
+
+Pre-processing plugins must be loaded from a recipe, by adding the name of the plugin to a `plugins` array. They must export a `pre` function that receives a single object parameter with the following properties.
+
+##### Receives
+
+Property | Type | Description | Example
+---------|------|-------------|--------
+`options` | Object | The parameters used to process the image, obtained from the URL and/or any associated recipes | `{ blur: 5, width: 500, format: 'png' }`
+`url` | String | The URL of the request | `'/my-recipe/my-image.jpg?width=500&blur=5&format=png'`
+
+##### Returns
+
+The return value of the `pre` function is ignored, but the plugin may change the `options` object, which will change the image manipulation parameters.
+
+#### Example
+
+Let’s create a simple pre-processing plugin: when a request is made in hours of darkness, say between 7pm and 7am, we want to bring the saturation down to make the output image black and white.
+
+Because pre-processing plugins are loaded from recipes, the first step is to create one.
+
+**workspace/recipes/daylight.json**
+```json
+{
+  "recipe": "daylight",
+  "plugins": ["night-mode"]
+}
+```
+
+When a recipe contains a `plugins` array, the corresponding plugins will be executed sequentially, from left to right. In our example, we’re loading a single plugin, but you can use as many as you want. Now, we need to create the night-mode plugin we’ve referenced.
+
+**workspace/plugins/night-mode.js**
+```js
+module.exports.pre = ({options, url}) => {
+  let hour = new Date().getHours()
+  
+  // Are we between 7pm and 7am?
+  if ((hour < 7) || (hour >= 19)) {
+    options.saturate = -100
+  }
+}
+```
+
+After reloading the application, requesting an image with the path `/daylight/image.jpg` will load the recipe and the plugin, so you should see the saturation going down depending on the time of the day.
+
+### Post-processing plugins
+
+The execution of post-processing plugins takes place after CDN's image processor has finished applying all the manipulation parameters. At this point, plugins have the ability to apply additional transformations to the image before it’s delivered to the user.
+
+#### Reference
+
+Pre-processing plugins must be loaded from a recipe, by adding the name of the plugin to a `plugins` array. They must export a `pre` function that receives a single object parameter with the following properties.
+
+##### Receives
+
+Property | Type | Description | Example
+---------|------|-------------|--------
+`assetStore` | Function | A function that fetches an asset or image from whatever storage handler is configured. Receives a String specifying the asset type (`asset` or `image`) as well as a filename. Returns a prototype with a `get()` method, which provides the asset as a Promise with a Stream | `assetStore('image', 'test.jpg').get()`
+`cache.get` | Function | A function that retrieves an item from cache. Receives a cache key (String) and returns a Stream if the item exists in cache, or `null` if not | `cache.get('/my-image.jpg')`
+`cache.set` | Function | A function that stores an item in cache. Receives a cache key (String) and a value (Stream or String). Returns a Promise that resolves once the item has been cached | `cache.set('/my-image.jpg', myImageStream)`
+`imageInfo` | Object | The dimensions and type of the original image, as obtained from reading the file. Contains `width`, `height` and `type` properties. | `{width: 400, height: 600, type: 'jpg'}`
+`jsonData` | Object | Any JSON data obtained from the image. It will be used as the response if `format` is set to `json` | `{ primaryColor: '#1888a2', palette: { hex: ['#addce9', '#176d81'] } }`
+`options` | Object | The parameters used to process the image, obtained from the URL and/or any associated recipes | `{ blur: 5, width: 500, format: 'png' }`
+`processor` | Sharp | The instance of the [Sharp](https://github.com/lovell/sharp) engine used to process the image | `processor.greyscale()`
+`sharp` | Sharp | A reference to the [Sharp](https://github.com/lovell/sharp) module | `sharp(data).toFormat('jpg')`
+`stream` | Stream | A Stream returned by a post-processing plugin executed before this one. See *Returns* below for more details. | *N/A*
+`url` | String | The URL of the request | `'/my-recipe/my-image.jpg?width=500&blur=5&format=png'`
+
+##### Returns
+
+If a post-processing plugin returns `undefined`, the original instance of the image processing engine (i.e. the value of `processor`) will be used to form the response. If a post-processing plugin returns a value, which must be a Stream, that will be used to form the response, and the original instance of the processing image will be discarded.
+
+If multiple post-processing plugins are configured, the return value of one will be passed to the next via the `stream` named parameter, therefore it is considered a good practice for a post-processing plugin to check the value of the `stream` parameter before deciding what source to use as a starting point, as another plugin might have done some work upstream.
+
+#### Example
+
+[This article](http://blog.72lions.com/blog/2015/7/7/duotone-in-js) describes an image filter called *duotone*, where two colors (one for the highlights, one for the shadows) replace all the others in an image. Let’s see how we can build that effect as a post-processing plugin in CDN.
+
+Because pre-processing plugins are loaded from recipes, the first step is to create one.
+
+**workspace/recipes/duotone.json**
+```json
+{
+  "recipe": "duotone",
+  "plugins": ["duotone-plugin"]
+}
+```
+
+Now, let’s create the plugin script.
+
+**workspace/plugins/duotone-plugin.js**
+```json
+module.exports.post = ({jsonData, options, processor, sharp, stream, url}) => {
+  const parsedUrl = urlParser.parse(url, true)
+  const colourHighlight = parsedUrl.query.highlight || '#f00e2e'
+  const colourShadow = parsedUrl.query.shadow || '#192550'
+  const duotoneGradient = createDuotoneGradient(
+    hexToRgb(colourHighlight),
+    hexToRgb(colourShadow)
+  )
+  return processor
+    .raw()
+    .toBuffer({resolveWithObject: true})
+    .then(({data, info}) => {
+      for (let i = 0; i < data.length; i = i + info.channels) {
+        const r = data[i + 0]
+        const g = data[i + 1]
+        const b = data[i + 2]
+        const avg = Math.round(0.2126 * r + 0.7152 * g + 0.0722 * b)
+        data[i + 0] = duotoneGradient[avg][0]
+        data[i + 1] = duotoneGradient[avg][1]
+        data[i + 2] = duotoneGradient[avg][2]
+      }
+      return sharp(data, {
+        raw: info,
+      }).toFormat(options.format).toBuffer()
+    })
+    .then(buffer => {
+      let bufferStream = new PassThrough()
+      bufferStream.end(buffer)
+      return bufferStream
+    })
+}
+```
+
+> Note: additional functions used by the code above were omitted for simplification purposes. You can find the full source code for the duotone plugin [here](https://github.com/dadi/cdn/blob/develop/workspace/plugins/duotone-plugin.js).
+
+### Controller plugins
+
+Pre and post-processing plugins can be seen as optional detours in a well-defined road: CDN receives a path for an image it needs to serve and it will follow a series of steps to process and serve it, which you may wish to intercept somewhere along the way.
+
+Controller plugins are different, in that there isn’t necessarily a traditional image path and CDN won't do anything automatically for you. You get a URL and you're expected to provide a response that is to be delivered to the user — what happens in between is entirely up to you. The name comes from the “C” in an MVC architecture, since you're put in charge of handling a request and preparing a response.
+
+#### Reference
+
+Unlike pre and post-processing plugins, controller plugins are not loaded from a recipe. If a plugin is named `foobar.js`, a `/foobar` endpoint is created and the responsibility to handle requests made to it is given to the controller plugin.
+
+Controller plugins must export a function in the main export, which will receive a single object parameter with the following properties.
+
+##### Receives
+
+Property | Type | Description | Example
+---------|------|-------------|--------
+`assetStore` | Function | A function that fetches an asset or image from whatever storage handler is configured. Receives a String specifying the asset type (`asset` or `image`) as well as a filename. Returns a prototype with a `get()` method, which provides the asset as a Promise with a Stream | `assetStore('image', 'test.jpg').get()`
+`cache.get` | Function | A function that retrieves an item from cache. Receives a cache key (String) and returns a Stream if the item exists in cache, or `null` if not | `cache.get('/my-image.jpg')`
+`cache.set` | Function | A function that stores an item in cache. Receives a cache key (String) and a value (Stream or String). Returns a Promise that resolves once the item has been cached | `cache.set('/my-image.jpg', myImageStream)`
+`req` | http.IncomingMessage | The instance of [http.IncomingMessage](https://nodejs.org/api/http.html#http_class_http_incomingmessage) that originated the request | `console.log(req.url)`
+`setHeader` | Function | A function that allows the plugin to set a response header | `setHeader('X-Cache', 'HIT')`
+
+##### Returns
+
+Controller plugins must return a Stream, containing an image buffer or a JSON object, depending on the type of payload they wish to send.
+
+#### Example
+
+Let’s build a controller plugin that receives the name of a movie, does a lookup for that name on [OMDb](http://www.omdbapi.com/) and returns its poster image.
+
+**workspace/plugins/movie-poster.js**
+```js
+module.exports = ({assetStore, cache, req, setHeader}) => {
+  const parsedUrl = urlParser.parse(req.url, true)
+  const searchTerm = parsedUrl.path.replace('/movie-poster/', '')
+  const cacheKey = req.url
+  // Let's see if this request is in the cache
+  return cache.get(cacheKey).then(cached => {
+    if (cached) return cached
+    return new Promise((resolve, reject) => {
+      request({
+        url: `http://www.omdbapi.com/?t=${searchTerm}&apikey=${API_KEY}`,
+        json: true
+      }, (error, response) => {
+        if (error || (response.statusCode !== 200)) {
+          return reject(new Error('Could not retrieve data for movie'))
+        }
+        if (typeof response.body.Poster !== 'string') {
+          return reject(new Error('Could not find poster for movie'))
+        }
+        let cacheStream = new PassThrough()
+        let outputStream = new PassThrough()
+        http.get(response.body.Poster, res => {
+          setHeader('content-type', res.headers['content-type'])
+          res.pipe(cacheStream)
+          res.pipe(outputStream)
+          res.on('end', () => {
+            // Add the result to cache
+            cache.set(cacheStream, cacheKey)
+          })
+          resolve(outputStream)
+        }).on('error', reject)
+      })
+    })
+  })
+}
+```
+
+To use the plugin, you’d hit `/movie-poster/{NAME-OF-THE-MOVIE}` (e.g. /movie-poster/inception).
