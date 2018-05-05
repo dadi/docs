@@ -21,7 +21,7 @@ pipeline {
       steps {
         echo 'Deploying...'
 
-        sh "docker run -d --restart=always --name '${IMAGE_TAG}' -e NODE_ENV=test -e VIRTUAL_HOST=${IMAGE_TAG}.mustdash.es -p 3001:3001 ${IMAGE_TAG}"
+        sh "docker run -v /var/run/docker.sock:/var/run/docker.sock -d --restart=always --name '${IMAGE_TAG}' -e NODE_ENV=test -e VIRTUAL_HOST=${IMAGE_TAG}.mustdash.es -p 3001:3001 ${IMAGE_TAG}"
 
         slackSend color: "good", message: "${env.JOB_NAME} deployed. Test it here: http://${IMAGE_TAG}.mustdash.es"
 
