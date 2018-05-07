@@ -25,6 +25,8 @@ pipeline {
 
         slackSend color: "good", message: "${env.JOB_NAME} deployed. Test it here: http://${IMAGE_TAG}.mustdash.es. Approve it here: ${JOB_URL}."
 
+        slackSend color: "#FF0000", message: "${JENKINS_URL}/blue/organizations/jenkins/${JOB_NAME}/detail/XPR-72X/${BUILD_NUMBER}/pipeline"
+
         input message: ' > Finished testing? (Click "Proceed" to continue)'
         sh "docker ps -f name=${IMAGE_TAG} -q | xargs --no-run-if-empty docker container stop"
         sh "docker container ls -a -fname=${IMAGE_TAG} -q | xargs -r docker container rm"
