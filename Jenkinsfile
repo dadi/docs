@@ -23,7 +23,7 @@ pipeline {
 
         sh "docker run -v /var/run/docker.sock:/var/run/docker.sock -d --restart=always --network=james_default --name '${IMAGE_TAG}' -e NODE_ENV=test -e VIRTUAL_HOST=${IMAGE_TAG}.mustdash.es -p 3001:3001 ${IMAGE_TAG}"
 
-        slackSend color: "good", message: "${env.JOB_NAME} deployed. Test it here: http://${IMAGE_TAG}.mustdash.es"
+        slackSend color: "good", message: "${env.JOB_NAME} deployed. Test it here: http://${IMAGE_TAG}.mustdash.es. Approve it here: ${JOB_URL}."
 
         input message: ' > Finished testing? (Click "Proceed" to continue)'
         sh "docker ps -f name=${IMAGE_TAG} -q | xargs --no-run-if-empty docker container stop"
