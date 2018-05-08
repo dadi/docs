@@ -1,0 +1,608 @@
+---
+title: API Wrapper
+order: 10
+published: true
+product: api-wrapper
+version: latest
+---
+
+
+This library is for interacting with [DADI API](/api) and provides a high-level abstraction of the REST architecture style, exposing a set of chainable methods that allow developers to compose complex read and write operations using a simplistic and natural syntax.
+
+
+[![npm (scoped)](https://img.shields.io/npm/v/@dadi/api-wrapper.svg?maxAge=10800&style=flat-square)](https://www.npmjs.com/package/@dadi/api-wrapper)
+![coverage](https://img.shields.io/badge/coverage-95%25-brightgreen.svg?style=flat)
+[![Build Status](https://travis-ci.org/dadi/api-wrapper.svg?branch=master)](https://travis-ci.org/dadi/api-wrapper)
+[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
+
+## Getting started
+
+1. Install the `@dadi/api-wrapper` module:
+
+   ```console
+   npm install @dadi/api-wrapper
+   ```
+
+2. Add the library and configure the API settings:
+
+   ```js
+   const DadiAPI = require('@dadi/api-wrapper')
+   const api = new DadiAPI({
+     uri: 'http://api.example.com',
+     port: 80,
+     credentials: {
+       clientId: 'johndoe',
+       secret: 'f00b4r'
+     },
+     version: '1.0',
+     database: 'library'
+   })
+   ```
+
+3. Make a query:
+
+   ```js
+   // Example: getting all documents where `name` contains "john" and age is greater than 18
+   api.in('users')
+    .whereFieldContains('name', 'john')
+    .whereFieldIsGreaterThan('age', 18)
+    .find()
+    .then(response => {
+      // Use documents here
+    })
+   ```
+
+## Methods
+
+Each query consists of a series of chained methods to form the request, always containing a terminator method. Terminators return a Promise with the result of one or more requests to the database and can make use of a series of [filtering methods](#filters) to create the desired subset of documents to operate on.
+
+### Terminators
+
+#### apply
+
+```
+.apply(callback)
+```
+
+Updates a list of documents with the result of individually applying `callback` to them.
+
+```js
+api.in('users')
+  .whereFieldExists('gender')
+  .apply(document => {
+    document.name = (document.gender === 'male') ? (`Mr ${document.name}`) : (`Mrs ${document.name}`)
+
+    return document
+  })
+```
+
+#### create
+
+```
+.create()
+```
+
+Creates a document.
+
+```js
+// Example
+api.in('users')
+   .create({
+      name: 'John Doe',
+      age: 45,
+      address: '123 Fake St'
+   })
+   .then(function (doc) {
+      console.log('New document:', doc)
+   })
+   .catch(function (err) {
+      console.log('! Error:', err)
+   })
+```
+
+#### delete
+
+```
+.delete()
+```
+
+Deletes one or more documents.
+
+```js
+api.in('users')
+   .whereFieldDoesNotExist('name')
+   .delete()
+```
+
+#### find
+
+```
+.find(options)
+```
+
+Returns a list of documents.
+
+```js
+api.in('users')
+   .whereFieldIsGreaterThan('age', 21)
+   .useFields(['name', 'age'])
+   .find(options)
+```
+
+`options` is one of the following:
+
+- `extractResults` (Boolean): Selects whether just the results array should be returned, rather than the entire API response.
+- `extractMetadata` (Boolean): Selects whether just the metadata object should be returned, rather than the entire API response.
+
+
+#### getCollections
+
+```
+.getCollections()
+```
+
+Gets the list of collections for the API.
+
+```js
+api.getCollections()
+```
+
+#### getConfig
+
+```
+.getConfig()
+```
+
+Gets the config for a collection or for the API.
+
+```js
+// Gets the collection config
+api.in('users')
+   .getConfig()
+```
+
+```js
+// Gets the API config
+api.getConfig()
+```
+
+#### getSignedUrl
+
+```
+.getSignedUrl()
+```
+
+Gets a signed URL from a media collection.
+
+```js
+api.in('images')
+   .getSignedUrl({
+    fileName: "foobar.jpg"
+   })
+```
+
+#### getStats
+
+```
+.getStats()
+```
+
+Gets collection stats.
+
+```js
+api.in('users')
+   .getStats()
+```
+
+#### getStatus
+
+```
+.getStatus()
+```
+
+Gets the the API status.
+
+```js
+api.getStatus()
+```
+
+#### setConfig
+
+```
+.setConfig()
+```
+
+Sets the config for a collection or for the API.
+
+```js
+// Sets the collection config
+var collectionConfig = {cache: false}
+
+api.in('users')
+   .setConfig(collectionConfig)
+```
+
+```js
+// Sets the API config
+var apiConfig = {cors: true}
+
+api.setConfig(apiConfig)
+```
+
+#### update
+
+```
+.update(update)
+```
+
+Updates a list of documents.
+
+```js
+api.in('users')
+   .whereFieldIsLessThan('age', 18)
+   .update({
+      adult: false
+   })
+```
+
+### Filters
+
+Filtering methods are used to create a subset of documents that will be affected by subsequent operation terminators.
+
+#### goToPage
+
+```
+.goToPage(page)
+```
+
+Defines the page of documents to be used.
+
+```js
+// Example
+api.goToPage(3)
+```
+
+#### limitTo
+
+```
+.limitTo(limit)
+```
+
+Defines a maximum number of documents to be retrieved.
+
+```js
+// Example
+api.limitTo(10)
+```
+
+#### sortBy
+
+```
+.sortBy(field, order)
+```
+
+Selects a field to sort on and the sort direction. Order defaults to ascending (`asc`).
+
+```js
+// Example
+api.sortBy('age', 'desc')
+```
+
+#### useFields
+
+```
+.useFields(arrayOfFields)
+```
+
+Selects the fields to be returned in the response. Accepts array format.
+
+```js
+// Example
+api.useFields(['name', 'age'])
+```
+
+#### where
+
+```
+.where(query)
+```
+
+Filters documents using a MongoDB query object or a Aggregation Pipeline array. The methods below are ultimately just syntatic sugar for `where()`. The `where()` method can be used for complex queries that require operations not implemented by any other method.
+
+```js
+// Example
+api.where({name: 'John Doe'})
+```
+
+#### whereFieldBeginsWith
+
+
+```js
+.whereFieldBeginsWith(field, text)
+```
+
+Filters documents where `field` begins with `text`.
+
+```js
+// Example
+api.whereFieldBeginsWith('name', 'john')
+```
+
+#### whereFieldContains
+
+```
+.whereFieldContains(field, text)
+```
+
+Filters documents where `field` contains `text`.
+
+```js
+// Example
+api.whereFieldContains('name', 'john')
+```
+
+#### whereFieldDoesNotContain
+
+```
+.whereFieldDoesNotContain(field, text)
+```
+
+Filters documents where `field` does not contain `text`.
+
+```js
+// Example
+api.whereFieldDoesNotContain('name', 'john')
+```
+
+#### whereFieldEndsWith
+
+```
+.whereFieldEndsWith(field, text)
+```
+
+Filters documents where field starts with `text`.
+
+```js
+// Example
+api.whereFieldEndsWith('name', 'john')
+```
+
+#### whereFieldExists
+
+```
+.whereFieldExists(field)
+```
+
+Filters documents that contain a field.
+
+```js
+// Example
+api.whereFieldExists('name')
+```
+
+#### whereFieldDoesNotExist
+
+```
+.whereFieldDoesNotExist(field)
+```
+
+Filters documents that do not contain a field.
+
+```js
+// Example
+api.whereFieldDoesNotExist('address')
+```
+
+#### whereFieldIsEqualTo
+
+```
+.whereFieldIsEqualTo(field, value)
+```
+
+Filters documents where `field` is equal to `value`.
+
+```js
+// Example
+api.whereFieldIsEqualTo('age', 53)
+```
+
+#### whereFieldIsGreaterThan
+
+```
+.whereFieldIsGreaterThan(field, value)
+```
+
+Filters documents where `field` is greater than `value`.
+
+```js
+// Example
+api.whereFieldIsGreaterThan('age', 18)
+```
+
+#### whereFieldIsGreaterThanOrEqualTo
+
+```
+.whereFieldIsGreaterThanOrEqualTo(field, value)
+```
+
+Filters documents where `field` is greater than or equal to `value`.
+
+```js
+// Example
+api.whereFieldIsGreaterThanOrEqualTo('age', 19)
+```
+
+#### whereFieldIsLessThan
+
+```
+.whereFieldIsLessThan(field, value)
+```
+
+Filters documents where `field` is less than `value`.
+
+```js
+// Example
+api.whereFieldIsLessThan('age', 65)
+```
+
+#### whereFieldIsLessThanOrEqualTo
+
+
+```
+.whereFieldIsLessThanOrEqualTo(field, value)
+```
+
+Filters documents where `field` is less than or equal to `value`.
+
+```js
+// Example
+api.whereFieldIsLessThanOrEqualTo('age', 64)
+```
+
+#### whereFieldIsOneOf
+
+```
+.whereFieldIsOneOf(field, matches)
+```
+
+Filters documents where the value of `field` is one of the elements of `matches`.
+
+```js
+// Example
+api.whereFieldIsOneOf('name', ['John', 'Jack', 'Peter'])
+```
+
+#### whereFieldIsNotEqualTo
+
+```
+.whereFieldIsNotEqualTo(field, value)
+```
+
+Filters documents where `field` is not equal to `value`.
+
+```js
+// Example
+api.whereFieldIsEqualTo('age', 53)
+```
+
+#### whereFieldIsNotOneOf
+
+```
+.whereFieldIsNotOneOf(field, matches)
+```
+
+Filters documents where the value of `field` is not one of the elements of `matches`.
+
+```js
+// Example
+api.whereFieldIsNotOneOf('name', ['Mark', 'Nathan', 'David'])
+```
+
+#### whereHookNameIs
+
+```
+.whereHookNameIs(name)
+```
+
+Selects the hook with a given name.
+
+```js
+// Example
+api.whereFieldIsNotOneOf('name', ['Mark', 'Nathan', 'David'])
+```
+
+#### withComposition
+
+```
+.withComposition(value)
+```
+
+Defines whether nested documents should be resolved using composition. The default is to let API decide based on the queried collection's settings.
+
+```js
+// Example
+api.withComposition()
+api.withComposition(true) // same as above
+api.withComposition(false)
+```
+
+### Other methods
+
+#### fromEndpoint
+
+```
+.fromEndpoint(endpoint)
+```
+
+Selects a custom endpoint to use. Please note that unlike collections, custom endpoints do not have a standardised syntax, so it is up to the authors to make sure the endpoint complies with standard DADI API formats, or they will not function as expected.
+
+```js
+// Example
+api.fromEndpoint('custom-endpoint')
+```
+
+#### in
+
+```
+.in(collection)
+```
+
+Selects the collection to use.
+
+```js
+// Example
+api.in('users')
+```
+
+#### inHooks
+
+```
+.inHooks()
+```
+
+Selects "hook mode", meaning filters and terminators will operate on hooks and not on documents.
+
+```js
+// Example
+api.inMedia('images')
+```
+
+#### inMedia
+
+```
+.inMedia(bucket)
+```
+
+Selects a media bucket to be used.
+
+```js
+// Example
+api.inMedia('images')
+```
+
+#### useDatabase
+
+```
+.useDatabase(database)
+```
+
+Selects the database to use. Overrides any database defined in the initialisation options, and is reset when called without arguments.
+
+```js
+// Example
+api.useDatabase('my-database-name')
+```
+
+#### useVersion
+
+```
+.useVersion(version)
+```
+
+Selects the version to use. Overrides any version defined in the initialisation options, and is reset when called without arguments.
+
+```js
+// Example
+api.useVersion('1.0')
+```
