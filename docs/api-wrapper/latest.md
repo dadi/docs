@@ -9,13 +9,6 @@ version: latest
 
 This library is for interacting with [DADI API](/api) and provides a high-level abstraction of the REST architecture style, exposing a set of chainable methods that allow developers to compose complex read and write operations using a simplistic and natural syntax.
 
-
-[![npm (scoped)](https://img.shields.io/npm/v/@dadi/api-wrapper.svg?maxAge=10800&style=flat-square)](https://www.npmjs.com/package/@dadi/api-wrapper)
-![coverage](https://img.shields.io/badge/coverage-95%25-brightgreen.svg?style=flat)
-[![Build Status](https://travis-ci.org/dadi/api-wrapper.svg?branch=master)](https://travis-ci.org/dadi/api-wrapper)
-[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
-[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
-
 ## Getting started
 
 1. Install the `@dadi/api-wrapper` module:
