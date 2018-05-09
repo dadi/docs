@@ -91,6 +91,11 @@
           current.setAttribute('class', 'active')
           setExpanded(current, 'expanded')
         }
+
+        if (scrollPosition === 0) {
+          previous.setAttribute('class', ' ')
+          setExpanded(previous, ' ')
+        }
       }
     }
   };
