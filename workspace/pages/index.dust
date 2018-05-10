@@ -43,7 +43,7 @@
     </script>
 
     <script>var totalPages = 0; //{docs.metadata.totalPages}</script>
-    <script src="/nprogress.js"></script>
+    {! <script src="/nprogress.js"></script> !}
     <script src="/scripts.js?v=5"></script>
   </head>
 <body>
