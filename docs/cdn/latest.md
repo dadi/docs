@@ -198,82 +198,36 @@ A very basic `config.development.json` file looks like this:
 
 CDN is capable of pulling files from a variety of sources:
 
-* [Amazon S3](#amazon-s3): retrieve files from existing Amazon S3 buckets
-* [Remote server](#remote-server): retrieve files from a remote web server
 * [Local filesystem](#local-filesystem): retrieve files from the same server as CDN
+* [Remote server](#remote-server): retrieve files from a remote web server
+* [Amazon S3](#amazon-s3): retrieve files from existing Amazon S3 buckets
+* [Digital Ocean Spaces](#amazon-s3): retrieve files from existing Digital Ocean spaces
 
-### [Amazon S3](https://aws.amazon.com/s3/)
+### Local filesystem
 
-> **Security Note**
-> 
-> We **strongly** recommend creating an Amazon IAM account specifically for accessing your S3 buckets.
->
-> -- warning
+The [configuration file](#configuration) contains two sections for configuring a Local Filesystem source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different filesystem locations for each one.
 
-#### Using the configuration file
-
-The [configuration file](#configuration) contains two sections for configuring an Amazon S3 source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different Amazon credentials for each one.
-
-> **Security Note:** We **strongly** recommend that Amazon credentials **are not** stored in your configuration file if that file could be viewed by the public (for example, committed to a public GitHub repository). A better solution is to use [Environment Variables](#using-environment-variables) when configuring an Amazon S3 source.
-
-**Configuration for an Amazon S3 image source**
-```js
+**Configuration for a Local Filesystem image source**
+```json
 "images": {
-  "s3": {
-    "enabled": true,
-    "accessKey": "your-access-key",
-    "secretKey": "your-secret",
-    "bucketName": "your-bucket",
-    "region": "your-region"
-  }
-}
-```
-
-**Configuration for an Amazon S3 asset source**
-```js
-"assets": {
-  "s3": {
-    "enabled": true,
-    "accessKey": "your-access-key",
-    "secretKey": "your-secret",
-    "bucketName": "your-bucket",
-    "region": "your-region"
-  }
-}
-```
-
-> Setting the `enabled` property is essential only when you're using the legacy Path URL scheme. In that case, only one of the source types can be configured for use at any one time, by setting it's `enabled` property to `true`.
-
-**A full Amazon S3 image source configuration, using the Path URL scheme**
-```js
-"images": {
-  "s3": {
-    "enabled": true,
-    "accessKey": "your-access-key",
-    "secretKey": "your-secret",
-    "bucketName": "your-bucket",
-    "region": "your-region"
-  },
-  "remote": {
-    "enabled": false
-  },
   "directory": {
-    "enabled": false
+    "enabled": true,
+    "path": "relative/path/to/your/images"
   }
 }
 ```
 
-It was mentioned earlier that if using the [Querystring URL Scheme](#querystring-url-scheme) then you can use all configured sources at the same time, regardless of the value of the `enabled` property.
-
-##### Using environment variables
-
-One easy way to set environment variables is to specify them on the command line when you launch CDN:
-
+**Configuration for a Local Filesystem asset source**
+```json
+"assets": {
+  "directory": {
+    "enabled": true,
+    "path": "/Users/absolute/path/to/your/assets"
+  }
+}
 ```
-$ AWS_S3_IMAGES_ACCESS_KEY=your-access-key AWS_S3_IMAGES_SECRET_KEY=your-secret node main.js
-```
 
-See the documentation for your operating system for details on setting environment variables. A useful guide for Linux users can be found here https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps.
+With the configuration above, accessing `https://your-cdn.somedomain.tech/test.jpg` would load an image from `{CDN-PATH}/relative/path/to/your/images/test.jpg`, where `{CDN-PATH}` is the path to your CDN installation, whilst `https://your-cdn.somedomain.tech/main.js` would load the file from `/Users/absolute/path/to/your/assets/main.js`.
 
 ### Remote server
 
@@ -282,7 +236,7 @@ The remote server source connects CDN to any publicly available URL where you ar
 The [configuration file](#configuration) contains two sections for configuring a remote server source. One section is for images and the other is for assets. This makes it possible to store your images and assets in different locations on a remote server, or even use different servers for each.
 
 **Configuration for a remote server image source**
-```js
+```json
 "images": {
   "remote": {
     "enabled": true,
@@ -292,7 +246,7 @@ The [configuration file](#configuration) contains two sections for configuring a
 ```
 
 **Configuration for a remote server asset source**
-```js
+```json
 "assets": {
   "remote": {
     "enabled": true,
@@ -308,7 +262,7 @@ With the configuration above, accessing `https://your-cdn.somedomain.tech/test.j
 When the `allowFullURL` is set to `true` (defaults to `false`), users can specify a full URL for a file rather than just a relative path that will be appended to the base URI defined in the `path` property.
 
 **Configuration for a remote server image source allowing full URLs**
-```js
+```json
 "images": {
   "remote": {
     "enabled": true,
@@ -329,31 +283,98 @@ When `allowFullURL` is disabled and a request specifying a full URL is made, the
 }
 ```
 
-### Local filesystem
+### [Amazon S3](https://aws.amazon.com/s3/)
 
-The [configuration file](#configuration) contains two sections for configuring a Local Filesystem source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different filesystem locations for each one.
+CDN can be configured to serve files from S3-compatible services, such as Amazon S3 and Digital Ocean Spaces.
 
-**Configuration for a Local Filesystem image source**
-```js
+> **Security Note**
+> 
+> If using AWS S3, ee **strongly** recommend creating an Amazon IAM account specifically for accessing your S3 buckets.
+>
+> -- warning
+
+#### Using the configuration file
+
+The [configuration file](#configuration) contains two sections for configuring an S3 source. One section is for images and the other is for assets. Specifying image and asset settings separately allows you to use different credentials for each one.
+
+> **Security Note:** We **strongly** recommend that S3 credentials **are not** stored in your configuration file if that file could be viewed by the public (for example, committed to a public GitHub repository). A better solution is to use [Environment Variables](#using-environment-variables) when configuring an S3 source.
+
+**Configuration for an S3 image source**
+```json
 "images": {
-  "directory": {
+  "s3": {
     "enabled": true,
-    "path": "relative/path/to/your/images"
+    "accessKey": "your-access-key",
+    "secretKey": "your-secret",
+    "bucketName": "your-bucket",
+    "region": "your-region"
   }
 }
 ```
 
-**Configuration for a Local Filesystem asset source**
-```js
+**Configuration for an S3 asset source**
+```json
 "assets": {
-  "directory": {
+  "s3": {
     "enabled": true,
-    "path": "/Users/absolute/path/to/your/assets"
+    "accessKey": "your-access-key",
+    "secretKey": "your-secret",
+    "bucketName": "your-bucket",
+    "region": "your-region"
   }
 }
 ```
 
-With the configuration above, accessing `https://your-cdn.somedomain.tech/test.jpg` would load an image from `{CDN-PATH}/relative/path/to/your/images/test.jpg`, where `{CDN-PATH}` is the path to your CDN installation, whilst `https://your-cdn.somedomain.tech/main.js` would load the file from `/Users/absolute/path/to/your/assets/main.js`.
+> Setting the `enabled` property is essential only when you're using the legacy Path URL scheme. In that case, only one of the source types can be configured for use at any one time, by setting it's `enabled` property to `true`.
+
+**A full S3 image source configuration, using the Path URL scheme**
+```json
+"images": {
+  "s3": {
+    "enabled": true,
+    "accessKey": "your-access-key",
+    "secretKey": "your-secret",
+    "bucketName": "your-bucket",
+    "region": "your-region"
+  },
+  "remote": {
+    "enabled": false
+  },
+  "directory": {
+    "enabled": false
+  }
+}
+```
+
+##### Connecting to a Digital Ocean Space
+
+Digital Ocean Spaces uses an S3-compatible API and as such the above configuration section is almost all that's needed - just add access key and secret credentials from your Digital Ocean account. One extra property is required to tell CDN where to find your images: `endpoint`. When configuring a Space in your Digital Ocean account you are given an endpoint with the format `<datacenter-region>.digitaloceanspaces.com`, for example `ams3.digitaloceanspaces.com`. Add this to CDN's S3 configuration block:
+
+```json
+"images": {
+  "s3": {
+    "enabled": true,
+    "accessKey": "your-access-key",
+    "secretKey": "your-secret",
+    "bucketName": "name-of-your-space",
+    "region": "ams3",
+    "endpoint": "ams3.digitaloceanspaces.com"
+  }
+}
+```
+
+> Remember that if using the [Querystring URL Scheme](#querystring-url-scheme), you can use all configured sources at the same time, regardless of the value of the `enabled` property.
+
+##### Using environment variables
+
+One easy way to set environment variables is to specify them on the command line when you launch CDN:
+
+```
+$ AWS_S3_IMAGES_ACCESS_KEY=your-access-key AWS_S3_IMAGES_SECRET_KEY=your-secret node main.js
+```
+
+See the documentation for your operating system for details on setting environment variables. A useful guide for Linux users can be found here https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-a-linux-vps.
+
 
 ## Serving files
 
