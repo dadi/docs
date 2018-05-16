@@ -200,8 +200,8 @@ CDN is capable of pulling files from a variety of sources:
 
 * [Local filesystem](#local-filesystem): retrieve files from the same server as CDN
 * [Remote server](#remote-server): retrieve files from a remote web server
-* [Amazon S3](#amazon-s3): retrieve files from existing Amazon S3 buckets
-* [Digital Ocean Spaces](#amazon-s3): retrieve files from existing Digital Ocean spaces
+* [Amazon S3](#amazon-s3-and-digital-ocean-spaces): retrieve files from existing Amazon S3 buckets
+* [Digital Ocean Spaces](#amazon-s3-and-digital-ocean-spaces): retrieve files from existing Digital Ocean spaces
 
 ### Local filesystem
 
@@ -283,13 +283,13 @@ When `allowFullURL` is disabled and a request specifying a full URL is made, the
 }
 ```
 
-### [Amazon S3](https://aws.amazon.com/s3/)
+### Amazon S3 and Digital Ocean Spaces
 
-CDN can be configured to serve files from S3-compatible services, such as Amazon S3 and Digital Ocean Spaces.
+CDN can be configured to serve files from S3-compatible services, such as [Amazon S3](https://aws.amazon.com/s3/) and [Digital Ocean Spaces](https://www.digitalocean.com/products/spaces/). Most of the configuration options are the same, however Digital Ocean requires an additional configuration property for [endpoint](#connecting-to-a-digital-ocean-space).
 
 > **Security Note**
 > 
-> If using AWS S3, ee **strongly** recommend creating an Amazon IAM account specifically for accessing your S3 buckets.
+> If using AWS S3, we **strongly** recommend creating an Amazon IAM account specifically for accessing your S3 buckets.
 >
 > -- warning
 
