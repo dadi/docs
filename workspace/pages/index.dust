@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     <link rel="stylesheet" type="text/css" href="/styles.css">
 
-    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Roboto|Roboto Mono" rel="stylesheet" type="text/css">
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
@@ -47,29 +47,36 @@
     <script src="/scripts.js?v=5"></script>
   </head>
 <body>
+
+{?product_doc.results}
 <nav>
-  <ul>
-    <li class="expanded"><a class="active" href="/">Introduction</a></li>
-  </ul>
   <ul id="nav">
     {>"partials/nav"/}
   </ul>
-
-  <footer>
-    Built using <a href="https://dadi.tech/web">DADI Web {version}</a><br>
-    Edit on <a href="https://github.com/dadi/docs/" rel="external">Github</a>
-  </footer>
 </nav>
+{/product_doc.results}
 
-<main id="main">
-  {>"partials/header"/}
+{>"partials/header"/}
+
+<main id="main" {?product_doc.results}class="withnav"{/product_doc.results}>
   {^product_doc.results}
-    {>"partials/intro"/}
+    <div class="cols cols--4">
+      {#navigation}
+        <div class="col box">
+          <div class="box__inner"><a href="/{product}/{version}">{name}</a></div>
+        </div>
+      {/navigation}
+    </div>
   {/product_doc.results}
 
   {?product_doc.results}
     {>"partials/doc"/}
   {/product_doc.results}
+
+   <footer>
+    Built using <a href="https://dadi.tech/web">DADI Web {version}</a><br>
+    Edit on <a href="https://github.com/dadi/docs/" rel="external">Github</a>
+  </footer>
 </main>
 
 </body>

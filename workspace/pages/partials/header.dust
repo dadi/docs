@@ -1,21 +1,12 @@
 <header id="introduction">
   <a href="/">
-    <img src="https://dadi.tech/assets/img/dadi-colour.svg" width="150" height="35" alt="DADI" class="logo">
+    <img src="/dadi-mark-white.svg" height="25" alt="DADI" class="logo">
+
+    Documentation
   </a>
-
-  <ul class="small">
-    <li>
-      {^product_doc.results}
-      <a href="https://github.com/dadi/"><span>Find us on GitHub</span><i class="fa fa-github" aria-hidden="true"></i></a>
-      {:else}
-      <a href="https://github.com/dadi/{#product_doc.results}{attributes.product}{/product_doc.results}"><span>Find us on GitHub</span><i class="fa fa-github" aria-hidden="true"></i></a>
-      {/product_doc.results}
-    </li>
-    <li>
-      <a href="https://docs.dadi.tech" class="on">Documentation</a>
-    </li>
-  </ul>
-
+ 
+  <a class="source" href="https://github.com/dadi/{#product_doc.results}{attributes.product}{/product_doc.results}"><span>View source GitHub</span></a>
+  
   {! <div class="search">
     <input type="search" placeholder="Search the documentation…">
   </div> !}

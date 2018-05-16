@@ -16,6 +16,13 @@
     "fields": [
       "attributes",
       "contentText"
+    ],
+    "requestParams": [
+      {
+        "field": "product",
+        "param": "product",
+        "target": "filter"
+      }
     ]
   }
 }

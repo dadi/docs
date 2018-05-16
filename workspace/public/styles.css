@@ -1,6 +1,6 @@
 body {
-	background: #f9f9f9;
-	font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+	background: #fff;
+	font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
 	color: #000;
 	font-size: 15px;
 	line-height: 1.55em;
@@ -8,10 +8,6 @@ body {
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-i.fa-github {
-	display: none;
 }
 
 header#introduction ul li a span {
@@ -35,9 +31,11 @@ header#introduction ul li a span {
 }
 
 main {
-	margin-left: 20%;
 	padding-left: 60px;
 	padding-bottom: 500px;
+}
+main.withnav {
+	margin-left: 20%;
 }
 
 @media handheld, only screen and (max-width: 650px) {
@@ -71,10 +69,12 @@ h1 {
 	/*color: #000;*/
 }
 h2 {
-	font-size: 30px;
+	font-size: 27px;
 	line-height: 1.1em;
-	margin-bottom: 30px;
-	margin-top: 60px;
+	margin-bottom: 20px;
+	margin-top: 50px;
+	border-top: 1px solid #eee;
+	padding-top: 25px;
 }
 h3 {
 	font-size: 22px;
@@ -132,15 +132,15 @@ p {
 }
 
 .anchor {
-    width: 25px;
-    float: left;
-    margin-left: -27px;
-    margin-top: -3px;
-    outline: none;
-    opacity: 0;
-    border: none !important;
-    background: url(icon-link.svg) no-repeat 50% 70%;
-    font-size: 0;
+  width: 25px;
+  float: left;
+  margin-left: -27px;
+  margin-top: -3px;
+  outline: none;
+  opacity: 0;
+  border: none !important;
+  background: url(icon-link.svg) no-repeat 50% 70%;
+  font-size: 0;
 }
 @media handheld, only screen and (max-width: 650px) {
 	.anchor {
@@ -158,9 +158,28 @@ h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover
 */
 
 header {
-	background: #fff;
-	border-bottom: 1px solid #E3E3E3;
-	margin: 0 0 0 -60px;
+  font-family: 'Roboto Mono','Courier New',Courier,'Lucida Sans Typewriter','Lucida Typewriter',monospace;
+  z-index: 10;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #070f1b;
+  -webkit-box-shadow: 0 0 10px rgba(4,17,29,.17);
+  box-shadow: 0 0 10px rgba(4,17,29,.17);
+  font-size: 14.4px;
+  font-size: .9rem;
+  color: #fff;
+}
+header .source {
+	position: absolute;
+	right: 0; top: 0;
+	color: #0ecc5f;
+}
+header .logo {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 15px;
 }
 header a {
 	padding: 25px 60px;
@@ -250,11 +269,7 @@ nav {
 	position: fixed;
 	top: 0; left: 0; bottom: 0;
 	width: 20%;
-	background: #141418 url(bg-nav.png) no-repeat 50%;
 	background-size: 100% 100%;
-	color: #fff;
-
-	box-shadow: 0 2px 9px 0 rgba(0,0,0,0.33);
 
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
@@ -271,13 +286,14 @@ nav > ul {
 }
 
 nav > ul > li {
-	padding: 20px;
-	border-bottom: 1px solid #2C3139;
+	padding: 20px 20px 20px 50px;
 }
 
 nav > ul > li > a {
-	margin: -20px -20px -20px -20px;
-	padding: 20px;
+	border-bottom: 1px solid #efefef;
+	margin: 0 -20px 20px -20px;
+	height: 50px;
+	padding: 25px 20px 0 20px;
 	display: block;
 }
 
@@ -327,14 +343,12 @@ nav > ul > li > p > a {
 }
 
 nav > ul > li.expanded {
-	background-color: rgba(0,0,0,0.3) !important;
 	text-decoration: none;
 }
 
 nav > ul > li > ul > li > a {
 	font-weight: bold;
 	color: #6E6E6E;
-	text-transform: uppercase;
 	font-size: 14px;
 	display: block;
 	line-height: 18px;
@@ -542,7 +556,6 @@ nav > ul > li > ul > li > a {
 */
 
 a code {
-	border-radius: 0px;
 	background: none;
 }
 
@@ -551,7 +564,6 @@ code {
 	background: #FFFFFF;
 	border: 1px solid #EFEFEF;
 	box-shadow: 7px 7px 4px 0 rgba(0,0,0,0.02);
-	border-radius: 9px;
 	padding: 0 5px;
 	margin-bottom: -1px;
 	font-family: "Roboto Mono", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
@@ -580,7 +592,7 @@ pre code {
 }
 #nav--api {
 	background: url(https://dadi.tech/assets/products/dadi-api.png) no-repeat 90% 20px;
-	background-size: auto 22px;
+	background-size: auto 32px;
 }
 .docs--api ::selection {
 	background: #0ba6dd;
@@ -598,8 +610,8 @@ pre code {
 	font-weight: bold;
 }
 #nav--cdn {
-	background: url(https://dadi.tech/assets/products/dadi-cdn.png) no-repeat 90% 22px;
-	background-size: auto 22px;
+	background: url(https://dadi.tech/assets/products/dadi-cdn.png) no-repeat 90% 37px;
+	background-size: auto 32px;
 }
 .docs--cdn ::selection {
 	background: #e02975;
@@ -617,8 +629,8 @@ pre code {
 	font-weight: bold;
 }
 #nav--publish {
-	background: url(https://dadi.tech/assets/products/dadi-publish.png) no-repeat 90% 22px;
-	background-size: auto 22px;
+	background: url(https://dadi.tech/assets/products/dadi-publish.png) no-repeat 90% 37px;
+	background-size: auto 32px;
 }
 .docs--publish ::selection {
 	background: #ffbf0d;
@@ -636,8 +648,8 @@ pre code {
 	font-weight: bold;
 }
 #nav--web {
-	background: url(https://dadi.tech/assets/products/dadi-web.png) no-repeat 90% 22px;
-	background-size: auto 22px;
+	background: url(https://dadi.tech/assets/products/dadi-web.png) no-repeat 90% 37px;
+	background-size: auto 32px;
 }
 .docs--web ::selection {
 	background: #e42918;
@@ -655,8 +667,8 @@ pre code {
 	font-weight: bold;
 }
 #nav--cli {
-	background: url(/assets/dadi-cli-mark.png) no-repeat 90% 22px;
-	background-size: auto 22px;
+	background: url(/assets/dadi-cli-mark.png) no-repeat 90% 37px;
+	background-size: auto 32px;
 }
 .docs--cli ::selection {
 	background: #e7461f;
@@ -674,8 +686,8 @@ pre code {
 	font-weight: bold;
 }
 #nav--queue {
-	background: url(/assets/dadi-queue.png) no-repeat 90% 22px;
-	background-size: auto 22px;
+	background: url(/assets/dadi-queue.png) no-repeat 90% 37px;
+	background-size: auto 32px;
 }
 .docs--queue ::selection {
 	background: #8773dd;
@@ -685,34 +697,33 @@ pre code {
 	background: #8773dd;
 	color: #fff;
 }
-@media handheld, only screen and (max-width: 650px) {
-  #nav--api {
-  	background: url(https://dadi.tech/assets/products/dadi-api.png) no-repeat 90% 8px;
-  	background-size: auto 18px;
-  }
 
-  #nav--cdn {
-    background: url(https://dadi.tech/assets/products/dadi-cdn.png) no-repeat 90% 8px;
-    background-size: auto 18px;
-  }
+.cols {
+	    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.cols--4>.col {
+    width: calc(25% - 30px);
+        margin: 0 15px 30px;
+}
 
-  #nav--web {
-    background: url(https://dadi.tech/assets/products/dadi-web.png) no-repeat 90% 8px;
-    background-size: auto 18px;
-  }
-
-  #nav--publish {
-    background: url(https://dadi.tech/assets/products/dadi-publish.png) no-repeat 90% 8px;
-    background-size: auto 18px;
-  }
-
-  #nav--cli {
-    background: url(/assets/dadi-cli-mark.png) no-repeat 90% 8px;
-    background-size: auto 18px;
-  }
-
-  #nav--queue {
-    background: url(/assets/dadi-queue.png) no-repeat 90% 8px;
-    background-size: auto 18px;
-  }
+.box {
+	border: 1px solid #e5e4e4; 
+	box-shadow: 2px 2px 15px 0 rgba(0,0,0,.04);
+	position: relative;
+	display: block;
+	line-height: 1.4em;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.box__inner {
+	padding: 25px;
+  display: block;
 }
