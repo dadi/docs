@@ -12,25 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     <link rel="stylesheet" type="text/css" href="/styles.css">
 
-    <link href="//fonts.googleapis.com/css?family=Roboto|Roboto Mono" rel="stylesheet" type="text/css">
-
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-    <script>
-      var loc = window.location;
-      var href = loc.pathname + loc.hash;
-      var re = /^\/#([a-z]*)\/?(.*)$/;
-      var match = re.exec(href);
-
-      if (match) {
-        var newURL = window.location.protocol + "//" + window.location.host + "/" + match[1] + "/";
-        if (match[2]) {
-          newURL += "#" + match[2];
-        }
-
-        window.location.replace(location);
-      }
-    </script>
+    <link href="//fonts.googleapis.com/css?family=Roboto:400,400i,700,700i|Roboto Mono" rel="stylesheet" type="text/css">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42395806-3"></script>
@@ -42,42 +24,79 @@
       gtag('config', 'UA-42395806-3');
     </script>
 
-    <script>var totalPages = 0; //{docs.metadata.totalPages}</script>
-    {! <script src="/nprogress.js"></script> !}
     <script src="/scripts.js?v=5"></script>
   </head>
-<body>
+<body {^product_doc.results}class="home"{/product_doc.results}>
 
 {?product_doc.results}
 <nav>
   <ul id="nav">
-    {>"partials/nav"/}
+    {#navigation}
+      <li id="nav--{product}" class="expanded">
+        {@markdown}{tocMap|s}{/markdown}
+      </li>
+    {/navigation}
   </ul>
 </nav>
 {/product_doc.results}
 
-{>"partials/header"/}
+<header>
+  <a href="/" class="header__title">
+    <img src="/dadi-mark.svg" height="25" alt="DADI" class="logo">
+    Documentation
+  </a>
 
-<main id="main" {?product_doc.results}class="withnav"{/product_doc.results}>
+  {#product_doc.results}
+    {#navigation}
+      <div class="header__product">
+        <img src="/products/dadi-{product}.png" height="30">
+        
+        {name}
+        
+        <select class="version-selector" id="versions">{#versions}<li><option value="/{attributes.product}/{.}" {@eq key=. value=attributes.version}selected{/eq}>{@eq key=. value="latest"}latest version{:else}version {.}{/eq}</option>{/versions}<select>
+      </div>
+    {/navigation}
+  {/product_doc.results}
+ 
+  <a class="source" href="https://github.com/dadi/{#product_doc.results}{attributes.product}{/product_doc.results}"><span>View source GitHub</span></a>
+</header>
+
+<main id="main">
   {^product_doc.results}
+    <div class="welcome">
+      <h1>Welcome to the documentation.</h1>
+      <p>DADI is an enterprise-grade, deployment-ready web services stack, built around a microservices architecture.</p>
+      <p><a href="https://dadi.cloud" class="btn">More about DADI</a></p>
+    </div>
+
     <div class="cols cols--4">
       {#navigation}
-        <div class="col box">
-          <div class="box__inner"><a href="/{product}/{version}">{name}</a></div>
-        </div>
+        <a href="/{product}/{version}" class="col box box--{product} js-tilt">
+          <div class="box__inner">         
+            <div class="box__title">{name}</div>
+            
+            <div class="box__desc">A schemaless templating layer that can operate as a standalone platform or with API as a full stack web application.</div>
+          </div>
+        </a>
       {/navigation}
     </div>
   {/product_doc.results}
 
-  {?product_doc.results}
-    {>"partials/doc"/}
+  {#product_doc.results}
+    {?contentText}
+      <div class="docs docs--{attributes.product}">
+        {@markdown highlight="true" app=attributes.product}{contentText|s}{/markdown}
+      </div>
+    {/contentText}
   {/product_doc.results}
-
-   <footer>
-    Built using <a href="https://dadi.tech/web">DADI Web {version}</a><br>
-    Edit on <a href="https://github.com/dadi/docs/" rel="external">Github</a>
-  </footer>
 </main>
 
+{! <script src="/assets/animation/jquery.js"></script>
+<script src="/assets/animation/tilt.js"></script>
+<script>
+$('.js-tilt').tilt({
+    glare: true,
+    maxGlare: .5
+})</script> !}
 </body>
 </html>

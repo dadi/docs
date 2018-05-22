@@ -85,16 +85,9 @@
             setExpanded(previous, ' ');
           }
 
-          // window.location.hash = i;
-
           if ((current.offsetTop <= nav.scrollTop) || (current.offsetTop >= nav.scrollTop)) nav.scrollTop = current.offsetTop - 50
           current.setAttribute('class', 'active');
           setExpanded(current, 'expanded');
-        }
-
-        if (scrollPosition === 0) {
-          previous.setAttribute('class', ' ');
-          //setExpanded(previous, ' ');
         }
       }
     }

@@ -14,39 +14,18 @@ header#introduction ul li a span {
 	display: block;
 }
 
-@media handheld, only screen and (max-width: 650px) {
-	body {
-		font-size: 12px;
-		line-height: 1.2em;
-	}
-
-	i.fa-github {
-		display: block;
-		font-size: 24px;
-	}
-
-	header#introduction ul li a span {
-		display: none;
-	}
-}
-
 main {
-	padding-left: 60px;
-	padding-bottom: 500px;
+	margin-top: 115px;
+	padding-bottom: 200px;
+  margin-left: 27%;
+	margin-right: 7%;
 }
-main.withnav {
-	margin-left: 20%;
+body.home {
+	background: #f9f9f9;
 }
-
-@media handheld, only screen and (max-width: 650px) {
-	/*main {
-		margin-left: 0;
-		padding-left: 5%;
-	}*/
-	main {
-		margin-left: 10px;
-		padding-left: 30%;
-	}
+body.home main {
+	margin-left: 10%;
+  margin-right: 10%;
 }
 
 /*
@@ -63,23 +42,18 @@ a {
 	color: inherit;
 }
 
-h1 {
-	margin: 0;
-	font-size: 42px;
-	/*color: #000;*/
-}
 h2 {
 	font-size: 27px;
 	line-height: 1.1em;
-	margin-bottom: 20px;
-	margin-top: 50px;
-	border-top: 1px solid #eee;
+	margin-bottom: 30px;
+	margin-top: 60px;
+	border-top: 3px solid;
 	padding-top: 25px;
 }
 h3 {
 	font-size: 22px;
 	margin-bottom: 25px;
-	margin-top: 40px;
+	margin-top: 50px;
 }
 h4 {
 	color: #666;
@@ -117,20 +91,6 @@ p {
 	Buttons
 */
 
-.btn {
-	border-radius: 100px;
-	border: 2px solid;
-	font-weight: bold;
-	padding: 3px 10px;
-	display: inline-block;
-	margin-right: 10px;
-}
-.btn:hover {
-	background: #000;
-	color: #fff;
-	border-color: #000;
-}
-
 .anchor {
   width: 25px;
   float: left;
@@ -160,21 +120,37 @@ h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover
 header {
   font-family: 'Roboto Mono','Courier New',Courier,'Lucida Sans Typewriter','Lucida Typewriter',monospace;
   z-index: 10;
-  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background-color: #070f1b;
+  background-color: #fff;
   -webkit-box-shadow: 0 0 10px rgba(4,17,29,.17);
   box-shadow: 0 0 10px rgba(4,17,29,.17);
   font-size: 14.4px;
   font-size: .9rem;
-  color: #fff;
 }
+
+header select {
+	margin-left: 30px;
+}
+
+.header__product {
+	position: absolute;
+	left: 25%; top: 0; bottom: 0;
+	border-left: 1px solid #eaebec;
+	padding: 23px 2%;
+}
+.header__product img {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
 header .source {
 	position: absolute;
 	right: 0; top: 0;
-	color: #0ecc5f;
+	color: #326ff4;
 }
 header .logo {
 	display: inline-block;
@@ -183,7 +159,7 @@ header .logo {
 }
 header a {
 	padding: 25px 60px;
-	display: block;
+	display: inline-block;
 }
 header ul {
 	position: absolute;
@@ -216,67 +192,17 @@ header ul li a.on {
 }
 
 /*
-	Footer
-*/
-
-footer {
-	padding: 15px 20px;
-	z-index: 10;
-	color: #fff;
-	font-size: 13px;
-	line-height: 20px;
-	color: #636972;
-}
-footer a {
-	font-weight: bold;
-}
-
-@media handheld, only screen and (max-width: 650px) {
-	footer {
-		padding: 15px 10px;
-		font-size: 10px;
-		line-height: 14px;
-	}
-}
-
-
-/*
-	Search
-*/
-
-.search {
-	border-top: 1px solid #E3E3E3;
-	display: block;
-}
-.search input {
-	background: #f9f9f9 url(icon-search.svg) no-repeat 60px 50%;
-	width: 100%;
-	border: none;
-	padding: 25px 60px 25px 90px;
-	display: block;
-	outline: none;
-	font-size: 15px;
-}
-.search input:focus {
-	background-color: #eee;
-}
-
-/*
 	Navigation
 */
 
 nav {
 	position: fixed;
-	top: 0; left: 0; bottom: 0;
+	top: 85px; left: 0; bottom: 0;
 	width: 20%;
 	background-size: 100% 100%;
 
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
-}
-
-@media handheld, only screen and (max-width: 650px) {
-	nav {display: /*none*/}
 }
 
 nav > ul {
@@ -287,14 +213,6 @@ nav > ul {
 
 nav > ul > li {
 	padding: 20px 20px 20px 50px;
-}
-
-nav > ul > li > a {
-	border-bottom: 1px solid #efefef;
-	margin: 0 -20px 20px -20px;
-	height: 50px;
-	padding: 25px 20px 0 20px;
-	display: block;
 }
 
 nav li {
@@ -399,70 +317,25 @@ nav > ul > li > ul > li > a {
 	}
 }
 
-/*
-	Introduction
-*/
-
-.intro {
-	min-height: 80vh;
-	background: url(illo.png) no-repeat 100% 100%;
-	background-size: 250px auto;
-	padding-right: 20px;
-}
-
-.intro h2 {
-	color: #e5462c;
-	margin-top: 40px;
-}
-.intro p {
-	max-width: 600px;
-}
-.intro__feat {
-	margin-top: 70px;
-}
-.intro__feat div {
-	position: relative;
-	padding-left: 60px;
-	margin-bottom: 30px;
-}
-.intro__feat img {
-	position: absolute;
-	left: 0; top: -3px;
-}
-.intro__feat p {
-	color: #999;
-}
-
-@media handheld, only screen and (max-width: 650px) {
-	.intro__feat div {
-		padding-left: 44px;
-	}
-}
 
 /*
 	Styles for docs
 */
 
 .docs {
-	/*border-top: 1px solid #e3e3e3;*/
-	padding-top: 40px;
-	/*margin-top: 80px;*/
-	padding-right: 60px;
+	margin-top: 115px;
 }
-@media handheld, only screen and (max-width: 650px) {
-	.docs {
-		padding-right: 5%
-	}
+
+.docs h2:first-of-type {
+	margin-top: 0;
 }
 
 .docs blockquote.advice,
 .docs blockquote.warning {
 	opacity: 1;
 	padding: 1px 1em;
-	border-radius: 4px 9px 9px 4px;
 	border-color: #87c443;
 	background-color: #eff9e1;
-	box-shadow: 7px 7px 4px 0 rgba(0,0,0,0.02);
 }
 .docs blockquote.warning {
 	border-color: #e7461f;
@@ -475,7 +348,7 @@ nav > ul > li > ul > li > a {
 
 .docs blockquote {
 	padding: 0 1em;
-	margin: 1em 0px;
+	margin: 30px 0px;
 	opacity: 0.5;
 	border-left: 0.25em solid #ddd;
 }
@@ -500,6 +373,7 @@ nav > ul > li > ul > li > a {
 	word-break: keep-all;
 	border-spacing: 0;
 	border-collapse: collapse;
+	margin: 60px 0;
 
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
@@ -536,21 +410,6 @@ nav > ul > li > ul > li > a {
 	border: 3px solid #fff;
 }
 
-@media handheld, only screen and (max-width: 650px) {
-	.docs {
-		padding-right: 5%
-	}
-
-  .docs code {
-		font-size: 10px;
-		line-height: 15px;
-  }
-
-  .docs table {
-  	font-size: 12px;
-  }
-}
-
 /*
 	Code highlighting
 */
@@ -561,9 +420,9 @@ a code {
 
 code {
 	display: inline-block;
-	background: #FFFFFF;
+	background: #fafafa;
 	border: 1px solid #EFEFEF;
-	box-shadow: 7px 7px 4px 0 rgba(0,0,0,0.02);
+	box-shadow: 2px 2px 15px 0 rgba(0,0,0,.04);
 	padding: 0 5px;
 	margin-bottom: -1px;
 	font-family: "Roboto Mono", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
@@ -571,11 +430,103 @@ code {
 
 pre code {
 	padding: 15px;
-	margin-bottom: 20px;
+	margin-top: 30px;
+	margin-bottom: 30px;
 	display: block;
 
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
+}
+
+/*
+	Product boxes
+*/
+
+.welcome {
+	padding: 50px 0;
+}
+.welcome p {
+	font-size: 1.3rem;
+}
+.welcome .icon {
+	opacity: .04;
+	position: absolute;
+	right: 0;
+	width: 330px;
+	top: -60px;
+}
+
+.cols {
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	margin-left: -15px;
+	margin-right: -15px;
+	margin-top: 40px;
+}
+.cols--4>.col {
+	width: calc(25% - 30px);
+	margin: 0 15px 30px;
+}
+
+.box {
+	background: #fff;
+	border: 1px solid #e5e4e4; 
+	box-shadow: 2px 2px 15px 0 rgba(0,0,0,.04);
+	position: relative;
+	display: block;
+	line-height: 1.4em;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	transform-style: preserve-3d;
+
+	background-position: 30px 30px;
+  background-repeat: no-repeat;
+  background-size: auto 40px;
+}
+.box__inner {
+	margin: 25px;
+  display: block;
+  transform: translateZ(20px);
+}
+
+.box__title {
+	margin-top: 150px;
+	margin-bottom: 20px;
+	font-family: "Roboto Mono";
+	text-transform: lowercase;
+}
+
+
+
+.btn {
+  display: inline-block;
+  background-color: transparent;
+  color: #777;
+  border: 1px solid transparent;
+  border-bottom-color: #0ecc5f;
+  text-decoration: none;
+  padding: 15px 0;
+  transition: all 0.2s;
+  cursor: pointer;
+  line-height: 0;
+  font-family: "Roboto Mono";
+  outline: none;
+	background: none;
+  display: inline-block;
+  font-size: 14px;
+}
+.btn:hover {
+  background-color: #0ecc5f;
+  color: #fff;
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+  z-index: 1;
 }
 
 
@@ -590,17 +541,17 @@ pre code {
 	border-bottom: 1px solid #0ba6dd;
 	font-weight: bold;
 }
-#nav--api {
-	background: url(https://dadi.tech/assets/products/dadi-api.png) no-repeat 90% 20px;
-	background-size: auto 32px;
-}
-.docs--api ::selection {
-	background: #0ba6dd;
+.docs--api ::selection,
+.box--api {
+	background-color: #0ba6dd;
 	color: #fff;
 }
 .docs--api ::-moz-selection {
 	background: #0ba6dd;
 	color: #fff;
+}
+.box--api {
+	background-image: url(/products/dadi-api-bg.svg);
 }
 
 .docs--cdn h1, .docs--cdn h2,
@@ -609,17 +560,17 @@ pre code {
 	border-bottom: 1px solid #e02975;
 	font-weight: bold;
 }
-#nav--cdn {
-	background: url(https://dadi.tech/assets/products/dadi-cdn.png) no-repeat 90% 37px;
-	background-size: auto 32px;
-}
-.docs--cdn ::selection {
-	background: #e02975;
+.docs--cdn ::selection,
+.box--cdn {
+	background-color: #e02975;
 	color: #fff;
 }
 .docs--cdn ::-moz-selection {
 	background: #e02975;
 	color: #fff;
+}
+.box--cdn {
+	background-image: url(/products/dadi-cdn-bg.svg);
 }
 
 .docs--publish h1, .docs--publish h2,
@@ -628,17 +579,17 @@ pre code {
 	border-bottom: 1px solid #ffbf0d;
 	font-weight: bold;
 }
-#nav--publish {
-	background: url(https://dadi.tech/assets/products/dadi-publish.png) no-repeat 90% 37px;
-	background-size: auto 32px;
-}
-.docs--publish ::selection {
-	background: #ffbf0d;
+.docs--publish ::selection,
+.box--publish {
+	background-color: #ffbf0d;
 	color: #000;
 }
 .docs--publish ::-moz-selection {
 	background: #ffbf0d;
 	color: #000;
+}
+.box--publish {
+	background-image: url(/products/dadi-publish-bg.svg);
 }
 
 .docs--web h1, .docs--web h2,
@@ -647,17 +598,17 @@ pre code {
 	border-bottom: 1px solid #e42918;
 	font-weight: bold;
 }
-#nav--web {
-	background: url(https://dadi.tech/assets/products/dadi-web.png) no-repeat 90% 37px;
-	background-size: auto 32px;
-}
-.docs--web ::selection {
-	background: #e42918;
+.docs--web ::selection,
+.box--web {
+	background-color: #e42918;
 	color: #fff;
 }
 .docs--web ::-moz-selection {
 	background: #e42918;
 	color: #fff;
+}
+.box--web {
+	background-image: url(/products/dadi-web-bg.svg);
 }
 
 .docs--cli h1, .docs--cli h2,
@@ -665,10 +616,6 @@ pre code {
 .docs--cli a {
 	border-bottom: 1px solid #e7461f;
 	font-weight: bold;
-}
-#nav--cli {
-	background: url(/assets/dadi-cli-mark.png) no-repeat 90% 37px;
-	background-size: auto 32px;
 }
 .docs--cli ::selection {
 	background: #e7461f;
@@ -678,6 +625,10 @@ pre code {
 	background: #e7461f;
 	color: #fff;
 }
+.box--cli {
+	background-image: url(/products/dadi-cli.png);
+	background-size: auto 30px;
+}
 
 .docs--queue h1, .docs--queue h2,
 #nav--queue .active { color: #8773dd;}
@@ -685,45 +636,15 @@ pre code {
 	border-bottom: 1px solid #8773dd;
 	font-weight: bold;
 }
-#nav--queue {
-	background: url(/assets/dadi-queue.png) no-repeat 90% 37px;
-	background-size: auto 32px;
-}
-.docs--queue ::selection {
-	background: #8773dd;
+.docs--queue ::selection,
+.box--queue {
+	background-color: #8773dd;
 	color: #fff;
 }
 .docs--queue ::-moz-selection {
 	background: #8773dd;
 	color: #fff;
 }
-
-.cols {
-	    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    margin-left: -15px;
-    margin-right: -15px;
-}
-.cols--4>.col {
-    width: calc(25% - 30px);
-        margin: 0 15px 30px;
-}
-
-.box {
-	border: 1px solid #e5e4e4; 
-	box-shadow: 2px 2px 15px 0 rgba(0,0,0,.04);
-	position: relative;
-	display: block;
-	line-height: 1.4em;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
-.box__inner {
-	padding: 25px;
-  display: block;
+.box--queue {
+	background-image: url(/products/dadi-queue-bg.svg);
 }
