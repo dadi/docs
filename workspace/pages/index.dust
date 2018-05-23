@@ -56,7 +56,7 @@
   </ul>
 
   <footer>
-    Built using <a href="https://dadi.tech/web">DADI Web {version}</a><br>
+    Built using <a href="https://dadi.cloud/web">DADI Web {version}</a><br>
     Edit on <a href="https://github.com/dadi/docs/" rel="external">Github</a>
   </footer>
 </nav>

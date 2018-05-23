@@ -1,6 +1,8 @@
 const toc = require('markdown-toc')
+const pkg = require('../../node_modules/@dadi/web/package.json')
 
 const Event = function (req, res, data, callback) {
+  data.version = pkg.version
   data.navigation = []
 
   // Group document versions by product

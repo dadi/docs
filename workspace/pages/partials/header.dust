@@ -1,6 +1,6 @@
 <header id="introduction">
   <a href="/">
-    <img src="https://dadi.tech/assets/img/dadi-colour.svg" width="150" height="35" alt="DADI" class="logo">
+    <img src="https://dadi.cloud/assets/img/dadi-logo-colour.svg" width="150" height="35" alt="DADI" class="logo">
   </a>
 
   <ul class="small">
@@ -12,7 +12,7 @@
       {/product_doc.results}
     </li>
     <li>
-      <a href="https://docs.dadi.tech" class="on">Documentation</a>
+      <a href="https://docs.dadi.cloud" class="on">Documentation</a>
     </li>
   </ul>
 
