@@ -154,7 +154,7 @@ Once you've saved this file in the root of your Publish app directory, add a _st
   "scripts": {
     "start": "NODE_ENV=development node server.js"
   },
-  "author": "DADI <team@dadi.tech>",
+  "author": "Your Name <you@somewhere.com>",
   "license": "MIT",
   "dependencies": {
     "@dadi/publish": "^1.0.3-beta"
