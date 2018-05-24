@@ -200,7 +200,7 @@ You can see all the config options in [`config.js`](https://github.com/dadi/web/
 
 | Property | Type | Default | Description | Example |
 |:--|:--|:--|:--|:--|
-| host | String | `0.0.0.0` | The hostname or IP address of the [DADI API](https://dadi.tech/api) instance to connect to | `api.example.com` |
+| host | String | `0.0.0.0` | The hostname or IP address of the [DADI API](https://dadi.cloud/api) instance to connect to | `api.example.com` |
 | protocol | String | `http` | The protocol to use | `https` |
 | port | Number | `8080` | The port of the API instance to connect to | `3001`
 
@@ -2241,12 +2241,12 @@ const Event = function (req, res, data, callback) {
           body: {
             personalizations: [{
               to: [{
-                email: 'hello@dadi.tech',
+                email: 'hello@dadi.cloud',
               }],
-              subject: '[dadi.tech] Contact form message',
+              subject: '[dadi.cloud] Contact form message',
             }],
             from: {
-              email: 'hello@dadi.tech',
+              email: 'hello@dadi.cloud',
             },
             content: [{
               type: 'text/plain',
