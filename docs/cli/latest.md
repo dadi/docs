@@ -1,6 +1,5 @@
 ---
 title: CLI
-order: 5
 published: true
 product: cli
 version: latest

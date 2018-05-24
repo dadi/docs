@@ -7,12 +7,16 @@
 
   document.onreadystatechange = function () {
     if (document.readyState === 'complete') {
-      // getPages();
-      initNav()
+      initNav();
 
-      var versionSelector = document.querySelector('#versions')
+      var versionSelector = document.querySelector('#versions');
       versionSelector.addEventListener('change', function (event) {
-        window.location.href = event.target.options[event.target.selectedIndex].value
+        window.location.href = event.target.options[event.target.selectedIndex].value;
+      })
+
+      var mobilenav = document.querySelector('#mobilenav');
+      mobilenav.addEventListener('change', function (event) {
+        window.location.hash = event.target.options[event.target.selectedIndex].value;
       })
     }
   }
@@ -24,7 +28,7 @@
     }
     timer = setTimeout(function () {
       updateNav()
-    }, 500)
+    }, 100)
   }, false)
 
   function initNav () {
@@ -39,16 +43,16 @@
 
     updateNav();
 
-    var scrollable = document.querySelector('nav');
+    // var scrollable = document.querySelector('nav');
 
-    scrollable.addEventListener('wheel', function (event) {
-      var deltaY = event.deltaY;
-      var contentHeight = scrollable.scrollHeight;
-      var visibleHeight = scrollable.offsetHeight;
-      var scrollTop = scrollable.scrollTop;
+    // scrollable.addEventListener('wheel', function (event) {
+    //   var deltaY = event.deltaY;
+    //   var contentHeight = scrollable.scrollHeight;
+    //   var visibleHeight = scrollable.offsetHeight;
+    //   var scrollTop = scrollable.scrollTop;
 
-      if (scrollTop === 0 && deltaY < 0) { event.preventDefault() } else if (visibleHeight + scrollTop === contentHeight && deltaY > 0) { event.preventDefault(); }
-    })
+    //   if (scrollTop === 0 && deltaY < 0) { event.preventDefault() } else if (visibleHeight + scrollTop === contentHeight && deltaY > 0) { event.preventDefault(); }
+    // })
   };
 
   function throttle (fn, wait) {
@@ -75,7 +79,7 @@
     var nav = document.querySelector('nav');
 
     for (i in sections) {
-      if (sections[i] <= (scrollPosition + 80)) {
+      if (sections[i] <= (scrollPosition + 140)) {
         var previous = document.querySelector('nav .active');
         var current = document.querySelector('nav a[href="#' + i + '"]');
 

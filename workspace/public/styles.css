@@ -1,7 +1,7 @@
 body {
 	background: #fff;
 	font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
-	color: #000;
+	color: #04111d;
 	font-size: 15px;
 	line-height: 1.55em;
 	margin: 0 auto;
@@ -15,17 +15,24 @@ header#introduction ul li a span {
 }
 
 main {
-	margin-top: 115px;
+	margin-top: 123px;
 	padding-bottom: 200px;
   margin-left: 27%;
 	margin-right: 7%;
+}
+@media handheld, only screen and (max-width: 650px) {
+	main {
+		margin-top: 30px;
+		margin-left: 6%;
+  	margin-right: 6%;
+	}
 }
 body.home {
 	background: #f9f9f9;
 }
 body.home main {
-	margin-left: 10%;
-  margin-right: 10%;
+	margin-left: 6%;
+  margin-right: 6%;
 }
 
 /*
@@ -75,18 +82,6 @@ p {
 .normal	{ font-size: 19px; line-height: 27px; }
 .small 	{ font-size: 15px; line-height: 20px; }
 
-@media handheld, only screen and (max-width: 650px) {
-	.normal {
-		font-size: 16px;
-		line-height: 22px;
-	}
-
-	.medium {
-		font-size: 16px;
-		line-height: 24px;
-	}
-}
-
 /*
 	Buttons
 */
@@ -117,21 +112,21 @@ h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover
 	Header
 */
 
-header {
+.header {
   font-family: 'Roboto Mono','Courier New',Courier,'Lucida Sans Typewriter','Lucida Typewriter',monospace;
   z-index: 10;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background-color: #fff;
+  background-color: rgba(255,255,255,0.97);
   -webkit-box-shadow: 0 0 10px rgba(4,17,29,.17);
   box-shadow: 0 0 10px rgba(4,17,29,.17);
   font-size: 14.4px;
   font-size: .9rem;
 }
 
-header select {
+.header select {
 	margin-left: 30px;
 }
 
@@ -146,55 +141,80 @@ header select {
 	vertical-align: middle;
 	margin-right: 10px;
 }
-
-header .source {
+.header .source {
 	position: absolute;
 	right: 0; top: 0;
 	color: #326ff4;
 }
-header .logo {
+.header .logo {
 	display: inline-block;
 	vertical-align: middle;
 	margin-right: 15px;
+	margin-top: -2px;
+	margin-bottom: 2px;
 }
-header a {
-	padding: 25px 60px;
+.header a {
+	padding: 26px 40px 23px;
 	display: inline-block;
 }
-header ul {
+
+.header ul {
 	position: absolute;
 	right: 0;
 	top: 0;
 	margin: 0;
 	padding: 26px 3% 26px 0;
 }
-header ul li {
+.header ul li {
 	display: inline-block;
 }
-header ul li a {
+.header ul li a {
 	display: block;
 	font-weight: bold;
 	padding: 2px 10px;
 	margin: 7px;
 	border-radius: 100px;
 }
-header ul li a:hover {
+.header ul li a:hover {
 	background: #ddd;
 	color: #21262d;
 }
-header ul li a.on {
+.header ul li a.on {
 	background: #e5462c;
 	color: #fff;
 }
 
+
 @media handheld, only screen and (max-width: 650px) {
-	header ul li a.on { display: none }
+	.header,
+	.header__product {
+		position: relative;
+	}
+	.header select {
+		margin: 5px 6%;
+		float: right;
+	}
+	.header__product {
+		border-top: 1px solid #eaebec;
+		border-left: 0;
+		left: 0;
+		padding-left: 25px;
+	}
+	.header a {
+		padding: 22px 25px 18px;
+	}
+	.header .logo {
+		width: 28px;
+		margin-right: 10px;
+	}
 }
+
 
 /*
 	Navigation
 */
 
+@media handheld, only screen and (min-width: 650px) {
 nav {
 	position: fixed;
 	top: 85px; left: 0; bottom: 0;
@@ -203,6 +223,7 @@ nav {
 
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
+}
 }
 
 nav > ul {
@@ -219,6 +240,7 @@ nav li {
 	list-style: none;
 }
 
+@media handheld, only screen and (min-width: 650px) {
 nav > ul > li > ul,
 nav > ul > li > ul > li > ul {
 	max-height: 0;
@@ -232,6 +254,8 @@ nav > ul > li > ul > li.expanded > ul  {
 	max-height: 10000px;
 	opacity: 1;
 	user-select: auto;
+	margin-top: 5px;
+}
 }
 
 nav .active {
@@ -272,59 +296,44 @@ nav > ul > li > ul > li > a {
 	line-height: 18px;
 }
 
+.totop {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	padding: 20px;
+	display: block;
+	color: #888;
+	background: rgba(255,255,255,0.97);
+	border-radius: 30px 0 0 0;
+	box-shadow: -3px -3px 5px #fff;
+}
+
+body.home .totop {
+	display: none;
+}
+
+@media handheld, only screen and (min-width: 650px) {
+	.header--nav { display: none; }
+}
+
 @media handheld, only screen and (max-width: 650px) {
-	/*nav {display: none}*/
 	nav {
-		width: 30%;
+		background: #f9f9f9;
 	}
 
-	nav > ul {
-		font-size: 10px;
+	nav ul ul ul ul {
+		display: none;
 	}
 
 	nav > ul > li {
-		padding: 10px;
-	}
-
-	nav > ul > li > ul > li > a {
-		font-size: 10px;
-		line-height: 10px;
-	}
-
-	nav ul ul {
-		padding-left: 8px !important;
-	}
-
-	h2 {
-		font-size: 18px;
-		line-height: 1em;
-		margin-bottom: 16px;
-		margin-top: 26px;
-	}
-
-	h3 {
-		font-size: 14px;
-		line-height: 14px;
-		margin-bottom: 20px;
-		margin-top: 30px;
-	}
-
-	h4 {
-		color: #666;
-		font-size: 12px;
-		margin-bottom: 16px;
-		margin-top: 2em;
-	}
+    padding: 20px 6%;
+	}	
 }
 
 
 /*
 	Styles for docs
 */
-
-.docs {
-	margin-top: 115px;
-}
 
 .docs h2:first-of-type {
 	margin-top: 0;
@@ -361,12 +370,9 @@ nav > ul > li > ul > li > a {
 	margin-left: 5px;
 	vertical-align: middle;
 }
-.docs code {
-	font-size: 11px;
-	line-height: 20px;
-}
 .docs table {
-	font-size: 15px;
+	font-size: 13px;
+	line-height: 1.3em;
 	display: block;
 	width: 100%;
 	word-break: normal;
@@ -418,24 +424,50 @@ a code {
 	background: none;
 }
 
-code {
+pre {
 	display: inline-block;
 	background: #fafafa;
 	border: 1px solid #EFEFEF;
 	box-shadow: 2px 2px 15px 0 rgba(0,0,0,.04);
 	padding: 0 5px;
-	margin-bottom: -1px;
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.35em;
+	width: 100%;
 	font-family: "Roboto Mono", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
 }
 
-pre code {
-	padding: 15px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	display: block;
-
+pre {
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;
+}
+
+pre code {
+	padding: 10px;
+	display: block;
+}
+code {
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+	max-width: 100%;
+}
+
+@media handheld, only screen and (max-width: 650px) {
+	code {
+		line-height: 16px;
+	}
+	.docs table {
+		margin-top: 30px;
+		margin-bottom: 30px;
+	}
+	h4 {
+		margin-bottom: 20px;
+    margin-top: 45px;
+	}
+	h2 {
+		padding-top: 20px;
+		font-size: 20px;
+	}
 }
 
 /*
@@ -443,17 +475,34 @@ pre code {
 */
 
 .welcome {
-	padding: 50px 0;
+	padding: 30px 0 30px;
+	position: relative;
+}
+.welcome h1 {
+	line-height: 1.4em;
 }
 .welcome p {
 	font-size: 1.3rem;
+	line-height: 1.9rem;
+	max-width: 50%;
 }
 .welcome .icon {
 	opacity: .04;
 	position: absolute;
 	right: 0;
 	width: 330px;
-	top: -60px;
+	top: -100px;
+}
+
+@media handheld, only screen and (max-width: 650px) {
+	.welcome h1 {
+		font-size: 22px;
+	}
+	.welcome p {
+		max-width: 100%;
+		font-size: 18px;
+		line-height: 1.5em;
+	}
 }
 
 .cols {
@@ -467,35 +516,54 @@ pre code {
 	margin-left: -15px;
 	margin-right: -15px;
 	margin-top: 40px;
+	overflow: hidden;
 }
 .cols--4>.col {
 	width: calc(25% - 30px);
 	margin: 0 15px 30px;
 }
 
+@media handheld, only screen and (max-width: 900px) {
+	.cols--4>.col {
+		width: calc(50% - 30px);
+	}
+}
+
+@media handheld, only screen and (max-width: 400px) {
+	.cols--4>.col {
+		width: calc(100% - 30px);
+	}
+}
+
 .box {
 	background: #fff;
+	color: #04111d;
 	border: 1px solid #e5e4e4; 
-	box-shadow: 2px 2px 15px 0 rgba(0,0,0,.04);
+	box-shadow: 2px 2px 15px 0 rgba(0,0,0,.09), 0px 382px 0 0px rgba(0,0,0,.1);
 	position: relative;
 	display: block;
 	line-height: 1.4em;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	transform-style: preserve-3d;
+	padding-top: 350px;
 
 	background-position: 30px 30px;
   background-repeat: no-repeat;
   background-size: auto 40px;
 }
 .box__inner {
-	margin: 25px;
+	padding: 25px;
   display: block;
-  transform: translateZ(20px);
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+}
+.box:hover .box__inner {
+	background: rgba(0,0,0,0.1);
 }
 
 .box__title {
-	margin-top: 150px;
+	
 	margin-bottom: 20px;
 	font-family: "Roboto Mono";
 	text-transform: lowercase;
@@ -551,6 +619,7 @@ pre code {
 	color: #fff;
 }
 .box--api {
+	border-color: #0ba6dd;
 	background-image: url(/products/dadi-api-bg.svg);
 }
 
@@ -570,6 +639,7 @@ pre code {
 	color: #fff;
 }
 .box--cdn {
+	border-color: #e02975;
 	background-image: url(/products/dadi-cdn-bg.svg);
 }
 
@@ -589,6 +659,8 @@ pre code {
 	color: #000;
 }
 .box--publish {
+	color: #fff;
+	border-color: #ffbf0d;
 	background-image: url(/products/dadi-publish-bg.svg);
 }
 
@@ -608,6 +680,7 @@ pre code {
 	color: #fff;
 }
 .box--web {
+	border-color: #e42918;
 	background-image: url(/products/dadi-web-bg.svg);
 }
 
@@ -646,5 +719,6 @@ pre code {
 	color: #fff;
 }
 .box--queue {
+	border-color: #8773dd;
 	background-image: url(/products/dadi-queue-bg.svg);
 }
