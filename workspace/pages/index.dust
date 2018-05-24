@@ -134,7 +134,7 @@
         <div class="box__inner">
           <div class="box__title">API Wrapper</div>
           
-          <div class="box__desc">This library is for interacting with DADI API and provides a high-level abstraction of the REST architecture style,</div>
+          <div class="box__desc">This library is for interacting with DADI API and provides a high-level abstraction of the REST architecture style.</div>
         </div>
       </a>
     </div>
