@@ -74,9 +74,8 @@
   {^product_doc.results}
     <div class="welcome">
       <img src="/docs.svg" class="icon">
-      <h1>The complete documentation of the DADI framework</h1>
-      <p>DADI is an enterprise-grade, deployment-ready web services stack, built around a microservices architecture.</p>
-      <p><a href="https://dadi.cloud" class="btn">More about DADI</a>
+      <p><strong>DADI</strong> is an enterprise-grade, deployment-ready <strong>web services</strong> stack, built around a <strong>microservices</strong> architecture.</p>
+      <p><a href="https://dadi.cloud" class="btn">More about DADI</a><br> <a href="https://dadi.cloud/tutorials" class="btn">Tutorials</a>
       </p>
     </div>
 
