@@ -622,6 +622,9 @@ code {
 	border-color: #0ba6dd;
 	background-image: url(/products/dadi-api-bg.svg);
 }
+.box--api-wrapper {
+	background-image: url(/products/dadi-api.png);
+}
 
 .docs--cdn h1, .docs--cdn h2,
 #nav--cdn .active { color: #e02975;}

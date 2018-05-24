@@ -126,7 +126,7 @@
         <div class="box__inner">
           <div class="box__title">CLI</div>
           
-          <div class="box__desc">A schemaless templating layer that can operate as a standalone platform or with API as a full stack web application.</div>
+          <div class="box__desc">DADI CLI is a command-line tool to help with the installation and customisation of the various products of the DADI platform.</div>
         </div>
       </a>
         
@@ -134,7 +134,7 @@
         <div class="box__inner">
           <div class="box__title">API Wrapper</div>
           
-          <div class="box__desc">A schemaless templating layer that can operate as a standalone platform or with API as a full stack web application.</div>
+          <div class="box__desc">This library is for interacting with DADI API and provides a high-level abstraction of the REST architecture style,</div>
         </div>
       </a>
     </div>
