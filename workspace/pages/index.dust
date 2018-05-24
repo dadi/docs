@@ -35,14 +35,19 @@
     <span>Documentation</span>
   </a>
 
-  {#product_doc.results}
+  {?product_doc.results}
     {#navigation}
       <div class="header__product">
         <img src="/products/dadi-{product}.png" height="30">
         
         {name}
-        
-        <select class="version-selector" id="versions">{#versions}<li><option value="/{attributes.product}/{.}" {@eq key=. value=attributes.version}selected{/eq}>{@eq key=. value="latest"}latest version{:else}version {.}{/eq}</option>{/versions}<select>
+    
+        <select class="version-selector" id="versions">
+          {#docs.results}
+            <option value="/{attributes.product}/{attributes.version}" {@eq key=product_doc.results[0].attributes.version value=attributes.version}selected{/eq}>{@eq key=attributes.version value="latest"}latest version{:else}version {attributes.version}{/eq}</option>
+          {/docs.results}
+        <select>
+
       </div>
     {/navigation}
   {/product_doc.results}

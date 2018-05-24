@@ -5,13 +5,6 @@ const Event = function (req, res, data, callback) {
   let navigation = []
   let processed = 0
 
-  // Group document versions by product
-  // let versions = data.docs.results.reduce((r, a) => {
-  //   r[a.attributes.product] = r[a.attributes.product] || []
-  //   r[a.attributes.product].push(a.attributes.version || 'latest')
-  //   return r
-  // }, Object.create(null))
-
   data.docs.results.forEach((doc, index) => {
     processed++
 
@@ -27,21 +20,11 @@ const Event = function (req, res, data, callback) {
     if (data.product_doc && data.product_doc.results[0]) {
       let productDocument = data.product_doc.results[0]
 
-      // if (
-      //   isRequestedProduct(doc, productDocument) &&
-      //   isRequestedVersion(doc, productDocument)
-      // ) {
-        //productDocument.versions = versions[productDocument.attributes.product].sort()
+      let map = toc(doc.contentText, { maxdepth: 6 }).content
+        .replace(/]\(\#/gmi, '](' + '' + '#')
+        .replace(/`/gmi, '')
 
-        let map = toc(doc.contentText, { maxdepth: 6 }).content
-          .replace(/]\(\#/gmi, '](' + '' + '#')
-          .replace(/`/gmi, '')
-
-        docObj.tocMap = marked(map)
-      // } else {
-      //   delete doc.contentText
-      //   delete doc.contentHtml
-      // }
+      docObj.tocMap = marked(map)
 
       data.product_doc.results[0] = productDocument
     }
