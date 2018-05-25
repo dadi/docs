@@ -62,11 +62,7 @@ dust.helpers.markdown = function (chunk, context, bodies, params) {
             $(this).replaceWith(html)
           }
         })
-
-        console.log('*********')
-        console.log($.html())
-        console.log('*********')
-
+        
         return `<blockquote class="${type}">${$.html()}</blockquote>`
       }
 
