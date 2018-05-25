@@ -10,14 +10,11 @@
       initNav();
 
       var versionSelector = document.querySelector('#versions');
-      versionSelector.addEventListener('change', function (event) {
-        window.location.href = event.target.options[event.target.selectedIndex].value;
-      })
-
-      var mobilenav = document.querySelector('#mobilenav');
-      mobilenav.addEventListener('change', function (event) {
-        window.location.hash = event.target.options[event.target.selectedIndex].value;
-      })
+      if (versionSelector) {
+        versionSelector.addEventListener('change', function (event) {
+          window.location.href = event.target.options[event.target.selectedIndex].value;
+        })
+      }
     }
   }
 
