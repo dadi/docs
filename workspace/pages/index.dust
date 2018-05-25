@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="Documentation for DADI microservices.">
 
-    <link rel="icon" type="image/png" href="{?product_doc.results}/products/dadi-{navigation[0].product}.png{:else}/favicon.ico{/product_doc.results}">
+    <link rel="icon" type="image/png" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     <link rel="stylesheet" type="text/css" href="/styles.css">
@@ -31,7 +31,6 @@
 <header class="header">
   <a href="/" class="header__title">
     <img src="/dadi-mark.svg" height="25" alt="DADI" class="logo">
-
     <span>Documentation</span>
   </a>
 
@@ -47,15 +46,11 @@
             <option value="/{attributes.product}/{attributes.version}" {@eq key=product_doc.results[0].attributes.version value=attributes.version}selected{/eq}>{@eq key=attributes.version value="latest"}latest version{:else}version {attributes.version}{/eq}</option>
           {/docs.results}
         <select>
-
       </div>
     {/navigation}
   {/product_doc.results}
-
-  {! <!-- Place this tag where you want the button to render. -->
-  <a class="github-button" href="https://github.com/dadi/{#product_doc.results}{attributes.product}{:else}docs{/product_doc.results}/issues" data-size="large" data-show-count="true" aria-label="Issue dadi/docs on GitHub">Issue</a> !}
  
-  <a class="source" href="https://github.com/dadi/{#product_doc.results}{attributes.product}{:else}docs{/product_doc.results}"><span>Find on GitHub</span></a>
+  <a class="source" href="https://github.com/dadi/{#product_doc.results}{attributes.product}{:else}docs{/product_doc.results}"><span>View on</span> GitHub <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-mark-github" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
 </header>
 
 {?product_doc.results}
@@ -75,7 +70,10 @@
     <div class="welcome">
       <img src="/docs.svg" class="icon">
       <p><strong>DADI</strong> is an enterprise-grade, deployment-ready <strong>web services</strong> stack, built around a <strong>microservices</strong> architecture.</p>
-      <p><a href="https://dadi.cloud" class="btn">More about DADI</a><br> <a href="https://dadi.cloud/tutorials" class="btn">Tutorials</a>
+      <p>
+        <a href="https://dadi.cloud" class="btn">More about DADI</a>
+        <a href="https://dadi.cloud/tutorials" class="btn">Tutorials</a>
+        <a href="https://github.com/dadi/docs" class="btn">Edit these docs</a>
       </p>
     </div>
 
@@ -151,14 +149,5 @@
 
 <a href="#" class="totop">▲</a>
 
-{! <!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script> !}
-{! <script src="/assets/animation/jquery.js"></script>
-<script src="/assets/animation/tilt.js"></script>
-<script>
-$('').tilt({
-    glare: true,
-    maxGlare: .5
-})</script> !}
 </body>
 </html>

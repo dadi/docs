@@ -139,17 +139,27 @@ h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover
 .header__product img {
 	display: inline-block;
 	vertical-align: middle;
-	margin-right: 10px;
+	margin-right: 8px;
 }
 .header .source {
 	position: absolute;
 	right: 0; top: 0;
-	color: #326ff4;
+	color: #888;
+}
+.header .source svg {
+	vertical-align: middle;
+	margin-top: -4px;
+	margin-left: 2px;
+}
+@media handheld, only screen and (max-width: 650px) {
+	.header .source span {
+		display: none;
+	}
 }
 .header .logo {
 	display: inline-block;
 	vertical-align: middle;
-	margin-right: 15px;
+	margin-right: 8px;
 	margin-top: -2px;
 	margin-bottom: 2px;
 }
@@ -205,7 +215,6 @@ h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover
 	}
 	.header .logo {
 		width: 28px;
-		margin-right: 10px;
 	}
 }
 
@@ -226,10 +235,12 @@ nav {
 }
 }
 
+nav {
+	font-size: 14px;
+}
 nav > ul {
 	padding: 0;
 	margin: 0;
-	font-size: 15px;
 }
 
 nav > ul > li {
@@ -267,7 +278,7 @@ nav a:hover {
 }
 
 nav ul ul {
-	padding-left: 13px !important;
+	padding-left: 14px !important;
 }
 
 nav > ul > li > ul {
@@ -281,7 +292,6 @@ nav > ul > li > ul > li {
 nav > ul > li > a,
 nav > ul > li > p > a {
 	font-weight: bold;
-	font-size: 17px;
 }
 
 nav > ul > li.expanded {
@@ -290,10 +300,16 @@ nav > ul > li.expanded {
 
 nav > ul > li > ul > li > a {
 	font-weight: bold;
-	color: #6E6E6E;
-	font-size: 14px;
 	display: block;
 	line-height: 18px;
+	font-size: 15px;
+}
+
+nav ul li ul li ul li ul li a {
+  color: #888;
+  font-size: 13px;
+  line-height: 18px;
+  display: block;
 }
 
 .totop {
@@ -475,7 +491,7 @@ code {
 */
 
 .welcome {
-	padding: 10px 0 30px;
+	padding: 10px 0 20px;
 	position: relative;
 }
 .welcome h1 {
@@ -501,7 +517,7 @@ code {
 	.welcome p {
 		max-width: 100%;
 		font-size: 18px;
-		line-height: 1.5em;
+		line-height: 1.4em;
 	}
 }
 
@@ -574,11 +590,10 @@ code {
 .btn {
   display: inline-block;
   background-color: transparent;
-  color: #777;
-  border: 1px solid transparent;
-  border-bottom-color: #0ecc5f;
+  color: #04111d;
   text-decoration: none;
   padding: 15px 0;
+  padding-right: 23px;
   transition: all 0.2s;
   cursor: pointer;
   line-height: 0;
@@ -587,12 +602,15 @@ code {
 	background: none;
   display: inline-block;
   font-size: 14px;
+  margin-right: 25px;
+  
+  background: url(/icon-arrow.svg);
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+  background-size: auto 55%;
 }
 .btn:hover {
-  background-color: #0ecc5f;
-  color: #fff;
-  padding-left: 10px;
-  padding-right: 10px;
+  color: #326ff4;
   position: relative;
   z-index: 1;
 }
