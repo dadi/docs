@@ -29,15 +29,8 @@ dust.helpers.markdown = function (chunk, context, bodies, params) {
           duplicateText = escapedText + '-' + headings[duplicateIndex].count
         }
 
-        let id = '' // params.app + '\/'
-        let href = '' // params.app + '\/'
-
-        // let parent = findParent(headings, (duplicateText || escapedText), level)
-        //
-        // if (parent) {
-        //    id += parent.text + '\/'
-        //    href += parent.text + '\/'
-        // }
+        let id = '' 
+        let href = '' 
 
         id += (duplicateText || escapedText)
         href += (duplicateText || escapedText)
@@ -62,7 +55,7 @@ dust.helpers.markdown = function (chunk, context, bodies, params) {
             $(this).replaceWith(html)
           }
         })
-        
+
         return `<blockquote class="${type}">${$.html()}</blockquote>`
       }
 
