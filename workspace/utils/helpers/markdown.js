@@ -1,23 +1,8 @@
-var cheerio = require('cheerio')
-var dust = require('dustjs-linkedin')
-var hljs = require('highlight.js')
-var marked = require('marked')
-var toc = require('markdown-toc')
-
-// function findParent (arr, currentText, currentLevel) {
-//   let reversed = arr.slice(0)
-//   reversed = reversed.reverse()
-//
-//   let currentIndex = reversed.findIndex((element, index, array) => {
-//     return (element.text === currentText && element.level === currentLevel)
-//   })
-//
-//   let parentIndex = reversed.findIndex((element, index, array) => {
-//     return (index > currentIndex && element.level < currentLevel)
-//   })
-//
-//   return reversed[parentIndex]
-// }
+const cheerio = require('cheerio')
+const dust = require('dustjs-linkedin')
+const hljs = require('highlight.js')
+const marked = require('marked')
+const toc = require('markdown-toc')
 
 /*
 * Returns the markdown content formatted as HTML
@@ -44,15 +29,8 @@ dust.helpers.markdown = function (chunk, context, bodies, params) {
           duplicateText = escapedText + '-' + headings[duplicateIndex].count
         }
 
-        let id = '' // params.app + '\/'
-        let href = '' // params.app + '\/'
-
-        // let parent = findParent(headings, (duplicateText || escapedText), level)
-        //
-        // if (parent) {
-        //    id += parent.text + '\/'
-        //    href += parent.text + '\/'
-        // }
+        let id = '' 
+        let href = '' 
 
         id += (duplicateText || escapedText)
         href += (duplicateText || escapedText)
@@ -67,7 +45,7 @@ dust.helpers.markdown = function (chunk, context, bodies, params) {
        * Adds a class to the blockquote containing the specified type.
        */
       renderer.blockquote = function (text) {
-        let $ = cheerio.load('' + text)
+        let $ = cheerio.load('' + text, { xmlMode: true })
         let type = ''
 
         $('p').each(function () {

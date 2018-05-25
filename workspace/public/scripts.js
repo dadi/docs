@@ -7,12 +7,16 @@
 
   document.onreadystatechange = function () {
     if (document.readyState === 'complete') {
-      // getPages();
-      initNav()
+      initNav();
 
-      var versionSelector = document.querySelector('#versions')
+      var versionSelector = document.querySelector('#versions');
       versionSelector.addEventListener('change', function (event) {
-        window.location.href = event.target.options[event.target.selectedIndex].value
+        window.location.href = event.target.options[event.target.selectedIndex].value;
+      })
+
+      var mobilenav = document.querySelector('#mobilenav');
+      mobilenav.addEventListener('change', function (event) {
+        window.location.hash = event.target.options[event.target.selectedIndex].value;
       })
     }
   }
@@ -24,7 +28,7 @@
     }
     timer = setTimeout(function () {
       updateNav()
-    }, 500)
+    }, 100)
   }, false)
 
   function initNav () {
@@ -37,112 +41,59 @@
       sections[e.id] = e.offsetTop
     })
 
-    updateNav()
+    updateNav();
 
-    var scrollable = document.querySelector('nav')
+    // var scrollable = document.querySelector('nav');
 
-    scrollable.addEventListener('wheel', function (event) {
-      var deltaY = event.deltaY
-      var contentHeight = scrollable.scrollHeight
-      var visibleHeight = scrollable.offsetHeight
-      var scrollTop = scrollable.scrollTop
+    // scrollable.addEventListener('wheel', function (event) {
+    //   var deltaY = event.deltaY;
+    //   var contentHeight = scrollable.scrollHeight;
+    //   var visibleHeight = scrollable.offsetHeight;
+    //   var scrollTop = scrollable.scrollTop;
 
-      if (scrollTop === 0 && deltaY < 0) { event.preventDefault() } else if (visibleHeight + scrollTop === contentHeight && deltaY > 0) { event.preventDefault() }
-    })
+    //   if (scrollTop === 0 && deltaY < 0) { event.preventDefault() } else if (visibleHeight + scrollTop === contentHeight && deltaY > 0) { event.preventDefault(); }
+    // })
   };
 
   function throttle (fn, wait) {
-    var time = Date.now()
+    var time = Date.now();
     return function () {
       if ((time + wait - Date.now()) < 0) {
-        setTimeout(fn, 200)
-        time = Date.now()
+        setTimeout(fn, 200);
+        time = Date.now();
       }
     }
   };
 
   function setExpanded (el, theClass) {
     while (el.parentNode) {
-      el = el.parentNode
+      el = el.parentNode;
       if (el.nodeName === 'LI') {
-        el.setAttribute('class', theClass)
+        el.setAttribute('class', theClass);
       }
     }
   };
 
   function updateNav () {
     var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
-    var nav = document.querySelector('nav')
+    var nav = document.querySelector('nav');
 
     for (i in sections) {
-      if (sections[i] <= (scrollPosition + 80)) {
-        var previous = document.querySelector('nav .active')
-        var current = document.querySelector('nav a[href="#' + i + '"]')
+      if (sections[i] <= (scrollPosition + 140)) {
+        var previous = document.querySelector('nav .active');
+        var current = document.querySelector('nav a[href="#' + i + '"]');
 
         if (current) {
           if (previous) {
-            previous.setAttribute('class', ' ')
-            setExpanded(previous, ' ')
+            previous.setAttribute('class', ' ');
+            setExpanded(previous, ' ');
           }
-
-          // window.location.hash = i;
 
           if ((current.offsetTop <= nav.scrollTop) || (current.offsetTop >= nav.scrollTop)) nav.scrollTop = current.offsetTop - 50
-          current.setAttribute('class', 'active')
-          setExpanded(current, 'expanded')
-        }
-
-        if (scrollPosition === 0) {
-          previous.setAttribute('class', ' ')
-          setExpanded(previous, ' ')
+          current.setAttribute('class', 'active');
+          setExpanded(current, 'expanded');
         }
       }
-    }
-  };
-
-  function getPages () {
-    NProgress.start()
-
-    var xmlhttp = new XMLHttpRequest()
-
-    xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-        if (xmlhttp.status == 200) {
-          var results = JSON.parse(xmlhttp.responseText)
-
-          appendHtml(document.getElementById('main'), results.main)
-          appendHtml(document.getElementById('nav'), results.nav)
-
-          if (window.location.hash.length) window.location.href = window.location.hash
-
-          pagesLoaded++
-
-          if (pagesLoaded < totalPages) {
-            NProgress.inc()
-            getPages()
-          } else {
-            NProgress.done(true)
-          }
-        } else if (xmlhttp.status == 400) {
-          pagesLoaded++
-        } else {
-          pagesLoaded++
-        }
-      }
-
-      // Reset nav
-      initNav()
-    }
-
-    xmlhttp.open('GET', '/ajax?page=' + (pagesLoaded + 1), true)
-    xmlhttp.send()
-  };
-
-  function appendHtml (el, str) {
-    var div = document.createElement('div')
-    div.innerHTML = str
-    while (div.children.length) {
-      el.appendChild(div.children[0])
     }
   };
 })()

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DADI Documentation</title>
+    <title>DADI {?product_doc.results}{navigation[0].name}{/product_doc.results} Documentation</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,25 +12,7 @@
     <link rel="stylesheet" type="text/css" href="/highlight.css">
     <link rel="stylesheet" type="text/css" href="/styles.css">
 
-    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono" rel="stylesheet" type="text/css">
-
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-    <script>
-      var loc = window.location;
-      var href = loc.pathname + loc.hash;
-      var re = /^\/#([a-z]*)\/?(.*)$/;
-      var match = re.exec(href);
-
-      if (match) {
-        var newURL = window.location.protocol + "//" + window.location.host + "/" + match[1] + "/";
-        if (match[2]) {
-          newURL += "#" + match[2];
-        }
-
-        window.location.replace(location);
-      }
-    </script>
+    <link href="//fonts.googleapis.com/css?family=Roboto:400,400i,700,700i|Roboto Mono" rel="stylesheet" type="text/css">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42395806-3"></script>
@@ -42,35 +24,130 @@
       gtag('config', 'UA-42395806-3');
     </script>
 
-    <script>var totalPages = 0; //{docs.metadata.totalPages}</script>
-    {! <script src="/nprogress.js"></script> !}
     <script src="/scripts.js?v=5"></script>
   </head>
-<body>
-<nav>
-  <ul>
-    <li class="expanded"><a class="active" href="/">Introduction</a></li>
-  </ul>
-  <ul id="nav">
-    {>"partials/nav"/}
-  </ul>
+<body {^product_doc.results}class="home"{/product_doc.results}>
 
-  <footer>
-    Built using <a href="https://dadi.cloud/web">DADI Web {version}</a><br>
-    Edit on <a href="https://github.com/dadi/docs/" rel="external">Github</a>
-  </footer>
-</nav>
-
-<main id="main">
-  {>"partials/header"/}
-  {^product_doc.results}
-    {>"partials/intro"/}
-  {/product_doc.results}
+<header class="header">
+  <a href="/" class="header__title">
+    <img src="/dadi-mark.svg" height="25" alt="DADI" class="logo">
+    <span>Documentation</span>
+  </a>
 
   {?product_doc.results}
-    {>"partials/doc"/}
+    {#navigation}
+      <div class="header__product">
+        <img src="/products/dadi-{product}.png" height="30">
+        
+        {name}
+    
+        <select class="version-selector" id="versions">
+          {#docs.results}
+            <option value="/{attributes.product}/{attributes.version}" {@eq key=product_doc.results[0].attributes.version value=attributes.version}selected{/eq}>{@eq key=attributes.version value="latest"}latest version{:else}version {attributes.version}{/eq}</option>
+          {/docs.results}
+        <select>
+      </div>
+    {/navigation}
+  {/product_doc.results}
+ 
+  <a class="source" href="https://github.com/dadi/{#product_doc.results}{attributes.product}{:else}docs{/product_doc.results}"><span>View on</span> GitHub <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-mark-github" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+</header>
+
+{?product_doc.results}
+<nav>
+  <ul id="nav">
+    {#navigation}
+      <li id="nav--{product}" class="expanded">
+        {tocMap|s}
+      </li>
+    {/navigation}
+  </ul>
+</nav>
+{/product_doc.results}
+
+<main id="main">
+  {^product_doc.results}
+    <div class="welcome">
+      <img src="/docs.svg" class="icon">
+      <p><strong>DADI</strong> is an enterprise-grade, deployment-ready <strong>web services</strong> stack, built around a <strong>microservices</strong> architecture.</p>
+      <p>
+        <a href="https://dadi.cloud" class="btn">More about DADI</a>
+        <a href="https://dadi.cloud/tutorials" class="btn">Tutorials</a>
+        <a href="https://github.com/dadi/docs" class="btn">Edit these docs</a>
+      </p>
+    </div>
+
+    <div class="cols cols--4">
+     <a href="/api/latest" class="col box box--api">
+        <div class="box__inner">
+          <div class="box__title">API</div>
+          
+          <div class="box__desc">A high-performance RESTful API layer designed in support of API-first development and the principles of COPE.</div>
+        </div>
+      </a>
+
+      <a href="/web/latest" class="col box box--web">
+        <div class="box__inner">
+          <div class="box__title">Web</div>
+          
+          <div class="box__desc">A schemaless templating layer that can operate as a standalone platform or with API as a full stack web application.</div>
+        </div>
+      </a>
+    
+      <a href="/cdn/latest" class="col box box--cdn">
+        <div class="box__inner">
+          <div class="box__title">CDN</div>
+          
+          <div class="box__desc">A just-in-time asset manipulation and delivery layer designed as a modern, global content distribution solution.</div>
+        </div>
+      </a>
+    
+      <a href="/publish/latest" class="col box box--publish">
+        <div class="box__inner">
+          <div class="box__title">Publish</div>
+          
+          <div class="box__desc">A writer’s window to the world of content creation. Flexible interfaces designed to optimize editorial workflow.</div>
+        </div>
+      </a>
+
+      <a href="/queue/latest" class="col box box--queue">
+        <div class="box__inner">
+          <div class="box__title">Queue</div>
+          
+          <div class="box__desc">A lightweight, RSMQ-powered asynchronous task queue featuring simple task routing and throttling.</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="cols cols--4">
+      <a href="/cli/latest" class="col box box--cli">
+        <div class="box__inner">
+          <div class="box__title">CLI</div>
+          
+          <div class="box__desc">DADI CLI is a command-line tool to help with the installation and customisation of the various products of the DADI platform.</div>
+        </div>
+      </a>
+        
+      <a href="/api-wrapper/latest" class="col box box--api-wrapper">
+        <div class="box__inner">
+          <div class="box__title">API Wrapper</div>
+          
+          <div class="box__desc">This library is for interacting with DADI API and provides a high-level abstraction of the REST architecture style.</div>
+        </div>
+      </a>
+    </div>
+  {/product_doc.results}
+
+  {#product_doc.results}
+    {?contentText}
+      <div class="docs docs--{attributes.product}">
+        {@markdown highlight="true" app=attributes.product}{contentText|s}{/markdown}
+      </div>
+    {/contentText}
   {/product_doc.results}
 </main>
+
+<a href="#" class="totop">▲</a>
 
 </body>
 </html>

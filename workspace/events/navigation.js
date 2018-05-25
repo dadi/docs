@@ -1,21 +1,12 @@
 const toc = require('markdown-toc')
-const pkg = require('../../node_modules/@dadi/web/package.json')
+const marked = require('marked')
 
 const Event = function (req, res, data, callback) {
-  data.version = pkg.version
-  data.navigation = []
-
-  // Group document versions by product
-  let versions = data.docs.results.reduce((r, a) => {
-    r[a.attributes.product] = r[a.attributes.product] || []
-    r[a.attributes.product].push(a.attributes.version || 'latest')
-    return r
-  }, Object.create(null))
+  let navigation = []
+  let processed = 0
 
   data.docs.results.forEach((doc, index) => {
-    let options = {
-      maxdepth: 6
-    }
+    processed++
 
     // Add the app id to the links e.g., #api/...
     let docObj = {
@@ -29,43 +20,25 @@ const Event = function (req, res, data, callback) {
     if (data.product_doc && data.product_doc.results[0]) {
       let productDocument = data.product_doc.results[0]
 
-      if (
-        isRequestedProduct(doc, productDocument) &&
-        isRequestedVersion(doc, productDocument)
-      ) {
-        productDocument.versions = versions[productDocument.attributes.product].sort()
+      let map = toc(doc.contentText, { maxdepth: 6 }).content
+        .replace(/]\(\#/gmi, '](' + '' + '#')
+        .replace(/`/gmi, '')
 
-        let map = toc(doc.contentText, options).content
-          .replace(/]\(\#/gmi, '](' + '' + '#')
-          .replace(/`/gmi, '')
-
-        docObj.tocMap = map
-      } else {
-        delete doc.contentText
-        delete doc.contentHtml
-      }
+      docObj.tocMap = marked(map)
 
       data.product_doc.results[0] = productDocument
     }
 
     // Only add latest version to navigation
     if (!doc.attributes.version || doc.attributes.version === 'latest') {
-      data.navigation.push(docObj)
+      navigation.push(docObj)
     }
-  })
 
-  // Sort by the order property
-  data.navigation.sort((a, b) => {
-    if (a.order > b.order) {
-      return 1
-    } else if (b.order > a.order) {
-      return -1
-    } else {
-      return 0
-    }
+    // If done
+    if (processed === data.docs.results.length) {
+      callback(null, navigation)
+    }   
   })
-
-  callback()
 }
 
 function isRequestedProduct (product, currentDocument) {
