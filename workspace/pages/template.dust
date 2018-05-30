@@ -76,7 +76,7 @@
     </div>
 
     <div class="cols cols--4">
-     <a href="/api/latest" class="col box box--api">
+     <a href="/api" class="col box box--api">
         <div class="box__inner">
           <div class="box__title">API</div>
           
@@ -84,7 +84,7 @@
         </div>
       </a>
 
-      <a href="/web/latest" class="col box box--web">
+      <a href="/web" class="col box box--web">
         <div class="box__inner">
           <div class="box__title">Web</div>
           
@@ -92,7 +92,7 @@
         </div>
       </a>
     
-      <a href="/cdn/latest" class="col box box--cdn">
+      <a href="/cdn" class="col box box--cdn">
         <div class="box__inner">
           <div class="box__title">CDN</div>
           
@@ -100,7 +100,7 @@
         </div>
       </a>
     
-      <a href="/publish/latest" class="col box box--publish">
+      <a href="/publish" class="col box box--publish">
         <div class="box__inner">
           <div class="box__title">Publish</div>
           
@@ -108,7 +108,7 @@
         </div>
       </a>
 
-      <a href="/queue/latest" class="col box box--queue">
+      <a href="/queue" class="col box box--queue">
         <div class="box__inner">
           <div class="box__title">Queue</div>
           
@@ -118,7 +118,7 @@
     </div>
 
     <div class="cols cols--4">
-      <a href="/cli/latest" class="col box box--cli">
+      <a href="/cli" class="col box box--cli">
         <div class="box__inner">
           <div class="box__title">CLI</div>
           
@@ -126,7 +126,7 @@
         </div>
       </a>
         
-      <a href="/api-wrapper/latest" class="col box box--api-wrapper">
+      <a href="/api-wrapper" class="col box box--api-wrapper">
         <div class="box__inner">
           <div class="box__title">API Wrapper</div>
           
