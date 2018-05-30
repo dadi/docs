@@ -1,0 +1,21 @@
+{
+  "page": {
+    "name": "index"
+  },
+  "settings": {
+    "passFilters": true
+  },
+  "routes": [
+    {
+      "path": "/:product/:version"
+    }
+  ],
+  "template": "template.dust",
+  "events": [
+    "navigation"
+  ],
+  "datasources": [
+    "version",
+    "versions"
+  ]
+}

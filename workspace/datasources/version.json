@@ -1,15 +1,12 @@
 {
   "datasource": {
-    "key": "docs",
+    "key": "doc",
     "source": {
       "type": "markdown",
       "path": "./docs"
     },
-    "count": 10,
+    "count": 1,
     "paginate": true,
-    "sort": {
-      "order": 1
-    },
     "filter": {
       "published": true
     },
@@ -21,6 +18,11 @@
       {
         "field": "product",
         "param": "product",
+        "target": "filter"
+      },
+      {
+        "field": "version",
+        "param": "version",
         "target": "filter"
       }
     ]

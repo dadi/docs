@@ -2,18 +2,10 @@
   "page": {
     "name": "index"
   },
-  "settings": {
-    "passFilters": true
-  },
+  "template": "template.dust",
   "routes": [
     {
       "path": "/"
     }
-  ],
-  "events": [
-    "navigation"
-  ],
-  "datasources": [
-    "docs"
   ]
 }
