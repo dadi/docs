@@ -55,7 +55,7 @@
 <nav>
   <ul id="nav">
     {?navigation}
-      <li id="nav--{product}" class="expanded">
+      <li id="nav--{doc.results[0].attributes.product}" class="expanded">
         {navigation|s}
       </li>
     {/navigation}
