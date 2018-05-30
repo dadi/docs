@@ -7,15 +7,15 @@
   },
   "routes": [
     {
-      "path": "/:product/:version"
+      "path": "/:product"
     }
   ],
-  "template": "index.dust",
+  "template": "template.dust",
   "events": [
     "navigation"
   ],
   "datasources": [
-    "docs",
-    "product_doc"
+    "latest",
+    "versions"
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "datasource": {
+    "key": "versions",
+    "source": {
+      "type": "markdown",
+      "path": "./docs"
+    },
+    "count": 10,
+    "paginate": true,
+    "sort": {
+      "version": 1
+    },
+    "filter": {
+      "published": true
+    },
+    "fields": [
+      "attributes"
+    ],
+    "requestParams": [
+      {
+        "field": "product",
+        "param": "product",
+        "target": "filter"
+      }
+    ]
+  }
+}
