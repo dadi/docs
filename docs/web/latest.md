@@ -1148,7 +1148,7 @@ my-web/
 key       |    | Short identifier of the datasource. This value is used in the page specification files to attach a datasource   |               | `"books"`
 name      |     | This is the name of the datasource, commonly used as a description for developers   |               | `"Books"`
 paginate    |       |    | true              | true
-count       |    | Number of items to return from the endpoint per page. If set to '0' then all results will be returned    | 20              | 5
+count       |    | Number of items to return from the endpoint per page. If set to '0' then all results will be returned, up to the limit specified in the collection schema `settings` block    | 20              | 5
 sort        |   | A JSON object with fields to order the result set by | `{}` // unsorted     | `{ "title": 1 } // sort by title ascending`, `{ "title": -1 } // sort by title descending`
 filter      |     | A JSON object containing a MongoDB query  |               | `{ "SaleDate" : { "$ne" : null} }`
 filterEvent |          | An event file to execute which will generate the filter to use for this datasource. The event must exist in the configured events path  |               | `"getBookFilter"`
