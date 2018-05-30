@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DADI {?params.product}{navigation[0].name}{/params.product} Documentation</title>
+    <title>DADI {?params.product}{doc.results[0].attributes.title}{/params.product} Documentation</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
