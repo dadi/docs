@@ -163,37 +163,10 @@ h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover
 	margin-top: -2px;
 	margin-bottom: 2px;
 }
-.header a {
+.header > a {
 	padding: 26px 40px 23px;
 	display: inline-block;
 }
-
-.header ul {
-	position: absolute;
-	right: 0;
-	top: 0;
-	margin: 0;
-	padding: 26px 3% 26px 0;
-}
-.header ul li {
-	display: inline-block;
-}
-.header ul li a {
-	display: block;
-	font-weight: bold;
-	padding: 2px 10px;
-	margin: 7px;
-	border-radius: 100px;
-}
-.header ul li a:hover {
-	background: #ddd;
-	color: #21262d;
-}
-.header ul li a.on {
-	background: #e5462c;
-	color: #fff;
-}
-
 
 @media handheld, only screen and (max-width: 650px) {
 	.header,
@@ -210,7 +183,7 @@ h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover
 		left: 0;
 		padding-left: 25px;
 	}
-	.header a {
+	.header > a {
 		padding: 22px 25px 18px;
 	}
 	.header .logo {
@@ -579,7 +552,6 @@ code {
 }
 
 .box__title {
-	
 	margin-bottom: 20px;
 	font-family: "Roboto Mono";
 	text-transform: lowercase;
@@ -613,6 +585,76 @@ code {
   color: #326ff4;
   position: relative;
   z-index: 1;
+}
+
+/* 
+	Search
+*/
+
+.search {
+	position: absolute;
+	top: 0; right: 0;
+}
+.search input {
+	outline: none;
+	border: 0;
+	padding: 28px 70px 28px 10px;
+	font-size: .9rem;
+	text-align: right;
+	font-family: "Roboto Mono";
+	background: url(/icon-search.svg) no-repeat 80% 50%;
+	background-size: 20px auto;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#results.hide {
+	display: none;
+}
+#results {
+	position: absolute;
+	right: 0;
+	top: 100%;
+  box-shadow: 2px 2px 15px 0 rgba(0,0,0,.4);
+  background: #04111d;
+  color: #fff;
+  padding: 0;
+	margin: 30px;
+	width: 300px;
+	font-size: 0.8rem;
+}
+#results:before {
+	bottom: 100%;
+	right: 25px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: transparent;
+	border-bottom-color: #04111d;
+	border-width: 12px;
+	margin-left: 0;
+}
+#results li {
+	list-style: none;
+	border-bottom: 1px solid #222;
+	margin: 0;
+}
+#results li a {
+	display: block;
+	padding: 6px 10px;
+}
+#results li a:hover,
+#results li.highlighted {
+	background: #326ff4;
+	color: #fff;
+}
+#results li strong {
+	opacity: 0.6;
+	float: right;
+	font-weight: normal;
 }
 
 

@@ -48,7 +48,95 @@
     </div>
   {/params.product}
  
-  <a class="source" href="https://github.com/dadi/{?params.product}{doc.results[0].attributes.product}{:else}docs{/params.product}"><span>View on</span> GitHub <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-mark-github" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a>
+  {! <a class="source" href="https://github.com/dadi/{?params.product}{doc.results[0].attributes.product}{:else}docs{/params.product}"><span>View on</span> GitHub <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-mark-github" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a> !}
+
+  <div class="search">
+    <input type="search" id="query" name="" tabindex="1" placeholder="Search">
+    <ul id="results" class="hide"></ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.0.4/fuse.min.js"></script>
+
+    <script>
+      var query = document.getElementById('query');
+      var results = document.getElementById('results');
+      var current = '';
+
+      var options = {
+        shouldSort: true,
+        threshold: 0.6,
+        location: 0,
+        distance: 100,
+        maxPatternLength: 32,
+        minMatchCharLength: 1,
+        keys: [
+          "product",
+          "productName",
+          "text"
+        ]
+      };
+
+      var fuse = new Fuse({search|s}, options);
+
+      query.addEventListener('keyup', function(e) {
+        e.preventDefault();
+
+        var result = fuse.search(this.value);
+
+        results.innerHTML = '';
+
+        if (result.length === 0) {
+          results.classList.add('hide');
+        } else {
+          results.classList.remove('hide');
+        }
+
+        for (i = 0; i < 10; ++i) {
+          var list = document.createElement('li');
+
+          if (result[i]) {
+            list.innerHTML = "<a href=\"/" + result[i].product + result[i].url + "\"><strong>" + result[i].productName + "</strong> <span>" + result[i].text + "</span></a>";
+ 
+            results.appendChild(list);
+          }
+        }
+      });
+
+      function hightlightresults (index){
+        var prevHl = document.querySelectorAll('.highlighted')[0];
+        var curHl = document.querySelectorAll('#results li')[index];
+
+        if (prevHl) prevHl.classList.remove('highlighted');
+        if (curHl) curHl.classList.add('highlighted');
+      }
+
+      var resultsIndex = 0;
+
+      document.addEventListener('keyup', function(e){
+        var code = e.which;
+        var count = 9;
+        var h = results.innerHtml;
+
+        if (h !== '') {
+          if (code === 40) { // up
+            resultsIndex++;
+          }
+          if (code === 38) { // down
+            resultsIndex--;
+          }
+          // if (code === 13) {
+          //   alert(document.querySelectorAll('.highlighted a')[0].getAttribute('href'));
+          //   window.location.href = document.querySelectorAll('.highlighted a')[0].getAttribute('href');
+          // }
+          if (code == 27){
+            results.innerHTML = '';
+            results.classList.add('hide');
+          }
+
+          hightlightresults(resultsIndex);
+        }        
+      });
+    </script>
+  </div>
 </header>
 
 {?params.product}

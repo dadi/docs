@@ -1,0 +1,15 @@
+{
+  "datasource": {
+    "key": "search",
+    "source": {
+      "type": "markdown",
+      "path": "./docs"
+    },
+    "count": 99,
+    "paginate": true,
+    "filter": {
+      "published": true,
+      "version": "latest"
+    }
+  }
+}
