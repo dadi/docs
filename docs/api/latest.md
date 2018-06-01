@@ -1849,14 +1849,14 @@ Connection: keep-alive
 
 #### Filename clashes
 
-If the filename of an file being uploaded is the same as an existing file, the new file will have it's name changed by adding the current timestamp:
+If the filename of an file being uploaded is the same as an existing file, the new file will have its name changed by adding the current timestamp:
 
 * Existing filename: `my-image.jpg`
 * New filename: `test-1480482847099.jpg`
 
 ### Referencing files from another collection
 
-Once a file is uploaded, it's identifier can be used to create a reference from another collection. For this example we have a collection called `books` with the following schema:
+Once a file is uploaded, its identifier can be used to create a reference from another collection. For this example we have a collection called `books` with the following schema:
 
 ```json
 {
@@ -1886,7 +1886,7 @@ Once a file is uploaded, it's identifier can be used to create a reference from 
 }
 ```
 
-The `image` field is a Reference field which will lookup the default `mediaStore` collection to resolve the reference. Having uploaded an image file and received it's metadata, we can now send a POST to the `books` collection with the image identifier.
+The `image` field is a Reference field which will lookup the default `mediaStore` collection to resolve the reference. Having uploaded an image file and received its metadata, we can now send a POST to the `books` collection with the image identifier.
 
 ```http
 POST /1.0/library/books HTTP/1.1
@@ -1954,7 +1954,7 @@ Authorization: Bearer 8df4a823-1e1e-4bc4-800c-97bb480ccbbe
 }
 ```
 
-APO returns a response with a `url` property that contains the signed URL for uploading the specified file:
+API returns a response with a `url` property that contains the signed URL for uploading the specified file:
 
 ```http
 HTTP/1.1 200 OK
@@ -3247,7 +3247,7 @@ Once your account is created with MongoLab you'll need to create a new "MongoDB 
 
 ##### View MongoDB details
 
-When the database is ready, click on it's name to see the details required for connecting to it.
+When the database is ready, click on its name to see the details required for connecting to it.
 
 ![](/assets/api/mlab/8.png)
 
