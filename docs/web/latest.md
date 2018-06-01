@@ -1153,7 +1153,7 @@ sort        |   | A JSON object with fields to order the result set by | `{}` //
 filter      |     | A JSON object containing a MongoDB query  |               | `{ "SaleDate" : { "$ne" : null} }`
 filterEvent |          | An event file to execute which will generate the filter to use for this datasource. The event must exist in the configured events path  |               | `"getBookFilter"`
 fields   |        | Limits the fields to return in the result set   |               | `{ "title": 1, "author": 1 }`
-requestParams       |    | An array of parameters the datasource can accept from the querystring. See [Passing Parameters](/web#passing-parameters) for more.   |               | `[ { "param": "author", "field": "author_id" } ]`
+requestParams       |    | An array of parameters the datasource can obtain from the querystring, config or the session. See [Passing Parameters](/web#passing-parameters) for more.   |               | `[ { "param": "author", "field": "author_id" } ]`
 source | | |
  | type           | (optional) Determines whether the data is from a remote endpoint or local, static data   | `"remote"`              | `"remote"`, `"static"`       
  | protocol           | (optional) The protocol portion of an endpoint URI   | `"http"`              | `"http"`, `"https"`
@@ -1174,7 +1174,41 @@ auth | | |
 
 #### Passing parameters
 
-`requestParams` is an array of parameters that the datasource can accept from the querystring. Used in conjunction with `route` properties from a page specification, this allows filters to be generated for querying data.
+`requestParams` is an array of parameters that can be used to generate a datasource filter or even modify a datasource's endpoint. Web can obtain parameters from the request querystring, the configuration or from the session (if one exists).
+
+The syntax for request parameters in a datasource specification looks like the following:
+
+```json
+"requestParams": [
+  {
+    "source": "config|session|request",
+    "param": "param",
+    "field": "field",
+    "target": "filter|endpoint"
+  }
+]
+```
+
+| Property |  Description | Default |
+|--|--|--
+| source | Where to look for the parameter specified by "param" | "request"
+| param | The parameter or property that contains the value to be used | 
+| field | The name of the property to add to a filter, or the endpoint placeholder to replace | 
+| target | Whether this parameter should be added to a datasource filter, or directly into the endpoint | "filter"
+
+##### Extract parameters from the request (default)
+
+The simplest usecase for `requestParams` is in conjunction with dynamic parameters obtained from `route` properties in a page specification.
+
+**For example, given a collection `books` with the fields `_id`, `title`**
+
+With the page route `/books/:title` and the below datasource specification, Web will extract the `:title` parameter from the URL and use it to query the `books` collection using the field `title`. 
+
+With a request to http://www.somedomain.tech/books/sisters-brothers, the named parameter `:title` is `sisters-brothers`. A filter query is constructed for the datasource using this value.
+
+The resulting query passed to the underlying datastore will be: `{ "title" : "sisters-brothers" }`
+
+See [Routing](/web#routing-rewrites-and-redirects) for detailed routing documentation.
 
 **Page specification**
 
@@ -1191,23 +1225,136 @@ auth | | |
   "endpoint": "1.0/library/books"
 },
 "requestParams": [
-  { "field": "title", "param": "title" }
+  {
+    "param": "title",
+    "field": "title"
+  }
 ]
 ```
 
-field | param
-:--|:---
-The field to filter on | The request parameter to use as the value for the filter. Must match a named parameter in the page specification's `routes` property
+> In this case, the requestParam's `param` property is being used as the field to filter on and so must match a named parameter in the page specification's `routes`.
+> -- advice
 
-**For example, given a collection `books` with the fields `_id`, `title`**
+##### Extract parameters from config
 
-With the page route `/books/:title` and the above datasource configuration, DADI Web will extract the `:title` parameter from the URL and use it to query the `books` collection using the field `title`.
+Values held in the configuration file can be used to replace placeholders in an endpoint. In the configuration below, a `global` section has been added, containing a news item to retrieve from Hacker News.
 
-With a request to http://www.somedomain.tech/books/sisters-brothers, the named parameter `:title` is `sisters-brothers`. A filter query is constructed for the datasource using this value.
+**config/config.development.json**
 
-The resulting query passed to the underlying datastore is: `{ "title" : "sisters-brothers" }`
+```json
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 3001
+  },
+  "global": {
+    "newsItems": {
+      "hackernewsItemId": "17200415"
+    }
+  }
+}
+```
 
-See [Routing](/web#routing-rewrites-and-redirects) for detailed routing documentation.
+With a Hacker News datasource, we can add a placeholder to the HN API endpoint `{item}` and have Web replace that with the value obtained from the configuration file:
+
+```json
+{
+  "datasource": {
+    "key": "hackernews",
+    "name": "Get specific news item",
+    "source": {
+      "type": "remote",
+      "protocol": "https",
+      "host": "hacker-news.firebaseio.com",
+      "port": 443,
+      "endpoint": "v0/item/{item}.json"
+    },
+    "requestParams": [
+      {
+        "source": "config",
+        "param": "global.newsItems.hackernewsItemId",
+        "field": "item",
+        "target": "endpoint"
+      }
+    ]
+  }
+}
+```
+
+If you've forgotten to add the configuration property, Web will throw the following error:
+
+```
+[2018-06-01 13:14:43.444] [LOG]   Error: cannot find configuration param 'global.newsItems.hackernewsItemId'
+✖ Error: cannot find configuration param 'global.newsItems.hackernewsItemId'
+```
+
+If configured successfully, Web will generate a request for the URL `https://hacker-news.firebaseio.com:443/v0/item/17200415.json`:
+```
+03:18:39.020Z  INFO dadi-web: GOT datasource "hackernews": https://hacker-news.firebaseio.com:443/v0/item/17200415.json (HTTP 200, 223 Bytes) (module=remote)
+```
+
+The resulting response will be added to the data context using the datasource's key (in this case `hackernews`):
+```
+"hackernews": {
+  "by": "captn3m0",
+  "descendants": 1,
+  "id": 17200415,
+  "kids": [
+    17200762
+  ],
+  "score": 4,
+  "time": 1527801802,
+  "title": "Show HN: OPML generator for following your starred GitHub project releases",
+  "type": "story",
+  "url": "https://opml.bb8.fun/"
+}
+```
+
+##### Extract parameters from session
+
+Using a similar method to extracting parameters from the configuration, Web also supports obtaining values from the session if sessions are enabled. Simply set the `source` property to `"session"` and the `param` property to the path to the required value:
+
+```json
+{
+  "datasource": {
+    "key": "userDetails",
+    "source": {
+      "endpoint": "1.0/users/{userId}"
+    },
+    "requestParams": [
+      {
+        "source": "session",
+        "param": "user.profile._id",
+        "field": "userId",
+        "target": "endpoint"
+      }
+    ]
+  }
+}
+```
+
+##### Extract parameters from chained datasource
+
+In addition, chained datasources can now use data from the datasource they're attached to, modifying the endpoint if `"target": "endpoint"`:
+
+```cson
+{
+  "datasource": {
+    "key": "chained-endpoint",
+    "source": {
+      "endpoint": "1.0/makes/{name}"
+    },
+    "chained": {
+      "datasource": "global",   // the datasource we're waiting on
+      "outputParam": {
+        "param": "results.0.name",  // where to find the value in the "global" datasource
+        "field": "name",   // the value to replace in this endpoint URL
+        "target": "endpoint"
+      }
+    }
+  }
+}
+```
 
 #### Building filters
 
