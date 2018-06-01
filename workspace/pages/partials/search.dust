@@ -1,0 +1,89 @@
+<div class="search">
+  <input type="search" id="query" name="" tabindex="1" placeholder="Search {doc.results[0].attributes.title}">
+  <div id="results" class="hide"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.0.4/fuse.min.js"></script>
+
+  <script>
+    var query = document.getElementById('query');
+    var results = document.getElementById('results');
+    var resultsIndex = 0;
+
+    var options = {
+      shouldSort: true,
+      threshold: 0.6,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: [
+        "product",
+        "productName",
+        "text"
+      ]
+    };
+
+    var fuse = new Fuse({search|s}, options);
+
+    query.addEventListener('keyup', function(e) {
+      e.preventDefault();
+
+      var result = fuse.search(this.value);
+
+      results.innerHTML = '';
+
+      if (result.length === 0) {
+        results.classList.add('hide');
+      } else {
+        results.classList.remove('hide');
+      }
+
+      for (i = 0; i < 10; ++i) {
+        var list = document.createElement('a');
+
+        if (result[i]) {
+          list.setAttribute('href', '/' + result[i].product + '/' + result[i].url);
+
+          list.innerHTML = "<strong>" + result[i].productName + "</strong> <span>" + result[i].text + "</span>";
+
+          results.appendChild(list);
+        }
+      }
+    });
+
+    function hightlightresults (index){
+      var prevHl = document.querySelectorAll('.highlighted')[0];
+      var curHl = document.querySelectorAll('#results a')[index];
+
+      if (prevHl) prevHl.classList.remove('highlighted');
+      if (curHl) {
+        results.setAttribute('data-href', curHl.getAttribute('href'));
+        curHl.classList.add('highlighted');
+      }
+    }
+
+    document.addEventListener('keyup', function(e){
+      var code = e.which;
+      var count = 9;
+      var h = results.innerHtml;
+
+      if (h !== '') {
+        if (code === 40) { // down
+          resultsIndex++;
+        }
+        if (code === 38 && resultsIndex > 0) { // up
+          resultsIndex--;
+        }
+        if (code === 13) { // return
+          window.location.href = results.getAttribute('data-href');
+        }
+        if (code === 27){ //esc
+          results.innerHTML = '';
+          results.classList.add('hide');
+        }
+
+        hightlightresults(resultsIndex);
+      }
+    });
+  </script>
+</div>
