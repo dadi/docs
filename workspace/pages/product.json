@@ -12,7 +12,8 @@
   ],
   "template": "template.dust",
   "events": [
-    "navigation"
+    "navigation",
+    "search"
   ],
   "datasources": [
     "latest",
