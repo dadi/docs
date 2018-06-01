@@ -2026,7 +2026,7 @@ Connection: keep-alive
 }
 ```
 
-#### Invalid filename
+#### Invalid MIME type
 
 If the MIME type of the uploaded file doesn't match that sent in the request sent to obtain the signed URL, API returns a 400 error:
 
