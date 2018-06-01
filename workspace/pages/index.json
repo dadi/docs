@@ -3,6 +3,12 @@
     "name": "index"
   },
   "template": "template.dust",
+  "datasources": [
+    "search"
+  ],
+  "events": [
+    "search"
+  ],
   "routes": [
     {
       "path": "/"
