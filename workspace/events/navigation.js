@@ -8,6 +8,11 @@ const Event = function (req, res, data, callback) {
       .replace(/`/gmi, '')
 
     data.navigation = marked(map)
+  } else if (data.has('doc')) {
+    let error = new Error('Not found')
+    error.statusCode = 404
+
+    return callback(error)
   }
 
   callback()
