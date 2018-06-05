@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page not found | DADI Documentation</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Documentation for DADI microservices.">
+
+    <link rel="icon" type="image/png" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/highlight.css">
+    <link rel="stylesheet" type="text/css" href="/styles.css?v=2">
+
+    <link href="//fonts.googleapis.com/css?family=Roboto:400,400i,700,700i|Roboto Mono" rel="stylesheet" type="text/css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42395806-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-42395806-3');
+    </script>
+  </head>
+<body class="home">
+
+<header class="header">
+  <a href="/" class="header__title">
+    <img src="/dadi-mark.svg" height="25" alt="DADI" class="logo">
+    <span>Documentation</span>
+  </a>
+ 
+  {>"partials/search"/}
+</header>
+
+<main id="main">
+  <div class="welcome">
+    <img src="/docs.svg" class="icon">
+
+    <svg viewBox="0 0 96.2 83.9" width="90" xmlns="http://www.w3.org/2000/svg"><g fill="#f79800"><path d="m94.2 83.9h-92.2c-.7 0-1.4-.4-1.7-1-.4-.6-.4-1.4 0-2l46.1-79.9c.4-.6 1-1 1.7-1s1.4.4 1.7 1l46.1 79.9c.4.6.4 1.4 0 2-.3.6-1 1-1.7 1zm-88.7-4h85.3l-42.7-73.9z"/><path d="m48.1 59c-1.1 0-2-.9-2-2v-26.2c0-1.1.9-2 2-2s2 .9 2 2v26.2c0 1.1-.9 2-2 2zm0 11.4c-1.1 0-2-.9-2-2v-2.8c0-1.1.9-2 2-2s2 .9 2 2v2.8c0 1.1-.9 2-2 2z"/></g></svg>
+
+    <h1>Page not found.</h1>
+    <p><strong>Unfortunately that page does not exist.</strong> Try going to the homepage to find what you were looking for or get in touch.</p>
+    <p>
+      <a href="/" class="btn">All documentation</a>
+      <a href="https://github.com/dadi/docs/issues" class="btn">Open an issue</a>
+    </p>
+  </div>
+</main>
+
+</body>
+</html>
