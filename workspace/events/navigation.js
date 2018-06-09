@@ -12,8 +12,8 @@ const Event = function (req, res, data, callback) {
 
   // Sort the versions
   data.versions.results.sort((a, b) => {
-    let aParts = a.attributes.version.split('.')
-    let bParts = b.attributes.version.split('.')
+    let aParts = a.attributes.version.toString().split('.')
+    let bParts = b.attributes.version.toString().split('.')
 
     if (parseInt(aParts[0]) > parseInt(bParts[0])) return 1
     if (parseInt(aParts[0]) < parseInt(bParts[0])) return -1
