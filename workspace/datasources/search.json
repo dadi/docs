@@ -8,8 +8,19 @@
     "count": 99,
     "paginate": true,
     "filter": {
-      "published": true,
-      "version": "latest"
-    }
+      "published": true
+    },
+    "requestParams": [
+      {
+        "param": "product",
+        "field": "attributes.product",
+        "target": "filter"
+      },
+      {
+        "param": "version",
+        "field": "attributes.version",
+        "target": "filter"
+      }
+    ]
   }
 }
