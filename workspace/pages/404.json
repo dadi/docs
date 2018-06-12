@@ -1,0 +1,11 @@
+{
+  "page": {
+    "key": "404"
+  },
+  "datasources": [
+    "search"
+  ],
+  "events": [
+    "search"
+  ]
+}
