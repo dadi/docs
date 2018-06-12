@@ -23,7 +23,7 @@
       ]
     };
 
-    var fuse = new Fuse({?search}{search|s}{:else}""{/search}, options);
+    var fuse = new Fuse({search|s}, options);
 
     query.addEventListener('keyup', function(e) {
       e.preventDefault();

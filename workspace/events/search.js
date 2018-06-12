@@ -5,17 +5,14 @@ const cheerio = require('cheerio')
 const Event = function (req, res, data, callback) {
   let ds = data.hasResults('search') ? data.search : data.doc
   let results = []
-  const $ = cheerio
 
   ds.results.forEach(doc => {
-    const map = toc(doc.contentText, { maxdepth: 6 }).content
+    let map = toc(doc.contentText, { maxdepth: 6 }).content
       .replace(/]\(\#/gmi, '](' + '' + '#')
       .replace(/`/gmi, '')
 
-    const nav = marked(map)
-    const $ = cheerio.load(nav)
-
-    let items = []
+    let nav = marked(map)
+    let $ = cheerio.load(nav)
 
     $('li').each((idx, el) => {
       results.push({
@@ -24,7 +21,7 @@ const Event = function (req, res, data, callback) {
         text: $(el).text().split(/\n/)[0],
         url: $(el).find('a').attr('href')
       })
-    }) 
+    })
   })
 
   data.search = JSON.stringify(results)

@@ -12,10 +12,12 @@
   ],
   "template": "template.dust",
   "events": [
-    "navigation"
+    "navigation",
+    "search"
   ],
   "datasources": [
     "version",
-    "versions"
+    "versions",
+    "search"
   ]
 }
