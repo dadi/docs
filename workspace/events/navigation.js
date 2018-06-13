@@ -22,7 +22,7 @@ const Event = function (req, res, data, callback) {
     data.latestVersion = data.versions.results[data.versions.results.length - 1].attributes.version
 
     // Redirect to latest if no version is specified
-    if (!data.hasResults('doc')) {
+    if (!data.params.version) {
       res.writeHead(302, {
         Location: `${data.url.pathname}${data.latestVersion}`
       })
