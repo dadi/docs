@@ -35,7 +35,7 @@ dust.helpers.markdown = function (chunk, context, bodies, params) {
         id += (duplicateText || escapedText)
         href += (duplicateText || escapedText)
 
-        return '<h' + level + '><a id="' + id + '" class="anchor" href="#' + href + '">Link here</a>' + text + '</h' + level + '>\n'
+        return `<h${level}><a href="#${href}" id="${id}" name="${id}" class="anchor">Anchor link</a> <a href="#${href}">${text}</a></h${level}>\n`
       }
 
       /**

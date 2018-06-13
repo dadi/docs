@@ -1,9 +1,8 @@
 (function () {
   'use strict'
 
-  var sections = {}
-  var i = 0
-  var pagesLoaded = 1
+  var sections = {};
+  var i = 0;
 
   document.onreadystatechange = function () {
     if (document.readyState === 'complete') {
@@ -18,38 +17,41 @@
     }
   }
 
-  var timer = null
+  var timer = null;
   window.addEventListener('scroll', function () {
     if (timer !== null) {
-      clearTimeout(timer)
+      clearTimeout(timer);
     }
     timer = setTimeout(function () {
-      updateNav()
-    }, 100)
-  }, false)
+      updateNav();
+    }, 100);
+  }, false);
+
+  var timer2 = null;
+  window.addEventListener('resize', function () {
+    if (timer2 !== null) {
+      clearTimeout(timer2);
+    }
+    timer2 = setTimeout(function () {
+      initNav();
+    }, 100);
+  }, false);
 
   function initNav () {
     // Update scroll
-    var section = document.querySelectorAll('.anchor')
+    var section = document.querySelectorAll('.anchor');
 
     sections['introduction'] = 0;
 
-    [].forEach.call(section, function (e) {
-      sections[e.id] = e.offsetTop
+    [].forEach.call(section, function (elm) {
+      var bodyRect = document.body.getBoundingClientRect();
+      var elemRect = elm.getBoundingClientRect();
+      var offset   = elemRect.top - bodyRect.top;
+
+      sections[elm.id] = offset;
     })
 
     updateNav();
-
-    // var scrollable = document.querySelector('nav');
-
-    // scrollable.addEventListener('wheel', function (event) {
-    //   var deltaY = event.deltaY;
-    //   var contentHeight = scrollable.scrollHeight;
-    //   var visibleHeight = scrollable.offsetHeight;
-    //   var scrollTop = scrollable.scrollTop;
-
-    //   if (scrollTop === 0 && deltaY < 0) { event.preventDefault() } else if (visibleHeight + scrollTop === contentHeight && deltaY > 0) { event.preventDefault(); }
-    // })
   };
 
   function throttle (fn, wait) {
@@ -72,21 +74,22 @@
   };
 
   function updateNav () {
-    var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop
+    var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
     var nav = document.querySelector('nav');
 
     for (i in sections) {
-      if (sections[i] <= (scrollPosition + 140)) {
+      if (sections[i] <= (scrollPosition - 120)) {
         var previous = document.querySelector('nav .active');
         var current = document.querySelector('nav a[href="#' + i + '"]');
-
+        
         if (current) {
           if (previous) {
             previous.setAttribute('class', ' ');
             setExpanded(previous, ' ');
           }
 
-          if ((current.offsetTop <= nav.scrollTop) || (current.offsetTop >= nav.scrollTop)) nav.scrollTop = current.offsetTop - 50
+          if ((sections[i] <= nav.scrollTop) || (sections[i] >= nav.scrollTop)) nav.scrollTop = sections[i] - 50;
+
           current.setAttribute('class', 'active');
           setExpanded(current, 'expanded');
         }

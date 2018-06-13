@@ -42,6 +42,11 @@ body.home main {
 h1,h2,h3,h4,h5,h6 {
 	font-weight: bold;
 	word-wrap: break-word;
+	position: relative;
+}
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a {
+	text-decoration: none;
+	border: 0 !important;
 }
 
 a {
@@ -87,25 +92,17 @@ p {
 */
 
 .anchor {
-  width: 25px;
-  float: left;
-  margin-left: -27px;
-  margin-top: -3px;
-  outline: none;
-  opacity: 0;
-  border: none !important;
-  background: url(icon-link.svg) no-repeat 50% 70%;
+	width: 0; height: 0;
+	overflow: hidden;
   font-size: 0;
+  display: block;
+  position: absolute;
+  top: -120px;
 }
 @media handheld, only screen and (max-width: 650px) {
 	.anchor {
-		float: right;
-		opacity: 1;
-		margin: 0;
+		top: -20px;
 	}
-}
-h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover .anchor, h6:hover .anchor {
-	opacity: 1;
 }
 
 /*
