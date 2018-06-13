@@ -8,8 +8,10 @@
     "count": 1,
     "paginate": true,
     "filter": {
-      "published": true,
-      "version": "latest"
+      "published": true
+    },
+    "sort": {
+      "version": -1
     },
     "fields": [
       "attributes",

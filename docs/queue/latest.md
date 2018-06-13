@@ -3,6 +3,7 @@ title: Queue
 published: true
 product: queue
 version: latest
+latest: true
 ---
 
 ## Overview

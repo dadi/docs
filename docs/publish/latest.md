@@ -3,6 +3,7 @@ title: Publish
 published: true
 product: publish
 version: latest
+latest: true
 ---
 
 ## Installation

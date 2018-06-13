@@ -4,7 +4,7 @@
   },
   "template": "template.dust",
   "datasources": [
-    "search"
+    "search_all"
   ],
   "events": [
     "search"

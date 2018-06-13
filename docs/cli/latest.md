@@ -3,6 +3,7 @@ title: CLI
 published: true
 product: cli
 version: latest
+latest: true
 ---
 
 ## Overview

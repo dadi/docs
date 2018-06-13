@@ -3,6 +3,7 @@ title: API Wrapper
 published: true
 product: api-wrapper
 version: latest
+latest: true
 ---
 
 This library is for interacting with [DADI API](/api) and provides a high-level abstraction of the REST architecture style, exposing a set of chainable methods that allow developers to compose complex read and write operations using a simplistic and natural syntax.
