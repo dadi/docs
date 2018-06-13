@@ -3,7 +3,7 @@ const marked = require('marked')
 const cheerio = require('cheerio')
 
 const Event = function (req, res, data, callback) {
-  let ds = data.hasResults('search') ? data.search : data.doc
+  let ds = data.hasResults('search') ? data.search : data.version
   let results = []
 
   if (ds) {

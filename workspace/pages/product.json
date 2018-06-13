@@ -1,22 +1,19 @@
 {
   "page": {
-    "name": "index"
+    "name": "product"
   },
-  "settings": {
-    "passFilters": true
-  },
-  "routes": [
-    {
-      "path": "/:product"
-    }
-  ],
   "template": "template.dust",
   "events": [
     "navigation",
     "search"
   ],
   "datasources": [
-    "latest",
+    "version",
     "versions"
+  ],
+  "routes": [
+    {
+      "path": "/:product/:version?"
+    }
   ]
 }

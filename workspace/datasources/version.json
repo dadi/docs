@@ -1,6 +1,6 @@
 {
   "datasource": {
-    "key": "doc",
+    "key": "version",
     "source": {
       "type": "markdown",
       "path": "./docs"

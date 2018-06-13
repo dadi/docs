@@ -31,13 +31,13 @@ const Event = function (req, res, data, callback) {
     }
   }
 
-  if (data.hasResults('doc') && data.doc.results[0].contentText) {
-    let map = toc(data.doc.results[0].contentText, { maxdepth: 6 }).content
+  if (data.hasResults('version') && data.version.results[0].contentText) {
+    let map = toc(data.version.results[0].contentText, { maxdepth: 6 }).content
       .replace(/]\(\#/gmi, '](' + '' + '#')
       .replace(/`/gmi, '')
 
     data.navigation = marked(map)
-  } else if (data.has('doc')) {
+  } else if (data.has('version')) {
     let error = new Error('Not found')
     error.statusCode = 404
 
