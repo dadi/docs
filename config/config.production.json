@@ -13,6 +13,7 @@
     "index": "index.html"
   }],
   "rewrites": {
+    "forceTrailingSlash": true,
     "path": "./workspace/routes/rewrites.txt"
   }
 }
