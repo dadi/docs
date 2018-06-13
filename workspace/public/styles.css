@@ -693,9 +693,12 @@ code {
 	padding: 6px 10px;
 	border-bottom: 1px solid #222;
 }
-#results a:hover,
 #results a.highlighted {
 	background: #326ff4;
+	color: #fff;
+}
+#results a:hover {
+	background: #666;
 	color: #fff;
 }
 #results strong {
