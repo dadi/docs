@@ -4,12 +4,12 @@
     "port": 3001
   },
   "cluster": false,
-  "allowDebugView": true,
-  "debug": true,
   "virtualDirectories": [{
     "path": "sandbox",
     "index": "index.html"
   }],
+  "allowDebugView": true,
+  "debug": true,
   "rewrites": {
     "forceTrailingSlash": true,
     "path": "./workspace/routes/rewrites.txt"
