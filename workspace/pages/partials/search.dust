@@ -62,6 +62,13 @@
       }
     }
 
+    document.addEventListener('mouseup', function(e){
+      if (!results.contains(event.target)) {
+        results.innerHTML = '';
+        results.classList.add('hide');
+      }
+    });
+
     document.addEventListener('keyup', function(e){
       var code = e.which;
       var count = 9;
