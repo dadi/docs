@@ -36,10 +36,10 @@ OpenAPIRenderer.prototype.parse = function (raw) {
 
   // Resolving references.
   return parser.dereference(raw).then(spec => {
-    require('fs').writeFileSync(
-      '/Users/eduardoboucas/Desktop/spec-dereferenced.json',
-      JSON.stringify(spec, null, 2)
-    )
+    // require('fs').writeFileSync(
+    //   '/Users/eduardoboucas/Desktop/spec-dereferenced.json',
+    //   JSON.stringify(spec, null, 2)
+    // )
 
     this.spec = spec
     this.tags = this.buildTags()
