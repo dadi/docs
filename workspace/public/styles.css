@@ -835,3 +835,73 @@ code {
 	border-color: #8773dd;
 	background-image: url(/products/dadi-queue-bg.svg);
 }
+
+/* Open API renderer */
+
+.oar-method {
+	border-radius: 4px;
+	margin: 10px 0;
+	padding: 10px 14px;
+}
+
+.oar-method table {
+	margin: 20px 0;
+}
+
+.oar-method .td-main {
+	width: 100%;
+}
+
+.oar-method .td-main pre {
+	margin-left: -6px;
+}
+
+.oar-method-label {
+  border-radius: 4px;
+  color: white;
+  display: inline-block;
+	font-family: "Roboto Mono", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	font-weight: bold;
+	padding: 5px 10px;
+}
+
+.oar-method--post {
+	background-color: rgba(73,204,144,.1);
+	border: 1px solid #49cc90;
+}
+
+.oar-method--post .oar-method-label {
+  background-color: #49cc90;
+}
+
+.oar-method--put {
+	background-color: rgba(252,161,48,.1);
+	border: 1px solid #fca130;
+}
+
+.oar-method--put .oar-method-label {
+  background-color: #fca130;
+}
+
+.oar-method--delete {
+	background-color: rgba(249,62,62,.1);
+	border: 1px solid #f93e3e;
+}
+
+.oar-method--delete .oar-method-label {
+  background-color: #f93e3e;
+}
+
+.oar-method--get {
+	background-color: rgba(97,175,254,.1);
+	border: 1px solid #61affe;
+}
+
+.oar-method--get .oar-method-label {
+  background-color: #61affe;
+}
+
+.oar-method__path {
+	font-weight: bold;
+	margin: 0 5px;
+}

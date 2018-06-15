@@ -2,6 +2,7 @@ const cheerio = require('cheerio')
 const dust = require('dustjs-linkedin')
 const hljs = require('highlight.js')
 const marked = require('marked')
+const OpenAPIRenderer = require('./../OpenAPIRenderer')
 const toc = require('markdown-toc')
 
 /*
@@ -59,16 +60,44 @@ dust.helpers.markdown = function (chunk, context, bodies, params) {
         return `<blockquote class="${type}">${$.html()}</blockquote>`
       }
 
-      if (!params.highlight) {
-        chunk.end(marked(string, { renderer: renderer }))
-      } else {
-        chunk.end(marked(string, {
-          renderer: renderer,
-          highlight: (code) => {
-            return hljs.highlightAuto(code).value
-          }
-        }))
+      let codeHandler = renderer.code
+
+      renderer.code = function (text, lang) {
+        if (lang === 'openapi') {
+          return text
+        }
+
+        return codeHandler.apply(this, arguments)
       }
+
+      let markedOptions = {
+        renderer
+      }
+
+      if (params.highlight) {
+        markedOptions.highlight = (code, lang, callback) => {
+          if (lang === 'openapi') {
+            let openApi = new OpenAPIRenderer()
+
+            openApi.parseYaml(code).then(() => {
+              let html = openApi.renderTags()
+
+              callback(null, html)
+            }).catch(err => {
+              console.log('OpenAPIRenderer error:', err)
+
+              callback(null, 'Could not render OpenAPI spec.')
+            })
+          } else {
+            callback(null, hljs.highlightAuto(code).value)
+          }
+          
+        }
+      }
+
+      marked(string, markedOptions, (err, output) => {
+        chunk.end(output)
+      })
     })
   }
   return chunk
