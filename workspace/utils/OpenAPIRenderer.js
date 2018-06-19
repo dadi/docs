@@ -36,11 +36,6 @@ OpenAPIRenderer.prototype.parse = function (raw) {
 
   // Resolving references.
   return parser.dereference(raw).then(spec => {
-    // require('fs').writeFileSync(
-    //   '/Users/eduardoboucas/Desktop/spec-dereferenced.json',
-    //   JSON.stringify(spec, null, 2)
-    // )
-
     this.spec = spec
     this.tags = this.buildTags()
 
@@ -58,16 +53,31 @@ OpenAPIRenderer.prototype.parseYaml = function (source) {
   }
 }
 
-OpenAPIRenderer.prototype.renderExample = function (tree) {
+OpenAPIRenderer.prototype.renderExample = function (tree, highlight) {
+  let highlightFn = input => {
+    if (highlight) {
+      return hljs.highlightAuto(
+        JSON.stringify(input, null, 2)
+      ).value
+    }
+
+    return input
+  }
+
   switch (tree && tree.type) {
     case 'array':
-      return [
+      return highlightFn([
         this.renderExample(tree.items)
-      ]
+      ])
 
     case 'object':
-      return Object.keys(tree.properties).reduce((result, property) => {
-        let propertyResult = this.renderExample(tree.properties[property])
+      if (tree.example) {
+        return highlightFn(tree.example)
+      }
+
+      let properties = tree.properties || tree.additionalProperties || {}
+      let exampleObject = Object.keys(properties).reduce((result, property) => {
+        let propertyResult = this.renderExample(properties[property])
         
         if (propertyResult) {
           result[property] = propertyResult
@@ -75,9 +85,11 @@ OpenAPIRenderer.prototype.renderExample = function (tree) {
         
         return result
       }, {})
+
+      return highlightFn(exampleObject)
       
     case 'string':
-      return tree.example
+      return highlightFn(tree.example)
 
     default:
       return null
@@ -111,7 +123,7 @@ OpenAPIRenderer.prototype.renderMethod = function (pathName, methodName, method)
         <span>${method.summary}</span>
       </summary>
       <div class="oar-method__body">
-        <p class="oar-method__description">${method.description}</p>
+        <p class="oar-method__description">${method.description || ''}</p>
 
         <section class="oar-method-section">
           <h4>Parameters</h4>
@@ -177,14 +189,32 @@ OpenAPIRenderer.prototype.renderRequestBody = function (requestBody) {
     <ul>
       ${Object.keys(requestBody.content).map(contentType => {
         let schema = requestBody.content[contentType].schema
+        let items
 
-        if (!schema.properties) {
-          return ''
+        if (schema.type === 'object') {
+          if (schema.properties) {
+            items = Object.keys(schema.properties).map(property => ({
+              property,
+              type: schema.properties[property].type
+            }))
+          } else {
+            items = [
+              {
+                property: 'N/A',
+                type: 'Object'
+              }
+            ]
+          }
+        } else {
+          items = [
+            {
+              property: 'N/A',
+              type: schema.type
+            }
+          ]
         }
 
-        let example = schema.example
-          ? hljs.highlightAuto(JSON.stringify(schema.example, null, 2)).value
-          : ''
+        let example = this.renderExample(schema, true) || ''
 
         return `
           <li>
@@ -197,10 +227,10 @@ OpenAPIRenderer.prototype.renderRequestBody = function (requestBody) {
                   <th>Type</th>
               </thead>
               <tbody>
-                ${Object.keys(schema.properties).map(property => `
+                ${items.map(item => `
                   <tr>
-                    <td>${property}</td>
-                    <td>${schema.properties[property].type}</td>
+                    <td>${item.property}</td>
+                    <td>${item.type}</td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -236,20 +266,16 @@ OpenAPIRenderer.prototype.renderResponses = function (responses) {
           let responseSchema = responses[code].content &&
             responses[code].content['application/json'] &&
             responses[code].content['application/json'].schema
-          let example = this.renderExample(responseSchema)
-          let description = responses[code].description
+          let example = this.renderExample(responseSchema, true)
+          let description = responses[code].description || ''
 
           if (example) {
-            let prettyExample = hljs.highlightAuto(
-              JSON.stringify(example, null, 2)
-            ).value
-
             description += `
               <br><br>
               <em>Example:</em>
               <br>
               <pre>
-                <code>${prettyExample}</code>
+                <code>${example}</code>
               </pre>
             `
           }
