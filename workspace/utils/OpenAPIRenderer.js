@@ -193,10 +193,18 @@ OpenAPIRenderer.prototype.renderRequestBody = function (requestBody) {
 
         if (schema.type === 'object') {
           if (schema.properties) {
-            items = Object.keys(schema.properties).map(property => ({
-              property,
-              type: schema.properties[property].type
-            }))
+
+
+            items = Object.keys(schema.properties).map(property => {
+              let type = schema.properties[property].oneOf
+                ? schema.properties[property].oneOf.map(item => item.type).join(' | ')
+                : schema.properties[property].type
+
+              return {
+                property,
+                type
+              }
+            })
           } else {
             items = [
               {
