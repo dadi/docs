@@ -26,7 +26,7 @@ pipeline {
       steps {
         echo 'Deploying...'
 
-        echo 'Running on local port ${FREE_PORT}'
+        echo "Running on local port ${FREE_PORT}"
 
         sh "docker run -v /var/run/docker.sock:/var/run/docker.sock -d --restart=always --network=james_default --name '${IMAGE_TAG}' -e NODE_ENV=test -e VIRTUAL_HOST=${IMAGE_TAG}.mustdash.es -p ${FREE_PORT}:3001 ${IMAGE_TAG}"
 
