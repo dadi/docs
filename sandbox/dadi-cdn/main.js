@@ -103,7 +103,7 @@ $(document).ready(function() {
   }
 
   function updateImage() {
-    var uri = 'http://' + $('#imgDomain').text() + '/' + $('#imgSrc').text() + '/' + $('#imgFile').text(),
+    var uri = 'https://' + $('#imgDomain').text() + '/' + $('#imgSrc').text() + '/' + $('#imgFile').text(),
         url = new URI(uri);
 
     $('.spinner').removeClass('hide');
