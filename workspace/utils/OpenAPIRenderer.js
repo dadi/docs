@@ -88,6 +88,7 @@ OpenAPIRenderer.prototype.renderExample = function (tree, highlight) {
 
       return highlightFn(exampleObject)
       
+    case 'number':
     case 'string':
       return highlightFn(tree.example)
 
