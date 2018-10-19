@@ -7,6 +7,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="Documentation for DADI microservices.">
 
+    <meta property="og:title" content="DADI {?params.product}{version.results[0].attributes.title} {/params.product}Documentation" />
+    <meta property="og:description" content="Documentation for DADI microservices." />
+    <meta property="og:type" content="website" />
+
+    {?params.product}
+    <meta property="og:image" content="https://github.com/dadi/cloud/raw/develop/web/workspace/public/assets/products/dadi-{params.product}-og.jpg" />
+    {:else}
+    <meta property="og:image" content="https://github.com/dadi/cloud/raw/develop/web/workspace/public/assets/press/dadi-logo-colour.png" />
+    {/params.product}
+
     <link rel="icon" type="image/png" href="/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="/highlight.css">
