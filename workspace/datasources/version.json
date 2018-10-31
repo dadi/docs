@@ -7,9 +7,6 @@
     },
     "count": 1,
     "paginate": true,
-    "filter": {
-      "published": true
-    },
     "fields": [
       "attributes",
       "contentText"
