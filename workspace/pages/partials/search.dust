@@ -1,5 +1,5 @@
 <div class="search">
-  <input type="search" id="query" name="" tabindex="1" placeholder="Search {doc.results[0].attributes.title}">
+  <input type="search" id="query" name="" tabindex="1" placeholder="Search {version.results[0].attributes.title}">
   <div id="results" class="hide"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.0.4/fuse.min.js"></script>
@@ -25,8 +25,8 @@
 
     var fuse = new Fuse({search|s}, options);
 
-    query.addEventListener('keyup', function(e) {
-      e.preventDefault();
+    query.addEventListener('keyup', function (event) {
+      event.preventDefault();
 
       var result = fuse.search(this.value);
 
@@ -51,26 +51,29 @@
       }
     });
 
-    function hightlightresults (index){
+    function hightlightresults (index) {
       var prevHl = document.querySelectorAll('.highlighted')[0];
       var curHl = document.querySelectorAll('#results a')[index];
 
-      if (prevHl) prevHl.classList.remove('highlighted');
+      if (prevHl) {
+        prevHl.classList.remove('highlighted');
+      }
+
       if (curHl) {
         results.setAttribute('data-href', curHl.getAttribute('href'));
         curHl.classList.add('highlighted');
       }
     }
 
-    document.addEventListener('mouseup', function(e){
+    document.addEventListener('mouseup', function (event) {
       if (!results.contains(event.target)) {
         results.innerHTML = '';
         results.classList.add('hide');
       }
     });
 
-    document.addEventListener('keyup', function(e){
-      var code = e.which;
+    document.addEventListener('keyup', function (event) {
+      var code = event.which;
       var count = 9;
       var h = results.innerHtml;
 
