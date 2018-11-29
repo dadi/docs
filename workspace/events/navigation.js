@@ -37,6 +37,8 @@ const Event = function (req, res, data, callback) {
       .replace(/`/gmi, '')
 
     data.navigation = marked(map)
+
+    delete data.version.results[0].contentText
   } else if (data.has('version')) {
     let error = new Error('Not found')
     error.statusCode = 404
