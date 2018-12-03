@@ -5,7 +5,7 @@ module.exports = {
    */
   apps: [
     {
-      name: 'DADI DOCS',
+      name: 'docs',
       script: 'server.js',
       env: {
         COMMON_VARIABLE: 'true'
