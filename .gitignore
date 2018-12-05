@@ -2,6 +2,8 @@
 
 cache/**/*
 
+docs/**/*.html
+
 # Logs
 logs
 *.log

@@ -3,7 +3,8 @@
     "key": "version",
     "source": {
       "type": "markdown",
-      "path": "./docs"
+      "path": "./docs",
+      "renderHtml": false
     },
     "count": 1,
     "paginate": true,
