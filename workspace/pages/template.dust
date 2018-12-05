@@ -155,7 +155,7 @@
   {:else}
     {#version.results}
       <div class="docs docs--{attributes.product}">
-        {@html app=attributes.product file=attributes._loc}{/html}
+        {@markdown highlight="true" app=attributes.product}{contentText|s}{/markdown}
       </div>
     {/version.results}
   {/params.product}
