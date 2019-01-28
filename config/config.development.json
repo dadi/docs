@@ -1,15 +1,27 @@
 {
+  "caching": {
+    "ttl": 3600,
+    "directory": {
+      "enabled": false,
+      "path": "./cache/"
+    },
+    "redis": {
+      "enabled": false,
+      "host": "127.0.0.1",
+      "port": 6379
+    }
+  },
   "server": {
     "host": "0.0.0.0",
-    "port": 3001
+    "port": 3111
   },
   "cluster": false,
   "virtualDirectories": [{
     "path": "sandbox",
     "index": "index.html"
   }],
-  "allowDebugView": true,
-  "debug": true,
+  "allowDebugView": false,
+  "debug": false,
   "rewrites": {
     "forceTrailingSlash": true,
     "path": "./workspace/routes/rewrites.txt"

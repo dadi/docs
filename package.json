@@ -2,6 +2,9 @@
   "name": "dadi-docs",
   "version": "2.0.0",
   "description": "Documentation for DADI microservices & tools",
+  "scripts": {
+    "build": "node scripts/renderMarkdown"
+  },
   "dependencies": {
     "@dadi/web": "~6.1.0",
     "@dadi/web-dustjs": "^1.1.3",
