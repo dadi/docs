@@ -17,7 +17,7 @@
   },
   "security": {
     "trustProxy": true,
-    "transportSecurity": true
+    "transportSecurity": false
   },
   "cluster": false,
   "virtualDirectories": [{
