@@ -1,10 +1,10 @@
-const hljs = require('highlight.js')
-const SwaggerParser = require('swagger-parser')
-const yaml = require('js-yaml')
+const hljs = require("highlight.js");
+const SwaggerParser = require("swagger-parser");
+const yaml = require("js-yaml");
 
-const OpenAPIRenderer = function () {}
+const OpenAPIRenderer = function() {};
 
-OpenAPIRenderer.prototype.buildTags = function () {
+OpenAPIRenderer.prototype.buildTags = function() {
   return this.spec.tags.reduce((tagsObject, tag) => {
     let items = Object.keys(this.spec.paths).reduce((pathNames, pathName) => {
       Object.keys(this.spec.paths[pathName]).forEach(method => {
@@ -15,107 +15,139 @@ OpenAPIRenderer.prototype.buildTags = function () {
           pathNames.push({
             path: pathName,
             method
-          })
+          });
         }
-      })
+      });
 
-      return pathNames
-    }, [])
+      return pathNames;
+    }, []);
 
     tagsObject[tag.name] = {
       description: tag.description,
       items
-    }
+    };
 
-    return tagsObject
-  }, {})
-}
+    return tagsObject;
+  }, {});
+};
 
-OpenAPIRenderer.prototype.parse = function (raw) {
-  let parser = new SwaggerParser()
+OpenAPIRenderer.prototype.parse = function(raw) {
+  let parser = new SwaggerParser();
 
   // Resolving references.
   return parser.dereference(raw).then(spec => {
-    this.spec = spec
-    this.tags = this.buildTags()
+    this.spec = spec;
+    this.tags = this.buildTags();
 
-    return spec
-  })
-}
+    return spec;
+  });
+};
 
-OpenAPIRenderer.prototype.parseYaml = function (source) {
+OpenAPIRenderer.prototype.parseYaml = function(source) {
   try {
-    let parsedYaml = yaml.safeLoad(source) 
+    let parsedYaml = yaml.safeLoad(source);
 
-    return this.parse(parsedYaml)
+    return this.parse(parsedYaml);
   } catch (err) {
-    return Promise.reject(err)
+    return Promise.reject(err);
   }
-}
+};
 
-OpenAPIRenderer.prototype.renderExample = function (tree, highlight) {
+OpenAPIRenderer.prototype.renderExample = function(tree, highlight) {
   let highlightFn = input => {
     if (highlight) {
-      return hljs.highlightAuto(
-        JSON.stringify(input, null, 2)
-      ).value
+      return hljs.highlightAuto(JSON.stringify(input, null, 2)).value;
     }
 
-    return input
-  }
+    return input;
+  };
 
   switch (tree && tree.type) {
-    case 'array':
-      return highlightFn([
-        this.renderExample(tree.items)
-      ])
-
-    case 'object':
+    case "array":
       if (tree.example) {
-        return highlightFn(tree.example)
+        return highlightFn(tree.example);
       }
 
-      let properties = tree.properties || tree.additionalProperties || {}
-      let exampleObject = Object.keys(properties).reduce((result, property) => {
-        let propertyResult = this.renderExample(properties[property])
-        
-        if (propertyResult) {
-          result[property] = propertyResult
-        }
-        
-        return result
-      }, {})
+      return highlightFn([this.renderExample(tree.items)]);
 
-      return highlightFn(exampleObject)
-      
-    case 'number':
-    case 'string':
-      return highlightFn(tree.example)
+    case "object":
+      if (tree.example) {
+        return highlightFn(tree.example);
+      }
+
+      let properties = tree.properties || tree.additionalProperties || {};
+      let exampleObject = Object.keys(properties).reduce((result, property) => {
+        let propertyResult = this.renderExample(properties[property]);
+
+        if (propertyResult) {
+          result[property] = propertyResult;
+        }
+
+        return result;
+      }, {});
+
+      return highlightFn(exampleObject);
+
+    case "number":
+    case "string":
+      return highlightFn(tree.example);
 
     default:
-      return null
+      return null;
   }
-}
+};
 
-OpenAPIRenderer.prototype.renderPath = function (pathName) {
-  let path = this.spec.paths[pathName]
+OpenAPIRenderer.prototype.renderPath = function(pathName) {
+  let path = this.spec.paths[pathName];
 
   if (!path) {
-    return ''
+    return "";
   }
 
   return `
     <div class="oar-path">
-      ${Object.keys(path).map(methodName => this.renderMethod(
-        pathName,
-        methodName,
-        path[methodName]
-      )).join('')}
+      ${Object.keys(path)
+        .map(methodName =>
+          this.renderMethod(pathName, methodName, path[methodName])
+        )
+        .join("")}
     </div>
-  `
-}
+  `;
+};
 
-OpenAPIRenderer.prototype.renderMethod = function (pathName, methodName, method) {
+OpenAPIRenderer.prototype.renderMethod = function(
+  pathName,
+  methodName,
+  method
+) {
+  const [requestBodyMarkup, requestBodyExample] = this.renderRequestBody(
+    method.requestBody
+  );
+  const replacedPath = pathName
+    .split("/")
+    .map(node => {
+      const match = node.match(/^{(.*)}$/);
+
+      if (match) {
+        const parameterMatch = (method.parameters || []).find(parameter => {
+          return (
+            parameter.in === "path" &&
+            parameter.name === match[1] &&
+            parameter.example
+          );
+        });
+
+        if (parameterMatch) {
+          return parameterMatch.example;
+        }
+      }
+
+      return node;
+    })
+    .join("/");
+  const pathParameters = this.renderParameters(method.parameters, "path");
+  const queryParameters = this.renderParameters(method.parameters, "query");
+
   return `
     <details class="oar-method oar-method--${methodName.toLowerCase()}">
       <summary class="oar-method__preview">
@@ -124,21 +156,44 @@ OpenAPIRenderer.prototype.renderMethod = function (pathName, methodName, method)
         <span>${method.summary}</span>
       </summary>
       <div class="oar-method__body">
-        <p class="oar-method__description">${method.description || ''}</p>
+        <p class="oar-method__description">${method.description || ""}</p>
 
+        ${pathParameters &&
+          `
         <section class="oar-method-section">
-          <h4>Parameters</h4>
+          <h4>Path parameters</h4>
 
-          ${this.renderParameters(method.parameters)}
+          ${pathParameters}
         </section>
+        `}
 
-        ${method.requestBody && `
+        ${queryParameters &&
+          `
+        <section class="oar-method-section">
+          <h4>Query parameters</h4>
+
+          ${queryParameters}
+        </section>
+        `}
+
+
+        ${(method.requestBody &&
+          `
           <section class="oar-method-section">
             <h4>Request body</h4>
 
-            ${this.renderRequestBody(method.requestBody)}
+            ${requestBodyMarkup}
           </section>
-        ` || ''}
+        `) ||
+          ""}
+
+        <section class="oar-method-section">
+          <h4>Request</h4>
+
+          <pre><code>${methodName.toUpperCase()} ${replacedPath}${
+    requestBodyExample ? `<br><br>${requestBodyExample}` : ""
+  }</code></pre>
+        </section>          
 
         <section class="oar-method-section">
           <h4>Responses</h4>
@@ -147,14 +202,15 @@ OpenAPIRenderer.prototype.renderMethod = function (pathName, methodName, method)
         </section>        
       </div>
     </details>
-  `
-}
+  `;
+};
 
-OpenAPIRenderer.prototype.renderParameters = function (parameters) {
-  if (!parameters) {
-    return `
-      <p>No parameters</p>
-    `
+OpenAPIRenderer.prototype.renderParameters = function(allParameters, type) {
+  const parameters =
+    allParameters && allParameters.filter(parameter => parameter.in === type);
+
+  if (!allParameters || parameters.length === 0) {
+    return "";
   }
 
   return `
@@ -164,102 +220,113 @@ OpenAPIRenderer.prototype.renderParameters = function (parameters) {
           <th>Name</th>
           <th>Type</th>
           <th>Description</th>
-          <th>Required</th>
+          <th>Example</th>
         </tr>
       </thead>
       <tbody>
-        ${parameters.map(parameter => `
+        ${parameters
+          .map(
+            ({ name, schema, description, required, example }) => `
           <tr>
-            <td>${parameter.name}</td>
-            <td>${parameter.schema.type} (${parameter.in})</td>
-            <td>${parameter.description}</td>
-            <td>${parameter.required ? `<strong>Yes</strong>`: `No`}</td>
+            <td>${name}</td>
+            <td>${
+              schema.type.oneOf ? schema.type.oneOf.join(" | ") : schema.type
+            }</td>
+            <td>${description}</td>
+            <td>${example ? `<code>${example}</code>` : ""}</td>
           </td>
-        `).join('')}
+        `
+          )
+          .join("")}
       </tbody>
     </table>
-  `
-}
+  `;
+};
 
-OpenAPIRenderer.prototype.renderRequestBody = function (requestBody) {
+OpenAPIRenderer.prototype.renderRequestBody = function(requestBody) {
   if (!requestBody) {
-    return ''
+    return ["", ""];
   }
 
-  return `
-    <ul>
-      ${Object.keys(requestBody.content).map(contentType => {
-        let schema = requestBody.content[contentType].schema
-        let items
+  let { description, example: rootExample, schema } = requestBody.content[
+    "application/json"
+  ];
+  let items;
 
-        if (schema.type === 'object') {
-          if (schema.properties) {
+  const example =
+    this.renderExample(schema, true) ||
+    this.renderExample(rootExample, true) ||
+    "";
 
+  if (description) {
+    return [`<p>${description}</p>`, example];
+  }
 
-            items = Object.keys(schema.properties).map(property => {
-              let type = schema.properties[property].oneOf
-                ? schema.properties[property].oneOf.map(item => item.type).join(' | ')
-                : schema.properties[property].type
+  if (schema.type === "object" && schema.properties) {
+    if (schema.properties) {
+      items = Object.keys(schema.properties).map(property => {
+        let type = schema.properties[property].oneOf
+          ? schema.properties[property].oneOf.map(item => item.type).join(" | ")
+          : schema.properties[property].type;
 
-              return {
-                property,
-                type
-              }
-            })
-          } else {
-            items = [
-              {
-                property: 'N/A',
-                type: 'Object'
-              }
-            ]
-          }
-        } else {
-          items = [
-            {
-              property: 'N/A',
-              type: schema.type
-            }
-          ]
-        }
+        return {
+          description: schema.properties[property].description,
+          property,
+          required: schema.properties[property].required,
+          type
+        };
+      });
+    }
+  } else {
+    const type = schema.type.oneOf
+      ? schema.type.oneOf.map(({ type }) => type).join(" | ")
+      : schema.type;
 
-        let example = this.renderExample(schema, true) || ''
+    items = [
+      {
+        property: "–",
+        type
+      }
+    ];
+  }
 
-        return `
-          <li>
-            <p><strong>Content type</strong>: ${contentType}</p>
-
-            <table>
-              <thead>
-                <tr>
-                  <th>Property</th>
-                  <th>Type</th>
-              </thead>
-              <tbody>
-                ${items.map(item => `
-                  <tr>
-                    <td>${item.property}</td>
-                    <td>${item.type}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-
-            <pre>
-              <code>${example}</code>
-            </pre>
-          </li>
+  if (items) {
+    return [
+      `
+    <table>
+        <thead>
+        <tr>
+            ${schema.properties ? `<th>Property</th>` : ""}
+            <th>Type</th>
+            <th>Description</th>
+            <th>Required</th>
+        </thead>
+        <tbody>
+        ${items
+          .map(
+            item => `
+            <tr>
+            ${schema.properties ? `<td>${item.property}</td>` : ""}
+            <td>${item.type}</td>
+            <td>${item.description || description || ""}</td>
+            <td>${item.required ? "<strong>Yes</strong>" : "No"}</td>
+            </tr>
         `
-      }).join('')}
-    </ul>
-  `
+          )
+          .join("")}
+        </tbody>
+    </table>
+    `,
+      example
+    ];
+  }
 
-  return 
-}
+  return "";
+};
 
-OpenAPIRenderer.prototype.renderResponses = function (responses) {
+OpenAPIRenderer.prototype.renderResponses = function(responses) {
   if (!responses) {
-    return ''
+    return "";
   }
 
   return `
@@ -271,54 +338,63 @@ OpenAPIRenderer.prototype.renderResponses = function (responses) {
         </tr>
       </thead>
       <tbody>
-        ${Object.keys(responses).map(code => {
-          let responseSchema = responses[code].content &&
-            responses[code].content['application/json'] &&
-            responses[code].content['application/json'].schema
-          let example = this.renderExample(responseSchema, true)
-          let description = responses[code].description || ''
+        ${Object.keys(responses)
+          .map(code => {
+            let responseSchema =
+              responses[code].content &&
+              responses[code].content["application/json"] &&
+              responses[code].content["application/json"].schema;
+            let example = this.renderExample(responseSchema, true);
+            let description = responses[code].description || "";
 
-          if (example) {
-            description += `
+            if (example) {
+              description += `
               <br><br>
-              <em>Example:</em>
-              <br>
-              <pre>
-                <code>${example}</code>
-              </pre>
-            `
-          }
+              <details>
+                <summary><em>Example</em></summary>
+                <br>
+                <pre>
+                  <code>${example}</code>
+                </pre>
+              </details>
+            `;
+            }
 
-          return `
+            return `
             <tr>
               <td><strong>${code}</strong></td>
               <td class="td-main">${description}</td>
             </td>
-          `
-        }).join('')}
+          `;
+          })
+          .join("")}
       </tbody>
     </table>
-  `
-}
+  `;
+};
 
-OpenAPIRenderer.prototype.renderTag = function (tagName) {
+OpenAPIRenderer.prototype.renderTag = function(tagName) {
   if (!this.tags[tagName]) {
-    return ''
+    return "";
   }
 
-  return this.tags[tagName].items.map(item => {
-    return this.renderMethod(
-      item.path,
-      item.method,
-      this.spec.paths[item.path][item.method]
-    )
-  }).join('')
-}
+  return this.tags[tagName].items
+    .map(item => {
+      return this.renderMethod(
+        item.path,
+        item.method,
+        this.spec.paths[item.path][item.method]
+      );
+    })
+    .join("");
+};
 
-OpenAPIRenderer.prototype.renderTags = function () {
-  return Object.keys(this.tags).map(tagName => {
-    return this.renderTag(tagName)
-  }).join('')
-}
+OpenAPIRenderer.prototype.renderTags = function() {
+  return Object.keys(this.tags)
+    .map(tagName => {
+      return this.renderTag(tagName);
+    })
+    .join("");
+};
 
-module.exports = OpenAPIRenderer
+module.exports = OpenAPIRenderer;
